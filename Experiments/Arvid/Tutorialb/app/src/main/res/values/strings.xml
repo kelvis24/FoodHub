@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="button">Button</string>
+    <string name="rtj">Reply To John</string>
+    <string name="rts">Reply To Sally</string>
+    <string name="rta">Reply To Amy</string>
+    <string name="cm">Composing Message</string>
+</resources>
