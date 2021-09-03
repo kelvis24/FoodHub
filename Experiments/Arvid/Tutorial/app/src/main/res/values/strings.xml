@@ -3,4 +3,6 @@
     <string name="Button">Button</string>
     <string name="Disabled">Disabled</string>
     <string name="New_Disabled">New Disabled</string>
+    <string name="Name">Name</string>
+    <string name="settings">settings</string>
 </resources>
