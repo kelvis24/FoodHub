@@ -1,10 +1,12 @@
 package com.example;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,15 +14,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button btn = findViewById(R.id.button1);
-        btn.setOnClickListener(this::disable);
+        setTitle("Home");
+        Button btn = findViewById(R.id.button);
+        btn.setOnClickListener(this::launchSettings);
     }
 
-    public void disable(View v) {
-        View myView = findViewById(R.id.button1);
-        myView.setEnabled(false);
-        Button button = (Button) myView;
-        button.setText(R.string.New_Disabled);
+    public void launchSettings(View v) {
+        Intent i = new Intent(this, SettingsActivity.class);
+        EditText et = findViewById(R.id.textbox);
+        String message = et.getText().toString();
+        i.putExtra("COOL", message);
+        startActivity(i);
     }
 
 }
