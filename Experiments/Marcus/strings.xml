@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">ExperimentMarcus</string>
+
+    <string-array name="Foods">
+        <item>Burgers</item>
+        <item>Pastas</item>
+        <item>Tacos</item>
+        <item>Salads</item>
+        <item>Soups</item>
+        <item>Tai</item>
+        <item>Mexican</item>
+        <item>Others</item>
+
+    </string-array>
+</resources>
