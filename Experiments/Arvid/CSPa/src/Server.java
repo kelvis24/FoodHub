@@ -1,57 +1,22 @@
 
-import java.io.*;
 import java.net.*;
-import java.util.Scanner;
+import java.io.*;
 
-public class Server {
-    public static void main(String[] args) {
-        Socket socket = null;
-        InputStreamReader inputStreamReader = null;
-        OutputStreamWriter outputStreamWriter = null;
-        BufferedReader bufferedReader = null;
-        BufferedWriter bufferedWriter = null;
-        ServerSocket serverSocket = null;
+public class server {
+    public static void main(String[]args) throws IOException {
+        ServerSocket ss = new ServerSocket(4999);
+        Socket s = ss.accept();
 
-        try {
-            serverSocket = new ServerSocket(1234);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
+        System.out.println("client connected");
 
-        while (true) {
-            try {
-                socket = serverSocket.accept();
+        InputStreamReader in = new InputStreamReader(s.getInputStream());
+        BufferedReader bf = new BufferedReader(in);
 
-                inputStreamReader = new InputStreamReader(socket.getInputStream());
-                outputStreamWriter = new OutputStreamWriter(socket.getOutputStream());
+        String str = bf.readLine();
+        System.out.println("client : " + str);
 
-                bufferedReader = new BufferedReader(inputStreamReader);
-                bufferedWriter = new BufferedWriter(outputStreamWriter);
-
-                while (true) {
-                    String msgFromClient = bufferedReader.readLine();
-
-                    System.out.println("Client: " + msgFromClient);
-
-                    bufferedWriter.write("MSG Received.");
-                    bufferedWriter.newLine();
-                    bufferedWriter.flush();
-
-                    if (msgFromClient.equalsIgnoreCase("BYE"))
-                        break;
-                }
-
-                socket.close();
-                inputStreamReader.close();
-                outputStreamWriter.close();
-                bufferedReader.close();
-                bufferedWriter.close();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
+        PrintWriter pr = new PrintWriter(s.getOutputStream());
+        pr.println("Yes.");
+        pr.flush();
+  }
 }

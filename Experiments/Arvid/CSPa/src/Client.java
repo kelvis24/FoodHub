@@ -1,57 +1,19 @@
 
-import java.io.*;
 import java.net.*;
-import java.util.Scanner;
+import java.io.*;
 
-public class Client {
-    public static void main(String[] args) {
-        Socket socket = null;
-        InputStreamReader inputStreamReader = null;
-        OutputStreamWriter outputStreamWriter = null;
-        BufferedReader bufferedReader = null;
-        BufferedWriter bufferedWriter = null;
+public class client {
+    public static void main(String[] args) throws IOException {
+        Socket s = new Socket("localhost", 4999);
 
-        try {
-            socket = new Socket("localhost", 1234);
-            inputStreamReader = new InputStreamReader(socket.getInputStream());
-            outputStreamWriter = new OutputStreamWriter(socket.getOutputStream());
+        PrintWriter pr = new PrintWriter(s.getOutputStream());
+        pr.println("Is it working?");
+        pr.flush();
 
-            bufferedReader = new BufferedReader(inputStreamReader);
-            bufferedWriter = new BufferedWriter(outputStreamWriter);
+        InputStreamReader in = new InputStreamReader(s.getInputStream());
+        BufferedReader bf = new BufferedReader(in);
 
-            Scanner scanner = new Scanner(System.in);
-
-            while (true) {
-                String msgToSend = scanner.nextLine();
-
-                bufferedWriter.write(msgToSend);
-                bufferedWriter.newLine();
-                bufferedWriter.flush();
-
-                String msgFromServer = bufferedReader.readLine();
-
-                System.out.println("Server: " + msgFromServer);
-
-                if (msgToSend.equalsIgnoreCase("BYE"))
-                    break;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (socket != null)
-                    socket.close();
-                if (inputStreamReader != null)
-                    inputStreamReader.close();
-                if (outputStreamWriter != null)
-                    outputStreamWriter.close();
-                if (bufferedReader != null)
-                    bufferedReader.close();
-                if (bufferedWriter != null)
-                    bufferedWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        String str = bf.readLine();
+        System.out.println("server : " + str);
     }
 }
