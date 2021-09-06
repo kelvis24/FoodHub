@@ -10,9 +10,13 @@ public class Client {
 
     public static void main(String[] args) throws IOException {
         Socket socket = new Socket(SERVER_IP, SERVER_PORT);
-        BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+        ServerConnection serverConn = new ServerConnection(socket);
+
         BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+
+        new Thread(serverConn).start();
 
         while (true) {
             System.out.print("> ");
@@ -21,9 +25,6 @@ public class Client {
             if (command.equals("quit")) break;
 
             out.println(command);
-
-            String serverResponse = input.readLine();
-            System.out.println("Server says: " + serverResponse);
         }
 
         socket.close();
