@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         Title = (TextView)findViewById(R.id.tvTitle);
         Given = (TextView)findViewById(R.id.tvGive);
+        Given.setText("");
         Words = (EditText)findViewById(R.id.ptWord);
         Go = (Button)findViewById(R.id.bGo);
         Instructions = (Button)findViewById(R.id.bInstruct);
