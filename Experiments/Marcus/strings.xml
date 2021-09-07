@@ -3,9 +3,13 @@
 
     <string-array name="Foods">
         <item>Burgers</item>
+            <item>Cheeseburgers</item>
         <item>Pastas</item>
+            <item>Spagetti</item>
+            <item>Tordilinee</item>
         <item>Tacos</item>
         <item>Salads</item>
+            <item>Ceasers</item>
         <item>Soups</item>
         <item>Tai</item>
         <item>Mexican</item>
