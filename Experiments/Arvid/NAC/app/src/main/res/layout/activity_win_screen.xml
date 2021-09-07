@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WinScreen">
+
+    <ImageView
+        android:id="@+id/WinImage"
+        android:layout_width="279dp"
+        android:layout_height="279dp"
+        android:layout_marginStart="66dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="66dp"
+        android:contentDescription="@string/win_s"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/WinText"
+        app:srcCompat="@drawable/blank" />
+
+    <TextView
+        android:id="@+id/WinText"
+        android:layout_width="167dp"
+        android:layout_height="79dp"
+        android:layout_marginTop="56dp"
+        android:text="@string/draw"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/MenuButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="@string/menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/WinImage" />
+</androidx.constraintlayout.widget.ConstraintLayout>

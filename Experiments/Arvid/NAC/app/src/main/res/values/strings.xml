@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Naughts and Crosses</string>
+    <string name="local_game">Local Game</string>
+    <string name="turn">Turn: </string>
+    <string name="game_board">Game Board</string>
+    <string name="space">A Space</string>
+    <string name="draw">It is a Draw :(</string>
+    <string name="n_win">Naughts Win!</string>
+    <string name="c_win">Crosses Win!</string>
+    <string name="win_s">Winning Symbol</string>
+    <string name="menu">Return to Menu</string>
+</resources>
