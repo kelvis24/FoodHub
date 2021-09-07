@@ -1,13 +1,13 @@
-package com.example.demo;
+package com.cs309.tutorial;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Demo1Application {
+public class TutorialApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Demo1Application.class, args);
+		SpringApplication.run(TutorialApplication.class, args);
 	}
 
 }
