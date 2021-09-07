@@ -16,5 +16,11 @@ public class MainActivity extends AppCompatActivity() {
 
         newadapts.setDropdownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner2.setAdapter.(newadapts);
+        spinner2.setOnItemSelectedListener(this);
+
+        @Override
+        public void noselect(AdapterView<?> parent) {
+            system.out.print("Nothing selected, please select");
+        }
     
 }
