@@ -23,7 +23,7 @@ public class Controller {
 	}
 	
 	@PostMapping("/postText")
-	public String postText(String message) {
+	public String postText(@RequestParam(value = "text", defaultValue = "") String message) {
 		str = str + message + "\n";
 		return str;
 	}
