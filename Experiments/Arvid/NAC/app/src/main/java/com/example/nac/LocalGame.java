@@ -69,7 +69,7 @@ public class LocalGame extends AppCompatActivity {
             intent.putExtra("WINNER",str);
             startActivity(intent);
         }
-        if (check_draw()) {
+        else if (check_draw()) {
             String str = "2";
             Intent intent = new Intent(this, WinScreen.class);
             intent.putExtra("WINNER",str);
