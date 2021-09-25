@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.boot.security.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.ui.Model;
+
 @RestController
 public class Controller {
 
@@ -24,5 +28,24 @@ public class Controller {
     public String welcome() {
         return "Hello, World!!!!!";
     }
+    
+    @GetMapping("/signup")
+    public String showRegistration(Model model) {
+    	model.addAttribute("Customer", new Customer());
+    	return "sign-up forum";
+    }
+    
+    @PostMapping("/process_register")
+    public String processRegister(Customer user) {
+    	//Encodes password in database for extra security
+    	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    	String ePassword = passwordEncoder.encode(user.getPassword());
+    	user.setPassword(ePassword);
+    	
+    	customerRepository.save(user);
+    	
+    	return "registration successful";
+    }
+    
 
 }
