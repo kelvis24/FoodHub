@@ -35,6 +35,13 @@ public class Controller {
     	return "sign-up forum";
     }
     
+    @GetMapping("/customers")
+    public String listCustomers(Model model) {
+    	List<Customer> listCustomers = customerRepository.findAll();
+    	model.addAttribute("list customers", listCustomers);
+    	return "customers";
+    }
+    
     @PostMapping("/process_register")
     public String processRegister(Customer user) {
     	//Encodes password in database for extra security
