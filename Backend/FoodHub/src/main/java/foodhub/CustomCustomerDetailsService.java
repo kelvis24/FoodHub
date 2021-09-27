@@ -12,7 +12,7 @@ public class CustomCustomerDetailsService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Customer customer = customerRepository.findByEmail(username);
+		Customer customer = customerRepository.findByEmail(username).get(0);
 		if (customer == null) {
 			throw new UsernameNotFoundException("user not found in system");
 		}

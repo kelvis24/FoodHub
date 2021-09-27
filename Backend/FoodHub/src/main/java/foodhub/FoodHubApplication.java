@@ -11,13 +11,5 @@ public class FoodHubApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FoodHubApplication.class, args);
 	}
-	/*
-	@Bean
-	CommandLineRunner initCustomer(CustomerRepository customerRepository) {
-		return args -> {
-			Customer c1 = new Customer("John","john@somemail.com","John","John Dr.");
-			customerRepository.save(c1);
-		};
-	}
-	*/
+	
 }

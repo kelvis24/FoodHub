@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.springframework.boot.security.*;
+//import org.springframework.boot.security.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 
@@ -29,6 +29,15 @@ public class Controller {
         return customerRepository.findAll();
     }
     
+    /*
+    @GetMapping("/customers")
+    public String listCustomers(Model model) {
+    	List<Customer> listCustomers = customerRepository.findAll();
+    	model.addAttribute("list customers", listCustomers);
+    	return "customers";
+    }
+    */
+    
     @PostMapping(path = "/customers")
     public String createCustomer(@RequestBody Customer customer) {
     	if (customer == null)
@@ -45,14 +54,7 @@ public class Controller {
     	model.addAttribute("Customer", new Customer());
     	return "sign-up forum";
     }
-    
-    @GetMapping("/customers")
-    public String listCustomers(Model model) {
-    	List<Customer> listCustomers = customerRepository.findAll();
-    	model.addAttribute("list customers", listCustomers);
-    	return "customers";
-    }
-    
+
     @PostMapping("/process_register")
     public String processRegister(Customer user) {
     	//Encodes password in database for extra security
@@ -64,6 +66,5 @@ public class Controller {
     	
     	return "registration successful";
     }
-    
 
 }

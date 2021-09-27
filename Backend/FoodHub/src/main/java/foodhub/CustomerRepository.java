@@ -15,6 +15,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 	@Transactional
 	void deleteById(int id);
 	
-    @Query("SELECT u FROM User u WHERE u.email = ?1")
-    public Customer findByEmail(String email);
+    //@Query("SELECT u FROM User u WHERE u.email = ?1")
+    //public Customer findByEmail(String email);
 }
