@@ -23,6 +23,7 @@
         android:layout_width="181dp"
         android:layout_height="73dp"
         android:layout_marginTop="84dp"
+        android:onClick="goToSignInActivity"
         android:text="@string/Login"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
