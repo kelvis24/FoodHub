@@ -1,0 +1,65 @@
+2021-09-26 22:30:41.619  INFO 1792 --- [main] foodhub.FoodHubApplication               : Starting FoodHubApplication v0.0.1-SNAPSHOT using Java 1.8.0_301 on DESKTOP-8N4QTG9 with PID 1792 (C:\Users\gusta\309project\Backend\FoodHub\target\FoodHub-0.0.1-SNAPSHOT.jar started by gusta in C:\Users\gusta\309project)
+2021-09-26 22:30:41.621  INFO 1792 --- [main] foodhub.FoodHubApplication               : No active profile set, falling back to default profiles: default
+2021-09-26 22:30:42.735  INFO 1792 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-09-26 22:30:42.813  INFO 1792 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 65 ms. Found 1 JPA repository interfaces.
+2021-09-26 22:30:43.511  INFO 1792 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 3000 (http)
+2021-09-26 22:30:43.523  INFO 1792 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-09-26 22:30:43.523  INFO 1792 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.52]
+2021-09-26 22:30:43.588  INFO 1792 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-09-26 22:30:43.588  INFO 1792 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1913 ms
+2021-09-26 22:30:43.875  INFO 1792 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-09-26 22:30:44.008  INFO 1792 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-09-26 22:30:44.209  INFO 1792 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-09-26 22:30:44.395  INFO 1792 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-09-26 22:30:44.555  INFO 1792 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-09-26 22:30:44.583  INFO 1792 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2021-09-26 22:30:45.310  INFO 1792 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-09-26 22:30:45.323  INFO 1792 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-09-26 22:30:45.759  WARN 1792 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-09-26 22:30:46.137  INFO 1792 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2021-09-26 22:30:46.162  WARN 1792 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 3000 is already in use
+2021-09-26 22:30:46.163  INFO 1792 --- [main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-09-26 22:30:46.164  INFO 1792 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-09-26 22:30:46.174  INFO 1792 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-09-26 22:30:46.175  INFO 1792 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2021-09-26 22:30:46.186  INFO 1792 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2021-09-26 22:30:46.210 ERROR 1792 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 3000 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 3000 or configure this application to listen on another port.
+
+2021-09-26 22:31:00.601  INFO 22556 --- [main] foodhub.FoodHubApplication               : Starting FoodHubApplication v0.0.1-SNAPSHOT using Java 1.8.0_301 on DESKTOP-8N4QTG9 with PID 22556 (C:\Users\gusta\309project\Backend\FoodHub\target\FoodHub-0.0.1-SNAPSHOT.jar started by gusta in C:\Users\gusta\309project)
+2021-09-26 22:31:00.603  INFO 22556 --- [main] foodhub.FoodHubApplication               : No active profile set, falling back to default profiles: default
+2021-09-26 22:31:01.716  INFO 22556 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-09-26 22:31:01.794  INFO 22556 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 65 ms. Found 1 JPA repository interfaces.
+2021-09-26 22:31:02.483  INFO 22556 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 3000 (http)
+2021-09-26 22:31:02.493  INFO 22556 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-09-26 22:31:02.494  INFO 22556 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.52]
+2021-09-26 22:31:02.555  INFO 22556 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-09-26 22:31:02.555  INFO 22556 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1900 ms
+2021-09-26 22:31:02.838  INFO 22556 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-09-26 22:31:02.971  INFO 22556 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-09-26 22:31:03.171  INFO 22556 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-09-26 22:31:03.352  INFO 22556 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-09-26 22:31:03.502  INFO 22556 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-09-26 22:31:03.531  INFO 22556 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2021-09-26 22:31:04.248  INFO 22556 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-09-26 22:31:04.259  INFO 22556 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-09-26 22:31:04.699  WARN 22556 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-09-26 22:31:05.074  INFO 22556 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2021-09-26 22:31:05.106  INFO 22556 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 3000 (http) with context path ''
+2021-09-26 22:31:05.115  INFO 22556 --- [main] foodhub.FoodHubApplication               : Started FoodHubApplication in 4.951 seconds (JVM running for 5.285)
+2021-09-26 22:31:19.433  INFO 22556 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-09-26 22:31:19.434  INFO 22556 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-09-26 22:31:19.441  INFO 22556 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
