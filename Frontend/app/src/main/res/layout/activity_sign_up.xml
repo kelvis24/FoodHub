@@ -69,10 +69,23 @@
         android:layout_width="212dp"
         android:layout_height="69dp"
         android:layout_marginTop="108dp"
+        android:onClick="signUp"
         android:text="@string/Sign_Up"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_confirm_password_field" />
+
+    <EditText
+        android:id="@+id/sign_up_location_field"
+        android:layout_width="247dp"
+        android:layout_height="49dp"
+        android:ems="10"
+        android:hint="Location"
+        android:inputType="textPostalAddress"
+        app:layout_constraintBottom_toTopOf="@+id/add_customer_button"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_up_confirm_password_field" />
 </androidx.constraintlayout.widget.ConstraintLayout>
