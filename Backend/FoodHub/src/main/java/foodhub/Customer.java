@@ -1,7 +1,6 @@
 package foodhub;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,19 +14,10 @@ import javax.persistence.Table;
 public class Customer {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(nullable = false, length = 100)
 	private String name;
-	
-	@Column(nullable = false, unique = true, length = 100)
 	private String email;
-	
-	@Column(nullable = false, length = 100)
 	private String password;
-	
-	@Column(nullable = false, length = 100)
 	private String location;
 	
 	public Customer(String name, String email, String password, String location) {
