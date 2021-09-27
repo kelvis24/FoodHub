@@ -18,11 +18,22 @@ public class Controller {
 	CustomerRepository customerRepository;
 	
 	private String success = "{\"message\":\"success\"}";
-	private String failure = "{\"message\":\"failure\")";
+	private String failure = "{\"message\":\"failure\"}";
 
-    @GetMapping("/")
-    public String welcome() {
-        return "Hello, World!!!!!";
+    @GetMapping(path = "/customers")
+    public List<Customer> getCustomers() {
+        return customerRepository.findAll();
+    }
+    
+    @PostMapping(path = "/customers")
+    public String createCustomer(@RequestBody Customer customer) {
+    	if (customer == null)
+    		return failure;
+    	List<Customer> sameEmail = customerRepository.findByEmail(customer.getEmail());
+    	if (sameEmail != null  && 0 < sameEmail.size())
+    		return failure;
+    	customerRepository.save(customer);
+    	return success;
     }
 
 }
