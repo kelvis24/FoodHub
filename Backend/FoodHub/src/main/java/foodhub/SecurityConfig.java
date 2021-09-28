@@ -1,4 +1,4 @@
-/**package foodhub;
+package foodhub;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -28,4 +28,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and().httpBasic();
 	}
 }
-**/

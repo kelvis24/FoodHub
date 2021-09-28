@@ -1,4 +1,4 @@
-/**package foodhub;
+package foodhub;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,4 +23,3 @@ public class CustomerDetailsService implements UserDetailsService{
 	
 	
 }
-**/
