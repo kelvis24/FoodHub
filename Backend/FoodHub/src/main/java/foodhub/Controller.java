@@ -17,12 +17,32 @@ import org.springframework.ui.Model;
 
 @RestController
 public class Controller {
+	
+	@Autowired
+	AdminRepository adminRepository;
 
 	@Autowired
 	CustomerRepository customerRepository;
 	
 	private String success = "{\"message\":\"success\"}";
 	private String failure = "{\"message\":\"failure\"}";
+    
+    @GetMapping(path = "/admins")
+    public List<Admin> getAdmins() {
+        return adminRepository.findAll();
+    }
+    
+    // Obviously, this is a massive security problem.
+    @PostMapping(path = "/admins")
+    public String createAdmin(@RequestBody Admin admin) {
+    	if (admin == null)
+    		return failure;
+    	List<Admin> sameEmail = adminRepository.findByEmail(admin.getEmail());
+    	if (sameEmail != null  && 0 < sameEmail.size())
+    		return failure;
+    	adminRepository.save(admin);
+    	return success;
+    }
 
     @GetMapping(path = "/customers")
     public List<Customer> getCustomers() {

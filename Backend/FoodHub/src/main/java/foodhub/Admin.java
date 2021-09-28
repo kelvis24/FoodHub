@@ -10,25 +10,25 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="customers")
-public class Customer {
-	
+@Table(name="admins")
+public class Admin {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String email;
 	private String password;
-	private String location;
+	private int type; // 0 => admin; 1 => owner
 	
-	public Customer(String name, String email, String password, String location) {
+	public Admin(String name, String email, String password, int type) {
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.location = location;
+		this.type = type;
 	}
-	
-	public Customer() {}
+
+	public Admin() {}
 	
 	public Long getId() {
 		return id;
@@ -62,12 +62,12 @@ public class Customer {
 		this.password = password;
 	}
 	
-	public String getLocation() {
-		return location;
+	public int getType() {
+		return type;
 	}
 	
-	public void setLocation(String location) {
-		this.location = location;
+	public void setType(int  type) {
+		this.type = type;
 	}
-
+	
 }
