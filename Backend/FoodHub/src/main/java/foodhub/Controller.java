@@ -24,6 +24,11 @@ public class Controller {
 	private String success = "{\"message\":\"success\"}";
 	private String failure = "{\"message\":\"failure\"}";
 
+	@GetMapping("untlogged")
+	public String notLogged() {
+		return "You are not logged in";
+	}
+	
     @GetMapping(path = "/customers")
     public List<Customer> getCustomers() {
         return customerRepository.findAll();
