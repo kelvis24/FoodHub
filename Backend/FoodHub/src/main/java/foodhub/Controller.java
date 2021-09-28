@@ -42,7 +42,7 @@ public class Controller {
     	return "customers";
     }
     */
-    
+    /*
     @PostMapping(path = "/customers")
     public String createCustomer(@RequestBody Customer customer) {
     	if (customer == null)
@@ -52,7 +52,7 @@ public class Controller {
     		return failure;
     	customerRepository.save(customer);
     	return success;
-    }
+    }*/
     
     @GetMapping("/signup")
     public String showRegistration(Model model) {

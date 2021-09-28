@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomerDetails implements UserDetails{
-
+	private static final long serialVersionUID = 7473767881209061967L;
 	private String email;
 	private String password;
 	
