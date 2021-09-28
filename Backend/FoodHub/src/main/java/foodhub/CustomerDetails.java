@@ -6,13 +6,13 @@ import java.util.HashSet;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+@SuppressWarnings("serial")
 public class CustomerDetails implements UserDetails{
-	private static final long serialVersionUID = 7473767881209061967L;
-	private String email;
+	private String username;
 	private String password;
 	
 	public CustomerDetails(Customer customer) {
-		this.email = customer.getEmail();
+		this.username = customer.getUsername();
 		this.password = customer.getPassword();		
 	}
 	@Override
@@ -28,8 +28,7 @@ public class CustomerDetails implements UserDetails{
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return email;
+		return username;
 	}
 
 	@Override

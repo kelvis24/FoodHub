@@ -24,9 +24,15 @@ public class Controller {
 	private String success = "{\"message\":\"success\"}";
 	private String failure = "{\"message\":\"failure\"}";
 
-	@GetMapping("untlogged")
+	@GetMapping("notlogged")
 	public String notLogged() {
 		return "You are not logged in";
+	}
+	
+	@GetMapping("testCustomer")
+	public String testCustomer() {
+		Customer customer = new Customer("James Bond", "agent007@cia.gov", "password321", "Pentagon");
+		return "check database to see if new Customer added to database";
 	}
 	
     @GetMapping(path = "/customers")
