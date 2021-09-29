@@ -15,10 +15,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-//        Intent I = getIntent();
-//        String firstName = I.getStringExtra("FirstName");
-//        ((TextView)findViewById(R.id.homepage_username)).setText(firstName);
-
     }
 
     public void login(View v) {
@@ -27,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
 
         String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
 
-        I.putExtra("FirstName", email);
+        I.putExtra("Email", email);
 
         startActivity(I);
     }

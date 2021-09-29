@@ -22,12 +22,12 @@ public class SignUpActivity extends AppCompatActivity {
         Button btn = (Button) findViewById(R.id.add_customer_button);
         Intent I = new Intent(this, HomeActivity.class);
 
-        String firstName = ((EditText)findViewById(R.id.sign_up_name_field)).getText().toString();
-        String lastName = ((EditText)findViewById(R.id.sign_up_email_field)).getText().toString();
+        String name = ((EditText)findViewById(R.id.sign_up_name_field)).getText().toString();
+        String email = ((EditText)findViewById(R.id.sign_up_email_field)).getText().toString();
         String location = ((EditText)findViewById(R.id.sign_up_location_field)).getText().toString();
 
-        I.putExtra("FirstName", firstName);
-        I.putExtra("LastName", lastName);
+        I.putExtra("Name", name);
+        I.putExtra("Email", email);
         I.putExtra("Location", location);
 
         startActivity(I);
