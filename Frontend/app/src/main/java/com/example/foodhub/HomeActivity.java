@@ -6,23 +6,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
-public class InitialActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Button btn = findViewById(R.id.customer_sign_up_button);
-        btn.setOnClickListener(this::goToSignUpActivity);
+        setContentView(R.layout.activity_home);
+        Intent I = getIntent();
+        String firstName = I.getStringExtra("FirstName");
+        ((TextView)findViewById(R.id.homepage_username)).setText(firstName);
+
     }
 
     public void goToSignInActivity(View v) {
-        Intent i = new Intent(this, LoginActivity.class);
-        startActivity(i);
-    }
-
-    public void goToSignUpActivity(View v) {
         Intent i = new Intent(this, SignUpActivity.class);
         startActivity(i);
     }
