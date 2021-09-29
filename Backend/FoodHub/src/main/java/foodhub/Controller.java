@@ -28,27 +28,19 @@ public class Controller {
 	public String notLogged() {
 		return "You are not logged in";
 	}
-	
-	@GetMapping("testCustomer")
-	public String testCustomer() {
-		Customer customer = new Customer("James Bond", "agent007@cia.gov", "password321", "Pentagon");
-		return "check database to see if new Customer added to database";
-	}
-	
+	/*
     @GetMapping(path = "/customers")
     public List<Customer> getCustomers() {
         return customerRepository.findAll();
-    }
+    }*/
     
-    /*
     @GetMapping("/customers")
     public String listCustomers(Model model) {
     	List<Customer> listCustomers = customerRepository.findAll();
     	model.addAttribute("list customers", listCustomers);
     	return "customers";
     }
-    */
-    /*
+
     @PostMapping(path = "/customers")
     public String createCustomer(@RequestBody Customer customer) {
     	if (customer == null)
@@ -58,7 +50,7 @@ public class Controller {
     		return failure;
     	customerRepository.save(customer);
     	return success;
-    }*/
+    }
     
     @GetMapping("/signup")
     public String showRegistration(Model model) {
