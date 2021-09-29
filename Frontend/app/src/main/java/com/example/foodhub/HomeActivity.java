@@ -15,14 +15,8 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         Intent I = getIntent();
-        String firstName = I.getStringExtra("FirstName");
-        ((TextView)findViewById(R.id.homepage_username)).setText(firstName);
+        String name = I.getStringExtra("Email");
+        ((TextView)findViewById(R.id.homepage_username)).setText(name);
 
     }
-
-    public void goToSignInActivity(View v) {
-        Intent i = new Intent(this, SignUpActivity.class);
-        startActivity(i);
-    }
-
 }
