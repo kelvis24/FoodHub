@@ -1,4 +1,4 @@
-package foodhub;
+package foodhub.database;
 
 import java.util.List;
 
@@ -7,9 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface AdminRepository extends JpaRepository<Admin, Long> {
 
-	Admin findById(int id);
+	Admin findById(long id);
 	
 	List<Admin> findByEmail(String email);
+	List<Admin> findByType(int type);
 	
 	@Transactional
 	void deleteById(int id);

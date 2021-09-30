@@ -1,4 +1,4 @@
-package foodhub;
+package foodhub.database;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,29 +8,32 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="admins")
-public class Admin {
-
+@Table(name="customers")
+public class Customer {
+	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@Column(nullable = false, length = 100)
 	private String name;
 	@Column(nullable = false, unique = true, length = 100)
 	private String email;
 	@Column(nullable = false, length = 100)
+	private String userName;
+	@Column(nullable = false, length = 100)
 	private String password;
-	@Column(nullable = false)
-	private int type;
+	@Column(nullable = false, length = 100)
+	private String location;
 	
-	public Admin(String name, String email, String password, int type) {
+	public Customer(String name, String email, String password, String location) {
 		this.name = name;
 		this.email = email;
+		this.userName = email;
 		this.password = password;
-		this.type = type;
+		this.location = location;
 	}
-
-	public Admin() {}
+	
+	public Customer() {}
 	
 	public long getId() {
 		return id;
@@ -47,13 +50,21 @@ public class Admin {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
 	public String getEmail() {
 		return email;
 	}
 	
 	public void setEmail(String email) {
 		this.email = email;
+		this.userName = email;
+	}
+	
+	public String getUsername() {
+		return userName;
+	}
+	public void setUsername(String username) {
+		this.userName = username;
+		this.email = username;
 	}
 	
 	public String getPassword() {
@@ -64,12 +75,12 @@ public class Admin {
 		this.password = password;
 	}
 	
-	public int getType() {
-		return type;
+	public String getLocation() {
+		return location;
 	}
 	
-	public void setType(int  type) {
-		this.type = type;
+	public void setLocation(String location) {
+		this.location = location;
 	}
-	
+
 }
