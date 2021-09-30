@@ -21,7 +21,7 @@ public class Admin {
 	@Column(nullable = false, length = 100)
 	private String password;
 	@Column(nullable = false)
-	private int type;
+	private int type; // 0 => Admin; 1 => Owner
 	
 	public Admin(String name, String email, String password, int type) {
 		this.name = name;
