@@ -1,10 +1,12 @@
-package foodhub;
+package foodhub.security;
 
 import java.util.Collection;
 import java.util.HashSet;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import foodhub.database.Customer;
 
 @SuppressWarnings("serial")
 public class CustomerDetails implements UserDetails{

@@ -1,4 +1,4 @@
-package foodhub;
+package foodhub.security;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 

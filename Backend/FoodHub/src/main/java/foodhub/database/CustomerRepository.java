@@ -1,4 +1,4 @@
-package foodhub;
+package foodhub.database;
 
 import java.util.List;
 
