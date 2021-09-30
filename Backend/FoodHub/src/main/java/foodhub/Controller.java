@@ -45,6 +45,7 @@ public class Controller {
 	public String notLogged() {
 		return "You are not logged in";
 	}
+	
 	/*
     @GetMapping(path = "/customers")
     public List<Customer> getCustomers() {
