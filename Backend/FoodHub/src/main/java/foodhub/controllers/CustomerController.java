@@ -14,9 +14,6 @@ import org.springframework.ui.Model;
 
 @RestController
 public class CustomerController {
-	
-	@Autowired
-	AdminRepository adminRepository;
 
 	@Autowired
 	CustomerRepository customerRepository;
