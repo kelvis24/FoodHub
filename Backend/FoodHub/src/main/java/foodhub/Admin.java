@@ -1,12 +1,10 @@
 package foodhub;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,11 +13,15 @@ public class Admin {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+	private long id;
+	@Column(nullable = false, length = 100)
 	private String name;
+	@Column(nullable = false, unique = true, length = 100)
 	private String email;
+	@Column(nullable = false, length = 100)
 	private String password;
-	private int type; // 0 => admin; 1 => owner
+	@Column(nullable = false)
+	private int type;
 	
 	public Admin(String name, String email, String password, int type) {
 		this.name = name;
@@ -30,7 +32,7 @@ public class Admin {
 
 	public Admin() {}
 	
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 	
