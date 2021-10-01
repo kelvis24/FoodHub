@@ -18,14 +18,31 @@
 <!--        app:layout_constraintTop_toTopOf="parent"-->
 <!--        />-->
 
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/recyclerView"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_contstraintBottom_toBottomOf="parent"-->
+<!--        app:layout_contstraintLeft_toLeftOf="parent"-->
+<!--        app:layout_contstraintRight_toRightOf="parent"-->
+<!--        app:layout_contstraintTop_toTopOf="parent"-->
+<!--        />-->
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/recyclerView"-->
+<!--        app:layout_contstraintBottom_toBottomOf="parent"-->
+<!--        app:layout_contstraintLeft_toLeftOf="parent"-->
+<!--        app:layout_contstraintRight_toRightOf="parent"-->
+<!--        app:layout_contstraintTop_toTopOf="parent"-->
+<!--        android:layout_width="409dp"-->
+<!--        android:layout_height="729dp"-->
+<!--        tools:layout_editor_absoluteX="1dp"-->
+<!--        tools:layout_editor_absoluteY="1dp" />-->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_contstraintBottom_toBottomOf="parent"
-        app:layout_contstraintLeft_toLeftOf="parent"
-        app:layout_contstraintRight_toRightOf="parent"
-        app:layout_contstraintTop_toTopOf="parent"
-        />
-
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

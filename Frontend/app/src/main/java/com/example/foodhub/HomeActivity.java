@@ -27,6 +27,12 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
 
         arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "title", "message"));
+        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "titles", "message"));
+        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "tit", "message"));
+        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "dfd", "message"));
+        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "titdfle", "message"));
+
+
         RecyclerAdapter recyclerAdapter = new RecyclerAdapter(arrayList);
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
