@@ -27,10 +27,8 @@ public class CustomerController {
 	}
     
     @GetMapping("/customers")
-    public String listCustomers(Model model) {
-    	List<Customer> listCustomers = customerRepository.findAll();
-    	model.addAttribute("list customers", listCustomers);
-    	return "customers";
+    public List<Customer> listCustomers(Model model) {
+    	return customerRepository.findAll();
     }
 
     @PostMapping(path = "/customers")
