@@ -19,7 +19,7 @@ public class CustomerDetailsService implements UserDetailsService{
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Customer customer = customerRepo.findByUserName(username);
+		Customer customer = customerRepo.findByUsername(username);
 		if (customer == null) {
 			throw new UsernameNotFoundException("username not found");
 		}

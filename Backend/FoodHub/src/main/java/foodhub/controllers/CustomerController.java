@@ -37,8 +37,8 @@ public class CustomerController {
     public String createCustomer(@RequestBody Customer customer) {
     	if (customer == null)
     		return failure;
-    	List<Customer> sameEmail = customerRepository.findByEmail(customer.getEmail());
-    	if (sameEmail != null  && 0 < sameEmail.size())
+    	Customer sameEmail = customerRepository.findByUsername(customer.getUsername());
+    	if (sameEmail != null)
     		return failure;
     	customerRepository.save(customer);
     	return success;

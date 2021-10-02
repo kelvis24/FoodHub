@@ -27,14 +27,14 @@ public class AdminController {
     
     @PostMapping(path = "/admins")
     public String createAdmin(@RequestBody AdminInput body) {
-    	Admin user = adminRepository.findByUserName(body.getUserName());
+    	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (!user.getPassword().equals(body.getPassword()) || user.getType() != 1)
     		return failure;
     	Admin admin = body.getData();
     	if (admin == null)
     		return failure;
-    	Admin sameUserName = adminRepository.findByUserName(admin.getUserName());
-    	if (sameUserName != null)
+    	Admin sameUsername = adminRepository.findByUsername(admin.getUsername());
+    	if (sameUsername != null)
     		return failure;
     	admin.setType(0);
     	adminRepository.save(admin);

@@ -1,7 +1,5 @@
 package foodhub.database;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,10 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 	
 	Customer findById(int id);
-	
-	List<Customer> findByEmail(String email);
-	
-	Customer findByUserName(String username);
+	Customer findByUsername(String userName);
 	
 	@Transactional
 	void deleteById(int id);

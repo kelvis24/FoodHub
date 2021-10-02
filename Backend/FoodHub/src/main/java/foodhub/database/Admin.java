@@ -15,7 +15,7 @@ public class Admin {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	@Column(nullable = false, unique = true, length = 100)
-	private String userName;
+	private String Username;
 	@Column(nullable = false, length = 100)
 	private String password;
 	@Column(nullable = false, length = 100)
@@ -23,8 +23,8 @@ public class Admin {
 	@Column(nullable = false)
 	private int type; // 0 => Admin; 1 => Owner
 	
-	public Admin(String name, String userName, String password, int type) {
-		this.userName = userName;
+	public Admin(String name, String Username, String password, int type) {
+		this.Username = Username;
 		this.password = password;
 		this.name = name;
 		this.type = type;
@@ -40,12 +40,12 @@ public class Admin {
 		this.id = id;
 	}
 	
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return Username;
 	}
 	
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String Username) {
+		this.Username = Username;
 	}
 	
 	public String getPassword() {

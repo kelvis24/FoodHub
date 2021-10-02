@@ -16,7 +16,7 @@ public class AdminInput {
 	
 	public AdminInput() {}
 	
-	public String getUserName() {
+	public String getUsername() {
 		return userName;
 	}
 	
