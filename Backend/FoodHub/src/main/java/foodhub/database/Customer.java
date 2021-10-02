@@ -15,7 +15,7 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@Column(nullable = false, unique = true, length = 100)
-	private String userName;
+	private String username;
 	@Column(nullable = false, length = 100)
 	private String password;
 	@Column(nullable = false, length = 100)
@@ -23,9 +23,9 @@ public class Customer {
 	@Column(nullable = false, length = 100)
 	private String location;
 	
-	public Customer(String name, String userName, String password, String location) {
+	public Customer(String name, String username, String password, String location) {
 		this.name = name;
-		this.userName = userName;
+		this.username = username;
 		this.password = password;
 		this.location = location;
 	}
@@ -41,10 +41,10 @@ public class Customer {
 	}
 	
 	public String getUsername() {
-		return userName;
+		return username;
 	}
-	public void setUsername(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 	public String getPassword() {

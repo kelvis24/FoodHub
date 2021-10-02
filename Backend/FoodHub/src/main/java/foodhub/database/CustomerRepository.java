@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 	
 	Customer findById(int id);
-	Customer findByUsername(String userName);
+	Customer findByUsername(String username);
 	
 	@Transactional
 	void deleteById(int id);
