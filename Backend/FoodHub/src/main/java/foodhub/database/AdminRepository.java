@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 public interface AdminRepository extends JpaRepository<Admin, Long> {
 
 	Admin findById(long id);
+	Admin findByUserName(String userName);
 	
-	List<Admin> findByEmail(String email);
 	List<Admin> findByType(int type);
 	
 	@Transactional

@@ -4,20 +4,20 @@ import foodhub.database.Admin;
 
 public class AdminInput {
 	
-	private String username;
+	private String userName;
 	private String password;
 	private Admin data;
 
-	public AdminInput(String username, String password, Admin data) {
-		this.username = username;
+	public AdminInput(String userName, String password, Admin data) {
+		this.userName = userName;
 		this.password = password;
 		this.data = data;
 	}
 	
 	public AdminInput() {}
 	
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return userName;
 	}
 	
 	public String getPassword() {
