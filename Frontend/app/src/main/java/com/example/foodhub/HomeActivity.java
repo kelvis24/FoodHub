@@ -25,8 +25,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ArrayList<Company> arrayList;
- //   private ActivityMainBinding binding;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +37,11 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.bottomNavigationView);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.home, R.id.pickup, R.id.search, R.id.orders, R.id.account)
+                R.id.home2, R.id.pickup, R.id.search, R.id.orders, R.id.account)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
-
 
         arrayList= new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerView);
