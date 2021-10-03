@@ -33,6 +33,20 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
+
+
+        BottomNavigationView navView = findViewById(R.id.bottomNavigationView);
+
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.home, R.id.pickup, R.id.search, R.id.orders, R.id.account)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(navView, navController);
+
+
+
         arrayList= new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerView);
 
@@ -51,15 +65,6 @@ public class HomeActivity extends AppCompatActivity {
         String name = I.getStringExtra("Email");
 
 
-
-        BottomNavigationView navView = findViewById(R.id.bottomNavigationView);
-
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.home2, R.id.pickup, R.id.search, R.id.orders, R.id.account)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
 
 
     }
