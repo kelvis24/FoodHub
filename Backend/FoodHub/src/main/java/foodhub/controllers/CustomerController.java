@@ -33,6 +33,7 @@ public class CustomerController {
 
     @PostMapping(path = "/customers")
     public String createCustomer(@RequestBody Customer customer) {
+    	System.out.println("Received");
     	if (customer == null)
     		return failure;
     	Customer sameEmail = customerRepository.findByUsername(customer.getUsername());
