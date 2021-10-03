@@ -103,7 +103,7 @@ public class SignUpActivity extends AppCompatActivity {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.d("response", "Error: " + error.getMessage());
+                    VolleyLog.d("response", "Error: " + error.getMessage());
                     pDialog.hide();
                 }
             }) {
