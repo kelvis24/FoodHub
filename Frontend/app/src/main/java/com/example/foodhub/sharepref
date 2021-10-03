@@ -1,0 +1,3 @@
+SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+Editor editor = pref.edit();
+//Start to android data that will sort the preferences from the android studio side of things.
