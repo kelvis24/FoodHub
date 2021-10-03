@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface FirmRepository extends JpaRepository<Firm, Long> {
 	Firm findById(long id);
 	Firm findByUsername(String username);
-	Firm findByFirmTitle(String firmTitle);
+	Firm findByName(String name);
 	
 	@Transactional
 	void deleteById(int id);

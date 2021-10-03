@@ -19,12 +19,12 @@ public class Firm {
 	@Column(nullable = false, length = 100)
 	private String password;
 	@Column(nullable = false, length = 100)
-	private String firmTitle;
+	private String name;
 	@Column(nullable = false, length = 100)
 	private String location;
 	
-	public Firm(String firmTitle, String username, String password, String location) {
-		this.firmTitle = firmTitle;
+	public Firm(String name, String username, String password, String location) {
+		this.name = name;
 		this.username = username;
 		this.password = password;
 		this.location = location;
@@ -56,12 +56,12 @@ public class Firm {
 		this.password = password;
 	}
 
-	public String getFirmTitle() {
-		return firmTitle;
+	public String getName() {
+		return name;
 	}
 
-	public void setFirmTitle(String firmTitle) {
-		this.firmTitle = firmTitle;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getLocation() {
