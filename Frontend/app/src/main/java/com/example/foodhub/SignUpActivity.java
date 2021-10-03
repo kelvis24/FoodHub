@@ -26,10 +26,14 @@ public class SignUpActivity extends AppCompatActivity {
 
         String name = ((EditText)findViewById(R.id.sign_up_name_field)).getText().toString();
         String email = ((EditText)findViewById(R.id.sign_up_email_field)).getText().toString();
+        String location = ((EditText)findViewById(R.id.sign_up_location_field)).getText().toString();
         String password = ((EditText)findViewById(R.id.sign_up_password_field)).getText().toString();
         String cPassword = ((EditText)findViewById(R.id.sign_up_confirm_password_field)).getText().toString();
-        String location = ((EditText)findViewById(R.id.sign_up_location_field)).getText().toString();
 
+        if (name.length() == 0 || email.length() == 0 || location.length() == 0) {
+            Toast.makeText(getApplicationContext(),"Please Enter Something In All Fields.",Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (!hasBetween(password, 'a', 'z')) {
             Toast.makeText(getApplicationContext(),"Password Must Have A Lower Case Letter.",Toast.LENGTH_SHORT).show();
             return;
