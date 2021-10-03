@@ -44,6 +44,10 @@ public class SignUpActivity extends AppCompatActivity {
         String password = ((EditText)findViewById(R.id.sign_up_password_field)).getText().toString();
         String cPassword = ((EditText)findViewById(R.id.sign_up_confirm_password_field)).getText().toString();
 
+        I.putExtra("Name", name);
+        I.putExtra("Email", email);
+        I.putExtra("Location", location);
+
         if (name.length() == 0 || email.length() == 0 || location.length() == 0) {
             Toast.makeText(getApplicationContext(),"Please Enter Something In All Fields.",Toast.LENGTH_SHORT).show();
             return;
@@ -92,6 +96,9 @@ public class SignUpActivity extends AppCompatActivity {
                 public void onResponse(JSONObject response) {
                     Log.d("response", response.toString());
                     pDialog.hide();
+                    try {if (response.get("message").equals("success"))
+                            startActivity(I);
+                    } catch (Exception e) {Log.d("response", e.toString());}
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -110,14 +117,6 @@ public class SignUpActivity extends AppCompatActivity {
 
         AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
     }
-
-        /*
-        I.putExtra("Name", name);
-        I.putExtra("Email", email);
-        I.putExtra("Location", location);
-
-        startActivity(I);
-         */
 
     public boolean hasBetween(String str, char start, char end) {
         int i;
