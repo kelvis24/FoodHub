@@ -39,9 +39,9 @@ public class HomeActivity extends AppCompatActivity {
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.home2, R.id.pickup, R.id.search, R.id.orders, R.id.account)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+        // NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        // NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        // NavigationUI.setupWithNavController(navView, navController);
 
         arrayList= new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerView);
