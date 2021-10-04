@@ -43,6 +43,15 @@ public class LoginActivity extends AppCompatActivity {
 
         I.putExtra("Email", email);
 
+           //Toast.makeText(getApplicationContext(),"Email or password not correct, please try again.",Toast.LENGTH_SHORT).show();
+
+        /*
+            if(email.equals()!=tag in the backend){
+                Toast.makeText(getApplicationContext(),"Email or password not correct, please try again.",Toast.LENGTH_SHORT).show();
+                return;
+                }
+        */
+
         String tag_json_obj = "json_obj_req";
 
         String url = Const.URL + "/customers-login";
