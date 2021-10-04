@@ -80,5 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
         };
         AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+
+        //Toast.makeText(getApplicationContext(),"Email or password not correct, please try again.",Toast.LENGTH_SHORT).show();
     }
 }
