@@ -22,12 +22,25 @@ public class Firm {
 	private String name;
 	@Column(nullable = false, length = 100)
 	private String location;
+	@Column(nullable = false, length = 100)
+	private String cuisine;
+	@Column(nullable = false)
+	private int open_time;
+	@Column(nullable = false)
+	private int close_time;
+	@Column(nullable = false)
+	private int employee_count;
 	
-	public Firm(String name, String username, String password, String location) {
+	public Firm(String name,    String username, String password, String location,
+				String cuisine, int open_time,   int close_time,  int employee_count) {
 		this.name = name;
 		this.username = username;
 		this.password = password;
 		this.location = location;
+		this.cuisine = cuisine;
+		this.open_time = open_time;
+		this.close_time = close_time;
+		this.employee_count = employee_count;
 	}
 	
 	public Firm() {}
@@ -70,6 +83,38 @@ public class Firm {
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+
+	public String getCuisine() {
+		return cuisine;
+	}
+
+	public void setCuisine(String cuisine) {
+		this.cuisine = cuisine;
+	}
+
+	public int getOpen_time() {
+		return open_time;
+	}
+
+	public void setOpen_time(int open_time) {
+		this.open_time = open_time;
+	}
+
+	public int getClose_time() {
+		return close_time;
+	}
+
+	public void setClose_time(int close_time) {
+		this.close_time = close_time;
+	}
+
+	public int getEmployee_count() {
+		return employee_count;
+	}
+
+	public void setEmployee_count(int employee_count) {
+		this.employee_count = employee_count;
 	}
 	
 }
