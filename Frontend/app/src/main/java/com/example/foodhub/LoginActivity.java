@@ -43,15 +43,6 @@ public class LoginActivity extends AppCompatActivity {
 
         I.putExtra("Email", email);
 
-           //Toast.makeText(getApplicationContext(),"Email or password not correct, please try again.",Toast.LENGTH_SHORT).show();
-
-        /*
-            if(email.equals()!=tag in the backend){
-                Toast.makeText(getApplicationContext(),"Email or password not correct, please try again.",Toast.LENGTH_SHORT).show();
-                return;
-                }
-        */
-
         String tag_json_obj = "json_obj_req";
 
         String url = Const.URL + "/customers-login";
@@ -70,6 +61,12 @@ public class LoginActivity extends AppCompatActivity {
                 public void onResponse(JSONObject response) {
                     Log.d("response", response.toString());
                     pDialog.hide();
+                    /*
+                    if(response.get("message").equals("failure")){
+                        Toast.makeText(getApplicationContext(),"Email or password not correct, please try again.",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                     */
                     try {if (response.get("message").equals("success"))
                         startActivity(I);
                     } catch (Exception e) {Log.d("response", e.toString());}
