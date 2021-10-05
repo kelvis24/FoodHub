@@ -31,7 +31,7 @@ public class AdminController {
     @PostMapping(path = "/admins-create-admin")
     public String createAdmin(@RequestBody AdminInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (!user.getPassword().equals(body.getPassword()) || user.getType() != 1)
+    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
     		return failure;
     	Admin admin = body.getData();
     	if (admin == null)
@@ -47,7 +47,7 @@ public class AdminController {
     @PostMapping(path = "/admins-create-firm")
     public String createFirm(@RequestBody FirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (!user.getPassword().equals(body.getPassword()))
+    	if (user == null || !user.getPassword().equals(body.getPassword()))
     		return failure;
     	Firm firm = body.getData();
     	if (firm == null)
