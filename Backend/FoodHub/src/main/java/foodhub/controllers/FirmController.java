@@ -24,15 +24,5 @@ public class FirmController {
     public List<Firm> listFirms(Model model) {
     	return firmRepository.findAll();
     }
-
-    @PostMapping(path = "/firms")
-    public String createFirm(@RequestBody Firm firm) {
-    	if (firm == null)
-    		return failure;
-    	Firm sameEmail = firmRepository.findByUsername(firm.getUsername());
-    	if (sameEmail != null)
-    		return failure;
-    	firmRepository.save(firm);
-    	return success;
-    }
+    
 }
