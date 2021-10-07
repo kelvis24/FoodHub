@@ -37,7 +37,6 @@ public class HomeActivity extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
         BottomNavigationView navView = findViewById(R.id.bottomNavigationView);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -48,6 +47,29 @@ public class HomeActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
 
+        LoadCompanies();
+
+        Intent I = getIntent();
+        String name = I.getStringExtra("Email");
+    }
+    
+    public void LoadCompanies() {
+        arrayList= new ArrayList<>();
+        recyclerView = findViewById(R.id.recyclerView);
+
+        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "title", "This is a message"));
+        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "titles", "C'est un message"));
+        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "tit", "enni tie lok"));
+        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "dfd", "messages appear here"));
+        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "titdfle", "still writing here"));
+
+
+        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(arrayList);
+        recyclerView.setAdapter(recyclerAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this)); 
+    }
+
+    public void LoadCompany(View v) {
         arrayList= new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerView);
 
@@ -61,10 +83,5 @@ public class HomeActivity extends AppCompatActivity {
         RecyclerAdapter recyclerAdapter = new RecyclerAdapter(arrayList);
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        Intent I = getIntent();
-        String name = I.getStringExtra("Email");
     }
-    
-    
 }

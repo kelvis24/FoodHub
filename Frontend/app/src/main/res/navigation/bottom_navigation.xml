@@ -9,7 +9,6 @@
         android:id="@+id/home2"
         android:name="com.example.foodhub.Home"
         android:label="Home"
-        android:onClick=""
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/pickup"
