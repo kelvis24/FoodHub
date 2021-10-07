@@ -10,12 +10,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import foodhub.database.*;
+import foodhub.ioObjects.CategoryInput;
+import foodhub.ioObjects.FirmInput;
 
 @RestController
 public class FirmController {
 	
 	@Autowired
 	FirmRepository firmRepository;
+	
+	@Autowired
+	CategoryRepository categoryRepository;
 
 	private String success = "{\"message\":\"success\"}";
 	private String failure = "{\"message\":\"failure\"}";
@@ -23,6 +28,21 @@ public class FirmController {
     @GetMapping("/firms")
     public List<Firm> listFirms(Model model) {
     	return firmRepository.findAll();
+    }
+    
+    @PostMapping(path = "/firms-create-categories")
+    public String createFirm(@RequestBody CategoryInput body) {
+    	Firm user = firmRepository.findByUsername(body.getUsername());
+    	if (user == null || !user.getPassword().equals(body.getPassword()))
+    		return failure;
+    	Category category = body.getCategory();
+    	if (category == null)
+    		return failure;
+    	Category sameTitle = categoryRepository.findByTitle(category.getTitle());
+    	if (sameTitle != null)
+    		return failure;
+    	categoryRepository.save(category);
+    	return success;
     }
     
 }
