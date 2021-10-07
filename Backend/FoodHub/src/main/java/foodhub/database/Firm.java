@@ -41,6 +41,9 @@ public class Firm {
 	@Column(nullable = false)
 	private int employee_count;
 	
+    @OneToMany
+    private List<Category> categories;
+
 	public Firm(String name, String username, String password, String location,
 				String cuisine, int open_time,   int close_time,  int employee_count) {
 		this.name = name;
@@ -51,9 +54,12 @@ public class Firm {
 		this.open_time = open_time;
 		this.close_time = close_time;
 		this.employee_count = employee_count;
+		categories = new ArrayList<>();
 	}
 	
-	public Firm() {}
+	public Firm() {
+		categories = new ArrayList<>();
+	}
 
 	public long getId() {
 		return id;
@@ -126,6 +132,17 @@ public class Firm {
 	public void setEmployee_count(int employee_count) {
 		this.employee_count = employee_count;
 	}
-	
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> category) {
+        this.categories = category;
+    }
+
+    public void addCategory(Category category){
+        this.categories.add(category);
+    }
+
 
 }

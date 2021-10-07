@@ -5,7 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="category")
@@ -19,6 +23,11 @@ public class Category {
 	@Column(nullable = false, length = 100)
 	private String descr;
 	
+    @ManyToOne
+    @JoinColumn(name = "firm_id")
+    @JsonIgnore
+    private Firm firm;
+
 	public Category(String title, String descr) {
 		this.title = title;
 		this.descr = descr;
@@ -48,4 +57,13 @@ public class Category {
 	public void setDescription(String description) {
 		this.descr = description;
 	}
+	
+    public Firm getFirm() {
+        return firm;
+    }
+
+    public void setFirm(Firm firm) {
+        this.firm = firm;
+    }
+
 }
