@@ -41,8 +41,15 @@ public class FirmController {
     	Category sameTitle = categoryRepository.findByTitle(category.getTitle());
     	if (sameTitle != null)
     		return failure;
-    	categoryRepository.save(category);
+    	user.addCategory(category);
+    	firmRepository.save(user);
     	return success;
+    }
+    
+    //Test method, do not use
+    @PostMapping(path = "firms-list-categories")
+    public String listCategories(@RequestBody Firm firm) {
+    	return firm.getCategories().toString();
     }
     
 }

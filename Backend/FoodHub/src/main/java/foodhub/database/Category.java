@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Category {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	@Column(nullable = false, unique = true, length = 100)
 	private String title;
@@ -28,12 +28,15 @@ public class Category {
     @JsonIgnore
     private Firm firm;
 
+	public Category(String title, String descr, Firm firm) {
+		this.title = title;
+		this.descr = descr;
+		this.firm = firm;
+	}
+	
 	public Category(String title, String descr) {
 		this.title = title;
 		this.descr = descr;
-	}
-	public Category(String title) {
-		this.title = title;
 	}
 	
 	public Category() {}

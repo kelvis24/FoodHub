@@ -41,7 +41,11 @@ public class Firm {
 	@Column(nullable = false)
 	private int employee_count;
 	
-    @OneToMany
+    @OneToMany(
+    		mappedBy = "firm",
+    		cascade = CascadeType.ALL,
+    		orphanRemoval = true
+    		)
     private List<Category> categories;
 
 	public Firm(String name, String username, String password, String location,
