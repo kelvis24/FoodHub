@@ -24,6 +24,7 @@ public class FirmController {
 
 	private String success = "{\"message\":\"success\"}";
 	private String failure = "{\"message\":\"failure\"}";
+	private String errorUser = "{\"message\":\"user not defined/found\"}";
 
     @GetMapping("/firms")
     public List<Firm> listFirms(Model model) {
@@ -32,24 +33,20 @@ public class FirmController {
     
     @PostMapping(path = "/firms-create-categories")
     public String createFirm(@RequestBody CategoryInput body) {
-    	Firm user = firmRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()))
-    		return failure;
+    	Firm firm = firmRepository.findByUsername(body.getUsername());
+    	if (firm == null || !firm.getPassword().equals(body.getPassword()))
+    		return errorUser;
     	Category category = body.getCategory();
     	if (category == null)
     		return failure;
-    	Category sameTitle = categoryRepository.findByTitle(category.getTitle());
-    	if (sameTitle != null)
-    		return failure;
-    	user.addCategory(category);
-    	firmRepository.save(user);
+    	firm.addCategory(category);
+    	category.setFirm(firm);
+        categoryRepository.save(category);
     	return success;
     }
     
-    //Test method, do not use
-    @PostMapping(path = "firms-list-categories")
-    public String listCategories(@RequestBody Firm firm) {
-    	return firm.getCategories().toString();
+    @PostMapping(path = "/categories")
+    public List<Category> listCategories(Model model) {
+    	return categoryRepository.findAll();
     }
-    
 }
