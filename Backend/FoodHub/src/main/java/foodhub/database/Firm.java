@@ -6,11 +6,16 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="firms")
@@ -36,9 +41,6 @@ public class Firm {
 	@Column(nullable = false)
 	private int employee_count;
 	
-	@OneToMany
-	private List<Category> categories;
-	
 	public Firm(String name, String username, String password, String location,
 				String cuisine, int open_time,   int close_time,  int employee_count) {
 		this.name = name;
@@ -49,12 +51,9 @@ public class Firm {
 		this.open_time = open_time;
 		this.close_time = close_time;
 		this.employee_count = employee_count;
-		categories = new ArrayList<>();
 	}
 	
-	public Firm() {
-		categories = new ArrayList<>();
-	}
+	public Firm() {}
 
 	public long getId() {
 		return id;
@@ -128,16 +127,5 @@ public class Firm {
 		this.employee_count = employee_count;
 	}
 	
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setPhones(List<Category> categories) {
-        this.categories = categories;
-    }
-
-    public void addCategories(Category category){
-        this.categories.add(category);
-    }
 
 }
