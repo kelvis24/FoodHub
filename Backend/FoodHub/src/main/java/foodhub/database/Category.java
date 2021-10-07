@@ -32,6 +32,9 @@ public class Category {
 		this.title = title;
 		this.descr = descr;
 	}
+	public Category(String title) {
+		this.title = title;
+	}
 	
 	public Category() {}
 	
