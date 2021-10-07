@@ -36,12 +36,8 @@ public class Firm {
 	@Column(nullable = false)
 	private int employee_count;
 	
-	@OneToMany(
-			mappedBy = "firm",
-			cascade = CascadeType.ALL,
-			orphanRemoval = true
-			)
-	private List<Category> categories = new ArrayList<>();
+	@OneToMany
+	private List<Category> categories;
 	
 	public Firm(String name, String username, String password, String location,
 				String cuisine, int open_time,   int close_time,  int employee_count) {
@@ -53,9 +49,12 @@ public class Firm {
 		this.open_time = open_time;
 		this.close_time = close_time;
 		this.employee_count = employee_count;
+		categories = new ArrayList<>();
 	}
 	
-	public Firm() {}
+	public Firm() {
+		categories = new ArrayList<>();
+	}
 
 	public long getId() {
 		return id;
@@ -129,4 +128,16 @@ public class Firm {
 		this.employee_count = employee_count;
 	}
 	
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setPhones(List<Category> categories) {
+        this.categories = categories;
+    }
+
+    public void addCategories(Category category){
+        this.categories.add(category);
+    }
+
 }

@@ -19,9 +19,7 @@ public class Category {
 	private String title;
 	@Column(nullable = false, unique = true, length = 100)
 	private String desc;
-	
-	@ManyToOne()
-	@JoinColumn(name = "firm_id")
+	@Column(nullable = false)
 	private Firm firm;
 	
 	public Category(Firm firm, String title, String desc) {
