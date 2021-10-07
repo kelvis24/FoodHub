@@ -4,25 +4,28 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="category")
+@Table(name="categories")
 public class Category {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@Column(nullable = false, unique = true, length = 100)
-	private long firm_id;
-	@Column(nullable = false, unique = true, length = 100)
 	private String title;
 	@Column(nullable = false, unique = true, length = 100)
 	private String desc;
-	public Category(long id, long firm_id, String title, String desc) {
-		super();
-		this.id = id;
-		this.firm_id = firm_id;
+	
+	@ManyToOne()
+	@JoinColumn(name = "firm_id")
+	private Firm firm;
+	
+	public Category(Firm firm, String title, String desc) {
+		this.firm = firm;
 		this.title = title;
 		this.desc = desc;
 	}
@@ -34,11 +37,11 @@ public class Category {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public long getFirm_id() {
-		return firm_id;
+	public Firm getFirm() {
+		return firm;
 	}
-	public void setFirm_id(long firm_id) {
-		this.firm_id = firm_id;
+	public void setFirm(Firm firm) {
+		this.firm = firm;
 	}
 	public String getTitle() {
 		return title;
