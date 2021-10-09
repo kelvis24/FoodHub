@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {//Starting setup for the d
 
         String tag_json_obj = "json_obj_req";
 
-        String url = Const.URL + "/customers-login";
+        String url = Const.URL + "/admin-login";
 
         ProgressDialog pDialog = new ProgressDialog(this);
         pDialog.setMessage("Loading...");
