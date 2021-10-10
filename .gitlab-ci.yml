@@ -27,7 +27,7 @@ maven-test:
 
 auto-deploy:
     stage: autodeploy
-    tabs:
+    tags:
         - shell
     script:
         - cd Backend/FoodHub
