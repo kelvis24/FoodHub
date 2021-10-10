@@ -1,11 +1,21 @@
 package foodhub.database;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="firms")
@@ -31,7 +41,14 @@ public class Firm {
 	@Column(nullable = false)
 	private int employee_count;
 	
-	public Firm(String name,    String username, String password, String location,
+    @OneToMany(
+    		mappedBy = "firm",
+    		cascade = CascadeType.ALL,
+    		orphanRemoval = true
+    		)
+    private List<Category> categories;
+
+	public Firm(String name, String username, String password, String location,
 				String cuisine, int open_time,   int close_time,  int employee_count) {
 		this.name = name;
 		this.username = username;
@@ -41,9 +58,12 @@ public class Firm {
 		this.open_time = open_time;
 		this.close_time = close_time;
 		this.employee_count = employee_count;
+		categories = new ArrayList<>();
 	}
 	
-	public Firm() {}
+	public Firm() {
+		categories = new ArrayList<>();
+	}
 
 	public long getId() {
 		return id;
@@ -116,5 +136,17 @@ public class Firm {
 	public void setEmployee_count(int employee_count) {
 		this.employee_count = employee_count;
 	}
-	
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> category) {
+        this.categories = category;
+    }
+
+    public void addCategory(Category category){
+        this.categories.add(category);
+    }
+
+
 }
