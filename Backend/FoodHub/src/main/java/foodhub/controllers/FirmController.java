@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import foodhub.database.*;
 import foodhub.ioObjects.CategoryInput;
-import foodhub.ioObjects.FirmInput;
+// import foodhub.ioObjects.FirmInput;
 
 @RestController
 public class FirmController {
@@ -31,6 +31,7 @@ public class FirmController {
     	return firmRepository.findAll();
     }
     
+    /*
     @PostMapping(path = "/firms-create-categories")
     public String createFirm(@RequestBody CategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
@@ -44,6 +45,7 @@ public class FirmController {
         categoryRepository.save(category);
     	return success;
     }
+    */
     
     @PostMapping(path = "/categories")
     public List<Category> listCategories(Model model) {

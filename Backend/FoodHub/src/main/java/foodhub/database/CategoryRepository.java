@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface CategoryRepository extends JpaRepository<Category, Long>  {
 	Category findById(long id);
 	Category findByTitle(String title);
-	List<Category> findByFirm(long firmId);
+	List<Category> findByFirmId(long firmId);
 	
 	@Transactional
 	void deleteById(int id);

@@ -23,6 +23,14 @@ public class Customer {
 	@Column(nullable = false, length = 100)
 	private String location;
 	
+	public Customer(int id, String name, String username, String password, String location) {
+		this.id = id;
+		this.name = name;
+		this.username = username;
+		this.password = password;
+		this.location = location;
+	}
+	
 	public Customer(String name, String username, String password, String location) {
 		this.name = name;
 		this.username = username;
