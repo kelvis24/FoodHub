@@ -31,6 +31,7 @@ auto-deploy:
         - shell
     script:
         - cd Backend/FoodHub
+        - mvn package
         - java -jar target/FoodHub-0.0.1-SNAPSHOT.jar
 
 android-build:
