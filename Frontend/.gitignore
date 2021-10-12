@@ -4,7 +4,6 @@
 *.ap_
 *.aab
 
-.gradle
 .idea/
 ../
 .idea/.gitignore
@@ -16,11 +15,6 @@
 app/.DS_Store
 app/build.gradle
 build.gradle
-gradle.properties
-gradle/
-gradlew
-gradlew.bat
-settings.gradle
 
 # Files for the ART/Dalvik VM
 *.dex
