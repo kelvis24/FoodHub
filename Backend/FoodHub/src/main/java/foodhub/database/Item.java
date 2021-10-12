@@ -32,6 +32,12 @@ public class Item {
 		this.description = description;
 		this.price = price;
 	}
+	
+	public Item(String title, String description, Double price) {
+		this.title = title;
+		this.description = description;
+		this.price = price;
+	}
 
 	public Item() {}
 
