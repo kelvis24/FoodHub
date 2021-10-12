@@ -32,7 +32,9 @@ auto-deploy:
     script:
         - cd Backend/FoodHub
         - mvn package
-        - java -jar target/FoodHub-0.0.1-SNAPSHOT.jar
+        - sudo mv target/*.jar /target/web-demo.jar
+        - sudo systemctl stop systemd-web-demo
+        - sudo systemctl start systemd-web-demo
 
 android-build:
     image: javiersantos/android-ci:latest
