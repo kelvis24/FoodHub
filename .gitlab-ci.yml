@@ -32,7 +32,7 @@ auto-deploy:
     script:
         - cd Backend/FoodHub
         - mvn package
-        - sudo mv target/*.jar /target/web-demo.jar
+        - sudo mv target/*.jar target/web-demo.jar
         - sudo systemctl stop systemd-web-demo
         - sudo systemctl start system-web-demo
 
