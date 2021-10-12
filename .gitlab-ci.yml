@@ -34,7 +34,7 @@ auto-deploy:
         - mvn package
         - sudo mv target/*.jar /target/web-demo.jar
         - sudo systemctl stop systemd-web-demo
-        - sudo systemctl start system-web-demo
+        - sudo systemctl start systemd-web-demo
 
 android-build:
     image: javiersantos/android-ci:latest
