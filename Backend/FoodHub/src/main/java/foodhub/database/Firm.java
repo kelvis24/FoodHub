@@ -127,4 +127,11 @@ public class Firm {
 	public void setEmployee_count(int employee_count) {
 		this.employee_count = employee_count;
 	}
+
+	@Override
+	public String toString() {
+		return "Firm [id=" + id + ", username=" + username + ", name=" + name + ", location=" + location + ", cuisine="
+				+ cuisine + ", open_time=" + open_time + ", close_time=" + close_time + ", employee_count="
+				+ employee_count + "]";
+	}
 }

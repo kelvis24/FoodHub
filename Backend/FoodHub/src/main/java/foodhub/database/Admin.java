@@ -71,5 +71,9 @@ public class Admin {
 	public void setType(int  type) {
 		this.type = type;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Admin [id=" + id + ", username=" + username + ", name=" + name + ", type=" + type + "]";
+	}
 }

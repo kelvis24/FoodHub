@@ -34,7 +34,6 @@ public class FirmController {
     	return firmRepository.findAll();
     }
     
-    //TO-DO: Add loop that checks that the selected firm does not already have that category
     @PostMapping(path = "create-category")
     public String createCategory(@RequestBody CategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
