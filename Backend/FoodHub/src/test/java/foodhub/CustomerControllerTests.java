@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Before;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import foodhub.database.Customer;
@@ -22,6 +23,9 @@ import foodhub.controllers.CustomerController;
 
 @SpringBootTest
 public class CustomerControllerTests {
+	
+	@InjectMocks
+	CustomerController cc;
 	
 	@Mock
 	CustomerRepository customerRepository;
@@ -33,6 +37,10 @@ public class CustomerControllerTests {
 	
 	@Before
 	public void init() {
+	}
+	
+	@Test
+	public void createCustomerTest1() {
 		when(customerRepository.findAll()).thenReturn(l);
 		when(customerRepository.findByUsername((String)any(String.class)))
 		.thenAnswer(x-> {
@@ -51,15 +59,10 @@ public class CustomerControllerTests {
 			l.add(c);
 			return null;
 		});
-	}
-	
-	@Test
-	public void createCustomerTest1() {
 		String response;
-		Customer c1 = new Customer("Andrew","andrew@gmail.com","andrew123","andrwe blv");
-		Customer c2 = new Customer("John","andrew@gmail.com","john123","john st");
+		Customer c1 = new Customer("Andrew","andrew@gmail.com","andrew123","andrew blv");
+		Customer c2 = new Customer("John","john@gmail.com","john123","john st");
 		Customer c3 = new Customer("Marry","marry@gmail.com","mary123","marry dr");
-		CustomerController cc = new CustomerController();
 		response = cc.createCustomer(c1);
 		assertEquals(success, response);
 		response = cc.createCustomer(c2);
@@ -69,8 +72,9 @@ public class CustomerControllerTests {
 		List<Customer> list = cc.listCustomers();
 		assertEquals(3, list.size());
 		assertEquals("Andrew", list.get(0).getName());
-		assertEquals("John", list.get(1).getName());
-		assertEquals("Marry", list.get(2).getName());
+		assertEquals("andrew@gmail.com", list.get(0).getUsername());
+		assertEquals("andrew123", list.get(0).getPassword());
+		assertEquals("andrew blv", list.get(0).getLocation());
 	}
 	
 }
