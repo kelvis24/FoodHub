@@ -25,8 +25,7 @@ public class CustomerRepositoryTests {
 	CustomerRepository customerRepository;
 
 	@Before
-	public void init() {
-	}
+	public void init() {}
 
 	@Test
 	public void getCustomerByIdTest() {

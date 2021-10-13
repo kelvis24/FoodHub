@@ -23,7 +23,7 @@ public class CustomerController {
 	private String failure = "{\"message\":\"failure\"}";
     
     @GetMapping("/customers")
-    public List<Customer> listCustomers(Model model) {
+    public List<Customer> listCustomers() {
     	return customerRepository.findAll();
     }
 
