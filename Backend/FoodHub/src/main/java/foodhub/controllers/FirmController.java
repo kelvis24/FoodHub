@@ -46,7 +46,7 @@ public class FirmController {
     	List<Category> otherCats = categoryRepository.findByFirmId(firm.getId());
     	for (Category c: otherCats) {
     		if (c.getTitle().equalsIgnoreCase(category.getTitle())) {
-    			return "that category already exists";
+    			return failure;
     		}
     	}
     	category.setFirmId(firm.getId());
@@ -79,13 +79,26 @@ public class FirmController {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
     		return errorUser;
-    	Category category = categoryRepository.findByTitle(body.getCategory());
+    	List<Category> firmCats = categoryRepository.findByFirmId(firm.getId());
+    	Category category = null;
+    	for (Category c : firmCats) {
+    		if (c.getTitle().equals(body.getCategory())) {
+    			category = c;
+    			break;
+    		}
+    	}
     	if (category == null) {
     		return failure;
     	}
     	Item item = body.getItem();
     	if (item == null) {
     		return failure;
+    	}
+    	List<Item> otherItems = itemRepository.findByFirmId(firm.getId());
+    	for (Item i: otherItems) {
+    		if (i.getTitle().equalsIgnoreCase(item.getTitle())) {
+    			return failure;
+    		}
     	}
     	item.setFirmId(firm.getId());
     	item.setCategoryId(category.getId());

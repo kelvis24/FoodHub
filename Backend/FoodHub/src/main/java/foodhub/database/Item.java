@@ -17,7 +17,7 @@ public class Item {
 	private long firmId;
 	@Column(nullable = false)
 	private long categoryId;
-	@Column(nullable = false, unique = true, length = 100)
+	@Column(nullable = false)
 	private String title;
 	@Column(nullable = false, length = 100)
 	private String description;
