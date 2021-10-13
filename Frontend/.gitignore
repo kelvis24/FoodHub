@@ -13,8 +13,6 @@
 .idea/compiler.xml
 .idea/misc.xml
 app/.DS_Store
-app/build.gradle
-build.gradle
 
 # Files for the ART/Dalvik VM
 *.dex
@@ -28,10 +26,6 @@ gen/
 out/
 #  Uncomment the following line in case you need and you don't have the release build type files in your app
 # release/
-
-# Gradle files
-.gradle/
-build/
 
 # Local configuration file (sdk path, etc)
 local.properties
