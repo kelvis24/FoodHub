@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -40,13 +41,6 @@ public class Firm {
 	private int close_time;
 	@Column(nullable = false)
 	private int employee_count;
-	
-    @OneToMany(
-    		mappedBy = "firm",
-    		cascade = CascadeType.ALL,
-    		orphanRemoval = true
-    		)
-    private List<Category> categories;
 
 	public Firm(String name, String username, String password, String location,
 				String cuisine, int open_time,   int close_time,  int employee_count) {
@@ -58,12 +52,9 @@ public class Firm {
 		this.open_time = open_time;
 		this.close_time = close_time;
 		this.employee_count = employee_count;
-		categories = new ArrayList<>();
 	}
 	
-	public Firm() {
-		categories = new ArrayList<>();
-	}
+	public Firm() {}
 
 	public long getId() {
 		return id;
@@ -136,17 +127,11 @@ public class Firm {
 	public void setEmployee_count(int employee_count) {
 		this.employee_count = employee_count;
 	}
-    public List<Category> getCategories() {
-        return categories;
-    }
 
-    public void setCategories(List<Category> category) {
-        this.categories = category;
-    }
-
-    public void addCategory(Category category){
-        this.categories.add(category);
-    }
-
-
+	@Override
+	public String toString() {
+		return "Firm [id=" + id + ", username=" + username + ", name=" + name + ", location=" + location + ", cuisine="
+				+ cuisine + ", open_time=" + open_time + ", close_time=" + close_time + ", employee_count="
+				+ employee_count + "]";
+	}
 }
