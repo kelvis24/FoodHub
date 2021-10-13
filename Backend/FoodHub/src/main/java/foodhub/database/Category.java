@@ -1,17 +1,10 @@
 package foodhub.database;
 
-import java.util.List;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="categories")
@@ -21,7 +14,6 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private Long firmId;
-	@Column(nullable = false, unique = true, length = 100)
 	private String title;
 	private String description;
 

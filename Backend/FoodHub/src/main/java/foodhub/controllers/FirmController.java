@@ -34,7 +34,7 @@ public class FirmController {
     	return firmRepository.findAll();
     }
     
-    //TO-DO: Fix error that does not allow multiple firms to have the same Title
+    //TO-DO: Add loop that checks that the selected firm does not already have that category
     @PostMapping(path = "create-category")
     public String createCategory(@RequestBody CategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
@@ -43,6 +43,12 @@ public class FirmController {
     	Category category = body.getCategory();
     	if (category == null)
     		return failure;
+    	List<Category> otherCats = categoryRepository.findByFirmId(firm.getId());
+    	for (Category c: otherCats) {
+    		if (c.getTitle().equalsIgnoreCase(category.getTitle())) {
+    			return "that category already exists";
+    		}
+    	}
     	category.setFirmId(firm.getId());
     	categoryRepository.save(category);
     	return success;
