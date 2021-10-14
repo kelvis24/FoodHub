@@ -23,6 +23,9 @@ public class GeneralController {
 	FirmRepository firmRepository;
 	
 	@Autowired
+	CustomerRepository customerRepository;
+	
+	@Autowired
 	CategoryRepository categoryRepository;
 	
 	@Autowired
@@ -57,6 +60,65 @@ public class GeneralController {
     	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
     		return failure;
     	List<Item> items = itemRepository.findAll();
+    	return items.toString();
+    }
+    
+    //List categories+items by firm methods below this point
+    
+    @PostMapping(path = "/get-firm-categories")
+    public String getFirmCategories(@RequestBody FirmInput body) {
+    	int goodUser = 0;
+    	if (!(adminRepository.findByUsername(body.getUsername()) == null)) {
+    		Admin user = adminRepository.findByUsername(body.getUsername());
+        	if (user == null || !user.getPassword().equals(body.getPassword()))
+        		return failure;
+    		goodUser = 1;
+    
+    	}else if (!(firmRepository.findByUsername(body.getUsername()) == null)) {
+    		Firm user = firmRepository.findByUsername(body.getUsername());
+        	if (user == null || !user.getPassword().equals(body.getPassword()))
+        		return failure;
+    		goodUser = 2;
+    	}else if (!(customerRepository.findByUsername(body.getUsername()) == null)) {
+    		Customer user = customerRepository.findByUsername(body.getUsername());
+        	if (user == null || !user.getPassword().equals(body.getPassword()))
+        		return failure;
+    		goodUser = 3;
+    	}
+    	//username not found in any database
+    	if (goodUser == 0) {
+    		return failure;
+    	}
+    	Firm firm = firmRepository.findByName(body.getFirmName());
+    	List<Category> categories = categoryRepository.findByFirmId(firm.getId());
+    	return categories.toString();
+    }
+    
+    @PostMapping(path = "/get-firm-items")
+    public String getFirmItems(@RequestBody FirmInput body) {
+    	int goodUser = 0;
+    	if (!(adminRepository.findByUsername(body.getUsername()) == null)) {
+    		Admin user = adminRepository.findByUsername(body.getUsername());
+        	if (user == null || !user.getPassword().equals(body.getPassword()))
+        		return failure;
+    		goodUser = 1;
+    	}else if (!(firmRepository.findByUsername(body.getUsername()) == null)) {
+    		Firm user = firmRepository.findByUsername(body.getUsername());
+        	if (user == null || !user.getPassword().equals(body.getPassword()))
+        		return failure;
+    		goodUser = 2;
+    	}else if (!(customerRepository.findByUsername(body.getUsername()) == null)) {
+    		Customer user = customerRepository.findByUsername(body.getUsername());
+        	if (user == null || !user.getPassword().equals(body.getPassword()))
+        		return failure;
+    		goodUser = 3;
+    	}
+    	//username not found in any database
+    	if (goodUser == 0) {
+    		return failure;
+    	}
+    	Firm firm = firmRepository.findByName(body.getFirmName());
+    	List<Item> items = itemRepository.findByFirmId(firm.getId());
     	return items.toString();
     }
 }

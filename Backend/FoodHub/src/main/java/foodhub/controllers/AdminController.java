@@ -98,14 +98,4 @@ public class AdminController {
     	List<Admin> admins = adminRepository.findAll();
     	return admins.toString();
     }
-    
-    @PostMapping(path = "/get-firm-menu")
-    public String getFirmMenu(@RequestBody FirmInput body) {
-    	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()))
-    		return failure;
-    	Firm firm = firmRepository.findByName(body.getFirmName());
-    	List<Item> items = itemRepository.findByFirmId(firm.getId());
-    	return items.toString();
-    }
 }
