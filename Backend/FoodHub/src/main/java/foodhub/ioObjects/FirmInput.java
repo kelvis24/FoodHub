@@ -7,11 +7,18 @@ public class FirmInput {
 	private String username;
 	private String password;
 	private Firm data;
+	private String firmName;
 
 	public FirmInput(String username, String password, Firm data) {
 		this.username = username;
 		this.password = password;
 		this.data = data;
+	}
+	
+	public FirmInput(String username, String password, String firmName) {
+		this.username = username;
+		this.password = password;
+		this.firmName = firmName;
 	}
 	
 	public FirmInput() {}
@@ -28,4 +35,7 @@ public class FirmInput {
 		return data;
 	}
 	
+	public String getFirmName() {
+		return firmName;
+	}
 }
