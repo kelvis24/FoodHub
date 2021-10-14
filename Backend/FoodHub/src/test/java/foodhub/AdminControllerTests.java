@@ -1,7 +1,6 @@
 package foodhub;
 
 import org.junit.jupiter.api.Test;
-import org.apache.tomcat.jni.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.boot.test.context.SpringBootTest;
 
