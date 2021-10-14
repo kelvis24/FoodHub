@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import foodhub.database.*;
+import foodhub.ioObjects.*;
 
 import org.springframework.ui.Model;
 
@@ -20,21 +21,15 @@ public class CustomerController {
 	
 	private String success = "{\"message\":\"success\"}";
 	private String failure = "{\"message\":\"failure\"}";
-
-	@GetMapping("notlogged")
-	public String notLogged() {
-		return "You are not logged in";
-	}
     
     @GetMapping("/customers")
-    public String listCustomers(Model model) {
-    	List<Customer> listCustomers = customerRepository.findAll();
-    	model.addAttribute("list customers", listCustomers);
-    	return "customers";
+    public List<Customer> listCustomers(Model model) {
+    	return customerRepository.findAll();
     }
 
     @PostMapping(path = "/customers")
     public String createCustomer(@RequestBody Customer customer) {
+    	System.out.println("Received");
     	if (customer == null)
     		return failure;
     	Customer sameEmail = customerRepository.findByUsername(customer.getUsername());
@@ -44,24 +39,12 @@ public class CustomerController {
     	return success;
     }
     
-    @GetMapping("/signup")
-    public String showRegistration(Model model) {
-    	model.addAttribute("Customer", new Customer());
-    	return "sign-up forum";
+    @PostMapping("/customers-login")
+    public String loginCustomer(@RequestBody LoginInput body) {
+    	Customer customer = customerRepository.findByUsername(body.getUsername());
+    	if (customer == null || !customer.getPassword().equals(body.getPassword()))
+    		return failure; 
+    	return success;
     }
-
-    /*
-    @PostMapping("/process_register")
-    public String processRegister(Customer user) {
-    	//Encodes password in database for extra security
-    	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    	String ePassword = passwordEncoder.encode(user.getPassword());
-    	user.setPassword(ePassword);
-    	
-    	customerRepository.save(user);
-    	
-    	return "registration successful";
-    }
-    */
 
 }

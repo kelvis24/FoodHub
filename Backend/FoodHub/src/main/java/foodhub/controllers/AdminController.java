@@ -16,6 +16,15 @@ public class AdminController {
 	
 	@Autowired
 	AdminRepository adminRepository;
+	
+	@Autowired
+	FirmRepository firmRepository;
+	
+	@Autowired
+	CategoryRepository categoryRepository;
+	
+	@Autowired
+	ItemRepository itemRepository;
 
 	private String success = "{\"message\":\"success\"}";
 	private String failure = "{\"message\":\"failure\"}";
@@ -25,10 +34,10 @@ public class AdminController {
         return adminRepository.findAll();
     }
     
-    @PostMapping(path = "/admins")
+    @PostMapping(path = "/admins-create-admin")
     public String createAdmin(@RequestBody AdminInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (!user.getPassword().equals(body.getPassword()) || user.getType() != 1)
+    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
     		return failure;
     	Admin admin = body.getData();
     	if (admin == null)
@@ -41,4 +50,54 @@ public class AdminController {
     	return success;
     }
 
+    @PostMapping(path = "/admins-create-firm")
+    public String createFirm(@RequestBody FirmInput body) {
+    	Admin user = adminRepository.findByUsername(body.getUsername());
+    	if (user == null || !user.getPassword().equals(body.getPassword()))
+    		return failure;
+    	Firm firm = body.getData();
+    	if (firm == null)
+    		return failure;
+    	Firm sameUsername = firmRepository.findByUsername(firm.getUsername());
+    	if (sameUsername != null)
+    		return failure;
+    	firmRepository.save(firm);
+    	return success;
+    }
+    
+    @PostMapping(path = "/get-admins")
+    public String getAdmins(@RequestBody LoginInput body) {
+    	Admin user = adminRepository.findByUsername(body.getUsername());
+    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
+    		return failure;
+    	List<Admin> admins = adminRepository.findAll();
+    	return admins.toString();
+    }
+
+    @PostMapping(path = "/get-firms")
+    public String getFirms(@RequestBody LoginInput body) {
+    	Admin user = adminRepository.findByUsername(body.getUsername());
+    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
+    		return failure;
+    	List<Firm> firms = firmRepository.findAll();
+    	return firms.toString();
+    }
+    
+    @PostMapping(path = "/get-categories")
+    public String getCategories(@RequestBody LoginInput body) {
+    	Admin user = adminRepository.findByUsername(body.getUsername());
+    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
+    		return failure;
+    	List<Category> categories = categoryRepository.findAll();
+    	return categories.toString();
+    }
+    
+    @PostMapping(path = "/get-items")
+    public String getItems(@RequestBody LoginInput body) {
+    	Admin user = adminRepository.findByUsername(body.getUsername());
+    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
+    		return failure;
+    	List<Item> items = itemRepository.findAll();
+    	return items.toString();
+    }
 }
