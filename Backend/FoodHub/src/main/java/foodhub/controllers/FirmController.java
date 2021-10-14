@@ -30,7 +30,7 @@ public class FirmController {
 	private String errorUser = "{\"message\":\"user not defined/found\"}";
 
     @GetMapping("/firms")
-    public List<Firm> listFirms(Model model) {
+    public List<Firm> listFirms() {
     	return firmRepository.findAll();
     }
     //
