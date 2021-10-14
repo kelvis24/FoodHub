@@ -25,7 +25,7 @@ public class CustomerController {
     	return customerRepository.findAll();
     }
 
-    @PostMapping(path = "/customers")
+    @PostMapping("/customers")
     public String createCustomer(@RequestBody Customer customer) {
     	if (customer == null)
     		return failure;
