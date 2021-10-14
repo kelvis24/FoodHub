@@ -33,7 +33,7 @@ public class FirmController {
     public List<Firm> listFirms(Model model) {
     	return firmRepository.findAll();
     }
-    
+    //
     /*
     @PostMapping(path = "/firms-create-categories")
     public String createFirm(@RequestBody CategoryInput body) {
