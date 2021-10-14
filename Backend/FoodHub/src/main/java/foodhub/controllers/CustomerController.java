@@ -1,5 +1,6 @@
 package foodhub.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,12 @@ public class CustomerController {
 
 	@Autowired
 	CustomerRepository customerRepository;
+	
+	@Autowired
+	OrderItemsRepository orderItemsRepository;
+	
+	@Autowired
+	OrderRepository orderRepository;
 	
 	private String success = "{\"message\":\"success\"}";
 	private String failure = "{\"message\":\"failure\"}";
@@ -43,5 +50,18 @@ public class CustomerController {
     		return failure; 
     	return success;
     }
-
+    
+    @PostMapping("/view-order")
+    public String viewOrder(@RequestBody OrderInput body) {
+    	Customer customer = customerRepository.findByUsername(body.getUsername());
+    	if (customer == null || !customer.getPassword().equals(body.getPassword())) {
+    		return failure;
+    	}
+    	Order order = orderRepository.findById(body.getOrderId());
+    	if (order == null || order.getCustomerId() != customer.getId()) {
+    		return failure;
+    	}
+    	List<OrderItems> orderItems = orderItemsRepository.findByOrderId(order.getId());
+    	return orderItems.toString();
+    	}
 }
