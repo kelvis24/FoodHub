@@ -73,31 +73,4 @@ public class AdminController {
     	List<Admin> admins = adminRepository.findAll();
     	return admins.toString();
     }
-
-    @PostMapping(path = "/get-firms")
-    public String getFirms(@RequestBody LoginInput body) {
-    	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
-    		return failure;
-    	List<Firm> firms = firmRepository.findAll();
-    	return firms.toString();
-    }
-    
-    @PostMapping(path = "/get-categories")
-    public String getCategories(@RequestBody LoginInput body) {
-    	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
-    		return failure;
-    	List<Category> categories = categoryRepository.findAll();
-    	return categories.toString();
-    }
-    
-    @PostMapping(path = "/get-items")
-    public String getItems(@RequestBody LoginInput body) {
-    	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
-    		return failure;
-    	List<Item> items = itemRepository.findAll();
-    	return items.toString();
-    }
 }
