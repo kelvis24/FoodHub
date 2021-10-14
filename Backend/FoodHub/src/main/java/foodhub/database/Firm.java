@@ -1,6 +1,7 @@
 package foodhub.database;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -119,4 +120,10 @@ public class Firm {
 		this.employee_count = employee_count;
 	}
 
+	@Override
+	public String toString() {
+		return "Firm [id=" + id + ", username=" + username + ", name=" + name + ", location=" + location + ", cuisine="
+				+ cuisine + ", open_time=" + open_time + ", close_time=" + close_time + ", employee_count="
+				+ employee_count + "]";
+	}
 }
