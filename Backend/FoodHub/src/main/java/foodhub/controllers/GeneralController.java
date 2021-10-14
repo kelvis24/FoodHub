@@ -1,5 +1,7 @@
 package foodhub.controllers;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +32,14 @@ public class GeneralController {
 	private String failure = "{\"message\":\"failure\"}";
 
     @GetMapping(path = "/general-get-firms")
-    public String getFirms() {
-    	return "";
+    public List<FirmInfo> getFirms() {
+    	ArrayList<FirmInfo> fi = new ArrayList<FirmInfo>();
+    	List<Firm> fl = firmRepository.findAll();
+    	Iterator<Firm> it = fl.iterator();
+    	while (it.hasNext()) {
+    		fi.add(new FirmInfo(it.next()));
+    	}
+    	return fi;
     }
     
     @PostMapping(path = "/general-get-categories")
