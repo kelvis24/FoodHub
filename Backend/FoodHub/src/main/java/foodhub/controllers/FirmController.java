@@ -33,9 +33,10 @@ public class FirmController {
     public List<Firm> listFirms(Model model) {
     	return firmRepository.findAll();
     }
-    
-    @PostMapping(path = "create-category")
-    public String createCategory(@RequestBody CategoryInput body) {
+    //
+    /*
+    @PostMapping(path = "/firms-create-categories")
+    public String createFirm(@RequestBody CategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
     		return errorUser;
@@ -52,6 +53,7 @@ public class FirmController {
     	categoryRepository.save(category);
     	return success;
     }
+    */
     
     @PostMapping(path = "remove-category")
     public String removeCateogry(@RequestBody CategoryInput body) {
