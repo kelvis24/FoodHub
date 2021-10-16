@@ -25,7 +25,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity {//Starting setup for the different login pages for the different types of users for the app
+public class LoginActivityAdmin extends AppCompatActivity {//Starting setup for the different login pages for the different types of users for the app
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
