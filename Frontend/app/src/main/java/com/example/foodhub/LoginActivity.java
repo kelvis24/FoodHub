@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -37,7 +36,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void login(View v) {
         Intent I = new Intent(this, HomeActivity.class);
-
         String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
         String password = ((EditText)findViewById(R.id.login_password)).getText().toString();
 

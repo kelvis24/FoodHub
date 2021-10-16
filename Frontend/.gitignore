@@ -13,6 +13,15 @@
 .idea/compiler.xml
 .idea/misc.xml
 app/.DS_Store
+app/build.gradle
+build.gradle
+gradle.properties
+gradle/
+gradlew
+gradlew.bat
+settings.gradle
+../.DS_Store
+./.DS_Store
 
 # Files for the ART/Dalvik VM
 *.dex
