@@ -45,15 +45,6 @@ public class GeneralController {
     	return fi;
     }
     
-    @PostMapping(path = "/general-get-categories")
-    public String getCategories(@RequestBody LoginInput body) {
-    	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
-    		return failure;
-    	List<Category> categories = categoryRepository.findAll();
-    	return categoryRepository.findByFirmId(1);
-    }
-    
     @PostMapping(path = "/general-get-items")
     public String getItems(@RequestBody LoginInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
