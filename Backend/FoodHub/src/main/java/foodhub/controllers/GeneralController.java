@@ -48,7 +48,7 @@ public class GeneralController {
     	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
     		return failure;
     	List<Category> categories = categoryRepository.findAll();
-    	return categories.toString();
+    	return categoryRepository.findByFirmId(1);
     }
     
     @PostMapping(path = "/general-get-items")
