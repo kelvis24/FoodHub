@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodHub">
         <activity
+            android:name=".CompanyPage"
+            android:exported="true" />
+        <activity
             android:name=".SignUpActivity"
             android:exported="true" />
         <activity

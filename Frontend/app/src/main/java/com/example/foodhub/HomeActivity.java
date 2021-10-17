@@ -8,6 +8,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -60,5 +61,11 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this)); 
     }
 
-
+    public void ClickCompany(View v) {
+        //   ImageView btn = (ImageView) findViewById(R.id.ivPost);
+        Intent P = new Intent(this, CompanyPage.class);
+//        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
+//        I.putExtra("Email", email);
+        startActivity(P);
+    }
 }
