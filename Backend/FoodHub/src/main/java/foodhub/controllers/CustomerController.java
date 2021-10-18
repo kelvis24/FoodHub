@@ -93,15 +93,16 @@ public class CustomerController {
     	if (customer == null || !customer.getPassword().equals(body.getPassword())) {
     		return failure;
     	}
-    	if (body.getField() == 0) {
-    		customer.setName(body.getFieldInfo());
-    	}else if (body.getField() == 1) {
-    		customer.setUsername(body.getFieldInfo());
-    	}else if (body.getField() == 2) {
-    		customer.setPassword(body.getFieldInfo());
-    	}else if (body.getField() == 3) {
-    		customer.setLocation(body.getFieldInfo());
-    	}else {
+    	switch(body.getField()) {
+    	case 0: customer.setName(body.getFieldInfo());
+    			break;
+    	case 1: customer.setUsername(body.getFieldInfo());
+    			break;
+    	case 2: customer.setPassword(body.getFieldInfo());
+    			break;
+    	case 3: customer.setLocation(body.getFieldInfo());
+    			break;
+    	default:
     		return failure;
     	}
     	return success;
