@@ -39,7 +39,7 @@ public class CustomerControllerTests {
 	@Mock
 	CustomerRepository customerRepository;
 	
-	private String sudcess = "{\"message\":\"sudcess\"}";
+	private String success = "{\"message\":\"success\"}";
 	private String failure = "{\"message\":\"failure\"}";
 
 	private List<Customer> l;
@@ -81,7 +81,7 @@ public class CustomerControllerTests {
 		String response;
 		Customer c1 = new Customer("Andrew","andrew@gmail.com","andrew123","andrew blv");
 		response = gc.createCustomer(c1);
-		assertEquals(sudcess, response);
+		assertEquals(success, response);
 		List<Customer> list = dc.listCustomers();
 		assertEquals(1, list.size());
 		assertEquals("Andrew", list.get(0).getName());
@@ -100,7 +100,7 @@ public class CustomerControllerTests {
 		String response;
 		Customer c1 = new Customer("Andrew","andrew@gmail.com","andrew123","andrew blv");
 		response = gc.createCustomer(c1);
-		assertEquals(sudcess, response);
+		assertEquals(success, response);
 		response = gc.createCustomer(c1);
 		assertEquals(failure, response);
 		List<Customer> list = dc.listCustomers();
@@ -124,11 +124,11 @@ public class CustomerControllerTests {
 		Customer c3 = new Customer("Marry","marry@gmail.com","mary123","marry dr");
 		Customer c4 = new Customer("John II","john@gmail.com","john456","john court");
 		response = gc.createCustomer(c1);
-		assertEquals(sudcess, response);
+		assertEquals(success, response);
 		response = gc.createCustomer(c2);
-		assertEquals(sudcess, response);
+		assertEquals(success, response);
 		response = gc.createCustomer(c3);
-		assertEquals(sudcess, response);
+		assertEquals(success, response);
 		response = gc.createCustomer(c4);
 		assertEquals(failure, response);
 		List<Customer> list = dc.listCustomers();
@@ -174,9 +174,9 @@ public class CustomerControllerTests {
 		Customer c1 = new Customer("Andrew","andrew@gmail.com","andrew123","andrew blv");
 		LoginInput b1 = new LoginInput(c1.getUsername(), c1.getPassword());
 		response = gc.createCustomer(c1);
-		assertEquals(sudcess, response);
+		assertEquals(success, response);
 		response = cc.loginCustomer(b1);
-		assertEquals(sudcess, response);
+		assertEquals(success, response);
 		verify(customerRepository, times(2)).findByUsername("andrew@gmail.com");
 		verify(customerRepository, times(2)).findByUsername((String)any(String.class));
 	}
@@ -189,11 +189,11 @@ public class CustomerControllerTests {
 		LoginInput b2 = new LoginInput("Andyeet",        c1.getPassword());
 		LoginInput b3 = new LoginInput(c1.getUsername(), "Yeeticus The Yeety");
 		response = gc.createCustomer(c1);
-		assertEquals(sudcess, response);
+		assertEquals(success, response);
 		response = gc.createCustomer(c1);
 		assertEquals(failure, response);
 		response = cc.loginCustomer(b1);
-		assertEquals(sudcess, response);
+		assertEquals(success, response);
 		response = cc.loginCustomer(b2);
 		assertEquals(failure, response);
 		response = cc.loginCustomer(b3);
@@ -227,19 +227,19 @@ public class CustomerControllerTests {
 		LoginInput f2 = new LoginInput("Yeetus", "Skeetus");
 		LoginInput f3 = new LoginInput("Yeetus", "Maximus");
 		response = gc.createCustomer(c1);
-		assertEquals(sudcess, response);
+		assertEquals(success, response);
 		response = gc.createCustomer(c2);
-		assertEquals(sudcess, response);
+		assertEquals(success, response);
 		response = gc.createCustomer(c3);
-		assertEquals(sudcess, response);
+		assertEquals(success, response);
 		response = gc.createCustomer(c4);
 		assertEquals(failure, response);
 		response = cc.loginCustomer(b1);
-		assertEquals(sudcess, response);
+		assertEquals(success, response);
 		response = cc.loginCustomer(b2);
-		assertEquals(sudcess, response);
+		assertEquals(success, response);
 		response = cc.loginCustomer(b3);
-		assertEquals(sudcess, response);
+		assertEquals(success, response);
 		response = cc.loginCustomer(b4);
 		assertEquals(failure, response);
 		response = cc.loginCustomer(f1);
