@@ -102,7 +102,7 @@ public class AdminController {
     @PostMapping("/get-categories")
     public String getCategories(@RequestBody LoginInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
+    	if (user == null || !user.getPassword().equals(body.getPassword()))
     		return failure;
     	List<Category> categories = categoryRepository.findAll();
     	return categories.toString();
@@ -111,7 +111,7 @@ public class AdminController {
     @PostMapping("/get-items")
     public String getItems(@RequestBody LoginInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
+    	if (user == null || !user.getPassword().equals(body.getPassword()))
     		return failure;
     	List<Item> items = itemRepository.findAll();
     	return items.toString();

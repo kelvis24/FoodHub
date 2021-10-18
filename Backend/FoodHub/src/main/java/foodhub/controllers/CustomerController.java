@@ -86,4 +86,25 @@ public class CustomerController {
     	orderItemsRepository.save(orderItem);
     	return success;
     }
+    
+    @PostMapping("customer-change-info")
+    public String changeInformation(@RequestBody EditInput body) {
+    	Customer customer = customerRepository.findByUsername(body.getUsername());
+    	if (customer == null || !customer.getPassword().equals(body.getPassword())) {
+    		return failure;
+    	}
+    	if (body.getField() == 0) {
+    		customer.setName(body.getFieldInfo());
+    	}else if (body.getField() == 1) {
+    		customer.setUsername(body.getFieldInfo());
+    	}else if (body.getField() == 2) {
+    		customer.setPassword(body.getFieldInfo());
+    	}else if (body.getField() == 3) {
+    		customer.setLocation(body.getFieldInfo());
+    	}else {
+    		return failure;
+    	}
+    	return success;
+    }
+
 }
