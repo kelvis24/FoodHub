@@ -122,12 +122,12 @@ public class AdminController {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
     		return failure;
-    	Admin admin = adminRepository.findByUsername(body.getAdminUsername());
+    	Admin admin = adminRepository.findByUsername(body.getFieldName());
     	if (admin == null) {
     		return failure;
     	}
     	switch(body.getField()) {
-    	case 0: admin.setType(Integer.parseInt(body.getFieldInfo()));
+    	case 0: admin.setType(Integer.parseInt(body.getFieldName()));
     			break;
     	case 1: admin.setName(body.getFieldInfo());
     			break;
@@ -142,7 +142,7 @@ public class AdminController {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null || !user.getPassword().equals(body.getPassword()))
     		return failure;
-    	Firm firm = firmRepository.findByUsername(body.getAdminUsername());
+    	Firm firm = firmRepository.findByUsername(body.getFieldName());
     	if (firm == null) {
     		return failure;
     	}

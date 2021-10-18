@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import foodhub.database.*;
 import foodhub.ioObjects.CategoryInput;
+import foodhub.ioObjects.EditInput;
 import foodhub.ioObjects.ItemInput;
 
 @RestController
@@ -63,6 +64,26 @@ public class FirmController {
     		return failure;
     	}
     	categoryRepository.deleteById(category.getId());
+    	return success;
+    }
+    
+    @PostMapping("edit-category")
+    public String editCategory(@RequestBody EditInput body) {
+    	Firm firm = firmRepository.findByUsername(body.getUsername());
+    	if (firm == null || !firm.getPassword().equals(body.getPassword()))
+    		return errorUser;
+    	Category category = categoryRepository.findByTitle(body.getFieldName());
+    	if (category == null) {
+    		return failure;
+    	}
+    	switch(body.getField()) {
+    	case 0: category.setTitle(body.getFieldInfo());
+    			break;
+    	case 1: category.setDescription(body.getFieldInfo());
+    			break;
+    	default:
+    			return failure;
+    	}
     	return success;
     }
     
@@ -122,6 +143,27 @@ public class FirmController {
     	return success;
     }
     
+    @PostMapping("edit-item")
+    public String editItem(@RequestBody EditInput body) {
+    	Firm firm = firmRepository.findByUsername(body.getUsername());
+    	if (firm == null || !firm.getPassword().equals(body.getPassword()))
+    		return errorUser;
+    	Item item = itemRepository.findByTitle(body.getFieldName());
+    	if (item == null) {
+    		return failure;
+    	}
+    	switch(body.getField()) {
+    	case 0: item.setTitle(body.getFieldInfo());
+    			break;
+    	case 1: item.setDescription(body.getFieldInfo());
+    			break;
+    	case 2: item.setPrice(Double.parseDouble(body.getFieldInfo()));
+    			break;
+    	default:
+    			return failure;
+    	}
+    	return success;
+    }
     //get orders
     //edit category
     //edit item

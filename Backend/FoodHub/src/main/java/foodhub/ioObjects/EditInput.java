@@ -5,7 +5,7 @@ public class EditInput {
 	private String password;
 	private int field;
 	private String fieldInfo;
-	private String adminUsername;
+	private String fieldName;
 	
 	public EditInput(String username, String password, int field, String fieldInfo) {
 		this.username = username;
@@ -14,12 +14,12 @@ public class EditInput {
 		this.fieldInfo = fieldInfo;
 	}
 	
-	public EditInput(String username, String password, String adminUsername, int field, String fieldInfo) {
+	public EditInput(String username, String password, String fieldName, int field, String fieldInfo) {
 		this.username = username;
 		this.password = password;
 		this.field = field;
 		this.fieldInfo = fieldInfo;
-		this.adminUsername = adminUsername;
+		this.fieldName = fieldName;
 	}
 	
 	public EditInput() {}
@@ -56,11 +56,11 @@ public class EditInput {
 		this.fieldInfo = fieldInfo;
 	}
 	
-	public String getAdminUsername() {
-		return adminUsername;
+	public String getFieldName() {
+		return fieldName;
 	}
 
-	public void setAdminUsername(String adminUsername) {
-		this.adminUsername = adminUsername;
+	public void setFieldName(String fieldName) {
+		this.fieldName = fieldName;
 	}
 }
