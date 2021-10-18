@@ -16,6 +16,8 @@ import foodhub.ioObjects.*;
 @RestController
 public class GeneralController {
 	
+	// TODO: No methods here require authentication. Please Remove.
+	
 	@Autowired
 	AdminRepository adminRepository;
 	
@@ -34,6 +36,17 @@ public class GeneralController {
 	private String success = "{\"message\":\"success\"}";
 	private String failure = "{\"message\":\"failure\"}";
 
+    @PostMapping("/general-add-customer")
+    public String createCustomer(@RequestBody Customer customer) {
+    	if (customer == null)
+    		return failure;
+    	Customer sameEmail = customerRepository.findByUsername(customer.getUsername());
+    	if (sameEmail != null)
+    		return failure;
+    	customerRepository.save(customer);
+    	return success;
+    }
+
     @GetMapping(path = "/general-get-firms")
     public List<FirmInfo> getFirms() {
     	ArrayList<FirmInfo> fi = new ArrayList<FirmInfo>();
@@ -43,15 +56,6 @@ public class GeneralController {
     		fi.add(new FirmInfo(it.next()));
     	}
     	return fi;
-    }
-    
-    @PostMapping(path = "/general-get-items")
-    public String getItems(@RequestBody LoginInput body) {
-    	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
-    		return failure;
-    	List<Item> items = itemRepository.findAll();
-    	return items.toString();
     }
     
     //List categories+items by firm methods below this point

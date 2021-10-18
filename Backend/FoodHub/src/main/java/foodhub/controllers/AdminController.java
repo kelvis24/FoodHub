@@ -29,9 +29,14 @@ public class AdminController {
 	private String success = "{\"message\":\"success\"}";
 	private String failure = "{\"message\":\"failure\"}";
     
-    @GetMapping("/admins")
-    public List<Admin> listAdmins() {
-        return adminRepository.findAll();
+	// TODO: NEEDS TO NOT RETURN PASSWORDS (CREATE AdminInfo class)
+    @PostMapping(path = "/admins-get-admins")
+    public String getAdmins(@RequestBody LoginInput body) {
+    	Admin user = adminRepository.findByUsername(body.getUsername());
+    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
+    		return failure;
+    	List<Admin> admins = adminRepository.findAll();
+    	return admins.toString();
     }
     
     @PostMapping("/admins-create-admin")
@@ -50,7 +55,7 @@ public class AdminController {
     	return success;
     }
     
-    @PostMapping(path = "remove-admin")
+    @PostMapping("admins-remove-admin")
     public String removeAdmin(@RequestBody AdminInput body) {
     	Admin owner = adminRepository.findByUsername(body.getUsername());
     	if (owner == null || !owner.getPassword().equals(body.getPassword()) || owner.getType() != 1)
@@ -78,7 +83,7 @@ public class AdminController {
     	return success;
     }
     
-    @PostMapping(path = "/remove-firm")
+    @PostMapping("/admins-remove-firm")
     public String removeFirm(@RequestBody FirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null || !user.getPassword().equals(body.getPassword()))
@@ -90,12 +95,4 @@ public class AdminController {
     	return success;
     }
     
-    @PostMapping(path = "/get-admins")
-    public String getAdmins(@RequestBody LoginInput body) {
-    	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
-    		return failure;
-    	List<Admin> admins = adminRepository.findAll();
-    	return admins.toString();
-    }
 }
