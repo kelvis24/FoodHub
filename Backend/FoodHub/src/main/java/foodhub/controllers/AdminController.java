@@ -116,4 +116,22 @@ public class AdminController {
     	List<Item> items = itemRepository.findAll();
     	return items.toString();
     }
+    
+    @PostMapping("edit-admin")
+    public String editAdmin(@RequestBody EditInput body) {
+    	Admin user = adminRepository.findByUsername(body.getUsername());
+    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
+    		return failure;
+    	Admin admin = adminRepository.findByUsername(body.getAdminUsername());
+    	if (admin == null) {
+    		return failure;
+    	}
+    	switch(body.getField()) {
+    	case 0: admin.setType(Integer.parseInt(body.getFieldInfo()));
+    			break;
+    	case 1: admin.setName(body.getFieldInfo());
+    			break;
+    	}
+    	return success;
+    }
 }

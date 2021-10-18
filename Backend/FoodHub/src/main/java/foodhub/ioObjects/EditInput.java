@@ -5,12 +5,21 @@ public class EditInput {
 	private String password;
 	private int field;
 	private String fieldInfo;
+	private String adminUsername;
 	
 	public EditInput(String username, String password, int field, String fieldInfo) {
 		this.username = username;
 		this.password = password;
 		this.field = field;
 		this.fieldInfo = fieldInfo;
+	}
+	
+	public EditInput(String username, String password, String adminUsername, int field, String fieldInfo) {
+		this.username = username;
+		this.password = password;
+		this.field = field;
+		this.fieldInfo = fieldInfo;
+		this.adminUsername = adminUsername;
 	}
 	
 	public EditInput() {}
@@ -45,5 +54,13 @@ public class EditInput {
 
 	public void setFieldInfo(String fieldInfo) {
 		this.fieldInfo = fieldInfo;
+	}
+	
+	public String getAdminUsername() {
+		return adminUsername;
+	}
+
+	public void setAdminUsername(String adminUsername) {
+		this.adminUsername = adminUsername;
 	}
 }
