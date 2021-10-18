@@ -22,6 +22,7 @@ import foodhub.database.Firm;
 import foodhub.database.AdminRepository;
 import foodhub.database.FirmRepository;
 import foodhub.controllers.AdminController;
+import foodhub.controllers.DebugController;
 import foodhub.controllers.FirmController;
 import foodhub.ioObjects.AdminInput;
 import foodhub.ioObjects.FirmInput;
@@ -33,10 +34,14 @@ public class AdminControllerTests {
 	AdminController ac;
 	
 	@InjectMocks
+	DebugController dc;
+	
+	@InjectMocks
 	FirmController fc;
 	
 	@Mock
 	AdminRepository adminRepository;
+	
 	@Mock
 	FirmRepository firmRepository;
 
@@ -93,7 +98,7 @@ public class AdminControllerTests {
 	
 	@Test
 	public void createAdminTest0() {
-		List<Admin> list = ac.listAdmins();
+		List<Admin> list = dc.listAdmins();
 		assertEquals(1, list.size());
 		assertEquals(owner.getName(), list.get(0).getName());
 		assertEquals(owner.getUsername(), list.get(0).getUsername());
@@ -115,7 +120,7 @@ public class AdminControllerTests {
 		AdminInput b1 = new AdminInput(owner.getUsername(),owner.getPassword(),a1);
 		response = ac.createAdmin(b1);
 		assertEquals(success, response);
-		List<Admin> list = ac.listAdmins();
+		List<Admin> list = dc.listAdmins();
 		assertEquals(2, list.size());
 		assertEquals(owner.getName(), list.get(0).getName());
 		assertEquals(owner.getUsername(), list.get(0).getUsername());
@@ -146,7 +151,7 @@ public class AdminControllerTests {
 		assertEquals(success, response);
 		response = ac.createAdmin(b1);
 		assertEquals(failure, response);
-		List<Admin> list = ac.listAdmins();
+		List<Admin> list = dc.listAdmins();
 		assertEquals(2, list.size());
 		assertEquals(owner.getName(), list.get(0).getName());
 		assertEquals(owner.getUsername(), list.get(0).getUsername());
@@ -179,7 +184,7 @@ public class AdminControllerTests {
 		assertEquals(success, response);
 		response = ac.createAdmin(b2);
 		assertEquals(success, response);
-		List<Admin> list = ac.listAdmins();
+		List<Admin> list = dc.listAdmins();
 		assertEquals(3, list.size());
 		assertEquals(owner.getName(),     list.get(0).getName());
 		assertEquals(owner.getUsername(), list.get(0).getUsername());
@@ -231,7 +236,7 @@ public class AdminControllerTests {
 		assertEquals(failure, response);
 		response = ac.createAdmin(b6);
 		assertEquals(failure, response);
-		List<Admin> list = ac.listAdmins();
+		List<Admin> list = dc.listAdmins();
 		assertEquals(3, list.size());
 		assertEquals(owner.getName(),     list.get(0).getName());
 		assertEquals(owner.getUsername(), list.get(0).getUsername());
@@ -267,8 +272,8 @@ public class AdminControllerTests {
 		FirmInput b1 = new FirmInput(owner.getUsername(),owner.getPassword(),f1);
 		response = ac.createFirm(b1);
 		assertEquals(success, response);
-		List<Admin> admins = ac.listAdmins();
-		List<Firm> firms = fc.listFirms();
+		List<Admin> admins = dc.listAdmins();
+		List<Firm> firms = dc.listFirms();
 		assertEquals(1, admins.size());
 		assertEquals(owner.getName(),     admins.get(0).getName());
 		assertEquals(owner.getUsername(), admins.get(0).getUsername());
@@ -308,8 +313,8 @@ public class AdminControllerTests {
 		assertEquals(success, response);
 		response = ac.createFirm(b2);
 		assertEquals(failure, response);
-		List<Admin> admins = ac.listAdmins();
-		List<Firm> firms = fc.listFirms();
+		List<Admin> admins = dc.listAdmins();
+		List<Firm> firms = dc.listFirms();
 		assertEquals(1, admins.size());
 		assertEquals(owner.getName(),     admins.get(0).getName());
 		assertEquals(owner.getUsername(), admins.get(0).getUsername());
@@ -370,8 +375,8 @@ public class AdminControllerTests {
 		assertEquals(failure, response);
 		response = ac.createFirm(b1);
 		assertEquals(failure, response);
-		List<Admin> admins = ac.listAdmins();
-		List<Firm> firms = fc.listFirms();
+		List<Admin> admins = dc.listAdmins();
+		List<Firm> firms = dc.listFirms();
 		assertEquals(2, admins.size());
 		assertEquals(owner.getName(),     admins.get(0).getName());
 		assertEquals(owner.getUsername(), admins.get(0).getUsername());

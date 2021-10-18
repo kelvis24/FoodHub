@@ -20,6 +20,8 @@ import org.mockito.Mock;
 import foodhub.database.Customer;
 import foodhub.database.CustomerRepository;
 import foodhub.controllers.CustomerController;
+import foodhub.controllers.DebugController;
+import foodhub.controllers.GeneralController;
 import foodhub.ioObjects.LoginInput;
 
 @SpringBootTest
@@ -27,6 +29,12 @@ public class CustomerControllerTests {
 	
 	@InjectMocks
 	CustomerController cc;
+	
+	@InjectMocks
+	DebugController dc;
+	
+	@InjectMocks
+	GeneralController gc;
 	
 	@Mock
 	CustomerRepository customerRepository;
@@ -61,7 +69,7 @@ public class CustomerControllerTests {
 	
 	@Test
 	public void createCustomerTest0() {
-		List<Customer> list = cc.listCustomers();
+		List<Customer> list = dc.listCustomers();
 		assertEquals(0, list.size());
 		verify(customerRepository, times(0)).save((Customer)any(Customer.class));
 		verify(customerRepository, times(0)).findByUsername((String)any(String.class));
@@ -72,9 +80,9 @@ public class CustomerControllerTests {
 	public void createCustomerTest1() {
 		String response;
 		Customer c1 = new Customer("Andrew","andrew@gmail.com","andrew123","andrew blv");
-		response = cc.createCustomer(c1);
+		response = gc.createCustomer(c1);
 		assertEquals(success, response);
-		List<Customer> list = cc.listCustomers();
+		List<Customer> list = dc.listCustomers();
 		assertEquals(1, list.size());
 		assertEquals("Andrew", list.get(0).getName());
 		assertEquals("andrew@gmail.com", list.get(0).getUsername());
@@ -91,11 +99,11 @@ public class CustomerControllerTests {
 	public void createCustomerTest2() {
 		String response;
 		Customer c1 = new Customer("Andrew","andrew@gmail.com","andrew123","andrew blv");
-		response = cc.createCustomer(c1);
+		response = gc.createCustomer(c1);
 		assertEquals(success, response);
-		response = cc.createCustomer(c1);
+		response = gc.createCustomer(c1);
 		assertEquals(failure, response);
-		List<Customer> list = cc.listCustomers();
+		List<Customer> list = dc.listCustomers();
 		assertEquals(1, list.size());
 		assertEquals("Andrew", list.get(0).getName());
 		assertEquals("andrew@gmail.com", list.get(0).getUsername());
@@ -115,15 +123,15 @@ public class CustomerControllerTests {
 		Customer c2 = new Customer("John","john@gmail.com","john123","john st");
 		Customer c3 = new Customer("Marry","marry@gmail.com","mary123","marry dr");
 		Customer c4 = new Customer("John II","john@gmail.com","john456","john court");
-		response = cc.createCustomer(c1);
+		response = gc.createCustomer(c1);
 		assertEquals(success, response);
-		response = cc.createCustomer(c2);
+		response = gc.createCustomer(c2);
 		assertEquals(success, response);
-		response = cc.createCustomer(c3);
+		response = gc.createCustomer(c3);
 		assertEquals(success, response);
-		response = cc.createCustomer(c4);
+		response = gc.createCustomer(c4);
 		assertEquals(failure, response);
-		List<Customer> list = cc.listCustomers();
+		List<Customer> list = dc.listCustomers();
 		assertEquals(3, list.size());
 		assertEquals("Andrew", list.get(0).getName());
 		assertEquals("andrew@gmail.com", list.get(0).getUsername());
@@ -165,7 +173,7 @@ public class CustomerControllerTests {
 		String response;
 		Customer c1 = new Customer("Andrew","andrew@gmail.com","andrew123","andrew blv");
 		LoginInput b1 = new LoginInput(c1.getUsername(), c1.getPassword());
-		response = cc.createCustomer(c1);
+		response = gc.createCustomer(c1);
 		assertEquals(success, response);
 		response = cc.loginCustomer(b1);
 		assertEquals(success, response);
@@ -180,9 +188,9 @@ public class CustomerControllerTests {
 		LoginInput b1 = new LoginInput(c1.getUsername(), c1.getPassword());
 		LoginInput b2 = new LoginInput("Andyeet",        c1.getPassword());
 		LoginInput b3 = new LoginInput(c1.getUsername(), "Yeeticus The Yeety");
-		response = cc.createCustomer(c1);
+		response = gc.createCustomer(c1);
 		assertEquals(success, response);
-		response = cc.createCustomer(c1);
+		response = gc.createCustomer(c1);
 		assertEquals(failure, response);
 		response = cc.loginCustomer(b1);
 		assertEquals(success, response);
@@ -190,7 +198,7 @@ public class CustomerControllerTests {
 		assertEquals(failure, response);
 		response = cc.loginCustomer(b3);
 		assertEquals(failure, response);
-		List<Customer> list = cc.listCustomers();
+		List<Customer> list = dc.listCustomers();
 		assertEquals(1, list.size());
 		assertEquals("Andrew", list.get(0).getName());
 		assertEquals("andrew@gmail.com", list.get(0).getUsername());
@@ -218,13 +226,13 @@ public class CustomerControllerTests {
 		LoginInput f1 = new LoginInput("Yeeticus", "The Yeety");
 		LoginInput f2 = new LoginInput("Yeetus", "Skeetus");
 		LoginInput f3 = new LoginInput("Yeetus", "Maximus");
-		response = cc.createCustomer(c1);
+		response = gc.createCustomer(c1);
 		assertEquals(success, response);
-		response = cc.createCustomer(c2);
+		response = gc.createCustomer(c2);
 		assertEquals(success, response);
-		response = cc.createCustomer(c3);
+		response = gc.createCustomer(c3);
 		assertEquals(success, response);
-		response = cc.createCustomer(c4);
+		response = gc.createCustomer(c4);
 		assertEquals(failure, response);
 		response = cc.loginCustomer(b1);
 		assertEquals(success, response);
@@ -240,7 +248,7 @@ public class CustomerControllerTests {
 		assertEquals(failure, response);
 		response = cc.loginCustomer(f3);
 		assertEquals(failure, response);
-		List<Customer> list = cc.listCustomers();
+		List<Customer> list = dc.listCustomers();
 		assertEquals(3, list.size());
 		assertEquals("Andrew", list.get(0).getName());
 		assertEquals("andrew@gmail.com", list.get(0).getUsername());

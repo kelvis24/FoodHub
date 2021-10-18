@@ -28,23 +28,7 @@ public class CustomerController {
 	private String success = "{\"message\":\"success\"}";
 	private String failure = "{\"message\":\"failure\"}";
     
-    @GetMapping("/customers")
-    public List<Customer> listCustomers() {
-    	return customerRepository.findAll();
-    }
-
-    @PostMapping("/customers")
-    public String createCustomer(@RequestBody Customer customer) {
-    	if (customer == null)
-    		return failure;
-    	Customer sameEmail = customerRepository.findByUsername(customer.getUsername());
-    	if (sameEmail != null)
-    		return failure;
-    	customerRepository.save(customer);
-    	return success;
-    }
-    
-    @PostMapping("/customers-login")
+    @PostMapping("/customer-login")
     public String loginCustomer(@RequestBody LoginInput body) {
     	Customer customer = customerRepository.findByUsername(body.getUsername());
     	if (customer == null || !customer.getPassword().equals(body.getPassword()))
@@ -52,7 +36,8 @@ public class CustomerController {
     	return success;
     }
     
-    @PostMapping("/view-order")
+    // TODO: Retrieves information about all orders of a customer
+    @PostMapping("/cusotmer-get-orders")
     public String viewOrder(@RequestBody OrderInput body) {
     	Customer customer = customerRepository.findByUsername(body.getUsername());
     	if (customer == null || !customer.getPassword().equals(body.getPassword())) {
@@ -65,25 +50,8 @@ public class CustomerController {
     	}
     	List<OrderItems> orderItems = orderItemsRepository.findByOrderId(order.getId());
     	return orderItems.toString();
-    	}
-    
-    @PostMapping("/add-item")
-    public String addItemToOrder(@RequestBody OrderInput body) {
-    	Customer customer = customerRepository.findByUsername(body.getUsername());
-    	if (customer == null || !customer.getPassword().equals(body.getPassword())) {
-    		return failure;
-    	}
-    	Optional<Order> optionalOrder = orderRepository.findById(body.getOrderId());
-    	Order order = optionalOrder.get();
-    	if (order == null || order.getCustomerId() != customer.getId()) {
-    		return failure;
-    	}
-    	Item item = body.getItem();
-    	if (item == null) {
-    		return failure;
-    	}
-    	OrderItems orderItem = new OrderItems(order.getId(), item.getId(), body.getQuantity(), body.getNotes());
-    	orderItemsRepository.save(orderItem);
-    	return success;
     }
+    
+    // TODO: Make a request that adds an order attached to a customer and firm.
+    
 }
