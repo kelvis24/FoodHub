@@ -1,5 +1,6 @@
 package foodhub.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import foodhub.database.*;
 import foodhub.ioObjects.CategoryInput;
 import foodhub.ioObjects.EditInput;
 import foodhub.ioObjects.ItemInput;
+import foodhub.ioObjects.LoginInput;
 
 @RestController
 public class FirmController {
@@ -25,6 +27,12 @@ public class FirmController {
 	
 	@Autowired
 	ItemRepository itemRepository;
+	
+	@Autowired
+	OrderRepository orderRepository;
+	
+	@Autowired
+	OrderItemsRepository orderItemsRepository;
 
 	private String success = "{\"message\":\"success\"}";
 	private String failure = "{\"message\":\"failure\"}";
@@ -164,7 +172,31 @@ public class FirmController {
     	}
     	return success;
     }
-    //get orders
-    //edit category
-    //edit item
+    
+    @PostMapping("show-orders")
+    public String showOrders(@RequestBody LoginInput body) {
+    	Firm firm = firmRepository.findByUsername(body.getUsername());
+    	if (firm == null || !firm.getPassword().equals(body.getPassword()))
+    		return errorUser;
+    	List<Order> orders = orderRepository.findByFirmId(firm.getId());
+    	List<OrderItems> orderItems = new ArrayList<OrderItems>();
+    	for (Order o : orders) {
+    		List<OrderItems> orderItemList = orderItemsRepository.findByOrderId(o.getId());
+    		for (OrderItems i : orderItemList) {
+    			orderItems.add(i);
+    		}
+    	}
+    	String ordersString = "";
+    	int previousId = 0;
+    	for (OrderItems i : orderItems) {
+    		if (previousId == i.getOrderId()) {
+    			ordersString += ", Item: " + itemRepository.findById(i.getItemId()) + "Quantity: " + i.getQuantity()
+   			 + "Item Notes: " + i.getNotes();
+    		}else {
+    			ordersString += "\nOrder ID: " + i.getOrderId() + "Item: " + itemRepository.findById(i.getItemId()) + "Quantity: " 
+    					+ i.getQuantity() + "Item Notes: " + i.getNotes();
+    		}
+    	}
+    	return ordersString;
+    }
 }
