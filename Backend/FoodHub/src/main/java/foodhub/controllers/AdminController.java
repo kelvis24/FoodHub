@@ -131,6 +131,28 @@ public class AdminController {
     			break;
     	case 1: admin.setName(body.getFieldInfo());
     			break;
+    	default:
+    		return failure;
+    	}
+    	return success;
+    }
+    
+    @PostMapping("edit-firm")
+    public String editFirm(@RequestBody EditInput body) {
+    	Admin user = adminRepository.findByUsername(body.getUsername());
+    	if (user == null || !user.getPassword().equals(body.getPassword()))
+    		return failure;
+    	Firm firm = firmRepository.findByUsername(body.getAdminUsername());
+    	if (firm == null) {
+    		return failure;
+    	}
+    	switch(body.getField()) {
+    	case 0: firm.setName(body.getFieldInfo());
+    			break;
+    	case 1: firm.setUsername(body.getFieldInfo());
+    			break;
+    	default:
+    		return failure;
     	}
     	return success;
     }
