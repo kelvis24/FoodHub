@@ -40,6 +40,13 @@ public class DebugController {
 	private String success = "{\"message\":\"success\"}";
 	private String failure = "{\"message\":\"failure\"}";
     
+    @GetMapping("/debug-default-owner")
+    public String defaultOwner() {
+    	Admin owner = new Admin("arvid","arvidg@iastate.edu","aA0/aaaaaaaa",1);
+    	adminRepository.save(owner);
+        return success;
+    }
+    
     @GetMapping("/debug-get-admins")
     public List<Admin> listAdmins() {
         return adminRepository.findAll();
@@ -53,6 +60,11 @@ public class DebugController {
     @GetMapping("/debug-get-firms")
     public List<Firm> listFirms() {
     	return firmRepository.findAll();
+    }
+	
+    @GetMapping("/debug-get-categories")
+    public List<Category> listCategories() {
+    	return categoryRepository.findAll();
     }
 	
     @GetMapping("/debug-get-items")
