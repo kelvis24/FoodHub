@@ -30,7 +30,7 @@ public class FirmController {
 	private String errorUser = "{\"message\":\"user not defined/found\"}";
 
     @GetMapping("/firms")
-    public List<Firm> listFirms(Model model) {
+    public List<Firm> listFirms() {
     	return firmRepository.findAll();
     }
 
@@ -53,7 +53,7 @@ public class FirmController {
     	return success;
     }
     
-    @PostMapping(path = "remove-category")
+    @PostMapping("remove-category")
     public String removeCateogry(@RequestBody CategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
@@ -67,13 +67,13 @@ public class FirmController {
     }
     
     //Work on
-    @PostMapping(path = "/categories")
+    @PostMapping("/categories")
     public List<Category> listCategories(Model model) {
     	return categoryRepository.findAll();
     }
 
     //Add item
-    @PostMapping(path = "/create-item")
+    @PostMapping("/create-item")
     public String createItem(@RequestBody ItemInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
@@ -105,7 +105,7 @@ public class FirmController {
     	return success;
     }
     
-    @PostMapping(path = "remove-item")
+    @PostMapping("remove-item")
     public String removeItem(@RequestBody ItemInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))

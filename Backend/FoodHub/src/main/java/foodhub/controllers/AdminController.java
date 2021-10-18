@@ -29,12 +29,12 @@ public class AdminController {
 	private String success = "{\"message\":\"success\"}";
 	private String failure = "{\"message\":\"failure\"}";
     
-    @GetMapping(path = "/admins")
-    public List<Admin> getAdmins() {
+    @GetMapping("/admins")
+    public List<Admin> listAdmins() {
         return adminRepository.findAll();
     }
     
-    @PostMapping(path = "/admins-create-admin")
+    @PostMapping("/admins-create-admin")
     public String createAdmin(@RequestBody AdminInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
@@ -63,7 +63,7 @@ public class AdminController {
     	return success;
     }
 
-    @PostMapping(path = "/admins-create-firm")
+    @PostMapping("/admins-create-firm")
     public String createFirm(@RequestBody FirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null || !user.getPassword().equals(body.getPassword()))
