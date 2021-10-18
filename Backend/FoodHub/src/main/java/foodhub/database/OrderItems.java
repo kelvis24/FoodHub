@@ -22,8 +22,7 @@ public class OrderItems {
 	@Column()
 	private String notes;
 	
-	public OrderItems(long id, long orderId, long itemId, int quantity, String notes) {
-		this.id = id;
+	public OrderItems(long orderId, long itemId, int quantity, String notes) {
 		this.orderId = orderId;
 		this.itemId = itemId;
 		this.quantity = quantity;
