@@ -28,23 +28,7 @@ public class CustomerController {
 	private String success = "{\"message\":\"success\"}";
 	private String failure = "{\"message\":\"failure\"}";
     
-    @GetMapping("/customers")
-    public List<Customer> listCustomers() {
-    	return customerRepository.findAll();
-    }
-
-    @PostMapping("/customers")
-    public String createCustomer(@RequestBody Customer customer) {
-    	if (customer == null)
-    		return failure;
-    	Customer sameEmail = customerRepository.findByUsername(customer.getUsername());
-    	if (sameEmail != null)
-    		return failure;
-    	customerRepository.save(customer);
-    	return success;
-    }
-    
-    @PostMapping("/customers-login")
+    @PostMapping("/customer-login")
     public String loginCustomer(@RequestBody LoginInput body) {
     	Customer customer = customerRepository.findByUsername(body.getUsername());
     	if (customer == null || !customer.getPassword().equals(body.getPassword()))

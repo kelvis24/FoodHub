@@ -5,7 +5,7 @@
     android:id="@+id/bottom_navigation"
     app:startDestination="@id/home2">
 
-    <!--
+
         <fragment
             android:id="@+id/home2"
             android:name="com.example.foodhub.Home"
@@ -31,5 +31,5 @@
             android:name="com.example.foodhub.Account"
             android:label="Account"
             tools:layout="@layout/fragment_account" />
-        -->
+
     </navigation>

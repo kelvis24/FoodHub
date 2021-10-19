@@ -55,7 +55,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            profileImage = itemView.findViewById(R.id.ivProfile);
+            profileImage = itemView.findViewById(R.id.ivPost);
             postImage = itemView.findViewById(R.id.ivPost);
             title = itemView.findViewById(R.id.title);
             message = itemView.findViewById(R.id.message);
