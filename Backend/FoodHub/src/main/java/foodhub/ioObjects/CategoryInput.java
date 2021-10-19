@@ -6,12 +6,20 @@ public class CategoryInput {
 	private String username;
 	private String password;
 	private Category category;
+	private Category newCategory;
 	private String categoryTitle;
 	
 	public CategoryInput(String username, String password, Category category) {
 		this.username = username;
 		this.password = password;
 		this.category = category;
+	}
+	
+	public CategoryInput(String username, String password, Category category, Category newCategory) {
+		this.username = username;
+		this.password = password;
+		this.category = category;
+		this.newCategory = newCategory;
 	}
 	
 	public CategoryInput(String username, String password, String categoryTitle) {
@@ -41,5 +49,11 @@ public class CategoryInput {
 		this.categoryTitle = categoryTitle;
 	}
 	
+	public Category setNewCategory() {
+		return newCategory;
+	}
 	
+	public Category getNewCategory() {
+		return category;
+	}
 }

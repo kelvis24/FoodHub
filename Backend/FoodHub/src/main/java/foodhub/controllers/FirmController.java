@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import foodhub.database.*;
 import foodhub.ioObjects.CategoryInput;
-import foodhub.ioObjects.EditInput;
+import foodhub.ioObjects.FirmInput;
 import foodhub.ioObjects.ItemInput;
 import foodhub.ioObjects.LoginInput;
 
@@ -76,22 +76,16 @@ public class FirmController {
     }
     
     @PostMapping("edit-category")
-    public String editCategory(@RequestBody EditInput body) {
+    public String editCategory(@RequestBody CategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
     		return errorUser;
-    	Category category = categoryRepository.findByTitle(body.getFieldName());
+    	Category category = categoryRepository.findByTitle(body.getCategory().getTitle());
     	if (category == null) {
     		return failure;
     	}
-    	switch(body.getField()) {
-    	case 0: category.setTitle(body.getFieldInfo());
-    			break;
-    	case 1: category.setDescription(body.getFieldInfo());
-    			break;
-    	default:
-    			return failure;
-    	}
+    	category.setTitle(body.getNewCategory().getTitle());
+    	category.setDescription(body.getNewCategory().getDescription());
     	return success;
     }
     
@@ -152,24 +146,18 @@ public class FirmController {
     }
     
     @PostMapping("edit-item")
-    public String editItem(@RequestBody EditInput body) {
+    public String editItem(@RequestBody ItemInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
     		return errorUser;
-    	Item item = itemRepository.findByTitle(body.getFieldName());
+    	Item item = itemRepository.findByTitle(body.getItem().getTitle());
     	if (item == null) {
     		return failure;
     	}
-    	switch(body.getField()) {
-    	case 0: item.setTitle(body.getFieldInfo());
-    			break;
-    	case 1: item.setDescription(body.getFieldInfo());
-    			break;
-    	case 2: item.setPrice(Double.parseDouble(body.getFieldInfo()));
-    			break;
-    	default:
-    			return failure;
-    	}
+    	item.setTitle(body.getNewItem().getTitle());
+    	item.setDescription(body.getNewItem().getDescription());
+    	item.setPrice(body.getNewItem().getPrice());
+    	
     	return success;
     }
     

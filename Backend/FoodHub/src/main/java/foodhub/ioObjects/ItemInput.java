@@ -6,6 +6,7 @@ public class ItemInput {
 	private String password;
 	private String category;
 	private Item item;
+	private Item newItem;
 	private String itemTitle;
 	
 	public ItemInput(String username, String password, String category, Item item) {
@@ -13,6 +14,14 @@ public class ItemInput {
 		this.password = password;
 		this.category = category;
 		this.item = item;
+	}
+	
+	public ItemInput(String username, String password, String category, Item item, Item newItem) {
+		this.username = username;
+		this.password = password;
+		this.category = category;
+		this.item = item;
+		this.newItem = newItem;
 	}
 	
 	public ItemInput(String username, String password, String category, String itemTitle) {
@@ -62,5 +71,13 @@ public class ItemInput {
 
 	public void setItemTitle(String itemTitle) {
 		this.itemTitle = itemTitle;
+	}
+	
+	public Item getNewItem() {
+		return newItem;
+	}
+
+	public void setNewItem(Item newItem) {
+		this.newItem = newItem;
 	}
 }

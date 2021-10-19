@@ -34,7 +34,7 @@ public class AdminController {
         return adminRepository.findAll();
     }
     
-    @PostMapping("/admins-create-admin")
+    @PostMapping("/create-admin")
     public String createAdmin(@RequestBody AdminInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
@@ -50,7 +50,7 @@ public class AdminController {
     	return success;
     }
     
-    @PostMapping(path = "remove-admin")
+    @PostMapping("/remove-admin")
     public String removeAdmin(@RequestBody AdminInput body) {
     	Admin owner = adminRepository.findByUsername(body.getUsername());
     	if (owner == null || !owner.getPassword().equals(body.getPassword()) || owner.getType() != 1)
@@ -63,7 +63,7 @@ public class AdminController {
     	return success;
     }
 
-    @PostMapping("/admins-create-firm")
+    @PostMapping("/create-firm")
     public String createFirm(@RequestBody FirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null || !user.getPassword().equals(body.getPassword()))
@@ -99,61 +99,31 @@ public class AdminController {
     	return firms.toString();
     }
     
-    @PostMapping("/get-categories")
-    public String getCategories(@RequestBody LoginInput body) {
-    	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()))
-    		return failure;
-    	List<Category> categories = categoryRepository.findAll();
-    	return categories.toString();
-    }
-    
-    @PostMapping("/get-items")
-    public String getItems(@RequestBody LoginInput body) {
-    	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()))
-    		return failure;
-    	List<Item> items = itemRepository.findAll();
-    	return items.toString();
-    }
-    
-    @PostMapping("edit-admin")
-    public String editAdmin(@RequestBody EditInput body) {
+    @PostMapping("/edit-admin")
+    public String editAdmin(@RequestBody AdminInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
     		return failure;
-    	Admin admin = adminRepository.findByUsername(body.getFieldName());
-    	if (admin == null) {
-    		return failure;
-    	}
-    	switch(body.getField()) {
-    	case 0: admin.setType(Integer.parseInt(body.getFieldName()));
-    			break;
-    	case 1: admin.setName(body.getFieldInfo());
-    			break;
-    	default:
-    		return failure;
-    	}
+    	user.setName(body.getData().getName());
+    	user.setType(body.getData().getType());
     	return success;
     }
     
-    @PostMapping("edit-firm")
-    public String editFirm(@RequestBody EditInput body) {
+    @PostMapping("/edit-firm")
+    public String editFirm(@RequestBody FirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null || !user.getPassword().equals(body.getPassword()))
     		return failure;
-    	Firm firm = firmRepository.findByUsername(body.getFieldName());
+    	Firm firm = firmRepository.findByUsername(body.getFirmName());
     	if (firm == null) {
     		return failure;
     	}
-    	switch(body.getField()) {
-    	case 0: firm.setName(body.getFieldInfo());
-    			break;
-    	case 1: firm.setUsername(body.getFieldInfo());
-    			break;
-    	default:
-    		return failure;
-    	}
+    	firm.setOpen_time(body.getData().getOpen_time());
+    	firm.setClose_time(body.getData().getClose_time());
+    	firm.setCuisine(body.getData().getCuisine());
+    	firm.setEmployee_count(body.getData().getEmployee_count());
+    	firm.setLocation(body.getData().getLocation());
+    	firm.setName(body.getData().getName());
     	return success;
     }
 }

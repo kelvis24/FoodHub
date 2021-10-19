@@ -88,23 +88,15 @@ public class CustomerController {
     }
     
     @PostMapping("customer-change-info")
-    public String changeInformation(@RequestBody EditInput body) {
+    public String changeInformation(@RequestBody CustomerInput body) {
     	Customer customer = customerRepository.findByUsername(body.getUsername());
     	if (customer == null || !customer.getPassword().equals(body.getPassword())) {
     		return failure;
     	}
-    	switch(body.getField()) {
-    	case 0: customer.setName(body.getFieldInfo());
-    			break;
-    	case 1: customer.setUsername(body.getFieldInfo());
-    			break;
-    	case 2: customer.setPassword(body.getFieldInfo());
-    			break;
-    	case 3: customer.setLocation(body.getFieldInfo());
-    			break;
-    	default:
-    		return failure;
-    	}
+    	customer.setName(body.getCustomer().getName());
+    	customer.setUsername(body.getCustomer().getUsername());
+    	customer.setPassword(body.getCustomer().getPassword());
+    	customer.setLocation(body.getCustomer().getLocation());
     	return success;
     }
 
