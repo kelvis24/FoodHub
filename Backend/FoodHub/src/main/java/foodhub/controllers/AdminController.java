@@ -39,7 +39,7 @@ public class AdminController {
     	return admins.toString();
     }
     
-    @PostMapping("/admins-create-admin")
+    @PostMapping("/create-admin")
     public String createAdmin(@RequestBody AdminInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
@@ -68,7 +68,7 @@ public class AdminController {
     	return success;
     }
 
-    @PostMapping("/admins-create-firm")
+    @PostMapping("/create-firm")
     public String createFirm(@RequestBody FirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null || !user.getPassword().equals(body.getPassword()))
@@ -83,7 +83,7 @@ public class AdminController {
     	return success;
     }
     
-    @PostMapping("/admins-remove-firm")
+    @PostMapping(path = "/remove-firm")
     public String removeFirm(@RequestBody FirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null || !user.getPassword().equals(body.getPassword()))
@@ -94,5 +94,41 @@ public class AdminController {
     	firmRepository.deleteById(firm.getId());
     	return success;
     }
+
+    @PostMapping("/get-firms")
+    public String getFirms(@RequestBody LoginInput body) {
+    	Admin user = adminRepository.findByUsername(body.getUsername());
+    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
+    		return failure;
+    	List<Firm> firms = firmRepository.findAll();
+    	return firms.toString();
+    }
     
+    @PostMapping("/edit-admin")
+    public String editAdmin(@RequestBody AdminInput body) {
+    	Admin user = adminRepository.findByUsername(body.getUsername());
+    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
+    		return failure;
+    	user.setName(body.getData().getName());
+    	user.setType(body.getData().getType());
+    	return success;
+    }
+    
+    @PostMapping("/edit-firm")
+    public String editFirm(@RequestBody FirmInput body) {
+    	Admin user = adminRepository.findByUsername(body.getUsername());
+    	if (user == null || !user.getPassword().equals(body.getPassword()))
+    		return failure;
+    	Firm firm = firmRepository.findByName(body.getFirmName());
+    	if (firm == null) {
+    		return failure;
+    	}
+    	firm.setOpen_time(body.getData().getOpen_time());
+    	firm.setClose_time(body.getData().getClose_time());
+    	firm.setCuisine(body.getData().getCuisine());
+    	firm.setEmployee_count(body.getData().getEmployee_count());
+    	firm.setLocation(body.getData().getLocation());
+    	firm.setName(body.getData().getName());
+    	return success;
+    }
 }

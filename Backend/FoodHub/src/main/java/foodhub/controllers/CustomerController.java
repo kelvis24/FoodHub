@@ -36,9 +36,24 @@ public class CustomerController {
     	return success;
     }
     
-    // TODO: Retrieves information about all orders of a customer
-    @PostMapping("/cusotmer-get-orders")
-    public String viewOrder(@RequestBody OrderInput body) {
+    @PostMapping("/customer-orders")
+    public String customerOrders(@RequestBody LoginInput body) {
+    	Customer customer = customerRepository.findByUsername(body.getUsername());
+    	if (customer == null || !customer.getPassword().equals(body.getPassword()))
+    		return failure;
+    	List<Order> orders = orderRepository.findByCustomerId(customer.getId());
+    	List<OrderItems> orderItems = new ArrayList<OrderItems>();
+    	for (Order o : orders) {
+    		List<OrderItems> orderItemList = orderItemsRepository.findByOrderId(o.getId());
+    		for (OrderItems i : orderItemList) {
+    			orderItems.add(i);
+    		}
+    	}
+    	return orderItems.toString();
+    }
+    
+    @PostMapping("/add-item")
+    public String addItemToOrder(@RequestBody OrderInput body) {
     	Customer customer = customerRepository.findByUsername(body.getUsername());
     	if (customer == null || !customer.getPassword().equals(body.getPassword())) {
     		return failure;
@@ -48,10 +63,26 @@ public class CustomerController {
     	if (order == null || order.getCustomerId() != customer.getId()) {
     		return failure;
     	}
-    	List<OrderItems> orderItems = orderItemsRepository.findByOrderId(order.getId());
-    	return orderItems.toString();
+    	Item item = body.getItem();
+    	if (item == null) {
+    		return failure;
+    	}
+    	OrderItems orderItem = new OrderItems(order.getId(), item.getId(), body.getQuantity(), body.getNotes());
+    	orderItemsRepository.save(orderItem);
+    	return success;
     }
     
-    // TODO: Make a request that adds an order attached to a customer and firm.
-    
+    @PostMapping("customer-change-info")
+    public String changeInformation(@RequestBody CustomerInput body) {
+    	Customer customer = customerRepository.findByUsername(body.getUsername());
+    	if (customer == null || !customer.getPassword().equals(body.getPassword())) {
+    		return failure;
+    	}
+    	customer.setName(body.getCustomer().getName());
+    	customer.setUsername(body.getCustomer().getUsername());
+    	customer.setPassword(body.getCustomer().getPassword());
+    	customer.setLocation(body.getCustomer().getLocation());
+    	return success;
+    }
+
 }

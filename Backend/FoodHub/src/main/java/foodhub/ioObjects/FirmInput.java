@@ -15,10 +15,11 @@ public class FirmInput {
 		this.data = data;
 	}
 	
-	public FirmInput(String username, String password, String firmName) {
+	public FirmInput(String username, String password, String firmName, Firm data) {
 		this.username = username;
 		this.password = password;
 		this.firmName = firmName;
+		this.data = data;
 	}
 	
 	public FirmInput() {}

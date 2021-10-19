@@ -1,5 +1,6 @@
 package foodhub.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import foodhub.database.*;
 import foodhub.ioObjects.CategoryInput;
 import foodhub.ioObjects.ItemInput;
+import foodhub.ioObjects.LoginInput;
 
 @RestController
 public class FirmController {
@@ -24,6 +26,12 @@ public class FirmController {
 	
 	@Autowired
 	ItemRepository itemRepository;
+	
+	@Autowired
+	OrderRepository orderRepository;
+	
+	@Autowired
+	OrderItemsRepository orderItemsRepository;
 
 	private String success = "{\"message\":\"success\"}";
 	private String failure = "{\"message\":\"failure\"}";
@@ -58,6 +66,20 @@ public class FirmController {
     		return failure;
     	}
     	categoryRepository.deleteById(category.getId());
+    	return success;
+    }
+    
+    @PostMapping("/edit-category")
+    public String editCategory(@RequestBody CategoryInput body) {
+    	Firm firm = firmRepository.findByUsername(body.getUsername());
+    	if (firm == null || !firm.getPassword().equals(body.getPassword()))
+    		return errorUser;
+    	Category category = categoryRepository.findByTitle(body.getCategory().getTitle());
+    	if (category == null) {
+    		return failure;
+    	}
+    	category.setTitle(body.getNewCategory().getTitle());
+    	category.setDescription(body.getNewCategory().getDescription());
     	return success;
     }
     
@@ -100,7 +122,7 @@ public class FirmController {
     	return success;
     }
     
-    @PostMapping("remove-item")
+    @PostMapping("/remove-item")
     public String removeItem(@RequestBody ItemInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
@@ -117,7 +139,35 @@ public class FirmController {
     	return success;
     }
     
-    //get orders
-    //edit category
-    //edit item
+    @PostMapping("/edit-item")
+    public String editItem(@RequestBody ItemInput body) {
+    	Firm firm = firmRepository.findByUsername(body.getUsername());
+    	if (firm == null || !firm.getPassword().equals(body.getPassword()))
+    		return errorUser;
+    	Item item = itemRepository.findByTitle(body.getItem().getTitle());
+    	if (item == null) {
+    		return failure;
+    	}
+    	item.setTitle(body.getNewItem().getTitle());
+    	item.setDescription(body.getNewItem().getDescription());
+    	item.setPrice(body.getNewItem().getPrice());
+    	
+    	return success;
+    }
+    
+    @PostMapping("/show-orders")
+    public String showOrders(@RequestBody LoginInput body) {
+    	Firm firm = firmRepository.findByUsername(body.getUsername());
+    	if (firm == null || !firm.getPassword().equals(body.getPassword()))
+    		return errorUser;
+    	List<Order> orders = orderRepository.findByFirmId(firm.getId());
+    	List<OrderItems> orderItems = new ArrayList<OrderItems>();
+    	for (Order o : orders) {
+    		List<OrderItems> orderItemList = orderItemsRepository.findByOrderId(o.getId());
+    		for (OrderItems i : orderItemList) {
+    			orderItems.add(i);
+    		}
+    	}
+    	return orderItems.toString();
+    }
 }
