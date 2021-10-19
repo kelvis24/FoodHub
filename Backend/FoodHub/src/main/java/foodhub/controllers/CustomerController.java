@@ -52,20 +52,21 @@ public class CustomerController {
     	return success;
     }
     
-    @PostMapping("/view-order")
-    public String viewOrder(@RequestBody OrderInput body) {
+    @PostMapping("/customer-orders")
+    public String customerOrders(@RequestBody LoginInput body) {
     	Customer customer = customerRepository.findByUsername(body.getUsername());
-    	if (customer == null || !customer.getPassword().equals(body.getPassword())) {
+    	if (customer == null || !customer.getPassword().equals(body.getPassword()))
     		return failure;
+    	List<Order> orders = orderRepository.findByCustomerId(customer.getId());
+    	List<OrderItems> orderItems = new ArrayList<OrderItems>();
+    	for (Order o : orders) {
+    		List<OrderItems> orderItemList = orderItemsRepository.findByOrderId(o.getId());
+    		for (OrderItems i : orderItemList) {
+    			orderItems.add(i);
+    		}
     	}
-    	Optional<Order> optionalOrder = orderRepository.findById(body.getOrderId());
-    	Order order = optionalOrder.get();
-    	if (order == null || order.getCustomerId() != customer.getId()) {
-    		return failure;
-    	}
-    	List<OrderItems> orderItems = orderItemsRepository.findByOrderId(order.getId());
     	return orderItems.toString();
-    	}
+    }
     
     @PostMapping("/add-item")
     public String addItemToOrder(@RequestBody OrderInput body) {

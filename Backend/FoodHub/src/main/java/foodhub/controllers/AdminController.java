@@ -114,7 +114,7 @@ public class AdminController {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null || !user.getPassword().equals(body.getPassword()))
     		return failure;
-    	Firm firm = firmRepository.findByUsername(body.getFirmName());
+    	Firm firm = firmRepository.findByName(body.getFirmName());
     	if (firm == null) {
     		return failure;
     	}

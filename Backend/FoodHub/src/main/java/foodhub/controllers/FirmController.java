@@ -74,7 +74,7 @@ public class FirmController {
     	return success;
     }
     
-    @PostMapping("edit-category")
+    @PostMapping("/edit-category")
     public String editCategory(@RequestBody CategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
@@ -127,7 +127,7 @@ public class FirmController {
     	return success;
     }
     
-    @PostMapping("remove-item")
+    @PostMapping("/remove-item")
     public String removeItem(@RequestBody ItemInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
@@ -144,7 +144,7 @@ public class FirmController {
     	return success;
     }
     
-    @PostMapping("edit-item")
+    @PostMapping("/edit-item")
     public String editItem(@RequestBody ItemInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
@@ -160,7 +160,7 @@ public class FirmController {
     	return success;
     }
     
-    @PostMapping("show-orders")
+    @PostMapping("/show-orders")
     public String showOrders(@RequestBody LoginInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
@@ -173,17 +173,6 @@ public class FirmController {
     			orderItems.add(i);
     		}
     	}
-    	String ordersString = "";
-    	int previousId = 0;
-    	for (OrderItems i : orderItems) {
-    		if (previousId == i.getOrderId()) {
-    			ordersString += ", Item: " + itemRepository.findById(i.getItemId()) + "Quantity: " + i.getQuantity()
-   			 + "Item Notes: " + i.getNotes();
-    		}else {
-    			ordersString += "\nOrder ID: " + i.getOrderId() + "Item: " + itemRepository.findById(i.getItemId()) + "Quantity: " 
-    					+ i.getQuantity() + "Item Notes: " + i.getNotes();
-    		}
-    	}
-    	return ordersString;
+    	return orderItems.toString();
     }
 }
