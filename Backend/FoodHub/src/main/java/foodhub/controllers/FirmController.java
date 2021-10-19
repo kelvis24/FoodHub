@@ -29,12 +29,6 @@ public class FirmController {
 	private String failure = "{\"message\":\"failure\"}";
 	private String errorUser = "{\"message\":\"user not defined/found\"}";
 
-    @GetMapping("/firms")
-    public List<Firm> listFirms() {
-    	return firmRepository.findAll();
-    }
-    //
-    /*
     @PostMapping(path = "/firms-create-categories")
     public String createFirm(@RequestBody CategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
@@ -53,7 +47,6 @@ public class FirmController {
     	categoryRepository.save(category);
     	return success;
     }
-    */
     
     @PostMapping("remove-category")
     public String removeCateogry(@RequestBody CategoryInput body) {
