@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import foodhub.database.*;
 import foodhub.ioObjects.CategoryInput;
-import foodhub.ioObjects.FirmInput;
 import foodhub.ioObjects.ItemInput;
 import foodhub.ioObjects.LoginInput;
 
