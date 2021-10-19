@@ -34,6 +34,8 @@ public class CompanyPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     //    setContentView(R.layout.activity_full_comapnypage_view);
 
+
+
         binding = ActivityFullComapnypageViewBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
