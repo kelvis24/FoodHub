@@ -108,6 +108,8 @@ public class AdminController {
     	return new Message("success");
     }
     
+    // TODO: deal with cascading effects of editing firms
+    
     @PostMapping("/admins-edit-firm")
     public Message editFirm(@RequestBody FirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
@@ -125,6 +127,8 @@ public class AdminController {
     	firmRepository.save(novel);
     	return new Message("success");
     }
+    
+    // TODO: deal with cascading effects of deleting firms
     
     @PostMapping("/admins-remove-firm")
     public Message removeFirm(@RequestBody RemoveUserInput body) {
