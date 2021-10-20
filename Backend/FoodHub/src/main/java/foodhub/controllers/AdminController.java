@@ -95,16 +95,18 @@ public class AdminController {
     @PostMapping("/admins-create-firm")
     public Message createFirm(@RequestBody FirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()))
-    		return failure;
-    	Firm firm = body.getData();
-    	if (firm == null)
-    		return failure;
+    	if (user == null)
+    		return new Message("error","wrong username");
+    	if (!user.getPassword().equals(body.getPassword()))
+    		return new Message("error","wrong password");
+    	if (body.getData() == null)
+    		return new Message("error","no data");
+    	Firm firm = new Firm(body.getData());
     	Firm sameUsername = firmRepository.findByUsername(firm.getUsername());
     	if (sameUsername != null)
-    		return failure;
+    		return new Message("error","username taken");
     	firmRepository.save(firm);
-    	return success;
+    	return new Message("success");
     }
     
     @PostMapping("/admind-edit-firm")
