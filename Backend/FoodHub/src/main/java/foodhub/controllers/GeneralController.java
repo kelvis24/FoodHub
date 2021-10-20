@@ -100,14 +100,14 @@ public class GeneralController {
     }
     
     @PostMapping("/general-add-customer")
-    public String createCustomer(@RequestBody Customer customer) {
+    public Message createCustomer(@RequestBody CustomerInfo customer) {
     	if (customer == null)
-    		return failure;
+    		return new Message("failure","no data");
     	Customer sameEmail = customerRepository.findByUsername(customer.getUsername());
     	if (sameEmail != null)
-    		return failure;
-    	customerRepository.save(customer);
-    	return success;
+    		return new Message("failure","username taken");
+    	customerRepository.save(new Customer(customer));
+    	return new Message("success");
     }
     
 }
