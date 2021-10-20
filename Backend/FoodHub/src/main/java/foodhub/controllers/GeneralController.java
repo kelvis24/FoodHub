@@ -16,8 +16,6 @@ import foodhub.ioObjects.*;
 @RestController
 public class GeneralController {
 	
-	// TODO: No methods here require authentication. Please Remove.
-	
 	@Autowired
 	AdminRepository adminRepository;
 	
@@ -33,21 +31,7 @@ public class GeneralController {
 	@Autowired
 	ItemRepository itemRepository;
 
-	private String success = "{\"message\":\"success\"}";
-	private String failure = "{\"message\":\"failure\"}";
-
-    @PostMapping("/general-add-customer")
-    public String createCustomer(@RequestBody Customer customer) {
-    	if (customer == null)
-    		return failure;
-    	Customer sameEmail = customerRepository.findByUsername(customer.getUsername());
-    	if (sameEmail != null)
-    		return failure;
-    	customerRepository.save(customer);
-    	return success;
-    }
-
-    @PostMapping("/general-get-firms")
+    @GetMapping("/general-get-firms")
     public List<FirmOutput> getFirms() {
     	List<FirmOutput> output = new ArrayList<FirmOutput>();
     	List<Firm> firms = firmRepository.findAll();
@@ -58,7 +42,7 @@ public class GeneralController {
     
     //List categories+items by firm methods below this point
     
-    @PostMapping(path = "/get-firm-categories")
+    @PostMapping(path = "/get-get-categories")
     public String getFirmCategories(@RequestBody FirmInput body) {
     	int goodUser = 0;
     	if (!(adminRepository.findByUsername(body.getUsername()) == null)) {
@@ -87,7 +71,7 @@ public class GeneralController {
     	return categories.toString();
     }
     
-    @PostMapping(path = "/get-firm-items")
+    @PostMapping(path = "/general-get-items")
     public String getFirmItems(@RequestBody FirmInput body) {
     	int goodUser = 0;
     	if (!(adminRepository.findByUsername(body.getUsername()) == null)) {
@@ -114,4 +98,16 @@ public class GeneralController {
     	List<Item> items = itemRepository.findByFirmId(firm.getId());
     	return items.toString();
     }
+    
+    @PostMapping("/general-add-customer")
+    public String createCustomer(@RequestBody Customer customer) {
+    	if (customer == null)
+    		return failure;
+    	Customer sameEmail = customerRepository.findByUsername(customer.getUsername());
+    	if (sameEmail != null)
+    		return failure;
+    	customerRepository.save(customer);
+    	return success;
+    }
+    
 }
