@@ -29,7 +29,7 @@ public class CustomerController {
 	private String failure = "{\"message\":\"failure\"}";
     
     @PostMapping("/customer-login")
-    public String loginCustomer(@RequestBody LoginInput body) {
+    public String loginCustomer(@RequestBody Authentication body) {
     	Customer customer = customerRepository.findByUsername(body.getUsername());
     	if (customer == null || !customer.getPassword().equals(body.getPassword()))
     		return failure; 
@@ -37,7 +37,7 @@ public class CustomerController {
     }
     
     @PostMapping("/customer-orders")
-    public String customerOrders(@RequestBody LoginInput body) {
+    public String customerOrders(@RequestBody Authentication body) {
     	Customer customer = customerRepository.findByUsername(body.getUsername());
     	if (customer == null || !customer.getPassword().equals(body.getPassword()))
     		return failure;

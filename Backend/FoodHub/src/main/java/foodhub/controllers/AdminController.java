@@ -1,9 +1,10 @@
 package foodhub.controllers;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,116 +20,130 @@ public class AdminController {
 	
 	@Autowired
 	FirmRepository firmRepository;
-	
-	@Autowired
-	CategoryRepository categoryRepository;
-	
-	@Autowired
-	ItemRepository itemRepository;
-
-	private String success = "{\"message\":\"success\"}";
-	private String failure = "{\"message\":\"failure\"}";
     
-	// TODO: NEEDS TO NOT RETURN PASSWORDS (CREATE AdminInfo class)
     @PostMapping(path = "/admins-get-admins")
-    public String getAdmins(@RequestBody LoginInput body) {
+    public List<AdminOutput> getAdmins(@RequestBody Authentication body) {
+    	List<AdminOutput> output = new ArrayList<AdminOutput>();
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
-    		return failure;
+    		return output;
     	List<Admin> admins = adminRepository.findAll();
-    	return admins.toString();
+    	Iterator<Admin> it = admins.iterator();
+    	while (it.hasNext()) {output.add(new AdminOutput(it.next()));}
+    	return output;
     }
     
-    @PostMapping("/create-admin")
-    public String createAdmin(@RequestBody AdminInput body) {
+    @PostMapping("/admins-create-admin")
+    public Message createAdmin(@RequestBody AdminInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
-    		return failure;
-    	Admin admin = body.getData();
-    	if (admin == null)
-    		return failure;
+    	if (user == null)
+    		return new Message("failure","wrong username");
+    	if (!user.getPassword().equals(body.getPassword()))
+    		return new Message("failure","wrong password");
+    	if (user.getType() != 1)
+    		return new Message("failure","wrong credentials");
+    	if (body.getData() == null)
+    		return new Message("failure","no data");
+    	Admin admin = new Admin(body.getData());
     	Admin sameUsername = adminRepository.findByUsername(admin.getUsername());
     	if (sameUsername != null)
-    		return failure;
-    	admin.setType(0);
+    		return new Message("failure","username taken");
     	adminRepository.save(admin);
-    	return success;
+    	return new Message("success");
+    }
+    
+    @PostMapping("/admins-edit-admin")
+    public Message editAdmin(@RequestBody AdminInput body) {
+    	Admin user = adminRepository.findByUsername(body.getUsername());
+    	if (user == null)
+    		return new Message("failure","wrong username");
+    	if (!user.getPassword().equals(body.getPassword()))
+    		return new Message("failure","wrong password");
+    	if (user.getType() != 1)
+    		return new Message("failure","wrong credentials");
+    	if (body.getData() == null)
+    		return new Message("failure","no data");
+    	Admin novel = new Admin(body.getData());
+    	Admin old = adminRepository.findByUsername(novel.getUsername());
+    	if (old == null)
+    		return new Message("failure","no such user");
+    	novel.setType(old.getType());
+    	adminRepository.deleteById(old.getId());
+    	adminRepository.save(novel);
+    	return new Message("success");
     }
     
     @PostMapping("admins-remove-admin")
-    public String removeAdmin(@RequestBody AdminInput body) {
-    	Admin owner = adminRepository.findByUsername(body.getUsername());
-    	if (owner == null || !owner.getPassword().equals(body.getPassword()) || owner.getType() != 1)
-    		return failure;
-    	Admin admin = adminRepository.findByUsername(body.getAdminUsername());
-    	if (admin == null) {
-    		return failure;
-    	}
+    public Message removeAdmin(@RequestBody RemoveUserInput body) {
+    	Admin user = adminRepository.findByUsername(body.getUsername());
+    	if (user == null)
+    		return new Message("failure","wrong username");
+    	if (!user.getPassword().equals(body.getPassword()))
+    		return new Message("failure","wrong password");
+    	if (user.getType() != 1)
+    		return new Message("failure","wrong credentials");
+    	if (body.getUser() == null)
+    		return new Message("failure","no data");
+    	Admin admin = adminRepository.findByUsername(body.getUser());
+    	if (admin == null)
+    		return new Message("failure","no such user");
     	adminRepository.deleteById(admin.getId());
-    	return success;
+    	return new Message("success");
     }
 
-    @PostMapping("/create-firm")
-    public String createFirm(@RequestBody FirmInput body) {
+    @PostMapping("/admins-create-firm")
+    public Message createFirm(@RequestBody FirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()))
-    		return failure;
-    	Firm firm = body.getData();
-    	if (firm == null)
-    		return failure;
+    	if (user == null)
+    		return new Message("failure","wrong username");
+    	if (!user.getPassword().equals(body.getPassword()))
+    		return new Message("failure","wrong password");
+    	if (body.getData() == null)
+    		return new Message("failure","no data");
+    	Firm firm = new Firm(body.getData());
     	Firm sameUsername = firmRepository.findByUsername(firm.getUsername());
     	if (sameUsername != null)
-    		return failure;
+    		return new Message("failure","username taken");
     	firmRepository.save(firm);
-    	return success;
+    	return new Message("success");
     }
     
-    @PostMapping(path = "/remove-firm")
-    public String removeFirm(@RequestBody FirmInput body) {
+    // TODO: deal with cascading effects of editing firms
+    
+    @PostMapping("/admins-edit-firm")
+    public Message editFirm(@RequestBody FirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()))
-    		return failure;
-    	Firm firm = firmRepository.findByName(body.getFirmName());
+    	if (user == null)
+    		return new Message("failure","wrong username");
+    	if (!user.getPassword().equals(body.getPassword()))
+    		return new Message("failure","wrong password");
+    	if (body.getData() == null)
+    		return new Message("failure","no data");
+    	Firm novel = new Firm(body.getData());
+    	Firm old = firmRepository.findByUsername(novel.getUsername());
+    	if (old == null)
+    		return new Message("failure","no such user");
+    	firmRepository.deleteById(old.getId());
+    	firmRepository.save(novel);
+    	return new Message("success");
+    }
+    
+    // TODO: deal with cascading effects of deleting firms
+    
+    @PostMapping("/admins-remove-firm")
+    public Message removeFirm(@RequestBody RemoveUserInput body) {
+    	Admin user = adminRepository.findByUsername(body.getUsername());
+    	if (user == null)
+    		return new Message("failure","wrong username");
+    	if (!user.getPassword().equals(body.getPassword()))
+    		return new Message("failure","wrong password");
+    	if (body.getUser() == null)
+    		return new Message("failure","no data");
+    	Firm firm = firmRepository.findByUsername(body.getUser());
     	if (firm == null)
-    		return failure;
+    		return new Message("failure","no such user");
     	firmRepository.deleteById(firm.getId());
-    	return success;
-    }
-
-    @PostMapping("/get-firms")
-    public String getFirms(@RequestBody LoginInput body) {
-    	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
-    		return failure;
-    	List<Firm> firms = firmRepository.findAll();
-    	return firms.toString();
+    	return new Message("success");
     }
     
-    @PostMapping("/edit-admin")
-    public String editAdmin(@RequestBody AdminInput body) {
-    	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
-    		return failure;
-    	user.setName(body.getData().getName());
-    	user.setType(body.getData().getType());
-    	return success;
-    }
-    
-    @PostMapping("/edit-firm")
-    public String editFirm(@RequestBody FirmInput body) {
-    	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()))
-    		return failure;
-    	Firm firm = firmRepository.findByName(body.getFirmName());
-    	if (firm == null) {
-    		return failure;
-    	}
-    	firm.setOpen_time(body.getData().getOpen_time());
-    	firm.setClose_time(body.getData().getClose_time());
-    	firm.setCuisine(body.getData().getCuisine());
-    	firm.setEmployee_count(body.getData().getEmployee_count());
-    	firm.setLocation(body.getData().getLocation());
-    	firm.setName(body.getData().getName());
-    	return success;
-    }
 }

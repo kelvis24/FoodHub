@@ -1,9 +1,10 @@
 package foodhub.ioObjects;
 
-public class FirmInfo {
+import foodhub.database.Firm;
+
+public class FirmOutput {
 
 	private String username;
-	private String password;
 	private String name;
 	private String location;
 	private String cuisine;
@@ -11,10 +12,19 @@ public class FirmInfo {
 	private int close_time;
 	private int employee_count;
 
-	public FirmInfo(String username, String password, String name, String location, String cuisine,
+	public FirmOutput(Firm f) {
+		this.name = f.getName();
+		this.username = f.getUsername();
+		this.location = f.getLocation();
+		this.cuisine = f.getCuisine();
+		this.open_time = f.getOpen_time();
+		this.close_time = f.getClose_time();
+		this.employee_count = f.getEmployee_count();
+	}
+
+	public FirmOutput(String name, String username, String location, String cuisine,
 					int open_time,   int close_time,  int employee_count) {
 		this.name = name;
-		this.password = password;
 		this.username = username;
 		this.location = location;
 		this.cuisine = cuisine;
@@ -23,7 +33,7 @@ public class FirmInfo {
 		this.employee_count = employee_count;
 	}
 	
-	public FirmInfo() {}
+	public FirmOutput() {}
 
 	public String getUsername() {
 		return username;
@@ -31,14 +41,6 @@ public class FirmInfo {
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getName() {

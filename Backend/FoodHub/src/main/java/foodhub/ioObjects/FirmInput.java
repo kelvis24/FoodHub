@@ -1,42 +1,24 @@
 package foodhub.ioObjects;
 
-import foodhub.database.Firm;
-
-public class FirmInput {
+public class FirmInput extends Authentication {
 	
-	private String username;
-	private String password;
-	private Firm data;
-	private String firmName;
+	private FirmInfo data;
 
-	public FirmInput(String username, String password, Firm data) {
-		this.username = username;
-		this.password = password;
+	public FirmInput(String username, String password, FirmInfo data) {
+		super(username, password);
 		this.data = data;
 	}
 	
-	public FirmInput(String username, String password, String firmName, Firm data) {
-		this.username = username;
-		this.password = password;
-		this.firmName = firmName;
-		this.data = data;
+	public FirmInput(String username, String password) {
+		super(username, password);
 	}
 	
-	public FirmInput() {}
-	
-	public String getUsername() {
-		return username;
+	public FirmInput() {
+		super();
 	}
 	
-	public String getPassword() {
-		return password;
-	}
-	
-	public Firm getData() {
+	public FirmInfo getData() {
 		return data;
 	}
 	
-	public String getFirmName() {
-		return firmName;
-	}
 }

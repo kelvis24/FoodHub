@@ -1,14 +1,13 @@
 package foodhub.database;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-// import com.fasterxml.jackson.annotation.JsonIgnore;
+import foodhub.ioObjects.FirmInfo;
 
 @Entity
 @Table(name="firms")
@@ -34,7 +33,18 @@ public class Firm {
 	@Column(nullable = false)
 	private int employee_count;
 
-	public Firm(String name, String username, String password, String location,
+	public Firm(FirmInfo firm) {
+		this.username = firm.getUsername();
+		this.password = firm.getPassword();
+		this.name = firm.getName();
+		this.location = firm.getLocation();
+		this.cuisine = firm.getCuisine();
+		this.open_time = firm.getOpen_time();
+		this.close_time = firm.getClose_time();
+		this.employee_count = firm.getEmployee_count();
+	}
+	
+	public Firm(String username, String password, String name, String location,
 				String cuisine, int open_time,   int close_time,  int employee_count) {
 		this.name = name;
 		this.username = username;
@@ -119,11 +129,5 @@ public class Firm {
 	public void setEmployee_count(int employee_count) {
 		this.employee_count = employee_count;
 	}
-
-	@Override
-	public String toString() {
-		return "Firm [id=" + id + ", username=" + username + ", name=" + name + ", location=" + location + ", cuisine="
-				+ cuisine + ", open_time=" + open_time + ", close_time=" + close_time + ", employee_count="
-				+ employee_count + "]";
-	}
+	
 }
