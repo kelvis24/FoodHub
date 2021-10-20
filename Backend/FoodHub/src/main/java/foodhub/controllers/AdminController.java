@@ -59,6 +59,27 @@ public class AdminController {
     	return new Message("success");
     }
     
+    @PostMapping("/edit-admin")
+    public Message editAdmin(@RequestBody AdminInput body) {
+    	Admin user = adminRepository.findByUsername(body.getUsername());
+    	if (user == null)
+    		return new Message("error","wrong username");
+    	if (!user.getPassword().equals(body.getPassword()))
+    		return new Message("error","wrong password");
+    	if (user.getType() != 1)
+    		return new Message("error","wrong credentials");
+    	if (body.getData() == null)
+    		return new Message("error","no data");
+    	Admin novel = new Admin(body.getData());
+    	Admin old = adminRepository.findByUsername(novel.getUsername());
+    	if (old == null)
+    		return new Message("error","no such user");
+    	novel.setType(old.getType());
+    	adminRepository.deleteById(old.getId());
+    	adminRepository.save(novel);
+    	return new Message("success");
+    }
+    
     @PostMapping("admins-remove-admin")
     public Message removeAdmin(@RequestBody RemoveUserInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
@@ -111,16 +132,6 @@ public class AdminController {
     		return failure;
     	List<Firm> firms = firmRepository.findAll();
     	return firms.toString();
-    }
-    
-    @PostMapping("/edit-admin")
-    public String editAdmin(@RequestBody AdminInput body) {
-    	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
-    		return failure;
-    	user.setName(body.getData().getName());
-    	user.setType(body.getData().getType());
-    	return success;
     }
     
     @PostMapping("/edit-firm")
