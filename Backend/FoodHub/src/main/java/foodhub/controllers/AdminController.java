@@ -21,12 +21,6 @@ public class AdminController {
 	
 	@Autowired
 	FirmRepository firmRepository;
-	
-	@Autowired
-	CategoryRepository categoryRepository;
-	
-	@Autowired
-	ItemRepository itemRepository;
     
     @PostMapping(path = "/admins-get-admins")
     public List<AdminOutput> getAdmins(@RequestBody Authentication body) {
@@ -40,7 +34,7 @@ public class AdminController {
     	return output;
     }
     
-    @PostMapping("/create-admin")
+    @PostMapping("/admins-create-admin")
     public Message createAdmin(@RequestBody AdminInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null)
@@ -59,7 +53,7 @@ public class AdminController {
     	return new Message("success");
     }
     
-    @PostMapping("/edit-admin")
+    @PostMapping("/admins-edit-admin")
     public Message editAdmin(@RequestBody AdminInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null)
@@ -98,7 +92,16 @@ public class AdminController {
     	return new Message("success");
     }
 
-    @PostMapping("/create-firm")
+    @PostMapping("/admins-get-firms")
+    public String getFirms(@RequestBody Authentication body) {
+    	Admin user = adminRepository.findByUsername(body.getUsername());
+    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
+    		return failure;
+    	List<Firm> firms = firmRepository.findAll();
+    	return firms.toString();
+    }
+
+    @PostMapping("/admins-create-firm")
     public String createFirm(@RequestBody FirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null || !user.getPassword().equals(body.getPassword()))
@@ -113,7 +116,7 @@ public class AdminController {
     	return success;
     }
     
-    @PostMapping(path = "/remove-firm")
+    @PostMapping("/admins-remove-firm")
     public String removeFirm(@RequestBody FirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null || !user.getPassword().equals(body.getPassword()))
@@ -124,17 +127,8 @@ public class AdminController {
     	firmRepository.deleteById(firm.getId());
     	return success;
     }
-
-    @PostMapping("/get-firms")
-    public String getFirms(@RequestBody Authentication body) {
-    	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
-    		return failure;
-    	List<Firm> firms = firmRepository.findAll();
-    	return firms.toString();
-    }
     
-    @PostMapping("/edit-firm")
+    @PostMapping("/admind-edit-firm")
     public String editFirm(@RequestBody FirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null || !user.getPassword().equals(body.getPassword()))
