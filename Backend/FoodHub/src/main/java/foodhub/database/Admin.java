@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import foodhub.ioObjects.AdminInfo;
+
 @Entity
 @Table(name="admins")
 public class Admin {
@@ -22,6 +24,13 @@ public class Admin {
 	private String name;
 	@Column(nullable = false)
 	private int type; // 0 => Admin; 1 => Owner
+	
+	public Admin(AdminInfo admin) {
+		this.username = admin.getUsername();
+		this.password = admin.getPassword();
+		this.name = admin.getName();
+		this.type = 0;
+	}
 	
 	public Admin(String name, String username, String password, int type) {
 		this.username = username;
@@ -68,7 +77,7 @@ public class Admin {
 		return type;
 	}
 	
-	public void setType(int  type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 

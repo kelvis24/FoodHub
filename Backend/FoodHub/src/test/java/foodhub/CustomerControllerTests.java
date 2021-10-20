@@ -22,7 +22,7 @@ import foodhub.database.CustomerRepository;
 import foodhub.controllers.CustomerController;
 import foodhub.controllers.DebugController;
 import foodhub.controllers.GeneralController;
-import foodhub.ioObjects.LoginInput;
+import foodhub.ioObjects.Authentication;
 
 @SpringBootTest
 public class CustomerControllerTests {
@@ -160,7 +160,7 @@ public class CustomerControllerTests {
 	public void loginCustomerTest0() {
 		String response;
 		Customer c1 = new Customer("Andrew","andrew@gmail.com","andrew123","andrew blv");
-		LoginInput b1 = new LoginInput(c1.getUsername(), c1.getPassword());
+		Authentication b1 = new Authentication(c1.getUsername(), c1.getPassword());
 		response = cc.loginCustomer(b1);
 		assertEquals(failure, response);
 		verify(customerRepository, times(0)).save((Customer)any(Customer.class));
@@ -172,7 +172,7 @@ public class CustomerControllerTests {
 	public void loginCustomerTest1() {
 		String response;
 		Customer c1 = new Customer("Andrew","andrew@gmail.com","andrew123","andrew blv");
-		LoginInput b1 = new LoginInput(c1.getUsername(), c1.getPassword());
+		Authentication b1 = new Authentication(c1.getUsername(), c1.getPassword());
 		response = gc.createCustomer(c1);
 		assertEquals(success, response);
 		response = cc.loginCustomer(b1);
@@ -185,9 +185,9 @@ public class CustomerControllerTests {
 	public void loginCustomerTest2() {
 		String response;
 		Customer c1 = new Customer("Andrew","andrew@gmail.com","andrew123","andrew blv");
-		LoginInput b1 = new LoginInput(c1.getUsername(), c1.getPassword());
-		LoginInput b2 = new LoginInput("Andyeet",        c1.getPassword());
-		LoginInput b3 = new LoginInput(c1.getUsername(), "Yeeticus The Yeety");
+		Authentication b1 = new Authentication(c1.getUsername(), c1.getPassword());
+		Authentication b2 = new Authentication("Andyeet",        c1.getPassword());
+		Authentication b3 = new Authentication(c1.getUsername(), "Yeeticus The Yeety");
 		response = gc.createCustomer(c1);
 		assertEquals(success, response);
 		response = gc.createCustomer(c1);
@@ -219,13 +219,13 @@ public class CustomerControllerTests {
 		Customer c2 = new Customer("John","john@gmail.com","john123","john st");
 		Customer c3 = new Customer("Marry","marry@gmail.com","mary123","marry dr");
 		Customer c4 = new Customer("John II","john@gmail.com","john456","john court");
-		LoginInput b1 = new LoginInput(c1.getUsername(), c1.getPassword());
-		LoginInput b2 = new LoginInput(c2.getUsername(), c2.getPassword());
-		LoginInput b3 = new LoginInput(c3.getUsername(), c3.getPassword());
-		LoginInput b4 = new LoginInput(c4.getUsername(), c4.getPassword());
-		LoginInput f1 = new LoginInput("Yeeticus", "The Yeety");
-		LoginInput f2 = new LoginInput("Yeetus", "Skeetus");
-		LoginInput f3 = new LoginInput("Yeetus", "Maximus");
+		Authentication b1 = new Authentication(c1.getUsername(), c1.getPassword());
+		Authentication b2 = new Authentication(c2.getUsername(), c2.getPassword());
+		Authentication b3 = new Authentication(c3.getUsername(), c3.getPassword());
+		Authentication b4 = new Authentication(c4.getUsername(), c4.getPassword());
+		Authentication f1 = new Authentication("Yeeticus", "The Yeety");
+		Authentication f2 = new Authentication("Yeetus", "Skeetus");
+		Authentication f3 = new Authentication("Yeetus", "Maximus");
 		response = gc.createCustomer(c1);
 		assertEquals(success, response);
 		response = gc.createCustomer(c2);

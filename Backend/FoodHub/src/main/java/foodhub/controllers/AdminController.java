@@ -1,5 +1,7 @@
 package foodhub.controllers;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,34 +27,36 @@ public class AdminController {
 	
 	@Autowired
 	ItemRepository itemRepository;
-
-	private String success = "{\"message\":\"success\"}";
-	private String failure = "{\"message\":\"failure\"}";
     
-	// TODO: NEEDS TO NOT RETURN PASSWORDS (CREATE AdminInfo class)
     @PostMapping(path = "/admins-get-admins")
-    public String getAdmins(@RequestBody LoginInput body) {
+    public List<AdminOutput> getAdmins(@RequestBody Authentication body) {
+    	List<AdminOutput> output = new ArrayList<AdminOutput>();
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
-    		return failure;
+    		return output;
     	List<Admin> admins = adminRepository.findAll();
-    	return admins.toString();
+    	Iterator<Admin> it = admins.iterator();
+    	while (it.hasNext()) {output.add(new AdminOutput(it.next()));}
+    	return output;
     }
     
     @PostMapping("/create-admin")
-    public String createAdmin(@RequestBody AdminInput body) {
+    public Message createAdmin(@RequestBody AdminInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
-    		return failure;
-    	Admin admin = body.getData();
-    	if (admin == null)
-    		return failure;
+    	if (user == null)
+    		return new Message("error","wrong username");
+    	if (!user.getPassword().equals(body.getPassword()))
+    		return new Message("error","wrong password");
+    	if (user.getType() != 1)
+    		return new Message("error","wrong credentials");
+    	if (body.getData() == null)
+    		return new Message("error","no data");
+    	Admin admin = new Admin(body.getData());
     	Admin sameUsername = adminRepository.findByUsername(admin.getUsername());
     	if (sameUsername != null)
-    		return failure;
-    	admin.setType(0);
+    		return new Message("error","username taken");
     	adminRepository.save(admin);
-    	return success;
+    	return new Message("success");
     }
     
     @PostMapping("admins-remove-admin")
@@ -96,7 +100,7 @@ public class AdminController {
     }
 
     @PostMapping("/get-firms")
-    public String getFirms(@RequestBody LoginInput body) {
+    public String getFirms(@RequestBody Authentication body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
     		return failure;

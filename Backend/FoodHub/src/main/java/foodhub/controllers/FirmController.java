@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import foodhub.database.*;
 import foodhub.ioObjects.CategoryInput;
 import foodhub.ioObjects.ItemInput;
-import foodhub.ioObjects.LoginInput;
+import foodhub.ioObjects.Authentication;
 
 @RestController
 public class FirmController {
@@ -156,7 +156,7 @@ public class FirmController {
     }
     
     @PostMapping("/show-orders")
-    public String showOrders(@RequestBody LoginInput body) {
+    public String showOrders(@RequestBody Authentication body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
     		return errorUser;

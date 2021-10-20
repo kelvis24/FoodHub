@@ -1,41 +1,23 @@
 package foodhub.ioObjects;
 
-import foodhub.database.Admin;
-
-public class AdminInput {
+public class AdminInput extends Authentication {
 	
-	private String username;
-	private String password;
-	private Admin data;
-	private String adminUsername;
+	private AdminInfo data;
 
-	public AdminInput(String username, String password, Admin data) {
-		this.username = username;
-		this.password = password;
+	public AdminInput(String username, String password, AdminInfo data) {
+		super(username, password);
 		this.data = data;
 	}
 	
-	public AdminInput(String username, String password, String adminUsername) {
-		this.username = username;
-		this.password = password;
-		this.adminUsername = adminUsername;
+	public AdminInput(String username, String password) {
+		super(username, password);
 	}
 	
-	public AdminInput() {}
-	
-	public String getUsername() {
-		return username;
+	public AdminInput() {
+		super();
 	}
 	
-	public String getPassword() {
-		return password;
-	}
-	
-	public Admin getData() {
+	public AdminInfo getData() {
 		return data;
-	}
-	
-	public String getAdminUsername() {
-		return adminUsername;
 	}
 }

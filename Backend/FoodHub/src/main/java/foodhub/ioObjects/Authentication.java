@@ -1,16 +1,16 @@
 package foodhub.ioObjects;
 
-public class LoginInput {
+public class Authentication {
 	
-	private String username;
-	private String password;
+	protected String username;
+	protected String password;
 
-	public LoginInput(String username, String password) {
+	public Authentication(String username, String password) {
 		this.username = username;
 		this.password = password;
 	}
 	
-	public LoginInput() {}
+	public Authentication() {}
 	
 	public String getUsername() {
 		return username;
