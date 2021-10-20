@@ -16,8 +16,6 @@ import foodhub.ioObjects.*;
 @RestController
 public class GeneralController {
 	
-	// TODO: No methods here require authentication. Please Remove.
-	
 	@Autowired
 	AdminRepository adminRepository;
 	
@@ -33,21 +31,7 @@ public class GeneralController {
 	@Autowired
 	ItemRepository itemRepository;
 
-	private String success = "{\"message\":\"success\"}";
-	private String failure = "{\"message\":\"failure\"}";
-
-    @PostMapping("/general-add-customer")
-    public String createCustomer(@RequestBody Customer customer) {
-    	if (customer == null)
-    		return failure;
-    	Customer sameEmail = customerRepository.findByUsername(customer.getUsername());
-    	if (sameEmail != null)
-    		return failure;
-    	customerRepository.save(customer);
-    	return success;
-    }
-
-    @PostMapping("/general-get-firms")
+    @GetMapping("/general-get-firms")
     public List<FirmOutput> getFirms() {
     	List<FirmOutput> output = new ArrayList<FirmOutput>();
     	List<Firm> firms = firmRepository.findAll();
@@ -56,62 +40,43 @@ public class GeneralController {
     	return output;
     }
     
-    //List categories+items by firm methods below this point
-    
-    @PostMapping(path = "/get-firm-categories")
-    public String getFirmCategories(@RequestBody FirmInput body) {
-    	int goodUser = 0;
-    	if (!(adminRepository.findByUsername(body.getUsername()) == null)) {
-    		Admin user = adminRepository.findByUsername(body.getUsername());
-        	if (user == null || !user.getPassword().equals(body.getPassword()))
-        		return failure;
-    		goodUser = 1;
-    
-    	}else if (!(firmRepository.findByUsername(body.getUsername()) == null)) {
-    		Firm user = firmRepository.findByUsername(body.getUsername());
-        	if (user == null || !user.getPassword().equals(body.getPassword()))
-        		return failure;
-    		goodUser = 2;
-    	}else if (!(customerRepository.findByUsername(body.getUsername()) == null)) {
-    		Customer user = customerRepository.findByUsername(body.getUsername());
-        	if (user == null || !user.getPassword().equals(body.getPassword()))
-        		return failure;
-    		goodUser = 3;
-    	}
-    	//username not found in any database
-    	if (goodUser == 0) {
-    		return failure;
-    	}
-    	Firm firm = firmRepository.findByUsername(body.getData().getUsername());
+    @PostMapping("/general-get-categories")
+    public List<CategoryInfo> getCategories(@RequestBody Username body) {
+    	List<CategoryInfo> output = new ArrayList<CategoryInfo>();
+    	Firm firm = firmRepository.findByUsername(body.getUsername());
+    	if (firm == null)
+    		return output;
     	List<Category> categories = categoryRepository.findByFirmId(firm.getId());
-    	return categories.toString();
+    	Iterator<Category> it = categories.iterator();
+    	while (it.hasNext()) {output.add(new CategoryInfo(it.next()));}
+    	return output;
     }
     
-    @PostMapping(path = "/get-firm-items")
-    public String getFirmItems(@RequestBody FirmInput body) {
-    	int goodUser = 0;
-    	if (!(adminRepository.findByUsername(body.getUsername()) == null)) {
-    		Admin user = adminRepository.findByUsername(body.getUsername());
-        	if (user == null || !user.getPassword().equals(body.getPassword()))
-        		return failure;
-    		goodUser = 1;
-    	}else if (!(firmRepository.findByUsername(body.getUsername()) == null)) {
-    		Firm user = firmRepository.findByUsername(body.getUsername());
-        	if (user == null || !user.getPassword().equals(body.getPassword()))
-        		return failure;
-    		goodUser = 2;
-    	}else if (!(customerRepository.findByUsername(body.getUsername()) == null)) {
-    		Customer user = customerRepository.findByUsername(body.getUsername());
-        	if (user == null || !user.getPassword().equals(body.getPassword()))
-        		return failure;
-    		goodUser = 3;
-    	}
-    	//username not found in any database
-    	if (goodUser == 0) {
-    		return failure;
-    	}
-    	Firm firm = firmRepository.findByUsername(body.getData().getUsername());
-    	List<Item> items = itemRepository.findByFirmId(firm.getId());
-    	return items.toString();
+    @PostMapping("/general-get-items")
+    public List<ItemInfo> getItems(@RequestBody FirmCategory body) {
+    	List<ItemInfo> output = new ArrayList<ItemInfo>();
+    	Firm firm = firmRepository.findByUsername(body.getUsername());
+    	if (firm == null)
+    		return output;
+    	List<Category> categories = categoryRepository.findByFirmId(firm.getId());
+    	Category category = (Category)Entitled.findByTitle(categories, body.getTitle());
+    	if (category == null)
+    		return output;
+    	List<Item> items = itemRepository.findByCategoryId(category.getId());
+    	Iterator<Item> it = items.iterator();
+    	while (it.hasNext()) {output.add(new ItemInfo(it.next()));}
+    	return output;
     }
+    
+    @PostMapping("/general-add-customer")
+    public Message createCustomer(@RequestBody CustomerInfo customer) {
+    	if (customer == null)
+    		return new Message("failure","no data");
+    	Customer sameEmail = customerRepository.findByUsername(customer.getUsername());
+    	if (sameEmail != null)
+    		return new Message("failure","username taken");
+    	customerRepository.save(new Customer(customer));
+    	return new Message("success");
+    }
+    
 }

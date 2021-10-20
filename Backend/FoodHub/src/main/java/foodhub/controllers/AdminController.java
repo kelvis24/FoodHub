@@ -20,8 +20,20 @@ public class AdminController {
 	
 	@Autowired
 	FirmRepository firmRepository;
+	
+	@PostMapping("/admins-authenticate")
+	public Message authenticateAdmin(@RequestBody Authentication body) {
+    	Admin user = adminRepository.findByUsername(body.getUsername());
+    	if (user == null)
+    		return new Message("failure","wrong username");
+    	if (!user.getPassword().equals(body.getPassword()))
+    		return new Message("failure","wrong password");
+    	if (user.getType() != 1)
+    		return new Message("failure","wrong credentials");
+    	return new Message(user.getType() == 0 ? "admin" : "owner");
+	}
     
-    @PostMapping(path = "/admins-get-admins")
+    @PostMapping("/admins-get-admins")
     public List<AdminOutput> getAdmins(@RequestBody Authentication body) {
     	List<AdminOutput> output = new ArrayList<AdminOutput>();
     	Admin user = adminRepository.findByUsername(body.getUsername());

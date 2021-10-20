@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import foodhub.ioObjects.CustomerInfo;
+
 @Entity
 @Table(name="customers")
 public class Customer {
@@ -23,18 +25,17 @@ public class Customer {
 	@Column(nullable = false, length = 100)
 	private String location;
 	
-	public Customer(int id, String name, String username, String password, String location) {
-		this.id = id;
-		this.name = name;
-		this.username = username;
-		this.password = password;
-		this.location = location;
+	public Customer(CustomerInfo customer) {
+		this.username = customer.getUsername();
+		this.password = customer.getPassword();
+		this.name = customer.getName();
+		this.location = customer.getLocation();
 	}
 	
-	public Customer(String name, String username, String password, String location) {
-		this.name = name;
+	public Customer(String username, String password, String name, String location) {
 		this.username = username;
 		this.password = password;
+		this.name = name;
 		this.location = location;
 	}
 	

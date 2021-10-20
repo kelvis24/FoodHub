@@ -11,5 +11,5 @@ public interface FirmRepository extends JpaRepository<Firm, Long> {
 	Firm findById(long id);
 	Firm findByUsername(String username);
 	
-	void deleteById(int id);
+	void deleteById(long id);
 }

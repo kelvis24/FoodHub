@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,7 +60,7 @@ public class FirmController {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
     		return errorUser;
-    	Category category = categoryRepository.findByTitle(body.getCategoryTitle());
+    	Category category = categoryRepository.findById(0);
     	if (category == null) {
     		return failure;
     	}
@@ -74,7 +73,7 @@ public class FirmController {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
     		return errorUser;
-    	Category category = categoryRepository.findByTitle(body.getCategory().getTitle());
+    	Category category = categoryRepository.findById(0);
     	if (category == null) {
     		return failure;
     	}
@@ -127,11 +126,11 @@ public class FirmController {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
     		return errorUser;
-    	Category category = categoryRepository.findByTitle(body.getCategory());
+    	Category category = categoryRepository.findById(0);
     	if (category == null) {
     		return failure;
     	}
-    	Item item = itemRepository.findByTitle(body.getItemTitle());
+    	Item item = itemRepository.findById(0);
     	if (item == null) {
     		return failure;
     	}
@@ -144,7 +143,7 @@ public class FirmController {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
     		return errorUser;
-    	Item item = itemRepository.findByTitle(body.getItem().getTitle());
+    	Item item = itemRepository.findById(0);
     	if (item == null) {
     		return failure;
     	}

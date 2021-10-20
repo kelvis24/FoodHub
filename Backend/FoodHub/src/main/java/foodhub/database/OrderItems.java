@@ -10,6 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="Order_Items")
 public class OrderItems {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
@@ -70,10 +71,5 @@ public class OrderItems {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
-
-	@Override
-	public String toString() {
-		return "OrderItems [id=" + id + ", orderId=" + orderId + ", itemId=" + itemId + ", quantity=" + quantity
-				+ ", notes=" + notes + "]";
-	}
+	
 }

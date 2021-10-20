@@ -1,15 +1,15 @@
 package foodhub.database;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
-@Repository
+import org.springframework.data.jpa.repository.JpaRepository;
+
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 	
-	Customer findById(int id);
+	List<Customer> findAll();
+	
+	Customer findById(long id);
 	Customer findByUsername(String username);
 	
-	@Transactional
-	void deleteById(int id);
+	void deleteById(long id);
 }

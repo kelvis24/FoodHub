@@ -29,23 +29,22 @@ public class CustomerRepositoryTests {
 
 	@Test
 	public void getCustomerByIdTest() {
-		when(customerRepository.findById(1)).thenReturn(new Customer(1, "Jon1", "Jon2", "Jon3", "Jon4"));
+		when(customerRepository.findById(1)).thenReturn(new Customer("Jon1", "Jon2", "Jon3", "Jon4"));
 
 		Customer customer = customerRepository.findById(1);
 
-		assertEquals(1, customer.getId());
-		assertEquals("Jon1", customer.getName());
-		assertEquals("Jon2", customer.getUsername());
-		assertEquals("Jon3", customer.getPassword());
+		assertEquals("Jon1", customer.getUsername());
+		assertEquals("Jon2", customer.getPassword());
+		assertEquals("Jon3", customer.getName());
 		assertEquals("Jon4", customer.getLocation());
 	}
 
 	@Test
 	public void getAllAccountTest() {
 		List<Customer> list = new ArrayList<Customer>();
-		Customer c1 = new Customer(1, "John", "1234", "john@gmail.com", "John Drive");
-		Customer c2 = new Customer(2, "Alex", "abcd", "alex@yahoo.com", "John Avenue");
-		Customer c3 = new Customer(3, "Steve", "efgh", "steve@gmail.com", "John Court");
+		Customer c1 = new Customer("John", "1234", "john@gmail.com", "John Drive");
+		Customer c2 = new Customer("Alex", "abcd", "alex@yahoo.com", "John Avenue");
+		Customer c3 = new Customer("Steve", "efgh", "steve@gmail.com", "John Court");
 
 		list.add(c1);
 		list.add(c2);

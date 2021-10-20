@@ -1,19 +1,20 @@
 package foodhub.ioObjects;
 
-public class Authentication {
+public class Authentication extends Username {
 	
-	protected String username;
 	protected String password;
 
 	public Authentication(String username, String password) {
-		this.username = username;
+		super(username);
 		this.password = password;
 	}
 	
-	public Authentication() {}
+	public Authentication() {
+		super();
+	}
 	
-	public String getUsername() {
-		return username;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 	public String getPassword() {
