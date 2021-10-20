@@ -32,12 +32,8 @@ public class FirmController {
 	@Autowired
 	OrderItemsRepository orderItemsRepository;
 
-	private String success = "{\"message\":\"success\"}";
-	private String failure = "{\"message\":\"failure\"}";
-	private String errorUser = "{\"message\":\"user not defined/found\"}";
-
-    @PostMapping(path = "/firms-create-categories")
-    public String createFirm(@RequestBody CategoryInput body) {
+    @PostMapping(path = "/firms-create-category")
+    public Message createCategory(@RequestBody CategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
     		return errorUser;
@@ -55,21 +51,8 @@ public class FirmController {
     	return success;
     }
     
-    @PostMapping("remove-category")
-    public String removeCateogry(@RequestBody CategoryInput body) {
-    	Firm firm = firmRepository.findByUsername(body.getUsername());
-    	if (firm == null || !firm.getPassword().equals(body.getPassword()))
-    		return errorUser;
-    	Category category = categoryRepository.findById(0);
-    	if (category == null) {
-    		return failure;
-    	}
-    	categoryRepository.deleteById(category.getId());
-    	return success;
-    }
-    
     @PostMapping("/edit-category")
-    public String editCategory(@RequestBody CategoryInput body) {
+    public Message editCategory(@RequestBody CategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
     		return errorUser;
@@ -82,15 +65,22 @@ public class FirmController {
     	return success;
     }
     
-    //Work on
-    @PostMapping("/categories")
-    public List<Category> listCategories(Model model) {
-    	return categoryRepository.findAll();
+    @PostMapping("/firms-remove-category")
+    public Message removeCateogry(@RequestBody CategoryInput body) {
+    	Firm firm = firmRepository.findByUsername(body.getUsername());
+    	if (firm == null || !firm.getPassword().equals(body.getPassword()))
+    		return errorUser;
+    	Category category = categoryRepository.findById(0);
+    	if (category == null) {
+    		return failure;
+    	}
+    	categoryRepository.deleteById(category.getId());
+    	return success;
     }
 
     //Add item
-    @PostMapping("/create-item")
-    public String createItem(@RequestBody ItemInput body) {
+    @PostMapping("/firms-create-item")
+    public Message createItem(@RequestBody ItemInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
     		return errorUser;
@@ -121,8 +111,24 @@ public class FirmController {
     	return success;
     }
     
-    @PostMapping("/remove-item")
-    public String removeItem(@RequestBody ItemInput body) {
+    @PostMapping("/firms-edit-item")
+    public Message editItem(@RequestBody ItemInput body) {
+    	Firm firm = firmRepository.findByUsername(body.getUsername());
+    	if (firm == null || !firm.getPassword().equals(body.getPassword()))
+    		return errorUser;
+    	Item item = itemRepository.findById(0);
+    	if (item == null) {
+    		return failure;
+    	}
+    	item.setTitle(body.getNewItem().getTitle());
+    	item.setDescription(body.getNewItem().getDescription());
+    	item.setPrice(body.getNewItem().getPrice());
+    	
+    	return success;
+    }
+    
+    @PostMapping("/firms-remove-item")
+    public Message removeItem(@RequestBody ItemInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
     		return errorUser;
@@ -138,24 +144,8 @@ public class FirmController {
     	return success;
     }
     
-    @PostMapping("/edit-item")
-    public String editItem(@RequestBody ItemInput body) {
-    	Firm firm = firmRepository.findByUsername(body.getUsername());
-    	if (firm == null || !firm.getPassword().equals(body.getPassword()))
-    		return errorUser;
-    	Item item = itemRepository.findById(0);
-    	if (item == null) {
-    		return failure;
-    	}
-    	item.setTitle(body.getNewItem().getTitle());
-    	item.setDescription(body.getNewItem().getDescription());
-    	item.setPrice(body.getNewItem().getPrice());
-    	
-    	return success;
-    }
-    
-    @PostMapping("/show-orders")
-    public String showOrders(@RequestBody Authentication body) {
+    @PostMapping("/firms-get-orders")
+    public List<OrderInfo> showOrders(@RequestBody Authentication body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
     		return errorUser;
