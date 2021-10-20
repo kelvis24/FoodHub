@@ -92,18 +92,6 @@ public class AdminController {
     	return new Message("success");
     }
 
-    @PostMapping("/admins-get-firms")
-    public List<FirmOutput> getFirms(@RequestBody Authentication body) {
-    	List<FirmOutput> output = new ArrayList<FirmOutput>();
-    	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()))
-    		return output;
-    	List<Firm> firms = firmRepository.findAll();
-    	Iterator<Firm> it = firms.iterator();
-    	while (it.hasNext()) {output.add(new FirmOutput(it.next()));}
-    	return output;
-    }
-
     @PostMapping("/admins-create-firm")
     public Message createFirm(@RequestBody FirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
@@ -116,18 +104,6 @@ public class AdminController {
     	if (sameUsername != null)
     		return failure;
     	firmRepository.save(firm);
-    	return success;
-    }
-    
-    @PostMapping("/admins-remove-firm")
-    public Message removeFirm(@RequestBody FirmInput body) {
-    	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()))
-    		return failure;
-    	Firm firm = firmRepository.findByName(body.getFirmName());
-    	if (firm == null)
-    		return failure;
-    	firmRepository.deleteById(firm.getId());
     	return success;
     }
     
@@ -148,4 +124,17 @@ public class AdminController {
     	firm.setName(body.getData().getName());
     	return success;
     }
+    
+    @PostMapping("/admins-remove-firm")
+    public Message removeFirm(@RequestBody FirmInput body) {
+    	Admin user = adminRepository.findByUsername(body.getUsername());
+    	if (user == null || !user.getPassword().equals(body.getPassword()))
+    		return failure;
+    	Firm firm = firmRepository.findByName(body.getFirmName());
+    	if (firm == null)
+    		return failure;
+    	firmRepository.deleteById(firm.getId());
+    	return success;
+    }
+    
 }

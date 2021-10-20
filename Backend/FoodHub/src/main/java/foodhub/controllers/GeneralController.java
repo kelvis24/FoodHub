@@ -47,15 +47,13 @@ public class GeneralController {
     	return success;
     }
 
-    @GetMapping(path = "/general-get-firms")
-    public List<FirmInfo> getFirms() {
-    	ArrayList<FirmInfo> fi = new ArrayList<FirmInfo>();
-    	List<Firm> fl = firmRepository.findAll();
-    	Iterator<Firm> it = fl.iterator();
-    	while (it.hasNext()) {
-    		fi.add(new FirmInfo(it.next()));
-    	}
-    	return fi;
+    @PostMapping("/general-get-firms")
+    public List<FirmOutput> getFirms() {
+    	List<FirmOutput> output = new ArrayList<FirmOutput>();
+    	List<Firm> firms = firmRepository.findAll();
+    	Iterator<Firm> it = firms.iterator();
+    	while (it.hasNext()) {output.add(new FirmOutput(it.next()));}
+    	return output;
     }
     
     //List categories+items by firm methods below this point
@@ -84,7 +82,7 @@ public class GeneralController {
     	if (goodUser == 0) {
     		return failure;
     	}
-    	Firm firm = firmRepository.findByName(body.getFirmName());
+    	Firm firm = firmRepository.findByName(body.getData().getUsername());
     	List<Category> categories = categoryRepository.findByFirmId(firm.getId());
     	return categories.toString();
     }
@@ -112,7 +110,7 @@ public class GeneralController {
     	if (goodUser == 0) {
     		return failure;
     	}
-    	Firm firm = firmRepository.findByName(body.getFirmName());
+    	Firm firm = firmRepository.findByName(body.getData().getUsername());
     	List<Item> items = itemRepository.findByFirmId(firm.getId());
     	return items.toString();
     }
