@@ -60,16 +60,21 @@ public class AdminController {
     }
     
     @PostMapping("admins-remove-admin")
-    public String removeAdmin(@RequestBody AdminInput body) {
-    	Admin owner = adminRepository.findByUsername(body.getUsername());
-    	if (owner == null || !owner.getPassword().equals(body.getPassword()) || owner.getType() != 1)
-    		return failure;
-    	Admin admin = adminRepository.findByUsername(body.getAdminUsername());
-    	if (admin == null) {
-    		return failure;
-    	}
+    public Message removeAdmin(@RequestBody RemoveUserInput body) {
+    	Admin user = adminRepository.findByUsername(body.getUsername());
+    	if (user == null)
+    		return new Message("error","wrong username");
+    	if (!user.getPassword().equals(body.getPassword()))
+    		return new Message("error","wrong password");
+    	if (user.getType() != 1)
+    		return new Message("error","wrong credentials");
+    	if (body.getUser() == null)
+    		return new Message("error","no data");
+    	Admin admin = adminRepository.findByUsername(body.getUser());
+    	if (admin == null)
+    		return new Message("error","no such user");
     	adminRepository.deleteById(admin.getId());
-    	return success;
+    	return new Message("success");
     }
 
     @PostMapping("/create-firm")
