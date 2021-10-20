@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -130,13 +129,17 @@ public class AdminController {
     @PostMapping("/admins-remove-firm")
     public Message removeFirm(@RequestBody RemoveUserInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()))
-    		return failure;
-    	Firm firm = firmRepository.findByName(body.getUser());
+    	if (user == null)
+    		return new Message("error","wrong username");
+    	if (!user.getPassword().equals(body.getPassword()))
+    		return new Message("error","wrong password");
+    	if (body.getUser() == null)
+    		return new Message("error","no data");
+    	Firm firm = firmRepository.findByUsername(body.getUser());
     	if (firm == null)
-    		return failure;
+    		return new Message("error","no such user");
     	firmRepository.deleteById(firm.getId());
-    	return success;
+    	return new Message("success");
     }
     
 }
