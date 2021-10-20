@@ -44,7 +44,7 @@ public class Firm {
 		this.employee_count = firm.getEmployee_count();
 	}
 	
-	public Firm(String name, String username, String password, String location,
+	public Firm(String username, String password, String name, String location,
 				String cuisine, int open_time,   int close_time,  int employee_count) {
 		this.name = name;
 		this.username = username;

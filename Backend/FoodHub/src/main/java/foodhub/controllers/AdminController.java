@@ -37,17 +37,17 @@ public class AdminController {
     public Message createAdmin(@RequestBody AdminInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null)
-    		return new Message("error","wrong username");
+    		return new Message("failure","wrong username");
     	if (!user.getPassword().equals(body.getPassword()))
-    		return new Message("error","wrong password");
+    		return new Message("failure","wrong password");
     	if (user.getType() != 1)
-    		return new Message("error","wrong credentials");
+    		return new Message("failure","wrong credentials");
     	if (body.getData() == null)
-    		return new Message("error","no data");
+    		return new Message("failure","no data");
     	Admin admin = new Admin(body.getData());
     	Admin sameUsername = adminRepository.findByUsername(admin.getUsername());
     	if (sameUsername != null)
-    		return new Message("error","username taken");
+    		return new Message("failure","username taken");
     	adminRepository.save(admin);
     	return new Message("success");
     }
@@ -56,17 +56,17 @@ public class AdminController {
     public Message editAdmin(@RequestBody AdminInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null)
-    		return new Message("error","wrong username");
+    		return new Message("failure","wrong username");
     	if (!user.getPassword().equals(body.getPassword()))
-    		return new Message("error","wrong password");
+    		return new Message("failure","wrong password");
     	if (user.getType() != 1)
-    		return new Message("error","wrong credentials");
+    		return new Message("failure","wrong credentials");
     	if (body.getData() == null)
-    		return new Message("error","no data");
+    		return new Message("failure","no data");
     	Admin novel = new Admin(body.getData());
     	Admin old = adminRepository.findByUsername(novel.getUsername());
     	if (old == null)
-    		return new Message("error","no such user");
+    		return new Message("failure","no such user");
     	novel.setType(old.getType());
     	adminRepository.deleteById(old.getId());
     	adminRepository.save(novel);
@@ -77,16 +77,16 @@ public class AdminController {
     public Message removeAdmin(@RequestBody RemoveUserInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null)
-    		return new Message("error","wrong username");
+    		return new Message("failure","wrong username");
     	if (!user.getPassword().equals(body.getPassword()))
-    		return new Message("error","wrong password");
+    		return new Message("failure","wrong password");
     	if (user.getType() != 1)
-    		return new Message("error","wrong credentials");
+    		return new Message("failure","wrong credentials");
     	if (body.getUser() == null)
-    		return new Message("error","no data");
+    		return new Message("failure","no data");
     	Admin admin = adminRepository.findByUsername(body.getUser());
     	if (admin == null)
-    		return new Message("error","no such user");
+    		return new Message("failure","no such user");
     	adminRepository.deleteById(admin.getId());
     	return new Message("success");
     }
@@ -95,15 +95,15 @@ public class AdminController {
     public Message createFirm(@RequestBody FirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null)
-    		return new Message("error","wrong username");
+    		return new Message("failure","wrong username");
     	if (!user.getPassword().equals(body.getPassword()))
-    		return new Message("error","wrong password");
+    		return new Message("failure","wrong password");
     	if (body.getData() == null)
-    		return new Message("error","no data");
+    		return new Message("failure","no data");
     	Firm firm = new Firm(body.getData());
     	Firm sameUsername = firmRepository.findByUsername(firm.getUsername());
     	if (sameUsername != null)
-    		return new Message("error","username taken");
+    		return new Message("failure","username taken");
     	firmRepository.save(firm);
     	return new Message("success");
     }
@@ -112,15 +112,15 @@ public class AdminController {
     public Message editFirm(@RequestBody FirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null)
-    		return new Message("error","wrong username");
+    		return new Message("failure","wrong username");
     	if (!user.getPassword().equals(body.getPassword()))
-    		return new Message("error","wrong password");
+    		return new Message("failure","wrong password");
     	if (body.getData() == null)
-    		return new Message("error","no data");
+    		return new Message("failure","no data");
     	Firm novel = new Firm(body.getData());
     	Firm old = firmRepository.findByUsername(novel.getUsername());
     	if (old == null)
-    		return new Message("error","no such user");
+    		return new Message("failure","no such user");
     	firmRepository.deleteById(old.getId());
     	firmRepository.save(novel);
     	return new Message("success");
@@ -130,14 +130,14 @@ public class AdminController {
     public Message removeFirm(@RequestBody RemoveUserInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null)
-    		return new Message("error","wrong username");
+    		return new Message("failure","wrong username");
     	if (!user.getPassword().equals(body.getPassword()))
-    		return new Message("error","wrong password");
+    		return new Message("failure","wrong password");
     	if (body.getUser() == null)
-    		return new Message("error","no data");
+    		return new Message("failure","no data");
     	Firm firm = firmRepository.findByUsername(body.getUser());
     	if (firm == null)
-    		return new Message("error","no such user");
+    		return new Message("failure","no such user");
     	firmRepository.deleteById(firm.getId());
     	return new Message("success");
     }

@@ -17,12 +17,12 @@ public class Message {
 	
 	public Message() {}
 	
-	public void setMessage(String message) {
-		this.message = message;
+	public String getMessage() {
+		return message;
 	}
 	
-	public String getMessage(String message) {
-		return message;
+	public String getError() {
+		return error;
 	}
 
 }

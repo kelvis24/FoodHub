@@ -32,7 +32,7 @@ public class Admin {
 		this.type = 0;
 	}
 	
-	public Admin(String name, String username, String password, int type) {
+	public Admin(String username, String password, String name, int type) {
 		this.username = username;
 		this.password = password;
 		this.name = name;

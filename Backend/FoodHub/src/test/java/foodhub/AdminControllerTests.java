@@ -24,8 +24,12 @@ import foodhub.database.FirmRepository;
 import foodhub.controllers.AdminController;
 import foodhub.controllers.DebugController;
 import foodhub.controllers.FirmController;
+import foodhub.controllers.GeneralController;
 import foodhub.ioObjects.AdminInput;
+import foodhub.ioObjects.AdminInfo;
 import foodhub.ioObjects.FirmInput;
+import foodhub.ioObjects.FirmInfo;
+import foodhub.ioObjects.Message;
 
 @SpringBootTest
 public class AdminControllerTests {
@@ -39,16 +43,16 @@ public class AdminControllerTests {
 	@InjectMocks
 	FirmController fc;
 	
+	@InjectMocks
+	GeneralController gc;
+	
 	@Mock
 	AdminRepository adminRepository;
 	
 	@Mock
 	FirmRepository firmRepository;
 
-	Admin owner = new Admin("Adom", "adom@gmail.com", "adom123", 1);
-	
-	private String success = "{\"message\":\"success\"}";
-	private String failure = "{\"message\":\"failure\"}";
+	Admin owner = new Admin("adom@gmail.com","adom123","Adom",1);
 
 	private List<Admin> al;
 	private List<Firm> fl;
@@ -115,11 +119,12 @@ public class AdminControllerTests {
 	
 	@Test
 	public void createAdminTest1() {
-		String response;
-		Admin a1 = new Admin("Andy","andy@gmail.com","andy123",0);
+		Message response;
+		AdminInfo a1 = new AdminInfo("andy@gmail.com","andy123","Andy");
 		AdminInput b1 = new AdminInput(owner.getUsername(),owner.getPassword(),a1);
 		response = ac.createAdmin(b1);
-		assertEquals(success, response);
+		assertEquals("success", response.getMessage());
+		assertEquals("", response.getError());
 		List<Admin> list = dc.listAdmins();
 		assertEquals(2, list.size());
 		assertEquals(owner.getName(), list.get(0).getName());
@@ -130,8 +135,6 @@ public class AdminControllerTests {
 		assertEquals(a1.getUsername(), list.get(1).getUsername());
 		assertEquals(a1.getPassword(), list.get(1).getPassword());
 		assertEquals(0, list.get(1).getType());
-		verify(adminRepository, times(1)).save(owner);
-		verify(adminRepository, times(1)).save(a1);
 		verify(adminRepository, times(2)).save((Admin)any(Admin.class));
 		verify(adminRepository, times(1)).findByUsername(owner.getUsername());
 		verify(adminRepository, times(1)).findByUsername(a1.getUsername());
@@ -144,13 +147,15 @@ public class AdminControllerTests {
 	
 	@Test
 	public void createAdminTest2() {
-		String response;
-		Admin a1 = new Admin("Andy","andy@gmail.com","andy123",0);
+		Message response;
+		AdminInfo a1 = new AdminInfo("andy@gmail.com","andy123","Andy");
 		AdminInput b1 = new AdminInput(owner.getUsername(),owner.getPassword(),a1);
 		response = ac.createAdmin(b1);
-		assertEquals(success, response);
+		assertEquals("success", response.getMessage());
+		assertEquals("", response.getError());
 		response = ac.createAdmin(b1);
-		assertEquals(failure, response);
+		assertEquals("failure", response.getMessage());
+		assertEquals("username taken", response.getError());
 		List<Admin> list = dc.listAdmins();
 		assertEquals(2, list.size());
 		assertEquals(owner.getName(), list.get(0).getName());
@@ -161,8 +166,6 @@ public class AdminControllerTests {
 		assertEquals(a1.getUsername(), list.get(1).getUsername());
 		assertEquals(a1.getPassword(), list.get(1).getPassword());
 		assertEquals(0, list.get(1).getType());
-		verify(adminRepository, times(1)).save(owner);
-		verify(adminRepository, times(1)).save(a1);
 		verify(adminRepository, times(2)).save((Admin)any(Admin.class));
 		verify(adminRepository, times(2)).findByUsername(owner.getUsername());
 		verify(adminRepository, times(2)).findByUsername(a1.getUsername());
@@ -175,15 +178,17 @@ public class AdminControllerTests {
 	
 	@Test
 	public void createAdminTest3() {
-		String response;
-		Admin a1 = new Admin("Andy","andy@gmail.com","andy123",0);
-		Admin a2 = new Admin("Will","will@gmail.com","will123",1);
+		Message response;
+		AdminInfo a1 = new AdminInfo("andy@gmail.com","andy123","Andy");
+		AdminInfo a2 = new AdminInfo("will@gmail.com","will123","Will");
 		AdminInput b1 = new AdminInput(owner.getUsername(),owner.getPassword(),a1);
 		AdminInput b2 = new AdminInput(owner.getUsername(),owner.getPassword(),a2);
 		response = ac.createAdmin(b1);
-		assertEquals(success, response);
+		assertEquals("success", response.getMessage());
+		assertEquals("", response.getError());
 		response = ac.createAdmin(b2);
-		assertEquals(success, response);
+		assertEquals("success", response.getMessage());
+		assertEquals("", response.getError());
 		List<Admin> list = dc.listAdmins();
 		assertEquals(3, list.size());
 		assertEquals(owner.getName(),     list.get(0).getName());
@@ -198,9 +203,6 @@ public class AdminControllerTests {
 		assertEquals(a2.getUsername(), list.get(2).getUsername());
 		assertEquals(a2.getPassword(), list.get(2).getPassword());
 		assertEquals(0,                list.get(2).getType());
-		verify(adminRepository, times(1)).save(owner);
-		verify(adminRepository, times(1)).save(a1);
-		verify(adminRepository, times(1)).save(a2);
 		verify(adminRepository, times(3)).save((Admin)any(Admin.class));
 		verify(adminRepository, times(2)).findByUsername(owner.getUsername());
 		verify(adminRepository, times(1)).findByUsername(a1.getUsername());
@@ -214,10 +216,10 @@ public class AdminControllerTests {
 	
 	@Test
 	public void createAdminTest4() {
-		String response;
-		Admin a1 = new Admin("Andy","andy@gmail.com","andy123",0);
-		Admin a2 = new Admin("Will","will@gmail.com","will123",1);
-		Admin a3 = new Admin("Bill","bill@gmail.com","bill123",0);
+		Message response;
+		AdminInfo a1 = new AdminInfo("andy@gmail.com","andy123","Andy");
+		AdminInfo a2 = new AdminInfo("will@gmail.com","will123","Will");
+		AdminInfo a3 = new AdminInfo("bill@gmail.com","bill123","Bill");
 		AdminInput b1 = new AdminInput(owner.getUsername(),owner.getPassword(),a1);
 		AdminInput b2 = new AdminInput(owner.getUsername(),owner.getPassword(),a2);
 		AdminInput b3 = new AdminInput(a3.getUsername(),a3.getPassword(),a3);
@@ -225,17 +227,23 @@ public class AdminControllerTests {
 		AdminInput b5 = new AdminInput(a3.getUsername(),owner.getPassword(),a3);
 		AdminInput b6 = new AdminInput(a2.getUsername(),a2.getPassword(),a3);
 		response = ac.createAdmin(b1);
-		assertEquals(success, response);
+		assertEquals("success", response.getMessage());
+		assertEquals("", response.getError());
 		response = ac.createAdmin(b2);
-		assertEquals(success, response);
+		assertEquals("success", response.getMessage());
+		assertEquals("", response.getError());
 		response = ac.createAdmin(b3);
-		assertEquals(failure, response);
+		assertEquals("failure", response.getMessage());
+		assertEquals("wrong username", response.getError());
 		response = ac.createAdmin(b4);
-		assertEquals(failure, response);
+		assertEquals("failure", response.getMessage());
+		assertEquals("wrong password", response.getError());
 		response = ac.createAdmin(b5);
-		assertEquals(failure, response);
+		assertEquals("failure", response.getMessage());
+		assertEquals("wrong username", response.getError());
 		response = ac.createAdmin(b6);
-		assertEquals(failure, response);
+		assertEquals("failure", response.getMessage());
+		assertEquals("wrong credentials", response.getError());
 		List<Admin> list = dc.listAdmins();
 		assertEquals(3, list.size());
 		assertEquals(owner.getName(),     list.get(0).getName());
@@ -250,9 +258,6 @@ public class AdminControllerTests {
 		assertEquals(a2.getUsername(), list.get(2).getUsername());
 		assertEquals(a2.getPassword(), list.get(2).getPassword());
 		assertEquals(0,                list.get(2).getType());
-		verify(adminRepository, times(1)).save(owner);
-		verify(adminRepository, times(1)).save(a1);
-		verify(adminRepository, times(1)).save(a2);
 		verify(adminRepository, times(3)).save((Admin)any(Admin.class));
 		verify(adminRepository, times(3)).findByUsername(owner.getUsername());
 		verify(adminRepository, times(1)).findByUsername(a1.getUsername());
@@ -267,11 +272,12 @@ public class AdminControllerTests {
 	
 	@Test
 	public void createFirmTest0() {
-		String response;
-		Firm f1 = new Firm("Taco House","tacohouse@gmail.com","taco123","taco town","tacos",1,2,3);
+		Message response;
+		FirmInfo f1 = new FirmInfo("tacohouse@gmail.com","taco123","Taco House","taco town","tacos",1,2,3);
 		FirmInput b1 = new FirmInput(owner.getUsername(),owner.getPassword(),f1);
 		response = ac.createFirm(b1);
-		assertEquals(success, response);
+		assertEquals("success", response.getMessage());
+		assertEquals("", response.getError());
 		List<Admin> admins = dc.listAdmins();
 		List<Firm> firms = dc.listFirms();
 		assertEquals(1, admins.size());
@@ -279,7 +285,6 @@ public class AdminControllerTests {
 		assertEquals(owner.getUsername(), admins.get(0).getUsername());
 		assertEquals(owner.getPassword(), admins.get(0).getPassword());
 		assertEquals(1,                   admins.get(0).getType());
-		verify(adminRepository, times(1)).save(owner);
 		verify(adminRepository, times(1)).save((Admin)any(Admin.class));
 		verify(adminRepository, times(1)).findByUsername(owner.getUsername());
 		verify(adminRepository, times(1)).findByUsername((String)any(String.class));
@@ -293,7 +298,6 @@ public class AdminControllerTests {
 		assertEquals(f1.getOpen_time(),      firms.get(0).getOpen_time());
 		assertEquals(f1.getClose_time(),     firms.get(0).getClose_time());
 		assertEquals(f1.getEmployee_count(), firms.get(0).getEmployee_count());
-		verify(firmRepository, times(1)).save(f1);
 		verify(firmRepository, times(1)).save((Firm)any(Firm.class));
 		verify(firmRepository, times(1)).findByUsername(f1.getUsername());
 		verify(firmRepository, times(1)).findByUsername((String)any(String.class));
@@ -302,17 +306,20 @@ public class AdminControllerTests {
 	
 	@Test
 	public void createFirmTest1() {
-		String response;
-		Firm f1 = new Firm("Taco House","tacohouse@gmail.com","taco123","taco town","tacos",1,2,3);
-		Firm f2 = new Firm("Taco Place","tacoplace@gmail.com","taco123","taco town","tacos",1,2,3);
+		Message response;
+		FirmInfo f1 = new FirmInfo("tacohouse@gmail.com","taco123","Taco House","taco town","tacos",1,2,3);
+		FirmInfo f2 = new FirmInfo("tacoplace@gmail.com","taco123","Taco Place","taco town","tacos",1,2,3);
 		FirmInput b1 = new FirmInput(owner.getUsername(),owner.getPassword(),f1);
 		FirmInput b2 = new FirmInput(owner.getUsername(),owner.getPassword(),f2);
 		response = ac.createFirm(b1);
-		assertEquals(success, response);
+		assertEquals("success", response.getMessage());
+		assertEquals("", response.getError());
 		response = ac.createFirm(b2);
-		assertEquals(success, response);
+		assertEquals("success", response.getMessage());
+		assertEquals("", response.getError());
 		response = ac.createFirm(b2);
-		assertEquals(failure, response);
+		assertEquals("failure", response.getMessage());
+		assertEquals("username taken", response.getError());
 		List<Admin> admins = dc.listAdmins();
 		List<Firm> firms = dc.listFirms();
 		assertEquals(1, admins.size());
@@ -320,7 +327,6 @@ public class AdminControllerTests {
 		assertEquals(owner.getUsername(), admins.get(0).getUsername());
 		assertEquals(owner.getPassword(), admins.get(0).getPassword());
 		assertEquals(1,                   admins.get(0).getType());
-		verify(adminRepository, times(1)).save(owner);
 		verify(adminRepository, times(1)).save((Admin)any(Admin.class));
 		verify(adminRepository, times(3)).findByUsername(owner.getUsername());
 		verify(adminRepository, times(3)).findByUsername((String)any(String.class));
@@ -342,8 +348,6 @@ public class AdminControllerTests {
 		assertEquals(f2.getOpen_time(),      firms.get(1).getOpen_time());
 		assertEquals(f2.getClose_time(),     firms.get(1).getClose_time());
 		assertEquals(f2.getEmployee_count(), firms.get(1).getEmployee_count());
-		verify(firmRepository, times(1)).save(f1);
-		verify(firmRepository, times(1)).save(f2);
 		verify(firmRepository, times(2)).save((Firm)any(Firm.class));
 		verify(firmRepository, times(1)).findByUsername(f1.getUsername());
 		verify(firmRepository, times(2)).findByUsername(f2.getUsername());
@@ -353,28 +357,34 @@ public class AdminControllerTests {
 	
 	@Test
 	public void createFirmTest2() {
-		String response;
-		Admin a1 = new Admin("George","george@gmail.com","george123",0);
+		Message response;
+		AdminInfo a1 = new AdminInfo("george@gmail.com","george123","George");
 		AdminInput ab = new AdminInput(owner.getUsername(),owner.getPassword(),a1);
 		response = ac.createAdmin(ab);
-		assertEquals(success, response);
-		Firm f1 = new Firm("Taco House","tacohouse@gmail.com","taco123","taco town","tacos",1,2,3);
-		Firm f2 = new Firm("Taco Place","tacoplace@gmail.com","taco123","taco town","tacos",1,2,3);
-		Firm f3 = new Firm("Taco Fort","tacofort@gmail.com","taco123","taco town","tacos",1,2,3);
+		assertEquals("success", response.getMessage());
+		assertEquals("", response.getError());
+		FirmInfo f1 = new FirmInfo("tacohouse@gmail.com","taco123","Taco House","taco town","tacos",1,2,3);
+		FirmInfo f2 = new FirmInfo("tacoplace@gmail.com","taco123","Taco Place","taco town","tacos",1,2,3);
+		FirmInfo f3 = new FirmInfo("tacofort@gmail.com","taco123","Taco Fort","taco town","tacos",1,2,3);
 		FirmInput b1 = new FirmInput(a1.getUsername(),a1.getPassword(),f1);
 		FirmInput b2 = new FirmInput(a1.getUsername(),a1.getPassword(),f2);
 		FirmInput b3 = new FirmInput(owner.getUsername(),a1.getPassword(),f3);
 		FirmInput b4 = new FirmInput(a1.getUsername(),owner.getPassword(),f3);
 		response = ac.createFirm(b1);
-		assertEquals(success, response);
+		assertEquals("success", response.getMessage());
+		assertEquals("", response.getError());
 		response = ac.createFirm(b2);
-		assertEquals(success, response);
+		assertEquals("success", response.getMessage());
+		assertEquals("", response.getError());
 		response = ac.createFirm(b3);
-		assertEquals(failure, response);
+		assertEquals("failure", response.getMessage());
+		assertEquals("wrong password", response.getError());
 		response = ac.createFirm(b4);
-		assertEquals(failure, response);
+		assertEquals("failure", response.getMessage());
+		assertEquals("wrong password", response.getError());
 		response = ac.createFirm(b1);
-		assertEquals(failure, response);
+		assertEquals("failure", response.getMessage());
+		assertEquals("username taken", response.getError());
 		List<Admin> admins = dc.listAdmins();
 		List<Firm> firms = dc.listFirms();
 		assertEquals(2, admins.size());
@@ -386,8 +396,6 @@ public class AdminControllerTests {
 		assertEquals(a1.getUsername(),    admins.get(1).getUsername());
 		assertEquals(a1.getPassword(),    admins.get(1).getPassword());
 		assertEquals(0,                   admins.get(1).getType());
-		verify(adminRepository, times(1)).save(owner);
-		verify(adminRepository, times(1)).save(a1);
 		verify(adminRepository, times(2)).save((Admin)any(Admin.class));
 		verify(adminRepository, times(2)).findByUsername(owner.getUsername());
 		verify(adminRepository, times(5)).findByUsername(a1.getUsername());
@@ -410,8 +418,6 @@ public class AdminControllerTests {
 		assertEquals(f2.getOpen_time(),      firms.get(1).getOpen_time());
 		assertEquals(f2.getClose_time(),     firms.get(1).getClose_time());
 		assertEquals(f2.getEmployee_count(), firms.get(1).getEmployee_count());
-		verify(firmRepository, times(1)).save(f1);
-		verify(firmRepository, times(1)).save(f2);
 		verify(firmRepository, times(2)).save((Firm)any(Firm.class));
 		verify(firmRepository, times(2)).findByUsername(f1.getUsername());
 		verify(firmRepository, times(1)).findByUsername(f2.getUsername());
