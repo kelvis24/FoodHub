@@ -41,7 +41,7 @@ public class GeneralController {
     }
     
     @PostMapping("/general-get-categories")
-    public List<CategoryInfo> getFirmCategories(@RequestBody Username body) {
+    public List<CategoryInfo> getCategories(@RequestBody Username body) {
     	List<CategoryInfo> output = new ArrayList<CategoryInfo>();
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null)
@@ -53,7 +53,7 @@ public class GeneralController {
     }
     
     @PostMapping("/general-get-items")
-    public List<ItemInfo> getFirmItems(@RequestBody FirmCategory body) {
+    public List<ItemInfo> getItems(@RequestBody FirmCategory body) {
     	List<ItemInfo> output = new ArrayList<ItemInfo>();
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null)
