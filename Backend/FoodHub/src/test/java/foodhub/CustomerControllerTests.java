@@ -97,7 +97,7 @@ public class CustomerControllerTests {
 	@Test
 	public void createCustomerTest2() {
 		Message response;
-		CustomerInfo c1 = new CustomerInfo("Andrew","andrew@gmail.com","andrew123","andrew blv");
+		CustomerInfo c1 = new CustomerInfo("andrew@gmail.com","andrew123","Andrew","andrew blv");
 		response = gc.createCustomer(c1);
 		assertEquals("success", response.getMessage());
 		assertEquals("", response.getError());
@@ -119,10 +119,10 @@ public class CustomerControllerTests {
 	@Test
 	public void createCustomerTest3() {
 		Message response;
-		CustomerInfo c1 = new CustomerInfo("Andrew","andrew@gmail.com","andrew123","andrew blv");
-		CustomerInfo c2 = new CustomerInfo("John","john@gmail.com","john123","john st");
-		CustomerInfo c3 = new CustomerInfo("Marry","marry@gmail.com","mary123","marry dr");
-		CustomerInfo c4 = new CustomerInfo("John II","john@gmail.com","john456","john court");
+		CustomerInfo c1 = new CustomerInfo("andrew@gmail.com","andrew123","Andrew","andrew blv");
+		CustomerInfo c2 = new CustomerInfo("john@gmail.com","john123","John","john st");
+		CustomerInfo c3 = new CustomerInfo("marry@gmail.com","mary123","Marry","marry dr");
+		CustomerInfo c4 = new CustomerInfo("john@gmail.com","john456","John II","john court");
 		response = gc.createCustomer(c1);
 		assertEquals("success", response.getMessage());
 		assertEquals("", response.getError());
@@ -160,10 +160,11 @@ public class CustomerControllerTests {
 	@Test
 	public void loginCustomerTest0() {
 		Message response;
-		CustomerInfo c1 = new CustomerInfo("Andrew","andrew@gmail.com","andrew123","andrew blv");
+		CustomerInfo c1 = new CustomerInfo("andrew@gmail.com","andrew123","Andrew","andrew blv");
 		Authentication b1 = new Authentication(c1.getUsername(), c1.getPassword());
 		response = cc.loginCustomer(b1);
-		assertEquals(failure, response);
+		assertEquals("failure", response.getMessage());
+		assertEquals("wrong username", response.getError());
 		verify(customerRepository, times(0)).save((Customer)any(Customer.class));
 		verify(customerRepository, times(1)).findByUsername("andrew@gmail.com");
 		verify(customerRepository, times(1)).findByUsername((String)any(String.class));
@@ -171,41 +172,47 @@ public class CustomerControllerTests {
 	
 	@Test
 	public void loginCustomerTest1() {
-		String response;
-		Customer c1 = new Customer("Andrew","andrew@gmail.com","andrew123","andrew blv");
+		Message response;
+		CustomerInfo c1 = new CustomerInfo("andrew@gmail.com","andrew123","Andrew","andrew blv");
 		Authentication b1 = new Authentication(c1.getUsername(), c1.getPassword());
 		response = gc.createCustomer(c1);
-		assertEquals(success, response);
+		assertEquals("success", response.getMessage());
+		assertEquals("", response.getError());
 		response = cc.loginCustomer(b1);
-		assertEquals(success, response);
+		assertEquals("success", response.getMessage());
+		assertEquals("", response.getError());
 		verify(customerRepository, times(2)).findByUsername("andrew@gmail.com");
 		verify(customerRepository, times(2)).findByUsername((String)any(String.class));
 	}
 	
 	@Test
 	public void loginCustomerTest2() {
-		String response;
-		Customer c1 = new Customer("Andrew","andrew@gmail.com","andrew123","andrew blv");
+		Message response;
+		CustomerInfo c1 = new CustomerInfo("andrew@gmail.com","andrew123","Andrew","andrew blv");
 		Authentication b1 = new Authentication(c1.getUsername(), c1.getPassword());
 		Authentication b2 = new Authentication("Andyeet",        c1.getPassword());
 		Authentication b3 = new Authentication(c1.getUsername(), "Yeeticus The Yeety");
 		response = gc.createCustomer(c1);
-		assertEquals(success, response);
+		assertEquals("success", response.getMessage());
+		assertEquals("", response.getError());
 		response = gc.createCustomer(c1);
-		assertEquals(failure, response);
+		assertEquals("failure", response.getMessage());
+		assertEquals("username taken", response.getError());
 		response = cc.loginCustomer(b1);
-		assertEquals(success, response);
+		assertEquals("success", response.getMessage());
+		assertEquals("", response.getError());
 		response = cc.loginCustomer(b2);
-		assertEquals(failure, response);
+		assertEquals("failure", response.getMessage());
+		assertEquals("wrong username", response.getError());
 		response = cc.loginCustomer(b3);
-		assertEquals(failure, response);
+		assertEquals("failure", response.getMessage());
+		assertEquals("wrong password", response.getError());
 		List<Customer> list = dc.listCustomers();
 		assertEquals(1, list.size());
 		assertEquals("Andrew", list.get(0).getName());
 		assertEquals("andrew@gmail.com", list.get(0).getUsername());
 		assertEquals("andrew123", list.get(0).getPassword());
 		assertEquals("andrew blv", list.get(0).getLocation());
-		verify(customerRepository, times(1)).save(c1);
 		verify(customerRepository, times(1)).save((Customer)any(Customer.class));
 		verify(customerRepository, times(4)).findByUsername("andrew@gmail.com");
 		verify(customerRepository, times(1)).findByUsername("Andyeet");
@@ -215,11 +222,11 @@ public class CustomerControllerTests {
 	
 	@Test
 	public void loginCustomerTest3() {
-		String response;
-		Customer c1 = new Customer("Andrew","andrew@gmail.com","andrew123","andrew blv");
-		Customer c2 = new Customer("John","john@gmail.com","john123","john st");
-		Customer c3 = new Customer("Marry","marry@gmail.com","mary123","marry dr");
-		Customer c4 = new Customer("John II","john@gmail.com","john456","john court");
+		Message response;
+		CustomerInfo c1 = new CustomerInfo("andrew@gmail.com","andrew123","Andrew","andrew blv");
+		CustomerInfo c2 = new CustomerInfo("john@gmail.com","john123","John","john st");
+		CustomerInfo c3 = new CustomerInfo("marry@gmail.com","mary123","Marry","marry dr");
+		CustomerInfo c4 = new CustomerInfo("john@gmail.com","john456","John II","john court");
 		Authentication b1 = new Authentication(c1.getUsername(), c1.getPassword());
 		Authentication b2 = new Authentication(c2.getUsername(), c2.getPassword());
 		Authentication b3 = new Authentication(c3.getUsername(), c3.getPassword());
@@ -228,27 +235,38 @@ public class CustomerControllerTests {
 		Authentication f2 = new Authentication("Yeetus", "Skeetus");
 		Authentication f3 = new Authentication("Yeetus", "Maximus");
 		response = gc.createCustomer(c1);
-		assertEquals(success, response);
+		assertEquals("success", response.getMessage());
+		assertEquals("", response.getError());
 		response = gc.createCustomer(c2);
-		assertEquals(success, response);
+		assertEquals("success", response.getMessage());
+		assertEquals("", response.getError());
 		response = gc.createCustomer(c3);
-		assertEquals(success, response);
+		assertEquals("success", response.getMessage());
+		assertEquals("", response.getError());
 		response = gc.createCustomer(c4);
-		assertEquals(failure, response);
+		assertEquals("failure", response.getMessage());
+		assertEquals("username taken", response.getError());
 		response = cc.loginCustomer(b1);
-		assertEquals(success, response);
+		assertEquals("success", response.getMessage());
+		assertEquals("", response.getError());
 		response = cc.loginCustomer(b2);
-		assertEquals(success, response);
+		assertEquals("success", response.getMessage());
+		assertEquals("", response.getError());
 		response = cc.loginCustomer(b3);
-		assertEquals(success, response);
+		assertEquals("success", response.getMessage());
+		assertEquals("", response.getError());
 		response = cc.loginCustomer(b4);
-		assertEquals(failure, response);
+		assertEquals("failure", response.getMessage());
+		assertEquals("wrong password", response.getError());
 		response = cc.loginCustomer(f1);
-		assertEquals(failure, response);
+		assertEquals("failure", response.getMessage());
+		assertEquals("wrong username", response.getError());
 		response = cc.loginCustomer(f2);
-		assertEquals(failure, response);
+		assertEquals("failure", response.getMessage());
+		assertEquals("wrong username", response.getError());
 		response = cc.loginCustomer(f3);
-		assertEquals(failure, response);
+		assertEquals("failure", response.getMessage());
+		assertEquals("wrong username", response.getError());
 		List<Customer> list = dc.listCustomers();
 		assertEquals(3, list.size());
 		assertEquals("Andrew", list.get(0).getName());
@@ -263,9 +281,6 @@ public class CustomerControllerTests {
 		assertEquals("marry@gmail.com", list.get(2).getUsername());
 		assertEquals("mary123", list.get(2).getPassword());
 		assertEquals("marry dr", list.get(2).getLocation());
-		verify(customerRepository, times(1)).save(c1);
-		verify(customerRepository, times(1)).save(c2);
-		verify(customerRepository, times(1)).save(c3);
 		verify(customerRepository, times(3)).save((Customer)any(Customer.class));
 		verify(customerRepository, times(2)).findByUsername("andrew@gmail.com");
 		verify(customerRepository, times(4)).findByUsername("john@gmail.com");
