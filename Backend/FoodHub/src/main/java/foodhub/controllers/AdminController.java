@@ -108,7 +108,7 @@ public class AdminController {
     	return new Message("success");
     }
     
-    @PostMapping("/admind-edit-firm")
+    @PostMapping("/admins-edit-firm")
     public Message editFirm(@RequestBody FirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null)
