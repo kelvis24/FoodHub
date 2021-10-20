@@ -110,29 +110,29 @@ public class AdminController {
     }
     
     @PostMapping("/admind-edit-firm")
-    public Message editFirm(@RequestBody RemoveUserInput body) {
+    public Message editFirm(@RequestBody FirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
-    	if (user == null || !user.getPassword().equals(body.getPassword()))
-    		return failure;
-    	Firm firm = firmRepository.findByName(body.getFirmName());
-    	if (firm == null) {
-    		return failure;
-    	}
-    	firm.setOpen_time(body.getData().getOpen_time());
-    	firm.setClose_time(body.getData().getClose_time());
-    	firm.setCuisine(body.getData().getCuisine());
-    	firm.setEmployee_count(body.getData().getEmployee_count());
-    	firm.setLocation(body.getData().getLocation());
-    	firm.setName(body.getData().getName());
-    	return success;
+    	if (user == null)
+    		return new Message("error","wrong username");
+    	if (!user.getPassword().equals(body.getPassword()))
+    		return new Message("error","wrong password");
+    	if (body.getData() == null)
+    		return new Message("error","no data");
+    	Firm novel = new Firm(body.getData());
+    	Firm old = firmRepository.findByUsername(novel.getUsername());
+    	if (old == null)
+    		return new Message("error","no such user");
+    	firmRepository.deleteById(old.getId());
+    	firmRepository.save(novel);
+    	return new Message("success");
     }
     
     @PostMapping("/admins-remove-firm")
-    public Message removeFirm(@RequestBody FirmInput body) {
+    public Message removeFirm(@RequestBody RemoveUserInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null || !user.getPassword().equals(body.getPassword()))
     		return failure;
-    	Firm firm = firmRepository.findByName(body.getFirmName());
+    	Firm firm = firmRepository.findByName(body.getUser());
     	if (firm == null)
     		return failure;
     	firmRepository.deleteById(firm.getId());

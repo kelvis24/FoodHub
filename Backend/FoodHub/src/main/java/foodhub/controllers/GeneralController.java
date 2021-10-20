@@ -82,7 +82,7 @@ public class GeneralController {
     	if (goodUser == 0) {
     		return failure;
     	}
-    	Firm firm = firmRepository.findByName(body.getData().getUsername());
+    	Firm firm = firmRepository.findByUsername(body.getData().getUsername());
     	List<Category> categories = categoryRepository.findByFirmId(firm.getId());
     	return categories.toString();
     }
@@ -110,7 +110,7 @@ public class GeneralController {
     	if (goodUser == 0) {
     		return failure;
     	}
-    	Firm firm = firmRepository.findByName(body.getData().getUsername());
+    	Firm firm = firmRepository.findByUsername(body.getData().getUsername());
     	List<Item> items = itemRepository.findByFirmId(firm.getId());
     	return items.toString();
     }
