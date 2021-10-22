@@ -1,7 +1,6 @@
 package foodhub.controllers;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +39,7 @@ public class AdminController {
     	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
     		return output;
     	List<Admin> admins = adminRepository.findAll();
-    	Iterator<Admin> it = admins.iterator();
-    	while (it.hasNext()) {output.add(new AdminOutput(it.next()));}
+    	for (Admin a : admins) {output.add(new AdminOutput(a));}
     	return output;
     }
     
@@ -100,6 +98,8 @@ public class AdminController {
     	Admin admin = adminRepository.findByUsername(body.getUser());
     	if (admin == null)
     		return new Message("failure","no such user");
+    	if (admin.getType() == 1)
+    		return new Message("failure","not permitted");
     	adminRepository.deleteById(admin.getId());
     	return new Message("success");
     }
