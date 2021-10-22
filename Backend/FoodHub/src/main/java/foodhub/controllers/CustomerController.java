@@ -54,7 +54,7 @@ public class CustomerController {
     }
     
     @PostMapping("/add-item")
-    public String addItemToOrder(@RequestBody OrderInput body) {
+    public String addItemToOrder(@RequestBody AddOrderInput body) {
     	Customer customer = customerRepository.findByUsername(body.getUsername());
     	if (customer == null || !customer.getPassword().equals(body.getPassword())) {
     		return failure;
@@ -74,7 +74,7 @@ public class CustomerController {
     }
     
     @PostMapping("customer-change-info")
-    public String changeInformation(@RequestBody CustomerInput body) {
+    public String changeInformation(@RequestBody EditCustomerInput body) {
     	Customer customer = customerRepository.findByUsername(body.getUsername());
     	if (customer == null || !customer.getPassword().equals(body.getPassword())) {
     		return failure;

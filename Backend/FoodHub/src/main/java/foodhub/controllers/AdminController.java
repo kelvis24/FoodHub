@@ -46,7 +46,7 @@ public class AdminController {
     }
     
     @PostMapping("/admins-create-admin")
-    public Message createAdmin(@RequestBody AdminInput body) {
+    public Message createAdmin(@RequestBody AddAdminInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null)
     		return new Message("failure","wrong username");
@@ -65,7 +65,7 @@ public class AdminController {
     }
     
     @PostMapping("/admins-edit-admin")
-    public Message editAdmin(@RequestBody AdminInput body) {
+    public Message editAdmin(@RequestBody EditAdminInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null)
     		return new Message("failure","wrong username");
@@ -76,7 +76,10 @@ public class AdminController {
     	if (body.getData() == null)
     		return new Message("failure","no data");
     	AdminInfo d = body.getData();
-    	Admin old = adminRepository.findByUsername(d.getUsername());
+    	Admin sameUsername = adminRepository.findByUsername(d.getUsername());
+    	if (sameUsername != null)
+    		return new Message("failure","username taken");
+    	Admin old = adminRepository.findByUsername(body.getSubject());
     	if (old == null)
     		return new Message("failure","no such user");
     	adminRepository.setById(old.getId(),d.getUsername(),d.getPassword(),d.getName(),old.getType());
@@ -102,7 +105,7 @@ public class AdminController {
     }
 
     @PostMapping("/admins-create-firm")
-    public Message createFirm(@RequestBody FirmInput body) {
+    public Message createFirm(@RequestBody AddFirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null)
     		return new Message("failure","wrong username");
@@ -119,7 +122,7 @@ public class AdminController {
     }
     
     @PostMapping("/admins-edit-firm")
-    public Message editFirm(@RequestBody FirmInput body) {
+    public Message editFirm(@RequestBody EditFirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null)
     		return new Message("failure","wrong username");
@@ -128,7 +131,10 @@ public class AdminController {
     	if (body.getData() == null)
     		return new Message("failure","no data");
     	FirmInfo d = body.getData();
-    	Firm old = firmRepository.findByUsername(d.getUsername());
+    	Firm sameUsername = firmRepository.findByUsername(d.getUsername());
+    	if (sameUsername != null)
+    		return new Message("failure","username taken");
+    	Firm old = firmRepository.findByUsername(body.getSubject());
     	if (old == null)
     		return new Message("failure","no such user");
     	firmRepository.setById(old.getId(), d.getUsername(), d.getPassword(), d.getName(), d.getLocation(),

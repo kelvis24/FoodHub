@@ -25,9 +25,9 @@ import foodhub.controllers.AdminController;
 import foodhub.controllers.DebugController;
 import foodhub.controllers.FirmController;
 import foodhub.controllers.GeneralController;
-import foodhub.ioObjects.AdminInput;
+import foodhub.ioObjects.AddAdminInput;
 import foodhub.ioObjects.AdminInfo;
-import foodhub.ioObjects.FirmInput;
+import foodhub.ioObjects.AddFirmInput;
 import foodhub.ioObjects.FirmInfo;
 import foodhub.ioObjects.Message;
 
@@ -121,7 +121,7 @@ public class AdminControllerTests {
 	public void createAdminTest1() {
 		Message response;
 		AdminInfo a1 = new AdminInfo("andy@gmail.com","andy123","Andy");
-		AdminInput b1 = new AdminInput(owner.getUsername(),owner.getPassword(),a1);
+		AddAdminInput b1 = new AddAdminInput(owner.getUsername(),owner.getPassword(),a1);
 		response = ac.createAdmin(b1);
 		assertEquals("success", response.getMessage());
 		assertEquals("", response.getError());
@@ -149,7 +149,7 @@ public class AdminControllerTests {
 	public void createAdminTest2() {
 		Message response;
 		AdminInfo a1 = new AdminInfo("andy@gmail.com","andy123","Andy");
-		AdminInput b1 = new AdminInput(owner.getUsername(),owner.getPassword(),a1);
+		AddAdminInput b1 = new AddAdminInput(owner.getUsername(),owner.getPassword(),a1);
 		response = ac.createAdmin(b1);
 		assertEquals("success", response.getMessage());
 		assertEquals("", response.getError());
@@ -181,8 +181,8 @@ public class AdminControllerTests {
 		Message response;
 		AdminInfo a1 = new AdminInfo("andy@gmail.com","andy123","Andy");
 		AdminInfo a2 = new AdminInfo("will@gmail.com","will123","Will");
-		AdminInput b1 = new AdminInput(owner.getUsername(),owner.getPassword(),a1);
-		AdminInput b2 = new AdminInput(owner.getUsername(),owner.getPassword(),a2);
+		AddAdminInput b1 = new AddAdminInput(owner.getUsername(),owner.getPassword(),a1);
+		AddAdminInput b2 = new AddAdminInput(owner.getUsername(),owner.getPassword(),a2);
 		response = ac.createAdmin(b1);
 		assertEquals("success", response.getMessage());
 		assertEquals("", response.getError());
@@ -220,12 +220,12 @@ public class AdminControllerTests {
 		AdminInfo a1 = new AdminInfo("andy@gmail.com","andy123","Andy");
 		AdminInfo a2 = new AdminInfo("will@gmail.com","will123","Will");
 		AdminInfo a3 = new AdminInfo("bill@gmail.com","bill123","Bill");
-		AdminInput b1 = new AdminInput(owner.getUsername(),owner.getPassword(),a1);
-		AdminInput b2 = new AdminInput(owner.getUsername(),owner.getPassword(),a2);
-		AdminInput b3 = new AdminInput(a3.getUsername(),a3.getPassword(),a3);
-		AdminInput b4 = new AdminInput(owner.getUsername(),a3.getPassword(),a3);
-		AdminInput b5 = new AdminInput(a3.getUsername(),owner.getPassword(),a3);
-		AdminInput b6 = new AdminInput(a2.getUsername(),a2.getPassword(),a3);
+		AddAdminInput b1 = new AddAdminInput(owner.getUsername(),owner.getPassword(),a1);
+		AddAdminInput b2 = new AddAdminInput(owner.getUsername(),owner.getPassword(),a2);
+		AddAdminInput b3 = new AddAdminInput(a3.getUsername(),a3.getPassword(),a3);
+		AddAdminInput b4 = new AddAdminInput(owner.getUsername(),a3.getPassword(),a3);
+		AddAdminInput b5 = new AddAdminInput(a3.getUsername(),owner.getPassword(),a3);
+		AddAdminInput b6 = new AddAdminInput(a2.getUsername(),a2.getPassword(),a3);
 		response = ac.createAdmin(b1);
 		assertEquals("success", response.getMessage());
 		assertEquals("", response.getError());
@@ -274,7 +274,7 @@ public class AdminControllerTests {
 	public void createFirmTest0() {
 		Message response;
 		FirmInfo f1 = new FirmInfo("tacohouse@gmail.com","taco123","Taco House","taco town","tacos",1,2,3);
-		FirmInput b1 = new FirmInput(owner.getUsername(),owner.getPassword(),f1);
+		AddFirmInput b1 = new AddFirmInput(owner.getUsername(),owner.getPassword(),f1);
 		response = ac.createFirm(b1);
 		assertEquals("success", response.getMessage());
 		assertEquals("", response.getError());
@@ -309,8 +309,8 @@ public class AdminControllerTests {
 		Message response;
 		FirmInfo f1 = new FirmInfo("tacohouse@gmail.com","taco123","Taco House","taco town","tacos",1,2,3);
 		FirmInfo f2 = new FirmInfo("tacoplace@gmail.com","taco123","Taco Place","taco town","tacos",1,2,3);
-		FirmInput b1 = new FirmInput(owner.getUsername(),owner.getPassword(),f1);
-		FirmInput b2 = new FirmInput(owner.getUsername(),owner.getPassword(),f2);
+		AddFirmInput b1 = new AddFirmInput(owner.getUsername(),owner.getPassword(),f1);
+		AddFirmInput b2 = new AddFirmInput(owner.getUsername(),owner.getPassword(),f2);
 		response = ac.createFirm(b1);
 		assertEquals("success", response.getMessage());
 		assertEquals("", response.getError());
@@ -359,17 +359,17 @@ public class AdminControllerTests {
 	public void createFirmTest2() {
 		Message response;
 		AdminInfo a1 = new AdminInfo("george@gmail.com","george123","George");
-		AdminInput ab = new AdminInput(owner.getUsername(),owner.getPassword(),a1);
+		AddAdminInput ab = new AddAdminInput(owner.getUsername(),owner.getPassword(),a1);
 		response = ac.createAdmin(ab);
 		assertEquals("success", response.getMessage());
 		assertEquals("", response.getError());
 		FirmInfo f1 = new FirmInfo("tacohouse@gmail.com","taco123","Taco House","taco town","tacos",1,2,3);
 		FirmInfo f2 = new FirmInfo("tacoplace@gmail.com","taco123","Taco Place","taco town","tacos",1,2,3);
 		FirmInfo f3 = new FirmInfo("tacofort@gmail.com","taco123","Taco Fort","taco town","tacos",1,2,3);
-		FirmInput b1 = new FirmInput(a1.getUsername(),a1.getPassword(),f1);
-		FirmInput b2 = new FirmInput(a1.getUsername(),a1.getPassword(),f2);
-		FirmInput b3 = new FirmInput(owner.getUsername(),a1.getPassword(),f3);
-		FirmInput b4 = new FirmInput(a1.getUsername(),owner.getPassword(),f3);
+		AddFirmInput b1 = new AddFirmInput(a1.getUsername(),a1.getPassword(),f1);
+		AddFirmInput b2 = new AddFirmInput(a1.getUsername(),a1.getPassword(),f2);
+		AddFirmInput b3 = new AddFirmInput(owner.getUsername(),a1.getPassword(),f3);
+		AddFirmInput b4 = new AddFirmInput(a1.getUsername(),owner.getPassword(),f3);
 		response = ac.createFirm(b1);
 		assertEquals("success", response.getMessage());
 		assertEquals("", response.getError());

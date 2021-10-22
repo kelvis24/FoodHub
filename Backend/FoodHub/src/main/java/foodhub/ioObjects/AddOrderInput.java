@@ -2,7 +2,7 @@ package foodhub.ioObjects;
 
 import foodhub.database.Item;
 
-public class OrderInput {
+public class AddOrderInput {
 	
 	private String username;
 	private String password;
@@ -11,13 +11,13 @@ public class OrderInput {
 	private int quantity;
 	private String notes;
 
-	public OrderInput(String username, String password, Long orderId) {
+	public AddOrderInput(String username, String password, Long orderId) {
 		this.username = username;
 		this.password = password;
 		this.orderId = orderId;
 	}
 	
-	public OrderInput(String username, String password, Long orderId, Item item, int quantity, String notes) {
+	public AddOrderInput(String username, String password, Long orderId, Item item, int quantity, String notes) {
 		this.username = username;
 		this.password = password;
 		this.orderId = orderId;
@@ -26,7 +26,7 @@ public class OrderInput {
 		this.notes = notes;
 	}
 		
-	public OrderInput() {}
+	public AddOrderInput() {}
 		
 	public String getUsername() {
 		return username;

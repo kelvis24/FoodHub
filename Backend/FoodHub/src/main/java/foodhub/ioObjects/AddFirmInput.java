@@ -1,19 +1,19 @@
 package foodhub.ioObjects;
 
-public class FirmInput extends Authentication {
+public class AddFirmInput extends Authentication {
 	
 	private FirmInfo data;
 
-	public FirmInput(String username, String password, FirmInfo data) {
+	public AddFirmInput(String username, String password, FirmInfo data) {
 		super(username, password);
 		this.data = data;
 	}
 	
-	public FirmInput(String username, String password) {
+	public AddFirmInput(String username, String password) {
 		super(username, password);
 	}
 	
-	public FirmInput() {
+	public AddFirmInput() {
 		super();
 	}
 	

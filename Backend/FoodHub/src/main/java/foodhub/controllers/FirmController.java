@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import foodhub.database.*;
-import foodhub.ioObjects.CategoryInput;
-import foodhub.ioObjects.ItemInput;
+import foodhub.ioObjects.AddCategoryInput;
+import foodhub.ioObjects.AddItemInput;
 import foodhub.ioObjects.Authentication;
 
 @RestController
@@ -33,7 +33,7 @@ public class FirmController {
 	OrderItemsRepository orderItemsRepository;
 
     @PostMapping(path = "/firms-create-category")
-    public Message createCategory(@RequestBody CategoryInput body) {
+    public Message createCategory(@RequestBody AddCategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
     		return errorUser;
@@ -52,7 +52,7 @@ public class FirmController {
     }
     
     @PostMapping("/edit-category")
-    public Message editCategory(@RequestBody CategoryInput body) {
+    public Message editCategory(@RequestBody AddCategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
     		return errorUser;
@@ -66,7 +66,7 @@ public class FirmController {
     }
     
     @PostMapping("/firms-remove-category")
-    public Message removeCateogry(@RequestBody CategoryInput body) {
+    public Message removeCateogry(@RequestBody AddCategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
     		return errorUser;
@@ -80,7 +80,7 @@ public class FirmController {
 
     //Add item
     @PostMapping("/firms-create-item")
-    public Message createItem(@RequestBody ItemInput body) {
+    public Message createItem(@RequestBody AddItemInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
     		return errorUser;
@@ -112,7 +112,7 @@ public class FirmController {
     }
     
     @PostMapping("/firms-edit-item")
-    public Message editItem(@RequestBody ItemInput body) {
+    public Message editItem(@RequestBody AddItemInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
     		return errorUser;
@@ -128,7 +128,7 @@ public class FirmController {
     }
     
     @PostMapping("/firms-remove-item")
-    public Message removeItem(@RequestBody ItemInput body) {
+    public Message removeItem(@RequestBody AddItemInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
     		return errorUser;
