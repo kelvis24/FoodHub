@@ -85,37 +85,26 @@ public class FirmController {
     	return new Message("success");
     }
 
-    //Add item
     @PostMapping("/firms-create-item")
     public Message createItem(@RequestBody AddItemInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
-    	if (firm == null || !firm.getPassword().equals(body.getPassword()))
-    		return errorUser;
-    	List<Category> firmCats = categoryRepository.findByFirmId(firm.getId());
-    	Category category = null;
-    	for (Category c : firmCats) {
-    		if (c.getTitle().equals(body.getCategory())) {
-    			category = c;
-    			break;
-    		}
-    	}
-    	if (category == null) {
-    		return failure;
-    	}
-    	Item item = body.getItem();
-    	if (item == null) {
-    		return failure;
-    	}
-    	List<Item> otherItems = itemRepository.findByFirmId(firm.getId());
-    	for (Item i: otherItems) {
-    		if (i.getTitle().equalsIgnoreCase(item.getTitle())) {
-    			return failure;
-    		}
-    	}
-    	item.setFirmId(firm.getId());
-    	item.setCategoryId(category.getId());
+    	if (firm == null)
+    		return new Message("failure","wrong username");
+    	if (!firm.getPassword().equals(body.getPassword()))
+        	return new Message("failure","wrong password");
+    	if (body.getData() == null)
+    		return new Message("failure","no data");
+    	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
+    	Category category = (Category)Entitled.findByTitle(sameFirm, body.getTitle());
+    	if (category == null)
+    		return new Message("failure","no such category");
+    	Item item = new Item(firm.getId(), category.getId(), body.getData());
+    	List<Item> sameCategory = itemRepository.findByCategoryId(category.getId());
+    	Item sameTitle = (Item)Entitled.findByTitle(sameCategory,  item.getTitle());
+    	if (sameTitle != null)
+    		return new Message("failure","title taken");
     	itemRepository.save(item);
-    	return success;
+    	return new Message("success");
     }
     
     @PostMapping("/firms-edit-item")

@@ -7,9 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import foodhub.ioObjects.Entitled;
+import foodhub.ioObjects.ItemInfo;
+
 @Entity
 @Table(name="items")
-public class Item {
+public class Item implements Entitled {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,6 +27,14 @@ public class Item {
 	private String description;
 	@Column(nullable = false)
 	private double price;
+	
+	public Item(long firmId, long categoryId, ItemInfo item) {
+		this.firmId = firmId;
+		this.categoryId = categoryId;
+		this.title = item.getTitle();
+		this.description = item.getDescription();
+		this.price = item.getPrice();
+	}
 	
 	public Item(long firmId, long categoryId, String title, String description, double price) {
 		this.firmId = firmId;

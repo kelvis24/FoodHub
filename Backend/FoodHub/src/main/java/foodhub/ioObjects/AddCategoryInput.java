@@ -4,9 +4,9 @@ public class AddCategoryInput extends Authentication {
 
 	private CategoryInfo data;
 	
-	public AddCategoryInput(String username, String password, CategoryInfo category) {
+	public AddCategoryInput(String username, String password, CategoryInfo data) {
 		super(username, password);
-		this.data = category;
+		this.data = data;
 	}
 	
 	public AddCategoryInput() {
