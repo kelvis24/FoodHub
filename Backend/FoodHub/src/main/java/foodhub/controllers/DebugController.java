@@ -42,9 +42,23 @@ public class DebugController {
     
     @GetMapping("/debug-default-owner")
     public String defaultOwner() {
-    	Admin owner = new Admin("arvid","arvidg@iastate.edu","aA0/aaaaaaaa",1);
+    	Admin owner = new Admin("arvidg@iastate.edu","aA0/aaaaaaaa","Arvid",1);
     	adminRepository.save(owner);
         return success;
+    }
+    
+    @PostMapping("/debug-edit-admin")
+    public Message editAdmin(@RequestBody Admin body) {
+    	Admin old = adminRepository.findByUsername(body.getUsername());
+    	adminRepository.setAdminById(old.getId(), body.getUsername(), body.getPassword(), body.getName(), body.getType());
+    	return new Message("success");
+    }
+        
+    @PostMapping("/debug-delete-admin")
+    public Message deleteAdmin(@RequestBody Username body) {
+    	Admin old = adminRepository.findByUsername(body.getUsername());
+    	adminRepository.deleteById(old.getId());
+    	return new Message("success");
     }
     
     @GetMapping("/debug-get-admins")

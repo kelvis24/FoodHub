@@ -20,6 +20,7 @@ public class Order {
 	private long customerId;
 	@Column(nullable = false)
 	private int status;
+	
 	public Order(long firmId, long customerId, int status) {
 		this.firmId = firmId;
 		this.customerId = customerId;
