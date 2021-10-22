@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import foodhub.database.*;
-import foodhub.ioObjects.AddCategoryInput;
-import foodhub.ioObjects.AddItemInput;
-import foodhub.ioObjects.Authentication;
+import foodhub.ioObjects.*;
 
 @RestController
 public class FirmController {
@@ -35,34 +33,37 @@ public class FirmController {
     @PostMapping(path = "/firms-create-category")
     public Message createCategory(@RequestBody AddCategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
-    	if (firm == null || !firm.getPassword().equals(body.getPassword()))
-    		return errorUser;
-    	Category category = body.getCategory();
-    	if (category == null)
-    		return failure;
-    	List<Category> otherCats = categoryRepository.findByFirmId(firm.getId());
-    	for (Category c: otherCats) {
-    		if (c.getTitle().equalsIgnoreCase(category.getTitle())) {
-    			return failure;
-    		}
-    	}
-    	category.setFirmId(firm.getId());
+    	if (firm == null)
+    		return new Message("failure","wrong username");
+    	if (!firm.getPassword().equals(body.getPassword()))
+        	return new Message("failure","wrong password");
+    	if (body.getData() == null)
+    		return new Message("failure","no data");
+    	Category category = new Category(firm.getId(), body.getData());
+    	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
+    	Category sameTitle = (Category)Entitled.findByTitle(sameFirm, category.getTitle());
+    	if (sameTitle != null)
+    		return new Message("failure","title taken");
     	categoryRepository.save(category);
-    	return success;
+    	return new Message("success");
     }
     
     @PostMapping("/edit-category")
-    public Message editCategory(@RequestBody AddCategoryInput body) {
+    public Message editCategory(@RequestBody EditCategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
-    	if (firm == null || !firm.getPassword().equals(body.getPassword()))
-    		return errorUser;
-    	Category category = categoryRepository.findById(0);
-    	if (category == null) {
-    		return failure;
-    	}
-    	category.setTitle(body.getNewCategory().getTitle());
-    	category.setDescription(body.getNewCategory().getDescription());
-    	return success;
+    	if (firm == null)
+    		return new Message("failure","wrong username");
+    	if (!firm.getPassword().equals(body.getPassword()))
+        	return new Message("failure","wrong password");
+    	if (body.getData() == null)
+    		return new Message("failure","no data");
+    	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
+    	Category old = (Category)Entitled.findByTitle(sameFirm,  body.getSubject());
+    	Category d = new Category(firm.getId(), body.getData());
+    	
+    	
+    	
+    	return new Message("success");
     }
     
     @PostMapping("/firms-remove-category")

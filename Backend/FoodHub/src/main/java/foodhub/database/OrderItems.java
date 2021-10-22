@@ -36,40 +36,20 @@ public class OrderItems {
 		return id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
-
 	public long getOrderId() {
 		return orderId;
-	}
-
-	public void setOrderId(long orderId) {
-		this.orderId = orderId;
 	}
 
 	public long getItemId() {
 		return itemId;
 	}
 
-	public void setItemId(long itemId) {
-		this.itemId = itemId;
-	}
-
 	public int getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
 	public String getNotes() {
 		return notes;
-	}
-
-	public void setNotes(String notes) {
-		this.notes = notes;
 	}
 	
 }

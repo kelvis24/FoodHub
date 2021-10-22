@@ -33,32 +33,16 @@ public class Order {
 		return id;
 	}
 	
-	public void setId(long id) {
-		this.id = id;
-	}
-	
 	public long getFirmId() {
 		return firmId;
-	}
-	
-	public void setFirmId(long firmId) {
-		this.firmId = firmId;
 	}
 	
 	public long getCustomerId() {
 		return customerId;
 	}
 	
-	public void setCustomerId(long customerId) {
-		this.customerId = customerId;
-	}
-	
 	public int getStatus() {
 		return status;
-	}
-	
-	public void setStatus(int status) {
-		this.status = status;
 	}
 	
 }

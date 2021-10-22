@@ -79,10 +79,10 @@ public class CustomerController {
     	if (customer == null || !customer.getPassword().equals(body.getPassword())) {
     		return failure;
     	}
-    	customer.setName(body.getCustomer().getName());
-    	customer.setUsername(body.getCustomer().getUsername());
-    	customer.setPassword(body.getCustomer().getPassword());
-    	customer.setLocation(body.getCustomer().getLocation());
+    	// customer.setName(body.getCustomer().getName());
+    	// customer.setUsername(body.getCustomer().getUsername());
+    	// customer.setPassword(body.getCustomer().getPassword());
+    	// customer.setLocation(body.getCustomer().getLocation());
     	return success;
     }
 
