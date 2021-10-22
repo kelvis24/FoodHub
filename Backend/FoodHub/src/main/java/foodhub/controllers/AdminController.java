@@ -75,13 +75,11 @@ public class AdminController {
     		return new Message("failure","wrong credentials");
     	if (body.getData() == null)
     		return new Message("failure","no data");
-    	Admin novel = new Admin(body.getData());
-    	Admin old = adminRepository.findByUsername(novel.getUsername());
+    	AdminInfo d = body.getData();
+    	Admin old = adminRepository.findByUsername(d.getUsername());
     	if (old == null)
     		return new Message("failure","no such user");
-    	novel.setType(old.getType());
-    	adminRepository.deleteById(old.getId());
-    	adminRepository.save(novel);
+    	adminRepository.setById(old.getId(),d.getUsername(),d.getPassword(),d.getName(),old.getType());
     	return new Message("success");
     }
     
@@ -120,8 +118,6 @@ public class AdminController {
     	return new Message("success");
     }
     
-    // TODO: deal with cascading effects of editing firms
-    
     @PostMapping("/admins-edit-firm")
     public Message editFirm(@RequestBody FirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
@@ -131,12 +127,12 @@ public class AdminController {
     		return new Message("failure","wrong password");
     	if (body.getData() == null)
     		return new Message("failure","no data");
-    	Firm novel = new Firm(body.getData());
-    	Firm old = firmRepository.findByUsername(novel.getUsername());
+    	FirmInfo d = body.getData();
+    	Firm old = firmRepository.findByUsername(d.getUsername());
     	if (old == null)
     		return new Message("failure","no such user");
-    	firmRepository.deleteById(old.getId());
-    	firmRepository.save(novel);
+    	firmRepository.setById(old.getId(), d.getUsername(), d.getPassword(), d.getName(), d.getLocation(),
+    			d.getCuisine(), d.getOpen_time(), d.getClose_time(), d.getEmployee_count());
     	return new Message("success");
     }
     

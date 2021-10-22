@@ -36,21 +36,18 @@ public class DebugController {
 	
 	@Autowired
 	OrderItemsRepository orderItemsRepository;
-
-	private String success = "{\"message\":\"success\"}";
-	private String failure = "{\"message\":\"failure\"}";
     
     @GetMapping("/debug-default-owner")
-    public String defaultOwner() {
+    public Message defaultOwner() {
     	Admin owner = new Admin("arvidg@iastate.edu","aA0/aaaaaaaa","Arvid",1);
     	adminRepository.save(owner);
-        return success;
+        return new Message("success");
     }
     
     @PostMapping("/debug-edit-admin")
     public Message editAdmin(@RequestBody Admin body) {
     	Admin old = adminRepository.findByUsername(body.getUsername());
-    	adminRepository.setAdminById(old.getId(), body.getUsername(), body.getPassword(), body.getName(), body.getType());
+    	adminRepository.setById(old.getId(), body.getUsername(), body.getPassword(), body.getName(), body.getType());
     	return new Message("success");
     }
         

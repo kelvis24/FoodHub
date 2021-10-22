@@ -16,7 +16,7 @@ import foodhub.ioObjects.Authentication;
 
 @RestController
 public class FirmController {
-	/*
+	
 	@Autowired
 	FirmRepository firmRepository;
 	
@@ -160,5 +160,4 @@ public class FirmController {
     	return orderItems.toString();
     }
     
-    */
 }
