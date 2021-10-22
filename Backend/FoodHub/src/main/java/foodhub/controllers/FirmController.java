@@ -57,12 +57,15 @@ public class FirmController {
         	return new Message("failure","wrong password");
     	if (body.getData() == null)
     		return new Message("failure","no data");
-    	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
-    	Category old = (Category)Entitled.findByTitle(sameFirm,  body.getSubject());
     	Category d = new Category(firm.getId(), body.getData());
-    	
-    	
-    	
+    	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
+    	Category sameTitle = (Category)Entitled.findByTitle(sameFirm, d.getTitle());
+    	if (sameTitle != null)
+    		return new Message("failure","title taken");
+    	Category old = (Category)Entitled.findByTitle(sameFirm,  body.getSubject());
+    	if (old == null)
+    		return new Message("failure","no such category");
+    	categoryRepository.setById(old.getId(),firm.getId(),d.getTitle(),d.getDescription());
     	return new Message("success");
     }
     
