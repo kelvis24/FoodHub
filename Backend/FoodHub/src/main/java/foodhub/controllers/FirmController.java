@@ -30,7 +30,7 @@ public class FirmController {
 	@Autowired
 	OrderItemsRepository orderItemsRepository;
 
-    @PostMapping(path = "/firms-create-category")
+    @PostMapping("/firms-create-category")
     public Message createCategory(@RequestBody AddCategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null)
@@ -48,7 +48,7 @@ public class FirmController {
     	return new Message("success");
     }
     
-    @PostMapping("/edit-category")
+    @PostMapping("/firms-edit-category")
     public Message editCategory(@RequestBody EditCategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null)
@@ -69,17 +69,20 @@ public class FirmController {
     	return new Message("success");
     }
     
+    // TODO deal with cascading effects of deleting categories
     @PostMapping("/firms-remove-category")
-    public Message removeCateogry(@RequestBody AddCategoryInput body) {
+    public Message removeCateogry(@RequestBody RemoveEntitledInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
-    	if (firm == null || !firm.getPassword().equals(body.getPassword()))
-    		return errorUser;
-    	Category category = categoryRepository.findById(0);
-    	if (category == null) {
-    		return failure;
-    	}
+    	if (firm == null)
+    		return new Message("failure","wrong username");
+    	if (!firm.getPassword().equals(body.getPassword()))
+        	return new Message("failure","wrong password");
+    	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
+    	Category category = (Category)Entitled.findByTitle(sameFirm, body.getTitle());
+    	if (category == null)
+    		return new Message("failure","no such category");
     	categoryRepository.deleteById(category.getId());
-    	return success;
+    	return new Message("success");
     }
 
     //Add item
