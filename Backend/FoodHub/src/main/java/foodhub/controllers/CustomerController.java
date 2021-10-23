@@ -19,7 +19,7 @@ public class CustomerController {
 	CustomerRepository customerRepository;
 
 	@Autowired
-	OrderItemsRepository orderItemsRepository;
+	OrderItemRepository orderItemsRepository;
 	
 	@Autowired
 	OrderRepository orderRepository;
@@ -43,10 +43,10 @@ public class CustomerController {
     	if (customer == null || !customer.getPassword().equals(body.getPassword()))
     		return failure;
     	List<Order> orders = orderRepository.findByCustomerId(customer.getId());
-    	List<OrderItems> orderItems = new ArrayList<OrderItems>();
+    	List<OrderItem> orderItems = new ArrayList<OrderItem>();
     	for (Order o : orders) {
-    		List<OrderItems> orderItemList = orderItemsRepository.findByOrderId(o.getId());
-    		for (OrderItems i : orderItemList) {
+    		List<OrderItem> orderItemList = orderItemsRepository.findByOrderId(o.getId());
+    		for (OrderItem i : orderItemList) {
     			orderItems.add(i);
     		}
     	}
@@ -68,7 +68,7 @@ public class CustomerController {
     	if (item == null) {
     		return failure;
     	}
-    	OrderItems orderItem = new OrderItems(order.getId(), item.getId(), body.getQuantity(), body.getNotes());
+    	OrderItem orderItem = new OrderItem(order.getId(), item.getId(), body.getQuantity(), body.getNotes());
     	orderItemsRepository.save(orderItem);
     	return success;
     }

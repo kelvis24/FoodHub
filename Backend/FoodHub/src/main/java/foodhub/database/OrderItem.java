@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Order_Items")
-public class OrderItems {
+@Table(name="Order_Item")
+public class OrderItem {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,14 +23,14 @@ public class OrderItems {
 	@Column()
 	private String notes;
 	
-	public OrderItems(long orderId, long itemId, int quantity, String notes) {
+	public OrderItem(long orderId, long itemId, int quantity, String notes) {
 		this.orderId = orderId;
 		this.itemId = itemId;
 		this.quantity = quantity;
 		this.notes = notes;
 	}
 
-	public OrderItems() {}
+	public OrderItem() {}
 	
 	public long getId() {
 		return id;

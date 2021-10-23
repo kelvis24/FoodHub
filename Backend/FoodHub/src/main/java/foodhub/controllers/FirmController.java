@@ -1,5 +1,6 @@
 package foodhub.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class FirmController {
 	OrderRepository orderRepository;
 	
 	@Autowired
-	OrderItemsRepository orderItemsRepository;
+	OrderItemRepository orderItemRepository;
 
     @PostMapping("/firms-create-category")
     public Message createCategory(@RequestBody AddCategoryInput body) {
@@ -149,24 +150,23 @@ public class FirmController {
     	return new Message("success");
     }
     
-    // TODO: Implement Method
-    
-    /*
     @PostMapping("/firms-get-orders")
-    public List<OrderInfo> showOrders(@RequestBody Authentication body) {
+    public List<OrderOutput> showOrders(@RequestBody Authentication body) {
+    	List<OrderOutput> output = new ArrayList<OrderOutput>();
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
-    		return errorUser;
+        	return output;
     	List<Order> orders = orderRepository.findByFirmId(firm.getId());
-    	List<OrderItems> orderItems = new ArrayList<OrderItems>();
-    	for (Order o : orders) {
-    		List<OrderItems> orderItemList = orderItemsRepository.findByOrderId(o.getId());
-    		for (OrderItems i : orderItemList) {
-    			orderItems.add(i);
+    	for (Order order : orders) {
+    		List<OrderItemOutput> orderList = new ArrayList<OrderItemOutput>();
+    		List<OrderItem> orderItems = orderItemRepository.findByOrderId(order.getId());
+    		for (OrderItem orderItem : orderItems) {
+    			Item item = itemRepository.findById(orderItem.getItemId());
+    			orderList.add(new OrderItemOutput(orderItem, item));
     		}
+    		output.add(new OrderOutput(order, orderList));
     	}
-    	return orderItems.toString();
+    	return output;
     }
-    */
     
 }

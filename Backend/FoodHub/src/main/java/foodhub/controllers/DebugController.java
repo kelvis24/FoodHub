@@ -33,7 +33,7 @@ public class DebugController {
 	OrderRepository orderRepository;
 	
 	@Autowired
-	OrderItemsRepository orderItemsRepository;
+	OrderItemRepository orderItemsRepository;
     
     @GetMapping("/debug-default-owner")
     public Message defaultOwner() {
@@ -87,7 +87,7 @@ public class DebugController {
     }
 	
     @GetMapping("/debug-get-orderitems")
-    public List<OrderItems> listOrderItems() {
+    public List<OrderItem> listOrderItems() {
     	return orderItemsRepository.findAll();
     }
 	
