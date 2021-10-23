@@ -151,7 +151,7 @@ public class FirmController {
     }
     
     @PostMapping("/firms-get-orders")
-    public List<OrderOutput> showOrders(@RequestBody Authentication body) {
+    public List<OrderOutput> getOrders(@RequestBody Authentication body) {
     	List<OrderOutput> output = new ArrayList<OrderOutput>();
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
