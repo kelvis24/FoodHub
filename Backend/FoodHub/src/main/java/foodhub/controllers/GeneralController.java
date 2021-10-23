@@ -16,9 +16,6 @@ import foodhub.ioObjects.*;
 public class GeneralController {
 	
 	@Autowired
-	AdminRepository adminRepository;
-	
-	@Autowired
 	FirmRepository firmRepository;
 	
 	@Autowired

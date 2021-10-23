@@ -68,6 +68,7 @@ public class FirmController {
     }
     
     // TODO deal with cascading effects of deleting categories
+    
     @PostMapping("/firms-remove-category")
     public Message removeCateogry(@RequestBody RemoveEntitledInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
@@ -129,6 +130,8 @@ public class FirmController {
     	return new Message("success");
     }
     
+    // TODO: deal with cascading effects of removing items
+    
     @PostMapping("/firms-remove-item")
     public Message removeItem(@RequestBody RemoveEntitledInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
@@ -147,6 +150,7 @@ public class FirmController {
     }
     
     // TODO: Implement Method
+    
     /*
     @PostMapping("/firms-get-orders")
     public List<OrderInfo> showOrders(@RequestBody Authentication body) {
