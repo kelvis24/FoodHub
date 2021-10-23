@@ -71,7 +71,7 @@ public class FirmController {
     // TODO deal with cascading effects of deleting categories
     
     @PostMapping("/firms-remove-category")
-    public Message removeCateogry(@RequestBody RemoveEntitledInput body) {
+    public Message removeCateogry(@RequestBody RemoveCategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null)
     		return new Message("failure","wrong username");
@@ -134,18 +134,18 @@ public class FirmController {
     // TODO: deal with cascading effects of removing items
     
     @PostMapping("/firms-remove-item")
-    public Message removeItem(@RequestBody RemoveEntitledInput body) {
+    public Message removeItem(@RequestBody RemoveItemInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null)
     		return new Message("failure","wrong username");
     	if (!firm.getPassword().equals(body.getPassword()))
         	return new Message("failure","wrong password");
     	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
-    	Category category = (Category)Entitled.findByTitle(sameFirm, body.getTitle());
+    	Category category = (Category)Entitled.findByTitle(sameFirm, body.getCategoryTitle());
     	if (category == null)
     		return new Message("failure","no such category");
     	List<Item> sameCategory = itemRepository.findByCategoryId(category.getId());
-    	Item item = (Item)Entitled.findByTitle(sameCategory,  body.getTitle());
+    	Item item = (Item)Entitled.findByTitle(sameCategory,  body.getItemTitle());
     	itemRepository.deleteById(item.getId());
     	return new Message("success");
     }
