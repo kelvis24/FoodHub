@@ -16,8 +16,8 @@ public interface CategoryRepository extends JpaRepository<Category, Long>  {
 
 	@Modifying
 	@Transactional
-	@Query("update Category x set x.firmId = ?2, x.title = ?3, x.description = ?4 where x.id = ?1")
-	void setById(long id, long firmId, String title, String description);
+	@Query("update Category x set x.title = ?2, x.description = ?3 where x.id = ?1")
+	void setById(long id, String title, String description);
 	
 	void deleteById(long id);
 

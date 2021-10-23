@@ -1,10 +1,8 @@
 package foodhub.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,7 +63,7 @@ public class FirmController {
     	Category old = (Category)Entitled.findByTitle(sameFirm,  body.getSubject());
     	if (old == null)
     		return new Message("failure","no such category");
-    	categoryRepository.setById(old.getId(),firm.getId(),d.getTitle(),d.getDescription());
+    	categoryRepository.setById(old.getId(),d.getTitle(),d.getDescription());
     	return new Message("success");
     }
     
@@ -107,39 +105,49 @@ public class FirmController {
     	return new Message("success");
     }
     
+    // TODO: deal with cascading effects of editing items
+    
     @PostMapping("/firms-edit-item")
-    public Message editItem(@RequestBody AddItemInput body) {
+    public Message editItem(@RequestBody EditItemInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
-    	if (firm == null || !firm.getPassword().equals(body.getPassword()))
-    		return errorUser;
-    	Item item = itemRepository.findById(0);
-    	if (item == null) {
-    		return failure;
-    	}
-    	item.setTitle(body.getNewItem().getTitle());
-    	item.setDescription(body.getNewItem().getDescription());
-    	item.setPrice(body.getNewItem().getPrice());
-    	
-    	return success;
+    	if (firm == null)
+    		return new Message("failure","wrong username");
+    	if (!firm.getPassword().equals(body.getPassword()))
+        	return new Message("failure","wrong password");
+    	if (body.getData() == null)
+    		return new Message("failure","no data");
+    	ItemInfo d = body.getData();
+    	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
+    	Category category = (Category)Entitled.findByTitle(sameFirm, body.getTitle());
+    	if (category == null)
+    		return new Message("failure","no such category");
+    	List<Item> sameCategory = itemRepository.findByCategoryId(category.getId());
+    	Item old = (Item)Entitled.findByTitle(sameCategory,  body.getTitle());
+    	if (old == null)
+    		return new Message("failure","no such item");
+    	itemRepository.setById(old.getId(), d.getTitle(), d.getDescription(), d.getPrice());
+    	return new Message("success");
     }
     
     @PostMapping("/firms-remove-item")
-    public Message removeItem(@RequestBody AddItemInput body) {
+    public Message removeItem(@RequestBody RemoveEntitledInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
-    	if (firm == null || !firm.getPassword().equals(body.getPassword()))
-    		return errorUser;
-    	Category category = categoryRepository.findById(0);
-    	if (category == null) {
-    		return failure;
-    	}
-    	Item item = itemRepository.findById(0);
-    	if (item == null) {
-    		return failure;
-    	}
+    	if (firm == null)
+    		return new Message("failure","wrong username");
+    	if (!firm.getPassword().equals(body.getPassword()))
+        	return new Message("failure","wrong password");
+    	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
+    	Category category = (Category)Entitled.findByTitle(sameFirm, body.getTitle());
+    	if (category == null)
+    		return new Message("failure","no such category");
+    	List<Item> sameCategory = itemRepository.findByCategoryId(category.getId());
+    	Item item = (Item)Entitled.findByTitle(sameCategory,  body.getTitle());
     	itemRepository.deleteById(item.getId());
-    	return success;
+    	return new Message("success");
     }
     
+    // TODO: Implement Method
+    /*
     @PostMapping("/firms-get-orders")
     public List<OrderInfo> showOrders(@RequestBody Authentication body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
@@ -155,5 +163,6 @@ public class FirmController {
     	}
     	return orderItems.toString();
     }
+    */
     
 }
