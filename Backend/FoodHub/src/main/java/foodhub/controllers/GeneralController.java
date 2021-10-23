@@ -1,7 +1,6 @@
 package foodhub.controllers;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +14,6 @@ import foodhub.ioObjects.*;
 
 @RestController
 public class GeneralController {
-	
-	@Autowired
-	AdminRepository adminRepository;
 	
 	@Autowired
 	FirmRepository firmRepository;
@@ -35,8 +31,7 @@ public class GeneralController {
     public List<FirmOutput> getFirms() {
     	List<FirmOutput> output = new ArrayList<FirmOutput>();
     	List<Firm> firms = firmRepository.findAll();
-    	Iterator<Firm> it = firms.iterator();
-    	while (it.hasNext()) {output.add(new FirmOutput(it.next()));}
+    	for (Firm f : firms) {output.add(new FirmOutput(f));}
     	return output;
     }
     
@@ -47,8 +42,7 @@ public class GeneralController {
     	if (firm == null)
     		return output;
     	List<Category> categories = categoryRepository.findByFirmId(firm.getId());
-    	Iterator<Category> it = categories.iterator();
-    	while (it.hasNext()) {output.add(new CategoryInfo(it.next()));}
+    	for (Category c : categories) {output.add(new CategoryInfo(c));}
     	return output;
     }
     
@@ -63,8 +57,7 @@ public class GeneralController {
     	if (category == null)
     		return output;
     	List<Item> items = itemRepository.findByCategoryId(category.getId());
-    	Iterator<Item> it = items.iterator();
-    	while (it.hasNext()) {output.add(new ItemInfo(it.next()));}
+    	for (Item i : items) {output.add(new ItemInfo(i));}
     	return output;
     }
     

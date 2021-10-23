@@ -7,9 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import foodhub.ioObjects.Entitled;
+import foodhub.ioObjects.ItemInfo;
+
 @Entity
 @Table(name="items")
-public class Item {
+public class Item implements Entitled {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,6 +28,14 @@ public class Item {
 	@Column(nullable = false)
 	private double price;
 	
+	public Item(long firmId, long categoryId, ItemInfo item) {
+		this.firmId = firmId;
+		this.categoryId = categoryId;
+		this.title = item.getTitle();
+		this.description = item.getDescription();
+		this.price = item.getPrice();
+	}
+	
 	public Item(long firmId, long categoryId, String title, String description, double price) {
 		this.firmId = firmId;
 		this.categoryId = categoryId;
@@ -39,48 +50,24 @@ public class Item {
 		return id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
-
 	public long getFirmId() {
 		return firmId;
-	}
-
-	public void setFirmId(long firmId) {
-		this.firmId = firmId;
 	}
 
 	public long getCategoryId() {
 		return categoryId;
 	}
 
-	public void setCategoryId(long categoryId) {
-		this.categoryId = categoryId;
-	}
-
 	public String getTitle() {
 		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	public double getPrice() {
 		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
 	}
 	
 }

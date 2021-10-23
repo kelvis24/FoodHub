@@ -1,7 +1,6 @@
 package foodhub.controllers;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,13 +39,12 @@ public class AdminController {
     	if (user == null || !user.getPassword().equals(body.getPassword()) || user.getType() != 1)
     		return output;
     	List<Admin> admins = adminRepository.findAll();
-    	Iterator<Admin> it = admins.iterator();
-    	while (it.hasNext()) {output.add(new AdminOutput(it.next()));}
+    	for (Admin a : admins) {output.add(new AdminOutput(a));}
     	return output;
     }
     
     @PostMapping("/admins-create-admin")
-    public Message createAdmin(@RequestBody AdminInput body) {
+    public Message createAdmin(@RequestBody AddAdminInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null)
     		return new Message("failure","wrong username");
@@ -65,7 +63,7 @@ public class AdminController {
     }
     
     @PostMapping("/admins-edit-admin")
-    public Message editAdmin(@RequestBody AdminInput body) {
+    public Message editAdmin(@RequestBody EditAdminInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null)
     		return new Message("failure","wrong username");
@@ -75,13 +73,14 @@ public class AdminController {
     		return new Message("failure","wrong credentials");
     	if (body.getData() == null)
     		return new Message("failure","no data");
-    	Admin novel = new Admin(body.getData());
-    	Admin old = adminRepository.findByUsername(novel.getUsername());
+    	AdminInfo d = body.getData();
+    	Admin sameUsername = adminRepository.findByUsername(d.getUsername());
+    	if (sameUsername != null)
+    		return new Message("failure","username taken");
+    	Admin old = adminRepository.findByUsername(body.getSubject());
     	if (old == null)
     		return new Message("failure","no such user");
-    	novel.setType(old.getType());
-    	adminRepository.deleteById(old.getId());
-    	adminRepository.save(novel);
+    	adminRepository.setById(old.getId(),d.getUsername(),d.getPassword(),d.getName(),old.getType());
     	return new Message("success");
     }
     
@@ -99,12 +98,14 @@ public class AdminController {
     	Admin admin = adminRepository.findByUsername(body.getUser());
     	if (admin == null)
     		return new Message("failure","no such user");
+    	if (admin.getType() == 1)
+    		return new Message("failure","not permitted");
     	adminRepository.deleteById(admin.getId());
     	return new Message("success");
     }
 
     @PostMapping("/admins-create-firm")
-    public Message createFirm(@RequestBody FirmInput body) {
+    public Message createFirm(@RequestBody AddFirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null)
     		return new Message("failure","wrong username");
@@ -120,10 +121,8 @@ public class AdminController {
     	return new Message("success");
     }
     
-    // TODO: deal with cascading effects of editing firms
-    
     @PostMapping("/admins-edit-firm")
-    public Message editFirm(@RequestBody FirmInput body) {
+    public Message editFirm(@RequestBody EditFirmInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null)
     		return new Message("failure","wrong username");
@@ -131,12 +130,15 @@ public class AdminController {
     		return new Message("failure","wrong password");
     	if (body.getData() == null)
     		return new Message("failure","no data");
-    	Firm novel = new Firm(body.getData());
-    	Firm old = firmRepository.findByUsername(novel.getUsername());
+    	FirmInfo d = body.getData();
+    	Firm sameUsername = firmRepository.findByUsername(d.getUsername());
+    	if (sameUsername != null)
+    		return new Message("failure","username taken");
+    	Firm old = firmRepository.findByUsername(body.getSubject());
     	if (old == null)
     		return new Message("failure","no such user");
-    	firmRepository.deleteById(old.getId());
-    	firmRepository.save(novel);
+    	firmRepository.setById(old.getId(), d.getUsername(), d.getPassword(), d.getName(), d.getLocation(),
+    			d.getCuisine(), d.getOpen_time(), d.getClose_time(), d.getEmployee_count());
     	return new Message("success");
     }
     

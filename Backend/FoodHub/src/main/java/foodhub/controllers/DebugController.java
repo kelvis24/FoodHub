@@ -1,7 +1,5 @@
 package foodhub.controllers;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,16 +33,27 @@ public class DebugController {
 	OrderRepository orderRepository;
 	
 	@Autowired
-	OrderItemsRepository orderItemsRepository;
-
-	private String success = "{\"message\":\"success\"}";
-	private String failure = "{\"message\":\"failure\"}";
+	OrderItemRepository orderItemsRepository;
     
     @GetMapping("/debug-default-owner")
-    public String defaultOwner() {
-    	Admin owner = new Admin("arvid","arvidg@iastate.edu","aA0/aaaaaaaa",1);
+    public Message defaultOwner() {
+    	Admin owner = new Admin("arvidg@iastate.edu","aA0/aaaaaaaa","Arvid",1);
     	adminRepository.save(owner);
-        return success;
+        return new Message("success");
+    }
+    
+    @PostMapping("/debug-edit-admin")
+    public Message editAdmin(@RequestBody Admin body) {
+    	Admin old = adminRepository.findByUsername(body.getUsername());
+    	adminRepository.setById(old.getId(), body.getUsername(), body.getPassword(), body.getName(), body.getType());
+    	return new Message("success");
+    }
+        
+    @PostMapping("/debug-delete-admin")
+    public Message deleteAdmin(@RequestBody Username body) {
+    	Admin old = adminRepository.findByUsername(body.getUsername());
+    	adminRepository.deleteById(old.getId());
+    	return new Message("success");
     }
     
     @GetMapping("/debug-get-admins")
@@ -78,7 +87,7 @@ public class DebugController {
     }
 	
     @GetMapping("/debug-get-orderitems")
-    public List<OrderItems> listOrderItems() {
+    public List<OrderItem> listOrderItems() {
     	return orderItemsRepository.findAll();
     }
 	

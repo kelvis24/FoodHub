@@ -13,10 +13,6 @@ public class FirmCategory extends Username {
 		super();
 	}
 	
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	
 	public String getTitle() {
 		return title;
 	}

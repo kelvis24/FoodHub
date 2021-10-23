@@ -4,15 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import foodhub.database.*;
-import foodhub.ioObjects.CategoryInput;
-import foodhub.ioObjects.ItemInput;
-import foodhub.ioObjects.Authentication;
+import foodhub.ioObjects.*;
 
 @RestController
 public class FirmController {
@@ -30,143 +27,146 @@ public class FirmController {
 	OrderRepository orderRepository;
 	
 	@Autowired
-	OrderItemsRepository orderItemsRepository;
+	OrderItemRepository orderItemRepository;
 
-	private String success = "{\"message\":\"success\"}";
-	private String failure = "{\"message\":\"failure\"}";
-	private String errorUser = "{\"message\":\"user not defined/found\"}";
-
-    @PostMapping(path = "/firms-create-categories")
-    public String createFirm(@RequestBody CategoryInput body) {
+    @PostMapping("/firms-create-category")
+    public Message createCategory(@RequestBody AddCategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
-    	if (firm == null || !firm.getPassword().equals(body.getPassword()))
-    		return errorUser;
-    	Category category = body.getCategory();
-    	if (category == null)
-    		return failure;
-    	List<Category> otherCats = categoryRepository.findByFirmId(firm.getId());
-    	for (Category c: otherCats) {
-    		if (c.getTitle().equalsIgnoreCase(category.getTitle())) {
-    			return failure;
-    		}
-    	}
-    	category.setFirmId(firm.getId());
+    	if (firm == null)
+    		return new Message("failure","wrong username");
+    	if (!firm.getPassword().equals(body.getPassword()))
+        	return new Message("failure","wrong password");
+    	if (body.getData() == null)
+    		return new Message("failure","no data");
+    	Category category = new Category(firm.getId(), body.getData());
+    	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
+    	Category sameTitle = (Category)Entitled.findByTitle(sameFirm, category.getTitle());
+    	if (sameTitle != null)
+    		return new Message("failure","title taken");
     	categoryRepository.save(category);
-    	return success;
+    	return new Message("success");
     }
     
-    @PostMapping("remove-category")
-    public String removeCateogry(@RequestBody CategoryInput body) {
+    @PostMapping("/firms-edit-category")
+    public Message editCategory(@RequestBody EditCategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
-    	if (firm == null || !firm.getPassword().equals(body.getPassword()))
-    		return errorUser;
-    	Category category = categoryRepository.findById(0);
-    	if (category == null) {
-    		return failure;
-    	}
+    	if (firm == null)
+    		return new Message("failure","wrong username");
+    	if (!firm.getPassword().equals(body.getPassword()))
+        	return new Message("failure","wrong password");
+    	if (body.getData() == null)
+    		return new Message("failure","no data");
+    	Category d = new Category(firm.getId(), body.getData());
+    	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
+    	Category sameTitle = (Category)Entitled.findByTitle(sameFirm, d.getTitle());
+    	if (sameTitle != null)
+    		return new Message("failure","title taken");
+    	Category old = (Category)Entitled.findByTitle(sameFirm,  body.getSubject());
+    	if (old == null)
+    		return new Message("failure","no such category");
+    	categoryRepository.setById(old.getId(),d.getTitle(),d.getDescription());
+    	return new Message("success");
+    }
+    
+    // TODO deal with cascading effects of deleting categories
+    
+    @PostMapping("/firms-remove-category")
+    public Message removeCateogry(@RequestBody RemoveCategoryInput body) {
+    	Firm firm = firmRepository.findByUsername(body.getUsername());
+    	if (firm == null)
+    		return new Message("failure","wrong username");
+    	if (!firm.getPassword().equals(body.getPassword()))
+        	return new Message("failure","wrong password");
+    	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
+    	Category category = (Category)Entitled.findByTitle(sameFirm, body.getTitle());
+    	if (category == null)
+    		return new Message("failure","no such category");
     	categoryRepository.deleteById(category.getId());
-    	return success;
-    }
-    
-    @PostMapping("/edit-category")
-    public String editCategory(@RequestBody CategoryInput body) {
-    	Firm firm = firmRepository.findByUsername(body.getUsername());
-    	if (firm == null || !firm.getPassword().equals(body.getPassword()))
-    		return errorUser;
-    	Category category = categoryRepository.findById(0);
-    	if (category == null) {
-    		return failure;
-    	}
-    	category.setTitle(body.getNewCategory().getTitle());
-    	category.setDescription(body.getNewCategory().getDescription());
-    	return success;
-    }
-    
-    //Work on
-    @PostMapping("/categories")
-    public List<Category> listCategories(Model model) {
-    	return categoryRepository.findAll();
+    	return new Message("success");
     }
 
-    //Add item
-    @PostMapping("/create-item")
-    public String createItem(@RequestBody ItemInput body) {
+    @PostMapping("/firms-create-item")
+    public Message createItem(@RequestBody AddItemInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
-    	if (firm == null || !firm.getPassword().equals(body.getPassword()))
-    		return errorUser;
-    	List<Category> firmCats = categoryRepository.findByFirmId(firm.getId());
-    	Category category = null;
-    	for (Category c : firmCats) {
-    		if (c.getTitle().equals(body.getCategory())) {
-    			category = c;
-    			break;
-    		}
-    	}
-    	if (category == null) {
-    		return failure;
-    	}
-    	Item item = body.getItem();
-    	if (item == null) {
-    		return failure;
-    	}
-    	List<Item> otherItems = itemRepository.findByFirmId(firm.getId());
-    	for (Item i: otherItems) {
-    		if (i.getTitle().equalsIgnoreCase(item.getTitle())) {
-    			return failure;
-    		}
-    	}
-    	item.setFirmId(firm.getId());
-    	item.setCategoryId(category.getId());
+    	if (firm == null)
+    		return new Message("failure","wrong username");
+    	if (!firm.getPassword().equals(body.getPassword()))
+        	return new Message("failure","wrong password");
+    	if (body.getData() == null)
+    		return new Message("failure","no data");
+    	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
+    	Category category = (Category)Entitled.findByTitle(sameFirm, body.getTitle());
+    	if (category == null)
+    		return new Message("failure","no such category");
+    	Item item = new Item(firm.getId(), category.getId(), body.getData());
+    	List<Item> sameCategory = itemRepository.findByCategoryId(category.getId());
+    	Item sameTitle = (Item)Entitled.findByTitle(sameCategory,  item.getTitle());
+    	if (sameTitle != null)
+    		return new Message("failure","title taken");
     	itemRepository.save(item);
-    	return success;
+    	return new Message("success");
     }
     
-    @PostMapping("/remove-item")
-    public String removeItem(@RequestBody ItemInput body) {
+    // TODO: deal with cascading effects of editing items
+    
+    @PostMapping("/firms-edit-item")
+    public Message editItem(@RequestBody EditItemInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
-    	if (firm == null || !firm.getPassword().equals(body.getPassword()))
-    		return errorUser;
-    	Category category = categoryRepository.findById(0);
-    	if (category == null) {
-    		return failure;
-    	}
-    	Item item = itemRepository.findById(0);
-    	if (item == null) {
-    		return failure;
-    	}
+    	if (firm == null)
+    		return new Message("failure","wrong username");
+    	if (!firm.getPassword().equals(body.getPassword()))
+        	return new Message("failure","wrong password");
+    	if (body.getData() == null)
+    		return new Message("failure","no data");
+    	ItemInfo d = body.getData();
+    	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
+    	Category category = (Category)Entitled.findByTitle(sameFirm, body.getTitle());
+    	if (category == null)
+    		return new Message("failure","no such category");
+    	List<Item> sameCategory = itemRepository.findByCategoryId(category.getId());
+    	Item old = (Item)Entitled.findByTitle(sameCategory,  body.getTitle());
+    	if (old == null)
+    		return new Message("failure","no such item");
+    	itemRepository.setById(old.getId(), d.getTitle(), d.getDescription(), d.getPrice());
+    	return new Message("success");
+    }
+    
+    // TODO: deal with cascading effects of removing items
+    
+    @PostMapping("/firms-remove-item")
+    public Message removeItem(@RequestBody RemoveItemInput body) {
+    	Firm firm = firmRepository.findByUsername(body.getUsername());
+    	if (firm == null)
+    		return new Message("failure","wrong username");
+    	if (!firm.getPassword().equals(body.getPassword()))
+        	return new Message("failure","wrong password");
+    	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
+    	Category category = (Category)Entitled.findByTitle(sameFirm, body.getCategoryTitle());
+    	if (category == null)
+    		return new Message("failure","no such category");
+    	List<Item> sameCategory = itemRepository.findByCategoryId(category.getId());
+    	Item item = (Item)Entitled.findByTitle(sameCategory,  body.getItemTitle());
     	itemRepository.deleteById(item.getId());
-    	return success;
+    	return new Message("success");
     }
     
-    @PostMapping("/edit-item")
-    public String editItem(@RequestBody ItemInput body) {
+    @PostMapping("/firms-get-orders")
+    public List<OrderOutput> getOrders(@RequestBody Authentication body) {
+    	List<OrderOutput> output = new ArrayList<OrderOutput>();
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null || !firm.getPassword().equals(body.getPassword()))
-    		return errorUser;
-    	Item item = itemRepository.findById(0);
-    	if (item == null) {
-    		return failure;
-    	}
-    	item.setTitle(body.getNewItem().getTitle());
-    	item.setDescription(body.getNewItem().getDescription());
-    	item.setPrice(body.getNewItem().getPrice());
-    	
-    	return success;
-    }
-    
-    @PostMapping("/show-orders")
-    public String showOrders(@RequestBody Authentication body) {
-    	Firm firm = firmRepository.findByUsername(body.getUsername());
-    	if (firm == null || !firm.getPassword().equals(body.getPassword()))
-    		return errorUser;
+        	return output;
     	List<Order> orders = orderRepository.findByFirmId(firm.getId());
-    	List<OrderItems> orderItems = new ArrayList<OrderItems>();
-    	for (Order o : orders) {
-    		List<OrderItems> orderItemList = orderItemsRepository.findByOrderId(o.getId());
-    		for (OrderItems i : orderItemList) {
-    			orderItems.add(i);
+    	for (Order order : orders) {
+    		List<OrderItemOutput> orderList = new ArrayList<OrderItemOutput>();
+    		List<OrderItem> orderItems = orderItemRepository.findByOrderId(order.getId());
+    		for (OrderItem orderItem : orderItems) {
+    			Item item = itemRepository.findById(orderItem.getItemId());
+    			orderList.add(new OrderItemOutput(orderItem, item));
     		}
+    		output.add(new OrderOutput(order, orderList));
     	}
-    	return orderItems.toString();
+    	return output;
     }
+    
 }
