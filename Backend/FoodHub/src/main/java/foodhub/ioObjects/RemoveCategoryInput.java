@@ -9,6 +9,14 @@ public class RemoveCategoryInput extends Authentication {
 		this.title = title;
 	}
 	
+	public RemoveCategoryInput(String username, String password) {
+		super(username, password);
+	}
+	
+	public RemoveCategoryInput() {
+		super();
+	}
+	
 	public String getTitle() {
 		return title;
 	}
