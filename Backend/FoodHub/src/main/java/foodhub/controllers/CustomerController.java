@@ -26,16 +26,16 @@ public class CustomerController {
 	
 	private String success = "{\"message\":\"success\"}";
 	private String failure = "{\"message\":\"failure\"}";
-    
-    @PostMapping("/customer-login")
-    public Message loginCustomer(@RequestBody Authentication body) {
-    	Customer customer = customerRepository.findByUsername(body.getUsername());
-    	if (customer == null)
+	
+	@PostMapping("/customers-authenticate")
+	public Message authenticateCustomer(@RequestBody Authentication body) {
+    	Customer user = customerRepository.findByUsername(body.getUsername());
+    	if (user == null)
     		return new Message("failure","wrong username");
-    	if (!customer.getPassword().equals(body.getPassword()))
+    	if (!user.getPassword().equals(body.getPassword()))
     		return new Message("failure","wrong password");
     	return new Message("success");
-    }
+	}
     
     @PostMapping("/customer-orders")
     public String customerOrders(@RequestBody Authentication body) {

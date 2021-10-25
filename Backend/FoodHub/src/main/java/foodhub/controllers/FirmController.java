@@ -28,6 +28,16 @@ public class FirmController {
 	
 	@Autowired
 	OrderItemRepository orderItemRepository;
+	
+	@PostMapping("/firms-authenticate")
+	public Message authenticateFirm(@RequestBody Authentication body) {
+    	Firm user = firmRepository.findByUsername(body.getUsername());
+    	if (user == null)
+    		return new Message("failure","wrong username");
+    	if (!user.getPassword().equals(body.getPassword()))
+    		return new Message("failure","wrong password");
+    	return new Message("success");
+	}
 
     @PostMapping("/firms-create-category")
     public Message createCategory(@RequestBody AddCategoryInput body) {

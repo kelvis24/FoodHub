@@ -27,8 +27,6 @@ public class AdminController {
     		return new Message("failure","wrong username");
     	if (!user.getPassword().equals(body.getPassword()))
     		return new Message("failure","wrong password");
-    	if (user.getType() != 1)
-    		return new Message("failure","wrong credentials");
     	return new Message(user.getType() == 0 ? "admin" : "owner");
 	}
     
