@@ -13,6 +13,9 @@ import foodhub.ioObjects.*;
 
 @RestController
 public class FirmController {
+
+	@Autowired
+	CustomerRepository customerRepository;
 	
 	@Autowired
 	FirmRepository firmRepository;
@@ -189,6 +192,26 @@ public class FirmController {
     		output.add(new OrderOutput(order, orderList));
     	}
     	return output;
+    }
+    
+    @PostMapping("/firms-complete-order")
+    public Message completeOrder(@RequestBody CompleteOrderInput body) {
+    	Firm firm = firmRepository.findByUsername(body.getUsername());
+    	if (firm == null)
+			return new Message("failure","wrong username");
+		if (!firm.getPassword().equals(body.getPassword()))
+	    	return new Message("failure","wrong password");
+		Customer customer = customerRepository.findByUsername(body.getCustomer());
+		if (customer == null)
+			return new Message("failure","no such customer");
+    	List<Order> sameCustomer = orderRepository.findByCustomerId(customer.getId());
+    	Order order = (Order)Entitled.findByTitle(sameCustomer,  body.getTitle());
+    	if (order.getFirmId() != firm.getId())
+    		return new Message("failure","erroneous behaviour");
+    	if (order.getStatus() != 0)
+    		return new Message("failure","invalid operation");
+    	orderRepository.setById(order.getId(), 1);
+		return new Message("success");
     }
     
 }
