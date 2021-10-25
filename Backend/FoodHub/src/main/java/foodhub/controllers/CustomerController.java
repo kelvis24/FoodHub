@@ -21,9 +21,6 @@ public class CustomerController {
 	FirmRepository firmRepository;
 
 	@Autowired
-	CategoryRepository categoryRepository;
-
-	@Autowired
 	ItemRepository itemRepository;
 	
 	@Autowired
@@ -101,28 +98,17 @@ public class CustomerController {
     		return new Message("failure","wrong password");
     	if (body.getData() == null)
     		return new Message("failure","no data");
-    	Firm firm = firmRepository.findByUsername(body.getFirm());
+    	Firm firm = firmRepository.findById(body.getFirmId());
     	if (firm == null)
     		return new Message("failure","no such firm");
     	OrderInfo data = body.getData();
-    	List<Order> sameCustomer = orderRepository.findByCustomerId(customer.getId());
-    	Order sameTitle = (Order)Entitled.findByTitle(sameCustomer,  data.getTitle());
-    	if (sameTitle != null)
-			return new Message("failure","title taken");
-    	Order order = new Order(firm.getId(), customer.getId(), data.getTitle(), 0);
+    	Order order = new Order(firm.getId(), customer.getId(), 0);
     	orderRepository.save(order);
-    	sameCustomer = orderRepository.findByCustomerId(customer.getId());
-    	order = (Order)Entitled.findByTitle(sameCustomer, data.getTitle());
+    	List<Order> sameCustomer = orderRepository.findByCustomerId(customer.getId());
+    	for (Order o : sameCustomer) {if (o.getFirmId()==firm.getId()) order = o;}
     	List<OrderItemInfo> list = data.getOrderList();
     	for (OrderItemInfo o : list) {
-        	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
-        	Category category = (Category)Entitled.findByTitle(sameFirm, o.getCategory());
-        	if (category == null) {
-        		deleteOrder(order.getId());
-        		return new Message("failure","no such category");
-        	}
-        	List<Item> sameCategory = itemRepository.findByCategoryId(category.getId());
-        	Item item = (Item)Entitled.findByTitle(sameCategory,  o.getTitle());
+    		Item item = itemRepository.findById(o.getItemId());
         	if (item == null) {
         		deleteOrder(order.getId());
         		return new Message("failure","no such item");
@@ -134,16 +120,13 @@ public class CustomerController {
     }
     
     @PostMapping("customers-remove-order")
-    public Message removeOrder(@RequestBody RemoveEntitledInput body) {
+    public Message removeOrder(@RequestBody RemoveEntity body) {
     	Customer customer = customerRepository.findByUsername(body.getUsername());
     	if (customer == null)
     		return new Message("failure","wrong username");
     	if (!customer.getPassword().equals(body.getPassword()))
     		return new Message("failure","wrong password");
-    	List<Order> sameCustomer = orderRepository.findByCustomerId(customer.getId());
-    	Order order = (Order)Entitled.findByTitle(sameCustomer,  body.getTitle());
-    	if (order == null)
-    		return new Message("failure","no such order");
+    	Order order = orderRepository.findById(body.getId());
     	if (order.getStatus() == 0)
     		return new Message("failure","not permitted");
     	deleteOrder(order.getId());

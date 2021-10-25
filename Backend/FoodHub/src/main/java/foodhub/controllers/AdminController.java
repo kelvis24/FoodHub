@@ -18,9 +18,6 @@ public class AdminController {
 	AdminRepository adminRepository;
 
 	@Autowired
-	CustomerRepository customerRepository;
-
-	@Autowired
 	FirmRepository firmRepository;
 
 	@Autowired
@@ -90,7 +87,7 @@ public class AdminController {
     	Admin sameUsername = adminRepository.findByUsername(d.getUsername());
     	if (sameUsername != null)
     		return new Message("failure","username taken");
-    	Admin old = adminRepository.findByUsername(body.getSubject());
+    	Admin old = adminRepository.findById(body.getAdminId());
     	if (old == null)
     		return new Message("failure","no such user");
     	adminRepository.setById(old.getId(),d.getUsername(),d.getPassword(),d.getName(),old.getType());
@@ -98,7 +95,7 @@ public class AdminController {
     }
     
     @PostMapping("admins-remove-admin")
-    public Message removeAdmin(@RequestBody RemoveUserInput body) {
+    public Message removeAdmin(@RequestBody RemoveEntity body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null)
     		return new Message("failure","wrong username");
@@ -106,9 +103,7 @@ public class AdminController {
     		return new Message("failure","wrong password");
     	if (user.getType() != 1)
     		return new Message("failure","wrong credentials");
-    	if (body.getUser() == null)
-    		return new Message("failure","no data");
-    	Admin admin = adminRepository.findByUsername(body.getUser());
+    	Admin admin = adminRepository.findById(body.getId());
     	if (admin == null)
     		return new Message("failure","no such user");
     	if (admin.getType() == 1)
@@ -147,7 +142,7 @@ public class AdminController {
     	Firm sameUsername = firmRepository.findByUsername(d.getUsername());
     	if (sameUsername != null)
     		return new Message("failure","username taken");
-    	Firm old = firmRepository.findByUsername(body.getSubject());
+    	Firm old = firmRepository.findById(body.getFirmId());
     	if (old == null)
     		return new Message("failure","no such user");
     	firmRepository.setById(old.getId(), d.getUsername(), d.getPassword(), d.getName(), d.getLocation(),
@@ -156,15 +151,13 @@ public class AdminController {
     }
     
     @PostMapping("/admins-remove-firm")
-    public Message removeFirm(@RequestBody RemoveUserInput body) {
+    public Message removeFirm(@RequestBody RemoveEntity body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
     	if (user == null)
     		return new Message("failure","wrong username");
     	if (!user.getPassword().equals(body.getPassword()))
     		return new Message("failure","wrong password");
-    	if (body.getUser() == null)
-    		return new Message("failure","no data");
-    	Firm firm = firmRepository.findByUsername(body.getUser());
+    	Firm firm = firmRepository.findById(body.getId());
     	if (firm == null)
     		return new Message("failure","no such user");
     	firmRepository.deleteById(firm.getId());

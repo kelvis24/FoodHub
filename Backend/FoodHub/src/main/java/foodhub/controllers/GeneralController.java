@@ -31,33 +31,23 @@ public class GeneralController {
     public List<FirmOutput> getFirms() {
     	List<FirmOutput> output = new ArrayList<FirmOutput>();
     	List<Firm> firms = firmRepository.findAll();
-    	for (Firm f : firms) {output.add(new FirmOutput(f));}
+    	for (Firm f : firms) output.add(new FirmOutput(f));
     	return output;
     }
     
     @PostMapping("/general-get-categories")
-    public List<CategoryInfo> getCategories(@RequestBody Username body) {
-    	List<CategoryInfo> output = new ArrayList<CategoryInfo>();
-    	Firm firm = firmRepository.findByUsername(body.getUsername());
-    	if (firm == null)
-    		return output;
-    	List<Category> categories = categoryRepository.findByFirmId(firm.getId());
-    	for (Category c : categories) {output.add(new CategoryInfo(c));}
+    public List<CategoryOutput> getCategories(@RequestBody Id body) {
+    	List<CategoryOutput> output = new ArrayList<CategoryOutput>();
+    	List<Category> categories = categoryRepository.findByFirmId(body.getId());
+    	for (Category c : categories) output.add(new CategoryOutput(c));
     	return output;
     }
     
     @PostMapping("/general-get-items")
-    public List<ItemInfo> getItems(@RequestBody FirmCategory body) {
-    	List<ItemInfo> output = new ArrayList<ItemInfo>();
-    	Firm firm = firmRepository.findByUsername(body.getUsername());
-    	if (firm == null)
-    		return output;
-    	List<Category> categories = categoryRepository.findByFirmId(firm.getId());
-    	Category category = (Category)Entitled.findByTitle(categories, body.getTitle());
-    	if (category == null)
-    		return output;
-    	List<Item> items = itemRepository.findByCategoryId(category.getId());
-    	for (Item i : items) {output.add(new ItemInfo(i));}
+    public List<ItemOutput> getItems(@RequestBody Id body) {
+    	List<ItemOutput> output = new ArrayList<ItemOutput>();
+    	List<Item> items = itemRepository.findByCategoryId(body.getId());
+    	for (Item i : items) output.add(new ItemOutput(i));
     	return output;
     }
     
