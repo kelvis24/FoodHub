@@ -18,7 +18,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 	@Modifying
 	@Transactional
 	@Query("update Order x set x.status = ?2 where x.id = ?1")
-	void setById(long id, String status);
+	void setById(long id, int status);
 	
 	void deleteById(int id);
 	

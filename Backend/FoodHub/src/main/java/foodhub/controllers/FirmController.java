@@ -78,8 +78,6 @@ public class FirmController {
     	return new Message("success");
     }
     
-    // TODO deal with cascading effects of deleting categories
-    
     @PostMapping("/firms-remove-category")
     public Message removeCateogry(@RequestBody RemoveEntitledInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
@@ -92,6 +90,15 @@ public class FirmController {
     	if (category == null)
     		return new Message("failure","no such category");
     	categoryRepository.deleteById(category.getId());
+    	List<Item> items = itemRepository.findByCategoryId(category.getId());
+    	for (Item i : items) {
+    		itemRepository.deleteById(i.getId());
+    		List<OrderItem> orderItems = orderItemRepository.findByOrderId(i.getId());
+    		for (OrderItem oi : orderItems) {
+    			orderItemRepository.deleteById(oi.getId());
+    			orderRepository.setById(oi.getOrderId(), 2);
+    		}
+    	}
     	return new Message("success");
     }
 
@@ -117,8 +124,6 @@ public class FirmController {
     	return new Message("success");
     }
     
-    // TODO: deal with cascading effects of editing items
-    
     @PostMapping("/firms-edit-item")
     public Message editItem(@RequestBody EditItemInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
@@ -138,10 +143,12 @@ public class FirmController {
     	if (old == null)
     		return new Message("failure","no such item");
     	itemRepository.setById(old.getId(), d.getTitle(), d.getDescription(), d.getPrice());
+		List<OrderItem> orderItems = orderItemRepository.findByOrderId(old.getId());
+		for (OrderItem oi : orderItems) {
+			orderRepository.setById(oi.getOrderId(), 2);
+		}
     	return new Message("success");
     }
-    
-    // TODO: deal with cascading effects of removing items
     
     @PostMapping("/firms-remove-item")
     public Message removeItem(@RequestBody RemoveItemInput body) {
@@ -157,6 +164,11 @@ public class FirmController {
     	List<Item> sameCategory = itemRepository.findByCategoryId(category.getId());
     	Item item = (Item)Entitled.findByTitle(sameCategory,  body.getItemTitle());
     	itemRepository.deleteById(item.getId());
+		List<OrderItem> orderItems = orderItemRepository.findByOrderId(item.getId());
+		for (OrderItem oi : orderItems) {
+			orderItemRepository.deleteById(oi.getId());
+			orderRepository.setById(oi.getOrderId(), 2);
+		}
     	return new Message("success");
     }
     

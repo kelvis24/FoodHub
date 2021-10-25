@@ -1,8 +1,6 @@
 package foodhub.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -60,8 +58,6 @@ public class CustomerController {
     	return new Message("success");
     }
     
-    // Deal with cascading effects of removing a customer
-    
     @PostMapping("customers-remove-customer")
     public Message removeCustomer(@RequestBody Authentication body) {
     	Customer user = customerRepository.findByUsername(body.getUsername());
@@ -69,6 +65,8 @@ public class CustomerController {
     		return new Message("failure","wrong username");
     	if (!user.getPassword().equals(body.getPassword()))
     		return new Message("failure","wrong password");
+    	List<Order> orders = orderRepository.findByCustomerId(user.getId());
+    	for (Order o : orders) deleteOrder(o.getId());
     	customerRepository.deleteById(user.getId());
     	return new Message("success");
     }

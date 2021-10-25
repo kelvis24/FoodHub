@@ -26,8 +26,8 @@ public class Order implements Entitled {
 	private int status;
 	// 0 -> pending (initial status, incomplete)
 	// 1 -> delivered (but still visible to the customer)
-	// 2 -> failed (in case of firm's removal)
-	// 3 -> Obsolete (in case of category removal, or item edit/removal)
+	// 2 -> Obsolete (in case of category removal, or item edit/removal)
+	// 3 -> failed (in case of firm's removal)
 	//   An order can be discarded by a customer when status is not 0
 	//   An order is deleted upon customer removal
 	
