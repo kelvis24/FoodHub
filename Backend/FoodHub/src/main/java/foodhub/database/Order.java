@@ -24,6 +24,12 @@ public class Order implements Entitled {
 	private String title;
 	@Column(nullable = false)
 	private int status;
+	// 0 -> pending (initial status, incomplete)
+	// 1 -> delivered (but still visible to the customer)
+	// 2 -> Obsolete (in case of category removal, or item edit/removal)
+	// 3 -> failed (in case of firm's removal)
+	//   An order can be discarded by a customer when status is not 0
+	//   An order is deleted upon customer removal
 	
 	public Order(long firmId, long customerId, String title, int status) {
 		this.firmId = firmId;

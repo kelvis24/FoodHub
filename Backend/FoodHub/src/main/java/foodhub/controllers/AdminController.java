@@ -16,9 +16,24 @@ public class AdminController {
 	
 	@Autowired
 	AdminRepository adminRepository;
-	
+
+	@Autowired
+	CustomerRepository customerRepository;
+
 	@Autowired
 	FirmRepository firmRepository;
+
+	@Autowired
+	CategoryRepository categoryRepository;
+
+	@Autowired
+	ItemRepository itemRepository;
+	
+	@Autowired
+	OrderRepository orderRepository;
+
+	@Autowired
+	OrderItemRepository orderItemRepository;
 	
 	@PostMapping("/admins-authenticate")
 	public Message authenticateAdmin(@RequestBody Authentication body) {
@@ -27,8 +42,6 @@ public class AdminController {
     		return new Message("failure","wrong username");
     	if (!user.getPassword().equals(body.getPassword()))
     		return new Message("failure","wrong password");
-    	if (user.getType() != 1)
-    		return new Message("failure","wrong credentials");
     	return new Message(user.getType() == 0 ? "admin" : "owner");
 	}
     
@@ -142,8 +155,6 @@ public class AdminController {
     	return new Message("success");
     }
     
-    // TODO: deal with cascading effects of deleting firms
-    
     @PostMapping("/admins-remove-firm")
     public Message removeFirm(@RequestBody RemoveUserInput body) {
     	Admin user = adminRepository.findByUsername(body.getUsername());
@@ -157,6 +168,16 @@ public class AdminController {
     	if (firm == null)
     		return new Message("failure","no such user");
     	firmRepository.deleteById(firm.getId());
+    	List<Category> categories = categoryRepository.findByFirmId(firm.getId());
+    	for (Category c : categories) categoryRepository.deleteById(c.getId());
+    	List<Item> items = itemRepository.findByFirmId(firm.getId());
+    	for (Item i : items) itemRepository.deleteById(i.getId());
+    	List<Order> orders = orderRepository.findByFirmId(firm.getId());
+    	for (Order o : orders) {
+    		orderRepository.setById(o.getId(), 3);
+    		List<OrderItem> orderItems = orderItemRepository.findByOrderId(o.getId());
+    		for (OrderItem oi : orderItems) orderItemRepository.deleteById(oi.getId());
+    	}
     	return new Message("success");
     }
     
