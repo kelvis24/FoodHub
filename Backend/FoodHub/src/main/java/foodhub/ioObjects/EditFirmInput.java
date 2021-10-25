@@ -1,24 +1,16 @@
 package foodhub.ioObjects;
 
 public class EditFirmInput extends AddFirmInput {
-	
-	private String subject;
 
-	public EditFirmInput(String username, String password, FirmInfo data, String subject) {
+	private long firmId;
+
+	public EditFirmInput(String username, String password, FirmInfo data, long firmId) {
 		super(username, password, data);
-		this.subject = subject;
+		this.firmId = firmId;
 	}
 	
-	public EditFirmInput(String username, String password, FirmInfo data) {
-		super(username, password, data);
-	}
-	
-	public EditFirmInput() {
-		super();
-	}
-	
-	public String getSubject() {
-		return subject;
+	public long getFirmId() {
+		return firmId;
 	}
 	
 }

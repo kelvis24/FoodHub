@@ -2,23 +2,15 @@ package foodhub.ioObjects;
 
 public class EditAdminInput extends AddAdminInput {
 	
-	private String subject;
+	private long adminId;
 
-	public EditAdminInput(String username, String password, AdminInfo data, String subject) {
+	public EditAdminInput(String username, String password, AdminInfo data, long adminId) {
 		super(username, password, data);
-		this.subject = subject;
+		this.adminId = adminId;
 	}
 	
-	public EditAdminInput(String username, String password, AdminInfo data) {
-		super(username, password, data);
-	}
-	
-	public EditAdminInput() {
-		super();
-	}
-	
-	public String getSubject() {
-		return subject;
+	public long getAdminId() {
+		return adminId;
 	}
 	
 }

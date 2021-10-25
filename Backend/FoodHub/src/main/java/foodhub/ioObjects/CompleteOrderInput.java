@@ -2,29 +2,15 @@ package foodhub.ioObjects;
 
 public class CompleteOrderInput extends Authentication {
 
-	private String customer;
-	private String title;
+	private long orderId;
 	
-	public CompleteOrderInput(String username, String password, String customer, String title) {
+	public CompleteOrderInput(String username, String password, long orderId) {
 		super(username, password);
-		this.customer = customer;
-		this.title = title;
+		this.orderId = orderId;
 	}
 	
-	public CompleteOrderInput(String username, String password) {
-		super(username, password);
-	}
-	
-	public CompleteOrderInput() {
-		super();
-	}
-	
-	public String getCustomer() {
-		return customer;
-	}
-	
-	public String getTitle() {
-		return title;
+	public long getOrderId() {
+		return orderId;
 	}
 	
 }

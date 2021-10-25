@@ -14,8 +14,6 @@ public class CustomerInfo {
 		this.location = location;
 	}
 	
-	public CustomerInfo() {}
-	
 	public String getUsername() {
 		return username;
 	}

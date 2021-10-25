@@ -4,6 +4,7 @@ import foodhub.database.Firm;
 
 public class FirmOutput {
 
+	private long id;
 	private String username;
 	private String name;
 	private String location;
@@ -13,6 +14,7 @@ public class FirmOutput {
 	private int employee_count;
 
 	public FirmOutput(Firm f) {
+		this.id = f.getId();
 		this.name = f.getName();
 		this.username = f.getUsername();
 		this.location = f.getLocation();
@@ -22,8 +24,9 @@ public class FirmOutput {
 		this.employee_count = f.getEmployee_count();
 	}
 
-	public FirmOutput(String name, String username, String location, String cuisine,
+	public FirmOutput(long id, String name, String username, String location, String cuisine,
 					int open_time,   int close_time,  int employee_count) {
+		this.id = id;
 		this.name = name;
 		this.username = username;
 		this.location = location;
@@ -34,6 +37,10 @@ public class FirmOutput {
 	}
 	
 	public FirmOutput() {}
+	
+	public long getId() {
+		return id;
+	}
 
 	public String getUsername() {
 		return username;

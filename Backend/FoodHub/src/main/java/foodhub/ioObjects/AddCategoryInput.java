@@ -9,10 +9,6 @@ public class AddCategoryInput extends Authentication {
 		this.data = data;
 	}
 	
-	public AddCategoryInput() {
-		super();
-	}
-	
 	public CategoryInfo getData() {
 		return data;
 	}

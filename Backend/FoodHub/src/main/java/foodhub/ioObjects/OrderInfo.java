@@ -4,18 +4,16 @@ import java.util.List;
 
 public class OrderInfo {
 
-	private String title;
+	private long firmId;
 	private List<OrderItemInfo> orderList;
 
-	public OrderInfo(String title, List<OrderItemInfo> orderList) {
-		this.title = title;
+	public OrderInfo(long firmId, List<OrderItemInfo> orderList) {
+		this.firmId = firmId;
 		this.orderList = orderList;
 	}
-
-	public OrderInfo() {}
-
-	public String getTitle() {
-		return title;
+	
+	public long getFirmId() {
+		return firmId;
 	}
 	
 	public List<OrderItemInfo> getOrderList() {

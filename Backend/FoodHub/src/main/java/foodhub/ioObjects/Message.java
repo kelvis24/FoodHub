@@ -15,8 +15,6 @@ public class Message {
 		this.error = "";
 	}
 	
-	public Message() {}
-	
 	public String getMessage() {
 		return message;
 	}

@@ -9,14 +9,6 @@ public class EditCustomerInput extends Authentication {
 		this.data = data;
 	}
 	
-	public EditCustomerInput(String username, String password) {
-		super(username, password);
-	}
-	
-	public EditCustomerInput() {
-		super();
-	}
-	
 	public CustomerInfo getData() {
 		return data;
 	}

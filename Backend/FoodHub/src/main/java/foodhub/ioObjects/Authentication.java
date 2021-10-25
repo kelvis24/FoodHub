@@ -9,10 +9,6 @@ public class Authentication extends Username {
 		this.password = password;
 	}
 	
-	public Authentication() {
-		super();
-	}
-	
 	public String getPassword() {
 		return password;
 	}
