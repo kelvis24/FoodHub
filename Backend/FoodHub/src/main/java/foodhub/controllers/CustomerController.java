@@ -114,6 +114,23 @@ public class CustomerController {
     	return new Message("success");
     }
     
+    @PostMapping("customers-remove-order")
+    public Message removeOrder(@RequestBody RemoveEntitledInput body) {
+    	Customer customer = customerRepository.findByUsername(body.getUsername());
+    	if (customer == null)
+    		return new Message("failure","wrong username");
+    	if (!customer.getPassword().equals(body.getPassword()))
+    		return new Message("failure","wrong password");
+    	List<Order> sameCustomer = orderRepository.findByCustomerId(customer.getId());
+    	Order order = (Order)Entitled.findByTitle(sameCustomer,  body.getTitle());
+    	if (order == null)
+    		return new Message("failure","no such order");
+    	if (order.getStatus() == 0)
+    		return new Message("failure","not permitted");
+    	deleteOrder(order.getId());
+    	return new Message("success");
+    }
+    
     private void deleteOrder(long id) {
     	orderRepository.deleteById(id);
     	List<OrderItem> list = orderItemRepository.findByOrderId(id);

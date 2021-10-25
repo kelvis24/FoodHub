@@ -81,7 +81,7 @@ public class FirmController {
     // TODO deal with cascading effects of deleting categories
     
     @PostMapping("/firms-remove-category")
-    public Message removeCateogry(@RequestBody RemoveCategoryInput body) {
+    public Message removeCateogry(@RequestBody RemoveEntitledInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null)
     		return new Message("failure","wrong username");
