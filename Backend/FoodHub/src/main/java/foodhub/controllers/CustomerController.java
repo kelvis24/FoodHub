@@ -22,10 +22,16 @@ public class CustomerController {
 	FirmRepository firmRepository;
 
 	@Autowired
-	OrderItemRepository orderItemsRepository;
+	CategoryRepository categoryRepository;
+
+	@Autowired
+	ItemRepository itemRepository;
 	
 	@Autowired
 	OrderRepository orderRepository;
+
+	@Autowired
+	OrderItemRepository orderItemRepository;
 	
 	@PostMapping("/customers-authenticate")
 	public Message authenticateCustomer(@RequestBody Authentication body) {
@@ -54,6 +60,8 @@ public class CustomerController {
     	return new Message("success");
     }
     
+    // Deal with cascading effects of removing a customer
+    
     @PostMapping("customers-remove-customer")
     public Message removeCustomer(@RequestBody Authentication body) {
     	Customer user = customerRepository.findByUsername(body.getUsername());
@@ -78,19 +86,38 @@ public class CustomerController {
     	if (firm == null)
     		return new Message("failure","no such firm");
     	OrderInfo data = body.getData();
+    	List<Order> sameCustomer = orderRepository.findByCustomerId(customer.getId());
+    	Order sameTitle = (Order)Entitled.findByTitle(sameCustomer,  data.getTitle());
+    	if (sameTitle != null)
+			return new Message("failure","title taken");
     	Order order = new Order(firm.getId(), customer.getId(), data.getTitle(), 0);
-    	
-    	
-    	
-    	List<Order> orders = orderRepository.findByCustomerId(customer.getId());
-    	List<OrderItem> orderItems = new ArrayList<OrderItem>();
-    	for (Order o : orders) {
-    		List<OrderItem> orderItemList = orderItemsRepository.findByOrderId(o.getId());
-    		for (OrderItem i : orderItemList) {
-    			orderItems.add(i);
-    		}
+    	orderRepository.save(order);
+    	sameCustomer = orderRepository.findByCustomerId(customer.getId());
+    	order = (Order)Entitled.findByTitle(sameCustomer, data.getTitle());
+    	List<OrderItemInfo> list = data.getOrderList();
+    	for (OrderItemInfo o : list) {
+        	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
+        	Category category = (Category)Entitled.findByTitle(sameFirm, o.getCategory());
+        	if (category == null) {
+        		deleteOrder(order.getId());
+        		return new Message("failure","no such category");
+        	}
+        	List<Item> sameCategory = itemRepository.findByCategoryId(category.getId());
+        	Item item = (Item)Entitled.findByTitle(sameCategory,  o.getTitle());
+        	if (item == null) {
+        		deleteOrder(order.getId());
+        		return new Message("failure","no such item");
+        	}
+        	OrderItem orderItem = new OrderItem(order.getId(), item.getId(), o.getQuantity(), o.getNotes());
+        	orderItemRepository.save(orderItem);
     	}
-    	return orderItems.toString();
+    	return new Message("success");
+    }
+    
+    private void deleteOrder(long id) {
+    	orderRepository.deleteById(id);
+    	List<OrderItem> list = orderItemRepository.findByOrderId(id);
+    	for (OrderItem o : list) orderItemRepository.deleteById(o.getId());
     }
 
 }
