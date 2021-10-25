@@ -1,29 +1,23 @@
 package foodhub.ioObjects;
-import foodhub.database.Customer;
 
-public class EditCustomerInput {
-	private String username;
-	private String password;
-	private Customer customer;
+public class EditCustomerInput extends Authentication {
 	
-	public EditCustomerInput(String username, String password, Customer customer) {
-		this.username = username;
-		this.password = password;
-		this.customer = customer;
+	private CustomerInfo data;
+
+	public EditCustomerInput(String username, String password, CustomerInfo data) {
+		super(username, password);
+		this.data = data;
 	}
 	
-	public EditCustomerInput() {}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public Customer getCustomer() {
-		return customer;
+	public EditCustomerInput(String username, String password) {
+		super(username, password);
 	}
 	
+	public EditCustomerInput() {
+		super();
+	}
+	
+	public CustomerInfo getData() {
+		return data;
+	}
 }

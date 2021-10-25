@@ -1,54 +1,30 @@
 package foodhub.ioObjects;
 
-import foodhub.database.Item;
+public class AddOrderInput extends Authentication {
 
-public class AddOrderInput {
+	private String firm;
+	private OrderInfo data;
 	
-	private String username;
-	private String password;
-	private Long orderId;
-	private Item item;
-	private int quantity;
-	private String notes;
-
-	public AddOrderInput(String username, String password, Long orderId) {
-		this.username = username;
-		this.password = password;
-		this.orderId = orderId;
+	public AddOrderInput(String username, String password, String firm, OrderInfo data) {
+		super(username, password);
+		this.firm = firm;
+		this.data = data;
 	}
 	
-	public AddOrderInput(String username, String password, Long orderId, Item item, int quantity, String notes) {
-		this.username = username;
-		this.password = password;
-		this.orderId = orderId;
-		this.item = item;
-		this.quantity = quantity;
-		this.notes = notes;
-	}
-		
-	public AddOrderInput() {}
-		
-	public String getUsername() {
-		return username;
-	}
-		
-	public String getPassword() {
-		return password;
-	}
-		
-	public Long getOrderId() {
-		return orderId;
+	public AddOrderInput(String username, String password) {
+		super(username, password);
 	}
 	
-	public Item getItem() {
-		return item;
+	public AddOrderInput() {
+		super();
 	}
 	
-	public int getQuantity() {
-		return quantity;
+	public String getFirm() {
+		return firm;
 	}
 	
-	public String getNotes() {
-		return notes;
+	public OrderInfo getData() {
+		return data;
 	}
+	
 }

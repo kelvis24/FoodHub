@@ -19,13 +19,13 @@ public class CustomerController {
 	CustomerRepository customerRepository;
 
 	@Autowired
+	FirmRepository firmRepository;
+
+	@Autowired
 	OrderItemRepository orderItemsRepository;
 	
 	@Autowired
 	OrderRepository orderRepository;
-	
-	private String success = "{\"message\":\"success\"}";
-	private String failure = "{\"message\":\"failure\"}";
 	
 	@PostMapping("/customers-authenticate")
 	public Message authenticateCustomer(@RequestBody Authentication body) {
@@ -37,11 +37,51 @@ public class CustomerController {
     	return new Message("success");
 	}
     
-    @PostMapping("/customer-orders")
-    public String customerOrders(@RequestBody Authentication body) {
+    @PostMapping("customers-edit-customer")
+    public Message createCustomer(@RequestBody EditCustomerInput body) {
+    	Customer user = customerRepository.findByUsername(body.getUsername());
+    	if (user == null)
+    		return new Message("failure","wrong username");
+    	if (!user.getPassword().equals(body.getPassword()))
+    		return new Message("failure","wrong password");
+    	if (body.getData() == null)
+    		return new Message("failure","no data");
+    	CustomerInfo d = body.getData();
+    	Customer sameUsername = customerRepository.findByUsername(d.getUsername());
+    	if (sameUsername != null)
+    		return new Message("failure","username taken");
+    	customerRepository.setById(user.getId(),d.getUsername(),d.getPassword(),d.getName(),user.getLocation());
+    	return new Message("success");
+    }
+    
+    @PostMapping("customers-remove-customer")
+    public Message removeCustomer(@RequestBody Authentication body) {
+    	Customer user = customerRepository.findByUsername(body.getUsername());
+    	if (user == null)
+    		return new Message("failure","wrong username");
+    	if (!user.getPassword().equals(body.getPassword()))
+    		return new Message("failure","wrong password");
+    	customerRepository.deleteById(user.getId());
+    	return new Message("success");
+    }
+    
+    @PostMapping("/customers-create-order")
+    public Message customerOrders(@RequestBody AddOrderInput body) {
     	Customer customer = customerRepository.findByUsername(body.getUsername());
-    	if (customer == null || !customer.getPassword().equals(body.getPassword()))
-    		return failure;
+    	if (customer == null)
+    		return new Message("failure","wrong username");
+    	if (!customer.getPassword().equals(body.getPassword()))
+    		return new Message("failure","wrong password");
+    	if (body.getData() == null)
+    		return new Message("failure","no data");
+    	Firm firm = firmRepository.findByUsername(body.getFirm());
+    	if (firm == null)
+    		return new Message("failure","no such firm");
+    	OrderInfo data = body.getData();
+    	Order order = new Order(firm.getId(), customer.getId(), data.getTitle(), 0);
+    	
+    	
+    	
     	List<Order> orders = orderRepository.findByCustomerId(customer.getId());
     	List<OrderItem> orderItems = new ArrayList<OrderItem>();
     	for (Order o : orders) {
@@ -51,39 +91,6 @@ public class CustomerController {
     		}
     	}
     	return orderItems.toString();
-    }
-    
-    @PostMapping("/add-item")
-    public String addItemToOrder(@RequestBody AddOrderInput body) {
-    	Customer customer = customerRepository.findByUsername(body.getUsername());
-    	if (customer == null || !customer.getPassword().equals(body.getPassword())) {
-    		return failure;
-    	}
-    	Optional<Order> optionalOrder = orderRepository.findById(body.getOrderId());
-    	Order order = optionalOrder.get();
-    	if (order == null || order.getCustomerId() != customer.getId()) {
-    		return failure;
-    	}
-    	Item item = body.getItem();
-    	if (item == null) {
-    		return failure;
-    	}
-    	OrderItem orderItem = new OrderItem(order.getId(), item.getId(), body.getQuantity(), body.getNotes());
-    	orderItemsRepository.save(orderItem);
-    	return success;
-    }
-    
-    @PostMapping("customer-change-info")
-    public String changeInformation(@RequestBody EditCustomerInput body) {
-    	Customer customer = customerRepository.findByUsername(body.getUsername());
-    	if (customer == null || !customer.getPassword().equals(body.getPassword())) {
-    		return failure;
-    	}
-    	// customer.setName(body.getCustomer().getName());
-    	// customer.setUsername(body.getCustomer().getUsername());
-    	// customer.setPassword(body.getCustomer().getPassword());
-    	// customer.setLocation(body.getCustomer().getLocation());
-    	return success;
     }
 
 }

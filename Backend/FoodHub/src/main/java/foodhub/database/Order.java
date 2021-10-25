@@ -25,6 +25,7 @@ public class Order implements Entitled {
 	@Column(nullable = false)
 	private int status;
 	
+	
 	public Order(long firmId, long customerId, String title, int status) {
 		this.firmId = firmId;
 		this.customerId = customerId;
