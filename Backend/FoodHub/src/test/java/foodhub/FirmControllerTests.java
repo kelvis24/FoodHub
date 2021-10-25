@@ -1,0 +1,146 @@
+package foodhub;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import foodhub.controllers.DebugController;
+import foodhub.controllers.FirmController;
+import foodhub.controllers.GeneralController;
+import foodhub.database.Admin;
+import foodhub.database.Category;
+import foodhub.database.CategoryRepository;
+import foodhub.database.Firm;
+import foodhub.database.FirmRepository;
+import foodhub.database.Item;
+import foodhub.database.ItemRepository;
+
+@SpringBootTest
+public class FirmControllerTests {
+	@InjectMocks
+	DebugController dc;
+	
+	@InjectMocks
+	FirmController fc;
+	
+	@InjectMocks
+	GeneralController gc;
+	
+	@Mock
+	FirmRepository firmRepository;
+	
+	@Mock
+	CategoryRepository categoryRepository;
+	
+	@Mock
+	ItemRepository itemRepository;
+	
+	Firm initial = new Firm("testfirm@gmail.com", "truePassword", "CyBurger", "Ames", "Borger", 500, 2000,  3);
+	
+	private List<Firm> firms;
+	private List<Category> categories;
+	private List<Item> items;
+	
+	@BeforeEach
+	public void init() {
+		firms = new ArrayList<Firm>();
+		when(firmRepository.findAll()).thenReturn(firms);
+		when(firmRepository.findByUsername((String)any(String.class)))
+		.thenAnswer(x-> {
+			String username = x.getArgument(0);
+			Iterator<Firm> itr = firms.iterator();
+			while (itr.hasNext()) {
+				Firm f = itr.next();
+				if (username.equals(f.getUsername()))
+					return f;
+			}
+			return null;
+		});
+		when(firmRepository.save((Firm)any(Firm.class)))
+		.thenAnswer(x -> {
+			Firm f = x.getArgument(0);
+			firms.add(f);
+			return null;
+		});
+		firmRepository.save(initial);
+		categories = new ArrayList<Category>();
+		when(categoryRepository.findAll()).thenReturn(categories);
+		when(categoryRepository.findByFirmId((Long)any(Long.class)))
+		.thenAnswer(x-> {
+			Long id = x.getArgument(0);
+			Iterator<Category> itr = categories.iterator();
+			while (itr.hasNext()) {
+				Category c = itr.next();
+				if (id.equals(c.getFirmId()))
+					return c;
+			}
+			return null;
+		});
+		when(categoryRepository.save((Category)any(Category.class)))
+		.thenAnswer(x -> {
+			Category c = x.getArgument(0);
+			categories.add(c);
+			return null;
+		});
+		items = new ArrayList<Item>();
+		when(itemRepository.findAll()).thenReturn(items);
+		when(itemRepository.findByFirmId((Long)any(Long.class)))
+		.thenAnswer(x-> {
+			Long id = x.getArgument(0);
+			Iterator<Item> itr = items.iterator();
+			while (itr.hasNext()) {
+				Item i = itr.next();
+				if (id.equals(i.getFirmId()))
+					return i;
+			}
+			return null;
+		});
+		when(itemRepository.save((Item)any(Item.class)))
+		.thenAnswer(x -> {
+			Item i = x.getArgument(0);
+			items.add(i);
+			return null;
+		});
+	}
+	
+	@Test
+	public void generalFirmTest() {
+		List<Firm> currFirms = dc.listFirms();
+		assertEquals(1, currFirms.size());
+		assertEquals(initial.getUsername(), currFirms.get(0).getUsername());
+		assertEquals(initial.getPassword(), currFirms.get(0).getPassword());
+		assertEquals(initial.getName(), currFirms.get(0).getName());
+		assertEquals(initial.getLocation(), currFirms.get(0).getLocation());
+		assertEquals(initial.getId(), currFirms.get(0).getId());
+		assertEquals(initial.getClose_time(), currFirms.get(0).getClose_time());
+		assertEquals(initial.getOpen_time(), currFirms.get(0).getOpen_time());
+		assertEquals(initial.getCuisine(), currFirms.get(0).getCuisine());
+		assertEquals(initial.getEmployee_count(), currFirms.get(0).getEmployee_count());
+		
+		verify(firmRepository, times(1)).save(initial);
+		verify(firmRepository, times(1)).save((Firm)any(Firm.class));
+		verify(firmRepository, times(0)).findByUsername((String)any(String.class));
+		verify(firmRepository, times(1)).findAll();
+		
+		verify(categoryRepository, times(0)).save((Category)any(Category.class));
+		verify(categoryRepository, times(0)).findByFirmId((Long)any(Long.class));
+		verify(categoryRepository, times(0)).findAll();
+		
+		verify(itemRepository, times(0)).save((Item)any(Item.class));
+		verify(itemRepository, times(0)).findByFirmId((Long)any(Long.class));
+		verify(itemRepository, times(0)).findAll();
+	}
+
+}
