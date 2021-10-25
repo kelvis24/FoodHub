@@ -183,13 +183,14 @@ public class FirmController {
         	return output;
     	List<Order> orders = orderRepository.findByFirmId(firm.getId());
     	for (Order order : orders) {
+    		Customer customer = customerRepository.getById(order.getCustomerId());
     		List<OrderItemOutput> orderList = new ArrayList<OrderItemOutput>();
     		List<OrderItem> orderItems = orderItemRepository.findByOrderId(order.getId());
     		for (OrderItem orderItem : orderItems) {
     			Item item = itemRepository.findById(orderItem.getItemId());
     			orderList.add(new OrderItemOutput(orderItem, item));
     		}
-    		output.add(new OrderOutput(order, orderList));
+    		output.add(new OrderOutput(firm.getUsername(), customer.getUsername(), order, orderList));
     	}
     	return output;
     }
