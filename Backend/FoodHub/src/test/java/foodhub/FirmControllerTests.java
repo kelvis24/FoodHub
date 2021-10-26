@@ -18,7 +18,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import foodhub.controllers.DebugController;
 import foodhub.controllers.FirmController;
-import foodhub.controllers.GeneralController;
 import foodhub.database.Category;
 import foodhub.database.CategoryRepository;
 import foodhub.database.Firm;
@@ -27,7 +26,9 @@ import foodhub.database.Item;
 import foodhub.database.ItemRepository;
 import foodhub.ioObjects.AddCategoryInput;
 import foodhub.ioObjects.AddItemInput;
+import foodhub.ioObjects.Authentication;
 import foodhub.ioObjects.CategoryInfo;
+import foodhub.ioObjects.EditCategoryInput;
 import foodhub.ioObjects.ItemInfo;
 import foodhub.ioObjects.Message;
 
@@ -149,6 +150,31 @@ public class FirmControllerTests {
 		verify(itemRepository, times(0)).findAll();
 	}
 	
+	//Success case for firm authentication
+	@Test
+	public void firmAuthenticationTest() {
+		Message result;
+		Authentication auth = new Authentication(initial.getUsername(), initial.getPassword());
+		result = fc.authenticateFirm(auth);
+		assertEquals("success", result.getMessage());
+		assertEquals("", result.getError());
+	}
+	
+	//Failure cases for firm authentication
+	@Test
+	public void firmAuthenticationTestFailures() {
+		Message result;
+		Authentication auth = new Authentication();
+		result = fc.authenticateFirm(auth);
+		assertEquals("failure", result.getMessage());
+		assertEquals("wrong username", result.getError());
+		
+		auth = new Authentication(initial.getUsername(), "wrongPassword");
+		result = fc.authenticateFirm(auth);
+		assertEquals("failure", result.getMessage());
+		assertEquals("wrong password", result.getError());
+	}
+	
 	//Singular firm with singular category
 	@Test
 	public void createCategoryTest1() {
@@ -246,6 +272,29 @@ public class FirmControllerTests {
 		assertEquals("title taken", result.getError());
 	}
 	
+	//TODO: Fix. Currently does not change title/description when editted (retains previous form)
+	/*
+	@Test
+	public void editCategoryTest() {
+		Message result;
+		CategoryInfo catInfo = new CategoryInfo("Test Title", "Test Description");
+		AddCategoryInput catInput = new AddCategoryInput(initial.getUsername(), initial.getPassword(), catInfo);
+		
+		result = fc.createCategory(catInput);
+		assertEquals("success", result.getMessage());
+		assertEquals("", result.getError());
+		assertEquals(catInfo.getTitle(), categories.get(0).getTitle());
+		assertEquals(catInfo.getDescription(), categories.get(0).getDescription());
+		
+		CategoryInfo edittedCat = new CategoryInfo("Updated Titile", "Updated Descrirpiption");
+		EditCategoryInput editCat = new EditCategoryInput(initial.getUsername(), initial.getPassword(), edittedCat, catInfo.getTitle());
+		result = fc.editCategory(editCat);
+		assertEquals("success", result.getMessage());
+		assertEquals("", result.getError());
+		
+		assertEquals(edittedCat.getTitle(), dc.listCategories().get(0).getTitle());
+	}
+	*/
 	//Singular firm with singular category with singular item
 	@Test
 	public void createItemTest1() {
