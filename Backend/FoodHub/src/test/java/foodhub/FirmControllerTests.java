@@ -31,6 +31,7 @@ import foodhub.ioObjects.CategoryInfo;
 import foodhub.ioObjects.EditCategoryInput;
 import foodhub.ioObjects.ItemInfo;
 import foodhub.ioObjects.Message;
+import foodhub.ioObjects.RemoveEntitledInput;
 
 @SpringBootTest
 public class FirmControllerTests {
@@ -295,6 +296,36 @@ public class FirmControllerTests {
 		assertEquals(edittedCat.getTitle(), dc.listCategories().get(0).getTitle());
 	}
 	*/
+	
+	//Remove category with items inside
+	@Test
+	public void removeCategoryTest() {
+		Message result;
+		CategoryInfo catInfo = new CategoryInfo("Test Title", "Test Description");
+		AddCategoryInput catInput = new AddCategoryInput(initial.getUsername(), initial.getPassword(), catInfo);
+		
+		result = fc.createCategory(catInput);
+		assertEquals("success", result.getMessage());
+		assertEquals("", result.getError());
+		assertEquals(1, dc.listCategories().size());
+		
+		ItemInfo itemInfo = new ItemInfo("Test Item Title", "Test Item Description", 1.99);
+		AddItemInput itemInput = new AddItemInput(initial.getUsername(), initial.getPassword(), dc.listCategories().get(0).getTitle(), itemInfo);
+		
+		result = fc.createItem(itemInput);
+		assertEquals("success", result.getMessage());
+		assertEquals("", result.getError());
+		assertEquals(1, dc.listItems().size());
+		
+		RemoveEntitledInput removeCat = new RemoveEntitledInput(initial.getUsername(), initial.getPassword(), catInfo.getTitle());
+		result = fc.removeCateogry(removeCat);
+		assertEquals("success", result.getMessage());
+		assertEquals("", result.getError());
+		
+		assertEquals(0, categoryRepository.count());
+		assertEquals(0, itemRepository.count());
+	}
+	
 	//Singular firm with singular category with singular item
 	@Test
 	public void createItemTest1() {
