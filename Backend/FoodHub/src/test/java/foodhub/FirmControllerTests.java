@@ -195,6 +195,7 @@ public class FirmControllerTests {
 		assertEquals(catInfo2.getDescription(), categories.get(1).getDescription());
 	}
 	
+	/*
 	//Multiple firms with singular category each (with same name)
 	@Test
 	public void createCategoryTest3() {
@@ -211,7 +212,7 @@ public class FirmControllerTests {
 		result = fc.createCategory(catInputSecond);
 		assertEquals("success", result.getMessage());
 		assertEquals("", result.getError());
-	}
+	}*/
 	
 	//Singular firm with singular category with singular item
 	@Test
