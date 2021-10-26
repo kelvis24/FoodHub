@@ -50,6 +50,7 @@ public class FirmControllerTests {
 	ItemRepository itemRepository;
 	
 	Firm initial = new Firm("testfirm@gmail.com", "truePassword", "CyBurger", "Ames", "Borger", 500, 2000,  3);
+	Firm second = new Firm("secondTest@yahoo.com", "duplicate", "WcDendys", "Ohio", "Borger", 500, 2000, 3);
 	
 	private List<Firm> firms;
 	private List<Category> categories;
@@ -77,6 +78,7 @@ public class FirmControllerTests {
 			return null;
 		});
 		firmRepository.save(initial);
+		firmRepository.save(second);
 		categories = new ArrayList<Category>();
 		when(categoryRepository.findAll()).thenReturn(categories);
 		when(categoryRepository.findByFirmId((Long)any(Long.class)))
@@ -122,7 +124,7 @@ public class FirmControllerTests {
 	@Test
 	public void generalFirmTest() {
 		List<Firm> currFirms = dc.listFirms();
-		assertEquals(1, currFirms.size());
+		assertEquals(2, currFirms.size());
 		
 		assertEquals(initial.getUsername(), currFirms.get(0).getUsername());
 		assertEquals(initial.getPassword(), currFirms.get(0).getPassword());
@@ -135,7 +137,7 @@ public class FirmControllerTests {
 		assertEquals(initial.getEmployee_count(), currFirms.get(0).getEmployee_count());
 		
 		verify(firmRepository, times(1)).save(initial);
-		verify(firmRepository, times(1)).save((Firm)any(Firm.class));
+		verify(firmRepository, times(2)).save((Firm)any(Firm.class));
 		verify(firmRepository, times(0)).findByUsername((String)any(String.class));
 		verify(firmRepository, times(1)).findAll();
 		
@@ -165,5 +167,55 @@ public class FirmControllerTests {
 		assertEquals(catInfo.getTitle(), categories.get(0).getTitle());
 		assertEquals(catInfo.getDescription(), categories.get(0).getDescription());
 	}
-
+	
+	//Singular firm with multiple categories
+	@Test
+	public void createCategoryTest2() {
+		Message result;
+		CategoryInfo catInfo1 = new CategoryInfo("Test Title", "Test Description");
+		AddCategoryInput catInput1 = new AddCategoryInput(initial.getUsername(), initial.getPassword(), catInfo1);
+		CategoryInfo catInfo2 = new CategoryInfo("Second Test Title", "Second Test Description");
+		AddCategoryInput catInput2 = new AddCategoryInput(initial.getUsername(), initial.getPassword(), catInfo2);
+		
+		result = fc.createCategory(catInput1);
+		assertEquals("success", result.getMessage());
+		assertEquals("", result.getError());
+		
+		result = fc.createCategory(catInput2);
+		assertEquals("success", result.getMessage());
+		assertEquals("", result.getError());
+		
+		List<Category> currCats = dc.listCategories();
+		assertEquals(2, currCats.size());
+		
+		assertEquals(catInfo1.getTitle(), categories.get(0).getTitle());
+		assertEquals(catInfo1.getDescription(), categories.get(0).getDescription());
+		
+		assertEquals(catInfo2.getTitle(), categories.get(1).getTitle());
+		assertEquals(catInfo2.getDescription(), categories.get(1).getDescription());
+	}
+	
+	//Multiple firms with singular category each (with same name)
+	@Test
+	public void createCategoryTest3() {
+		Message result;
+		CategoryInfo catInfo = new CategoryInfo("Test Title", "Test Description");
+		AddCategoryInput catInputInitial = new AddCategoryInput(initial.getUsername(), initial.getPassword(), catInfo);
+		AddCategoryInput catInputSecond = new AddCategoryInput(second.getUsername(), second.getPassword(), catInfo);
+		
+		result = fc.createCategory(catInputInitial);
+		assertEquals("success", result.getMessage());
+		assertEquals("", result.getError());
+		
+		//TODO: currently 'failure':'title taken'
+		result = fc.createCategory(catInputSecond);
+		assertEquals("success", result.getMessage());
+		assertEquals("", result.getError());
+	}
+	
+	//Singular firm with singular category with singular item
+	@Test
+	public void createItemTest1() {
+		Message result;
+	}
 }
