@@ -26,7 +26,9 @@ import foodhub.database.FirmRepository;
 import foodhub.database.Item;
 import foodhub.database.ItemRepository;
 import foodhub.ioObjects.AddCategoryInput;
+import foodhub.ioObjects.AddItemInput;
 import foodhub.ioObjects.CategoryInfo;
+import foodhub.ioObjects.ItemInfo;
 import foodhub.ioObjects.Message;
 
 @SpringBootTest
@@ -218,5 +220,22 @@ public class FirmControllerTests {
 	@Test
 	public void createItemTest1() {
 		Message result;
+		CategoryInfo catInfo = new CategoryInfo("Test Title", "Test Description");
+		AddCategoryInput catInputInitial = new AddCategoryInput(initial.getUsername(), initial.getPassword(), catInfo);
+		
+		result = fc.createCategory(catInputInitial);
+		assertEquals("success", result.getMessage());
+		assertEquals("", result.getError());
+		
+		ItemInfo itemInfo = new ItemInfo("Test Item Title", "Test Item Description", 1.99);
+		AddItemInput itemInput = new AddItemInput(initial.getUsername(), initial.getPassword(), dc.listCategories().get(0).getTitle(), itemInfo);
+		
+		result = fc.createItem(itemInput);
+		assertEquals("success", result.getMessage());
+		assertEquals("", result.getError());
+		
+		assertEquals(itemInfo.getTitle(), items.get(0).getTitle());
+		assertEquals(itemInfo.getDescription(), items.get(0).getDescription());
+		assertEquals(itemInfo.getPrice(), items.get(0).getPrice(), 0);
 	}
 }
