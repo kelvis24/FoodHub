@@ -39,9 +39,6 @@ public class FirmControllerTests {
 	@InjectMocks
 	FirmController fc;
 	
-	@InjectMocks
-	GeneralController gc;
-	
 	@Mock
 	FirmRepository firmRepository;
 	
@@ -210,11 +207,44 @@ public class FirmControllerTests {
 		assertEquals("success", result.getMessage());
 		assertEquals("", result.getError());
 		
-		//TODO: currently 'failure':'title taken'
+		//TODO: currently 'failure':'title taken'. 
 		result = fc.createCategory(catInputSecond);
 		assertEquals("success", result.getMessage());
 		assertEquals("", result.getError());
 	}*/
+	
+	//Show all failures associated with creating category
+	@Test
+	public void createCategoryTestFailures() {
+		Message result;
+		CategoryInfo catInfo = null;
+		AddCategoryInput catInput = new AddCategoryInput(initial.getUsername(), initial.getPassword(), catInfo);
+		
+		result = fc.createCategory(catInput);
+		assertEquals("failure", result.getMessage());
+		assertEquals("no data", result.getError());
+		
+		catInfo = new CategoryInfo("Test Title", "Test Description");
+		catInput = new AddCategoryInput("fakeUser", initial.getPassword(), catInfo);
+		
+		result = fc.createCategory(catInput);
+		assertEquals("failure", result.getMessage());
+		assertEquals("wrong username", result.getError());
+		
+		catInput = new AddCategoryInput(initial.getUsername(), "wrongPassword", catInfo);
+		result = fc.createCategory(catInput);
+		assertEquals("failure", result.getMessage());
+		assertEquals("wrong password", result.getError());
+		
+		catInput = new AddCategoryInput(initial.getUsername(), initial.getPassword(), catInfo);
+		fc.createCategory(catInput);
+		
+		CategoryInfo secondCat = new CategoryInfo("Test Title", "another descirption eyeyae");
+		AddCategoryInput catInput2 = new AddCategoryInput(initial.getUsername(), initial.getPassword(), secondCat);
+		result = fc.createCategory(catInput2);
+		assertEquals("failure", result.getMessage());
+		assertEquals("title taken", result.getError());
+	}
 	
 	//Singular firm with singular category with singular item
 	@Test
@@ -237,5 +267,38 @@ public class FirmControllerTests {
 		assertEquals(itemInfo.getTitle(), items.get(0).getTitle());
 		assertEquals(itemInfo.getDescription(), items.get(0).getDescription());
 		assertEquals(itemInfo.getPrice(), items.get(0).getPrice(), 0);
+	}
+	
+	//Singular firm with singular category with MULTIPLE items
+	@Test
+	public void createItemTest2() {
+		Message result;
+		CategoryInfo catInfo = new CategoryInfo("Test Title", "Test Description");
+		AddCategoryInput catInputInitial = new AddCategoryInput(initial.getUsername(), initial.getPassword(), catInfo);
+		
+		result = fc.createCategory(catInputInitial);
+		assertEquals("success", result.getMessage());
+		assertEquals("", result.getError());
+		
+		ItemInfo itemInfo = new ItemInfo("Test Item Title", "Test Item Description", 1.99);
+		AddItemInput itemInput = new AddItemInput(initial.getUsername(), initial.getPassword(), dc.listCategories().get(0).getTitle(), itemInfo);
+		ItemInfo itemInfo1 = new ItemInfo("Second Test Item Title", "Second Test Item Description", 4.20);
+		AddItemInput itemInput1 = new AddItemInput(initial.getUsername(), initial.getPassword(), dc.listCategories().get(0).getTitle(), itemInfo1);
+		
+		result = fc.createItem(itemInput);
+		assertEquals("success", result.getMessage());
+		assertEquals("", result.getError());
+		
+		result = fc.createItem(itemInput1);
+		assertEquals("success", result.getMessage());
+		assertEquals("", result.getError());
+		
+		assertEquals(itemInfo.getTitle(), items.get(0).getTitle());
+		assertEquals(itemInfo.getDescription(), items.get(0).getDescription());
+		assertEquals(itemInfo.getPrice(), items.get(0).getPrice(), 0);
+		
+		assertEquals(itemInfo1.getTitle(), items.get(1).getTitle());
+		assertEquals(itemInfo1.getDescription(), items.get(1).getDescription());
+		assertEquals(itemInfo1.getPrice(), items.get(1).getPrice(), 0);
 	}
 }
