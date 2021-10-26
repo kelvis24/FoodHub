@@ -52,10 +52,6 @@ public class FirmController {
     	if (body.getData() == null)
     		return new Message("failure","no data");
     	Category category = new Category(firm.getId(), body.getData());
-    	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
-    	Category sameTitle = (Category)Entitled.findByTitle(sameFirm, category.getTitle());
-    	if (sameTitle != null)
-    		return new Message("failure","title taken");
     	categoryRepository.save(category);
     	return new Message("success");
     }
@@ -70,11 +66,7 @@ public class FirmController {
     	if (body.getData() == null)
     		return new Message("failure","no data");
     	Category d = new Category(firm.getId(), body.getData());
-    	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
-    	Category sameTitle = (Category)Entitled.findByTitle(sameFirm, d.getTitle());
-    	if (sameTitle != null)
-    		return new Message("failure","title taken");
-    	Category old = (Category)Entitled.findByTitle(sameFirm,  body.getSubject());
+    	Category old = categoryRepository.findById(body.getCategoryId());
     	if (old == null)
     		return new Message("failure","no such category");
     	categoryRepository.setById(old.getId(),d.getTitle(),d.getDescription());
@@ -82,14 +74,13 @@ public class FirmController {
     }
     
     @PostMapping("/firms-remove-category")
-    public Message removeCateogry(@RequestBody RemoveEntitledInput body) {
+    public Message removeCateogry(@RequestBody RemoveEntity body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null)
     		return new Message("failure","wrong username");
     	if (!firm.getPassword().equals(body.getPassword()))
         	return new Message("failure","wrong password");
-    	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
-    	Category category = (Category)Entitled.findByTitle(sameFirm, body.getTitle());
+    	Category category = categoryRepository.findById(body.getId());
     	if (category == null)
     		return new Message("failure","no such category");
     	categoryRepository.deleteById(category.getId());
@@ -99,7 +90,9 @@ public class FirmController {
     		List<OrderItem> orderItems = orderItemRepository.findByOrderId(i.getId());
     		for (OrderItem oi : orderItems) {
     			orderItemRepository.deleteById(oi.getId());
-    			orderRepository.setById(oi.getOrderId(), 2);
+    			Order order = orderRepository.findById(oi.getOrderId());
+    			if (order.getStatus() != 1)
+    				orderRepository.setById(order.getId(), 2);
     		}
     	}
     	return new Message("success");
@@ -114,15 +107,10 @@ public class FirmController {
         	return new Message("failure","wrong password");
     	if (body.getData() == null)
     		return new Message("failure","no data");
-    	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
-    	Category category = (Category)Entitled.findByTitle(sameFirm, body.getTitle());
+    	Category category = categoryRepository.findById(body.getCategoryId());
     	if (category == null)
     		return new Message("failure","no such category");
     	Item item = new Item(firm.getId(), category.getId(), body.getData());
-    	List<Item> sameCategory = itemRepository.findByCategoryId(category.getId());
-    	Item sameTitle = (Item)Entitled.findByTitle(sameCategory,  item.getTitle());
-    	if (sameTitle != null)
-    		return new Message("failure","title taken");
     	itemRepository.save(item);
     	return new Message("success");
     }
@@ -137,40 +125,36 @@ public class FirmController {
     	if (body.getData() == null)
     		return new Message("failure","no data");
     	ItemInfo d = body.getData();
-    	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
-    	Category category = (Category)Entitled.findByTitle(sameFirm, body.getTitle());
-    	if (category == null)
-    		return new Message("failure","no such category");
-    	List<Item> sameCategory = itemRepository.findByCategoryId(category.getId());
-    	Item old = (Item)Entitled.findByTitle(sameCategory,  body.getTitle());
-    	if (old == null)
+    	Item item = itemRepository.findById(body.getItemId());
+    	if (item == null)
     		return new Message("failure","no such item");
-    	itemRepository.setById(old.getId(), d.getTitle(), d.getDescription(), d.getPrice());
-		List<OrderItem> orderItems = orderItemRepository.findByOrderId(old.getId());
+    	itemRepository.setById(body.getItemId(), d.getTitle(), d.getDescription(), d.getPrice());
+		List<OrderItem> orderItems = orderItemRepository.findByOrderId(body.getItemId());
 		for (OrderItem oi : orderItems) {
-			orderRepository.setById(oi.getOrderId(), 2);
+			Order order = orderRepository.findById(oi.getOrderId());
+			if (order.getStatus() != 1)
+				orderRepository.setById(order.getId(), 2);
 		}
     	return new Message("success");
     }
     
     @PostMapping("/firms-remove-item")
-    public Message removeItem(@RequestBody RemoveItemInput body) {
+    public Message removeItem(@RequestBody RemoveEntity body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null)
     		return new Message("failure","wrong username");
     	if (!firm.getPassword().equals(body.getPassword()))
         	return new Message("failure","wrong password");
-    	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
-    	Category category = (Category)Entitled.findByTitle(sameFirm, body.getCategoryTitle());
-    	if (category == null)
-    		return new Message("failure","no such category");
-    	List<Item> sameCategory = itemRepository.findByCategoryId(category.getId());
-    	Item item = (Item)Entitled.findByTitle(sameCategory,  body.getItemTitle());
+    	Item item = itemRepository.findById(body.getId());
+    	if (item == null)
+    		return new Message("failure","no such item");
     	itemRepository.deleteById(item.getId());
 		List<OrderItem> orderItems = orderItemRepository.findByOrderId(item.getId());
 		for (OrderItem oi : orderItems) {
 			orderItemRepository.deleteById(oi.getId());
-			orderRepository.setById(oi.getOrderId(), 2);
+			Order order = orderRepository.findById(oi.getOrderId());
+			if (order.getStatus() != 1)
+				orderRepository.setById(order.getId(), 2);
 		}
     	return new Message("success");
     }
@@ -202,11 +186,7 @@ public class FirmController {
 			return new Message("failure","wrong username");
 		if (!firm.getPassword().equals(body.getPassword()))
 	    	return new Message("failure","wrong password");
-		Customer customer = customerRepository.findByUsername(body.getCustomer());
-		if (customer == null)
-			return new Message("failure","no such customer");
-    	List<Order> sameCustomer = orderRepository.findByCustomerId(customer.getId());
-    	Order order = (Order)Entitled.findByTitle(sameCustomer,  body.getTitle());
+    	Order order = orderRepository.findById(body.getOrderId());
     	if (order.getFirmId() != firm.getId())
     		return new Message("failure","erroneous behaviour");
     	if (order.getStatus() != 0)

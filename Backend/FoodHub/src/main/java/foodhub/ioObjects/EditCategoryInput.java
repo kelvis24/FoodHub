@@ -2,23 +2,15 @@ package foodhub.ioObjects;
 
 public class EditCategoryInput extends AddCategoryInput {
 	
-	private String subject;
+	private long categoryId;
 
-	public EditCategoryInput(String username, String password, CategoryInfo data, String subject) {
+	public EditCategoryInput(String username, String password, CategoryInfo data, long categoryId) {
 		super(username, password, data);
-		this.subject = subject;
+		this.categoryId = categoryId;
 	}
-	
-	public EditCategoryInput(String username, String password, CategoryInfo data) {
-		super(username, password, data);
-	}
-	
-	public EditCategoryInput() {
-		super();
-	}
-	
-	public String getSubject() {
-		return subject;
+
+	public long getCategoryId() {
+		return categoryId;
 	}
 	
 }

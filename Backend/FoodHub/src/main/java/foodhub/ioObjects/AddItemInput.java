@@ -2,21 +2,17 @@ package foodhub.ioObjects;
 
 public class AddItemInput extends Authentication {
 
-	private String title;
+	private long categoryId;
 	private ItemInfo data;
 	
-	public AddItemInput(String username, String password, String title, ItemInfo data) {
+	public AddItemInput(String username, String password, long categoryId, ItemInfo data) {
 		super(username, password);
-		this.title = title;
+		this.categoryId = categoryId;
 		this.data = data;
 	}
 	
-	public AddItemInput() {
-		super();
-	}
-	
-	public String getTitle() {
-		return title;
+	public long getCategoryId() {
+		return categoryId;
 	}
 	
 	public ItemInfo getData() {

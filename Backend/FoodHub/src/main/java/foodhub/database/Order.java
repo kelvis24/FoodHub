@@ -7,11 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import foodhub.ioObjects.Entitled;
-
 @Entity
 @Table(name="orders")
-public class Order implements Entitled {
+public class Order {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,8 +18,6 @@ public class Order implements Entitled {
 	private long firmId;
 	@Column(nullable = false)
 	private long customerId;
-	@Column(nullable = false, length = 100)
-	private String title;
 	@Column(nullable = false)
 	private int status;
 	// 0 -> pending (initial status, incomplete)
@@ -31,7 +27,7 @@ public class Order implements Entitled {
 	//   An order can be discarded by a customer when status is not 0
 	//   An order is deleted upon customer removal
 	
-	public Order(long firmId, long customerId, String title, int status) {
+	public Order(long firmId, long customerId, int status) {
 		this.firmId = firmId;
 		this.customerId = customerId;
 		this.status = status;
@@ -49,10 +45,6 @@ public class Order implements Entitled {
 	
 	public long getCustomerId() {
 		return customerId;
-	}
-	
-	public String getTitle() {
-		return title;
 	}
 	
 	public int getStatus() {

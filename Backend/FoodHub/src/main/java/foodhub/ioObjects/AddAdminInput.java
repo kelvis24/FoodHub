@@ -9,15 +9,8 @@ public class AddAdminInput extends Authentication {
 		this.data = data;
 	}
 	
-	public AddAdminInput(String username, String password) {
-		super(username, password);
-	}
-	
-	public AddAdminInput() {
-		super();
-	}
-	
 	public AdminInfo getData() {
 		return data;
 	}
+	
 }

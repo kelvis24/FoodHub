@@ -9,14 +9,6 @@ public class AddFirmInput extends Authentication {
 		this.data = data;
 	}
 	
-	public AddFirmInput(String username, String password) {
-		super(username, password);
-	}
-	
-	public AddFirmInput() {
-		super();
-	}
-	
 	public FirmInfo getData() {
 		return data;
 	}

@@ -2,26 +2,20 @@ package foodhub.ioObjects;
 
 public class OrderItemInfo {
 
-	private String category;
-	private String title;
+	private long itemId;
 	private int quantity;
 	private String notes;
 	
-	public OrderItemInfo(String category, String title, int quantity, String notes) {
-		this.category = category;
-		this.title = title;
+	public OrderItemInfo(long itemId, int quantity, String notes) {
+		this.itemId = itemId;
 		this.quantity = quantity;
 		this.notes = notes;
 	}
 	
 	public OrderItemInfo() {}
-	
-	public String getCategory() {
-		return category;
-	}
-	
-	public String getTitle() {
-		return title;
+
+	public long getItemId() {
+		return itemId;
 	}
 	
 	public int getQuantity() {
