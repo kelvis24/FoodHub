@@ -19,13 +19,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import foodhub.controllers.DebugController;
 import foodhub.controllers.FirmController;
 import foodhub.controllers.GeneralController;
-import foodhub.database.Admin;
 import foodhub.database.Category;
 import foodhub.database.CategoryRepository;
 import foodhub.database.Firm;
 import foodhub.database.FirmRepository;
 import foodhub.database.Item;
 import foodhub.database.ItemRepository;
+import foodhub.ioObjects.AddCategoryInput;
+import foodhub.ioObjects.CategoryInfo;
+import foodhub.ioObjects.Message;
 
 @SpringBootTest
 public class FirmControllerTests {
@@ -119,6 +121,7 @@ public class FirmControllerTests {
 	public void generalFirmTest() {
 		List<Firm> currFirms = dc.listFirms();
 		assertEquals(1, currFirms.size());
+		
 		assertEquals(initial.getUsername(), currFirms.get(0).getUsername());
 		assertEquals(initial.getPassword(), currFirms.get(0).getPassword());
 		assertEquals(initial.getName(), currFirms.get(0).getName());
@@ -141,6 +144,24 @@ public class FirmControllerTests {
 		verify(itemRepository, times(0)).save((Item)any(Item.class));
 		verify(itemRepository, times(0)).findByFirmId((Long)any(Long.class));
 		verify(itemRepository, times(0)).findAll();
+	}
+	
+	@Test
+	public void createCategoryTest1() {
+		Message result;
+		Category catCat = new Category(initial.getId(), "Test Title", "Test Description");
+		CategoryInfo catInfo = new CategoryInfo(catCat);
+		AddCategoryInput catInput = new AddCategoryInput(initial.getUsername(), initial.getPassword(), catInfo);
+		assertEquals(0, categoryRepository.findByFirmId(initial.getId()).size());
+		
+		
+		
+		result = fc.createCategory(catInput);
+		
+		
+		
+		//assertEquals("success", result.getMessage());
+		//assertEquals("", result.getError());
 	}
 
 }
