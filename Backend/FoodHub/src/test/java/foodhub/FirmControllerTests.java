@@ -81,14 +81,15 @@ public class FirmControllerTests {
 		when(categoryRepository.findAll()).thenReturn(categories);
 		when(categoryRepository.findByFirmId((Long)any(Long.class)))
 		.thenAnswer(x-> {
+			List<Category> firmCats = new ArrayList<>();
 			Long id = x.getArgument(0);
 			Iterator<Category> itr = categories.iterator();
 			while (itr.hasNext()) {
 				Category c = itr.next();
 				if (id.equals(c.getFirmId()))
-					return c;
+					firmCats.add(c);
 			}
-			return null;
+			return firmCats;
 		});
 		when(categoryRepository.save((Category)any(Category.class)))
 		.thenAnswer(x -> {
@@ -100,14 +101,15 @@ public class FirmControllerTests {
 		when(itemRepository.findAll()).thenReturn(items);
 		when(itemRepository.findByFirmId((Long)any(Long.class)))
 		.thenAnswer(x-> {
+			List<Item> firmItems = new ArrayList<>();
 			Long id = x.getArgument(0);
 			Iterator<Item> itr = items.iterator();
 			while (itr.hasNext()) {
 				Item i = itr.next();
 				if (id.equals(i.getFirmId()))
-					return i;
+					firmItems.add(i);
 			}
-			return null;
+			return firmItems;
 		});
 		when(itemRepository.save((Item)any(Item.class)))
 		.thenAnswer(x -> {
@@ -146,22 +148,22 @@ public class FirmControllerTests {
 		verify(itemRepository, times(0)).findAll();
 	}
 	
+	//Singular firm with singular category
 	@Test
 	public void createCategoryTest1() {
 		Message result;
-		Category catCat = new Category(initial.getId(), "Test Title", "Test Description");
-		CategoryInfo catInfo = new CategoryInfo(catCat);
+		CategoryInfo catInfo = new CategoryInfo("Test Title", "Test Description");
 		AddCategoryInput catInput = new AddCategoryInput(initial.getUsername(), initial.getPassword(), catInfo);
-		assertEquals(0, categoryRepository.findByFirmId(initial.getId()).size());
-		
-		
 		
 		result = fc.createCategory(catInput);
+		assertEquals("success", result.getMessage());
+		assertEquals("", result.getError());
 		
+		List<Category> currCats = dc.listCategories();
+		assertEquals(1, currCats.size());
 		
-		
-		//assertEquals("success", result.getMessage());
-		//assertEquals("", result.getError());
+		assertEquals(catInfo.getTitle(), categories.get(0).getTitle());
+		assertEquals(catInfo.getDescription(), categories.get(0).getDescription());
 	}
 
 }

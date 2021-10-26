@@ -4,12 +4,10 @@ import foodhub.database.Category;
 
 public class CategoryInfo {
 	
-	private Long firmId;
 	private String title;
 	private String description;
 
 	public CategoryInfo(Category category) {
-		this.firmId = category.getFirmId();
 		this.title = category.getTitle();
 		this.description = category.getTitle();
 	}
@@ -27,10 +25,6 @@ public class CategoryInfo {
 	
 	public String getDescription() {
 		return description;
-	}
-	
-	public Long getFirmId() {
-		return firmId;
 	}
 	
 }

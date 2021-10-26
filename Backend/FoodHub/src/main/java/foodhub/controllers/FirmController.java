@@ -53,6 +53,7 @@ public class FirmController {
     		return new Message("failure","no data");
     	Category category = new Category(firm.getId(), body.getData());
     	List<Category> sameFirm = categoryRepository.findByFirmId(firm.getId());
+    	//TODO: Ensure this list is not null, as it is currently for some reason
     	Category sameTitle = (Category)Entitled.findByTitle(sameFirm, category.getTitle());
     	if (sameTitle != null)
     		return new Message("failure","title taken");
