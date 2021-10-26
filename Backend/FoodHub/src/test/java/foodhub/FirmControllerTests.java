@@ -16,15 +16,21 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import foodhub.controllers.CustomerController;
 import foodhub.controllers.DebugController;
 import foodhub.controllers.FirmController;
 import foodhub.database.Category;
 import foodhub.database.CategoryRepository;
+import foodhub.database.Customer;
+import foodhub.database.CustomerRepository;
 import foodhub.database.Firm;
 import foodhub.database.FirmRepository;
 import foodhub.database.Item;
 import foodhub.database.ItemRepository;
+import foodhub.database.Order;
+import foodhub.database.OrderItem;
 import foodhub.database.OrderItemRepository;
+import foodhub.database.OrderRepository;
 import foodhub.ioObjects.AddCategoryInput;
 import foodhub.ioObjects.AddItemInput;
 import foodhub.ioObjects.Authentication;
@@ -32,6 +38,8 @@ import foodhub.ioObjects.CategoryInfo;
 import foodhub.ioObjects.EditCategoryInput;
 import foodhub.ioObjects.ItemInfo;
 import foodhub.ioObjects.Message;
+import foodhub.ioObjects.OrderItemOutput;
+import foodhub.ioObjects.OrderOutput;
 import foodhub.ioObjects.RemoveEntitledInput;
 import foodhub.ioObjects.RemoveItemInput;
 
@@ -43,6 +51,12 @@ public class FirmControllerTests {
 	@InjectMocks
 	FirmController fc;
 	
+	@InjectMocks
+	CustomerController cc;
+	
+	@Mock
+	CustomerRepository customerRepository;
+	
 	@Mock
 	FirmRepository firmRepository;
 	
@@ -53,17 +67,64 @@ public class FirmControllerTests {
 	ItemRepository itemRepository;
 	
 	@Mock
+	OrderRepository orderRepository;
+	
+	@Mock
 	OrderItemRepository orderItemRepository;
 	
 	Firm initial = new Firm("testfirm@gmail.com", "truePassword", "CyBurger", "Ames", "Borger", 500, 2000,  3);
 	Firm second = new Firm("secondTest@yahoo.com", "duplicate", "WcDendys", "Ohio", "Borger", 500, 2000, 3);
 	
+	Customer customer = new Customer("customUser", "customPass", "Custoomer", "Ames");
+	
 	private List<Firm> firms;
+	private List<Customer> customers;
 	private List<Category> categories;
 	private List<Item> items;
+	private List<Order> orders;
 	
 	@BeforeEach
 	public void init() {
+		customers = new ArrayList<Customer>();
+		when(customerRepository.findAll()).thenReturn(customers);
+		when(customerRepository.findByUsername((String)any(String.class)))
+		.thenAnswer(x-> {
+			String username = x.getArgument(0);
+			Iterator<Customer> itr = customers.iterator();
+			while (itr.hasNext()) {
+				Customer c = itr.next();
+				if (username.equals(c.getUsername()))
+					return c;
+			}
+			return null;
+		});
+		when(customerRepository.save((Customer)any(Customer.class)))
+		.thenAnswer(x -> {
+			Customer c = x.getArgument(0);
+			customers.add(c);
+			return null;
+		});
+		customerRepository.save(customer);
+		orders = new ArrayList<Order>();
+		when(orderRepository.findAll()).thenReturn(orders);
+		when(orderRepository.findByFirmId((Long)any(Long.class)))
+		.thenAnswer(x-> {
+			List<Order> currOrders = new ArrayList<>();
+			Long id = x.getArgument(0);
+			Iterator<Order> itr = orders.iterator();
+			while (itr.hasNext()) {
+				Order o = itr.next();
+				if (id.equals(o.getFirmId()))
+					currOrders.add(o);
+			}
+			return currOrders;
+		});
+		when(orderRepository.save((Order)any(Order.class)))
+		.thenAnswer(x -> {
+			Order o = x.getArgument(0);
+			orders.add(o);
+			return null;
+		});
 		firms = new ArrayList<Firm>();
 		when(firmRepository.findAll()).thenReturn(firms);
 		when(firmRepository.findByUsername((String)any(String.class)))
@@ -440,4 +501,55 @@ public class FirmControllerTests {
 		assertEquals(1, dc.listItems().size());
 	}
 	*/
+	
+	//Get 1 order for 1 firm
+	@Test
+	public void firmGetOrdersTest() {		
+		//Quick test that customer is set up properly
+		List<Customer> currCustomers = dc.listCustomers();
+		assertEquals(1, currCustomers.size());
+		assertEquals(customer.getId(), currCustomers.get(0).getId());
+		assertEquals(customer.getName(), currCustomers.get(0).getName());
+		assertEquals(customer.getUsername(), currCustomers.get(0).getUsername());
+		assertEquals(customer.getPassword(), currCustomers.get(0).getPassword());
+		
+		CategoryInfo catInfo = new CategoryInfo("Test Title", "Test Description");
+		AddCategoryInput catInputInitial = new AddCategoryInput(initial.getUsername(), initial.getPassword(), catInfo);
+		fc.createCategory(catInputInitial);
+		
+		ItemInfo itemInfo = new ItemInfo("Test Item Title", "Test Item Description", 1.99);
+		AddItemInput itemInput = new AddItemInput(initial.getUsername(), initial.getPassword(), dc.listCategories().get(0).getTitle(), itemInfo);
+		fc.createItem(itemInput);
+		
+		Order order = new Order(initial.getId(), customer.getId(), "title?", 0);
+		orderRepository.save(order);
+		assertEquals(order.getId(), dc.listOrders().get(0).getId());
+		assertEquals(order.getCustomerId(), dc.listOrders().get(0).getCustomerId());
+		assertEquals(order.getFirmId(), dc.listOrders().get(0).getFirmId());
+		assertEquals(order.getStatus(), dc.listOrders().get(0).getStatus());
+		
+		OrderItem orderItem = new OrderItem(order.getId(), dc.listItems().get(0).getId(), 3, "extra test");
+		orderItemRepository.save(orderItem);
+		//it doesnt like this
+		assertEquals(orderItem.getId(), dc.listOrderItems().get(0).getId());
+		assertEquals(orderItem.getItemId(), dc.listOrderItems().get(0).getItemId());
+		assertEquals(orderItem.getNotes(), dc.listOrderItems().get(0).getNotes());
+		assertEquals(orderItem.getOrderId(), dc.listOrderItems().get(0).getOrderId());
+		
+		List<OrderItemOutput> listOfOrders = new ArrayList<>();
+		OrderItemOutput orderItemOutput = new OrderItemOutput(orderItem, dc.listItems().get(0));
+		listOfOrders.add(orderItemOutput);
+		assertEquals(1, listOfOrders.size());
+		
+		Authentication currFirm = new Authentication(initial.getUsername(), initial.getPassword());
+		List<OrderOutput> orderOutput = new ArrayList<>();
+		orderOutput = fc.getOrders(currFirm);
+		assertEquals(orderOutput.size(), 1);
+	}
+	
+	//Complete order
+	@Test
+	public void completeOrderTest() {
+		
+	}
 }
