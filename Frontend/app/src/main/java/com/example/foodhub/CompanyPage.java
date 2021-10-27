@@ -6,6 +6,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -26,15 +27,13 @@ import java.util.ArrayList;
 public class CompanyPage extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private ArrayList<Company> arrayList;
+    private ArrayList<Object> arrayList;
     private ActivityFullComapnypageViewBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     //    setContentView(R.layout.activity_full_comapnypage_view);
-
-
 
         binding = ActivityFullComapnypageViewBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -49,7 +48,24 @@ public class CompanyPage extends AppCompatActivity {
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 //        NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
 
+        LoadMenu();
+    }
 
+    public void LoadMenu() {
+        arrayList= new ArrayList<Object>();
+        recyclerView = findViewById(R.id.recyclerView_menu_view);
+
+        arrayList.add( new Menu(R.drawable.litramen, "Lit Ramen", "This is a description of lit ramen", "1000"));
+        arrayList.add( new Menu(R.drawable.litramen, "Lit Ramen", "This is a description of lit ramen", "1000"));
+        arrayList.add(" new Menu(R.drawable.litramen");
+        arrayList.add( new Menu(R.drawable.litramen, "Lit Ramen", "This is a description of lit ramen", "1000"));
+        arrayList.add( new Menu(R.drawable.litramen, "Lit Ramen", "This is a description of lit ramen", "1000"));
+
+
+        MenuRecyclerAdapter recyclerAdapter = new MenuRecyclerAdapter(arrayList);
+
+        recyclerView.setAdapter(recyclerAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     public void loginSomething(View v) {
