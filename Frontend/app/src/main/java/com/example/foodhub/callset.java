@@ -40,20 +40,17 @@ public class callset extends AppCompatActivity {
 
         String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
         String password = ((EditText)findViewById(R.id.login_password)).getText().toString();
+        String firmset = ((EditText)findViewById(R.id.login_firm)).getText().toString();
 
         I.putExtra("Email", email);
+        I.putExtra("Firm", firmset);
 
         String tag_json_obj = "json_obj_req";
-
-        String url = Const.URL + "/admin-login";
-
-        ProgressDialog pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Loading...");
-        pDialog.show();
 
         Map<String, String> postParams = new HashMap<String, String>();
         postParams.put("username", email);
         postParams.put("password", password);
+        postParams.put("Firm", firmset);
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
             url, new JSONObject(postParams), new Response.Listener<JSONObject>() {
