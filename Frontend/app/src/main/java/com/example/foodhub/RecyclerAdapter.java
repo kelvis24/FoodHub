@@ -1,7 +1,6 @@
 package com.example.foodhub;
 
-import android.media.Image;
-import android.view.InflateException;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,59 +8,131 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.foodhub.adapter.HorizontalAdapter;
+import com.example.foodhub.adapter.VerticalAdapter;
 
 import java.util.ArrayList;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<Company> arrayList;
-    public RecyclerAdapter(ArrayList<Company> arrayList) {
+    private ArrayList<Object> arrayList;
+    private final int VERTICAL = 1;
+    private final int HORIZONTAL = 2;
+    private Context context;
+
+
+    public RecyclerAdapter(Context context, ArrayList<Object> arrayList) {
     this.arrayList  = arrayList;
+    this.context = context;
     }
 
 
-    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.company_view, parent,false);
-        return new ViewHolder(view);
+        View view;
+        RecyclerView.ViewHolder holder;
+
+        switch (viewType) {
+            case VERTICAL:
+                view = inflater.inflate(R.layout.vertical, parent,false);
+                holder = new VerticalViewHolder(view);
+                break;
+            case HORIZONTAL:
+                view = inflater.inflate(R.layout.horizontal, parent,false);
+                holder = new HorizontalViewHolder(view);
+                break;
+            default:
+                view = inflater.inflate(R.layout.vertical, parent,false);
+                holder = new VerticalViewHolder(view);
+                break;
+        }
+
+        return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        Company company = arrayList.get(position);
-        holder.title.setText((company.getTitle()));
-        holder.message.setText((company.getMessage()));
-        holder.profileImage.setImageResource((company.getProfileIcon()));
-        holder.postImage.setImageResource((company.getPostImage()));
+        if (holder.getItemViewType() == VERTICAL)
+            verticalView((VerticalViewHolder) holder);
+        else if (holder.getItemViewType() == HORIZONTAL)
+            horizontalView((HorizontalViewHolder) holder);
     }
+//
+//    @Override
+//    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+//
+//        if (holder.getItemViewType() == VERTICAL)
+//            verticalView((VerticalViewHolder) holder);
+//        else if (holder.getItemViewType() == HORIZONTAL)
+//            verticalView((HorizontalViewHolder) holder);
+//
+////        Company company = (Company) arrayList.get(position);
+////        holder.title.setText((company.getTitle()));
+////        holder.message.setText((company.getMessage()));
+////        holder.profileImage.setImageResource((company.getProfileIcon()));
+////        holder.postImage.setImageResource((company.getPostImage()));
+//    }
+
+    private void verticalView(VerticalViewHolder holder) {
+        VerticalAdapter adapter1 = new VerticalAdapter(HomeActivity.getVerticalData());
+        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        holder.recyclerView.setAdapter(adapter1);
+    }
+
+    private void horizontalView(HorizontalViewHolder holder) {
+        HorizontalAdapter adapter = new HorizontalAdapter(HomeActivity.getHorizontalData());
+        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        holder.recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public int getItemViewType (int position) {
+        if (arrayList.get(position) instanceof Company) {
+            return VERTICAL;
+        }
+        else if (arrayList.get(position) instanceof SmallCompany){
+        //if (arrayList.get(position) instanceof Company) {
+            return HORIZONTAL;
+        }
+
+        return -1;
+    }
+
 
     @Override
     public int getItemCount() {
         return arrayList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class HorizontalViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView profileImage;
-        ImageView postImage;
-        TextView title;
-        TextView message;
+        RecyclerView recyclerView;
 
-        public ViewHolder(@NonNull View itemView) {
+        public HorizontalViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            profileImage = itemView.findViewById(R.id.ivPost);
-            postImage = itemView.findViewById(R.id.ivPost);
-            title = itemView.findViewById(R.id.title);
-            message = itemView.findViewById(R.id.message);
-
+            recyclerView = (RecyclerView) itemView.findViewById((R.id.inner_recyclerView));
 
        }
+    }
+
+    public class VerticalViewHolder extends RecyclerView.ViewHolder {
+
+        RecyclerView recyclerView;
+
+        public VerticalViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+
+            recyclerView = (RecyclerView) itemView.findViewById((R.id.inner_recyclerView));
+
+        }
     }
 
 

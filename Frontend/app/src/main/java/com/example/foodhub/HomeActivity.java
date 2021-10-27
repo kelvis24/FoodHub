@@ -19,7 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class HomeActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private ArrayList<Company> arrayList;
+    private ArrayList<Object> arrayList;
     private ActivityHomeBinding binding;
 
 
@@ -46,19 +46,43 @@ public class HomeActivity extends AppCompatActivity {
     }
     
     public void LoadCompanies() {
-        arrayList= new ArrayList<>();
+        arrayList= new ArrayList<Object>();
         recyclerView = findViewById(R.id.recyclerView1);
 
-        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "title", "This is a message"));
-        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "titles", "C'est un message"));
-        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "tit", "enni tie lok"));
-        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "dfd", "messages appear here"));
-        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "titdfle", "still writing here"));
+//        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "title", "This is a message"));
+//        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "titles", "C'est un message"));
+//        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "tit", "enni tie lok"));
+//        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "dfd", "messages appear here"));
+//        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "titdfle", "still writing here"));
 
 
-        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(arrayList);
+        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(this, this.getObject());
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this)); 
+    }
+
+    private ArrayList<Object> getObject() {
+        arrayList.add(getVerticalData().get(0));
+        arrayList.add(getHorizontalData().get(0));
+        return arrayList;
+    }
+
+    public static ArrayList<Company> getVerticalData() {
+        ArrayList<Company> company = new ArrayList<>();
+        company.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "dfgfd", "messages appear here"));
+        company.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "dfrtd", "messages appear here"));
+        company.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "dfdgf", "messages appear here"));
+        company.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "dfgfd", "messages appear here"));
+        return company;
+    }
+
+    public static ArrayList<SmallCompany> getHorizontalData() {
+        ArrayList<SmallCompany> company = new ArrayList<>();
+        company.add( new SmallCompany(R.drawable.ic_launcher_background, R.drawable.litramen, "dfdew", "messages appear here"));
+        company.add( new SmallCompany(R.drawable.ic_launcher_background, R.drawable.litramen, "dfhd", "messages appear here"));
+        company.add( new SmallCompany(R.drawable.ic_launcher_background, R.drawable.litramen, "dfkjd", "messages appear here"));
+        company.add( new SmallCompany(R.drawable.ic_launcher_background, R.drawable.litramen, "dkjfd", "messages appear here"));
+        return company;
     }
 
     public void ClickCompany(View v) {
