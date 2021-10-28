@@ -76,30 +76,6 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return -1;
     }
 
-    //@Override
-  //  public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        Object menu = arrayList.get(position);
-//        holder.title.setText((menu.getTitle()));
-//        holder.description.setText((menu.getDescription()));
-//        holder.price.setText((menu.getPrice()));
-
-//        switch (holder.getItemViewType()) {
-//            case MENU:
-//                ViewHolder1 vh1 = (ViewHolder1) holder;
-//                configureViewHolder1(vh1, position);
-//                break;
-//            case IMAGE:
-//                ViewHolder2 vh2 = (ViewHolder2) holder;
-//                configureViewHolder2(vh2);
-//                break;
-//            default:
-//                ViewHolder vh3 = (ViewHolder) viewHolder;
-//                configureViewHolder(vh3, position);
-//                break;
-//        }
-   // }
-
-
 
     private void configureViewHolder1(ViewHolder1 vh1, int position) {
         Menu menu = (Menu) arrayList.get(position);

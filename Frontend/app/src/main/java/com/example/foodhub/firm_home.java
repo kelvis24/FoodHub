@@ -61,4 +61,6 @@ public class firm_home extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_firm_home, container, false);
     }
+
+
 }
