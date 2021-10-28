@@ -45,7 +45,7 @@ android-build:
         - android_tag1
     script:
         - cd Android_test
-        - ./gradlew assemble
+        - ./gradlew build
     artifacts:
         paths:
             - Android_test/app/build/outputs/
