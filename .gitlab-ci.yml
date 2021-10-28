@@ -45,7 +45,7 @@ android-build:
         - android_tag1
     script:
         - cd Frontend
-        - ./gradlew build
+        - ./gradlew assemble
     artifacts:
         paths:
             - Frontend/app/build/outputs/
