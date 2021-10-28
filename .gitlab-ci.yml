@@ -1,4 +1,3 @@
-
 stages:
     - mavenbuild
     - maventest
@@ -55,7 +54,7 @@ android-test:
     image: javiersantos/android-ci:latest
     stage: androidtest
     before_script:
-        - export GRADLE_USER_HOME=`pwd`/.graadle
+        - export GRADLE_USER_HOME=`pwd`/.gradle
         - chmod +x ./Android_test/gradlew
     tags:
         - android_tag1
