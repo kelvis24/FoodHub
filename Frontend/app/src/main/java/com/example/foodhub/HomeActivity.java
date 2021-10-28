@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import java.util.ArrayList;
+
+import com.example.foodhub.Firm.FirmHomeActivity;
 import com.example.foodhub.databinding.ActivityHomeBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -91,5 +93,12 @@ public class HomeActivity extends AppCompatActivity {
 //        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
 //        I.putExtra("Email", email);
         startActivity(P);
+    }
+
+    public void ClickToSeeFirmAccount(View v) {
+        Intent Ph = new Intent(this, FirmHomeActivity.class);
+//        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
+//        I.putExtra("Email", email);
+        startActivity(Ph);
     }
 }

@@ -55,11 +55,10 @@ public class CompanyPage extends AppCompatActivity {
         arrayList= new ArrayList<Object>();
         recyclerView = findViewById(R.id.recyclerView_menu_view);
 
-        arrayList.add( new Menu(R.drawable.litramen, "Lit Ramen", "This is a description of lit ramen", "1000"));
-        arrayList.add( new Menu(R.drawable.litramen, "Lit Ramen", "This is a description of lit ramen", "1000"));
-        arrayList.add(" new Menu(R.drawable.litramen");
-        arrayList.add( new Menu(R.drawable.litramen, "Lit Ramen", "This is a description of lit ramen", "1000"));
-        arrayList.add( new Menu(R.drawable.litramen, "Lit Ramen", "This is a description of lit ramen", "1000"));
+        arrayList.add( new Menu(R.drawable.litramen, "Lit Ramen", "This is a descyuription of lit ramen", "1000"));
+        arrayList.add( new Menu(R.drawable.litramen, "Lit Ramen", "This is a desclikujyhyription of lit ramen", "1000"));
+        arrayList.add( new Menu(R.drawable.litramen, "Lit Ramen", "This is a deuiytscription of lit ramen", "1000"));
+        arrayList.add( new Menu(R.drawable.litramen, "Lit Ramen", "This is a de=ramen", "1000"));
 
 
         MenuRecyclerAdapter recyclerAdapter = new MenuRecyclerAdapter(arrayList);
