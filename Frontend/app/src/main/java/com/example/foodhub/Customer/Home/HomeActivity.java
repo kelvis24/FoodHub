@@ -14,6 +14,7 @@ import android.view.View;
 
 import java.util.ArrayList;
 
+import com.example.foodhub.Admin.AdminHome.AdminHomeActivity;
 import com.example.foodhub.Class.Company;
 import com.example.foodhub.Firm.FirmHomeActivity;
 import com.example.foodhub.R;
@@ -101,4 +102,13 @@ public class HomeActivity extends AppCompatActivity {
 //        I.putExtra("Email", email);
         startActivity(Ph);
     }
+
+    public void clickToSeeAdminPages(View v) {
+        Intent Ph = new Intent(this, AdminHomeActivity.class);
+//        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
+//        I.putExtra("Email", email);
+        startActivity(Ph);
+    }
+
+
 }
