@@ -8,16 +8,16 @@
     <fragment
         android:id="@+id/firm_home"
         android:name="com.example.foodhub.firm_home"
-        android:label="fragment_firm_home"
+        android:label="Home "
         tools:layout="@layout/fragment_firm_home" />
     <fragment
         android:id="@+id/firm_account"
         android:name="com.example.foodhub.firm_account"
-        android:label="fragment_firm_account"
+        android:label="Account"
         tools:layout="@layout/fragment_firm_account" />
     <fragment
         android:id="@+id/firm_menupage"
         android:name="com.example.foodhub.firm_menupage"
-        android:label="fragment_firm_menupage"
+        android:label="Menu Page"
         tools:layout="@layout/fragment_firm_menupage" />
 </navigation>
