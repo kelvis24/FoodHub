@@ -41,14 +41,12 @@ public class VerticalAdapter extends RecyclerView.Adapter<VerticalAdapter.MyView
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView profileImage;
         ImageView postImage;
         TextView title;
         TextView message;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            profileImage = itemView.findViewById(R.id.ivPost);
             postImage = itemView.findViewById(R.id.ivPost);
             title = itemView.findViewById(R.id.title);
             message = itemView.findViewById(R.id.message);
