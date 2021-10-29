@@ -1,4 +1,4 @@
-package com.example.foodhub;
+package com.example.foodhub.Class;
 
 public class Menu {
     private int foodImage;

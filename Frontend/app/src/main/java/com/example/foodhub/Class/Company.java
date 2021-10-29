@@ -1,17 +1,20 @@
-package com.example.foodhub;
+package com.example.foodhub.Class;
 
-public class SmallCompany {
+public class Company {
+
     private int profileIcon;
     private int postImage;
     private String title;
     private String message;
 
-    public SmallCompany(int profileIcon, int postImage, String title, String message) {
+    public Company(int profileIcon, int postImage, String title, String message) {
         this.profileIcon = profileIcon;
         this.postImage = postImage;
         this.title = title;
         this.message = message;
+
     }
+
     public int getProfileIcon() {
         return profileIcon;
     }
@@ -19,6 +22,7 @@ public class SmallCompany {
     public void setProfileIcon(int profileIcon) {
         this.profileIcon = profileIcon;
     }
+
 
     public int getPostImage() {
         return postImage;

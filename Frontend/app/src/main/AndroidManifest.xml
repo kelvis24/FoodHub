@@ -16,25 +16,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodHub">
         <activity
-            android:name=".CompanyPage"
+            android:name=".Customer.Home.CompanyPage"
             android:exported="true" />
         <activity
             android:name=".Firm.FirmHomeActivity"
             android:exported="true" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".Login.SignUpActivity"
             android:exported="true" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".Customer.Home.HomeActivity"
             android:exported="true" />
         <activity
             android:name=".Firm.FirmMenuItemActivity"
             android:exported="true" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Login.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".InitialActivity"
+            android:name=".Login.InitialActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

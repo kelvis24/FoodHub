@@ -1,4 +1,4 @@
-package com.example.foodhub;
+package com.example.foodhub.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +17,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.foodhub.Customer.Home.HomeActivity;
+import com.example.foodhub.R;
 import com.example.foodhub.app.AppController;
 import com.example.foodhub.net_utils.Const;
 

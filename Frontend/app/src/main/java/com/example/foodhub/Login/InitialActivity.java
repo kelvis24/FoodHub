@@ -1,4 +1,4 @@
-package com.example.foodhub;
+package com.example.foodhub.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.foodhub.Login.LoginActivity;
+import com.example.foodhub.Login.SignUpActivity;
+import com.example.foodhub.R;
 
 public class InitialActivity extends AppCompatActivity {
 

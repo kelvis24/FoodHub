@@ -1,16 +1,18 @@
-package com.example.foodhub;
+package com.example.foodhub.Recyclers;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodhub.Class.Company;
+import com.example.foodhub.Class.SmallCompany;
+import com.example.foodhub.Customer.Home.HomeActivity;
+import com.example.foodhub.R;
 import com.example.foodhub.adapter.HorizontalAdapter;
 import com.example.foodhub.adapter.VerticalAdapter;
 
@@ -63,21 +65,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         else if (holder.getItemViewType() == HORIZONTAL)
             horizontalView((HorizontalViewHolder) holder);
     }
-//
-//    @Override
-//    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//
-//        if (holder.getItemViewType() == VERTICAL)
-//            verticalView((VerticalViewHolder) holder);
-//        else if (holder.getItemViewType() == HORIZONTAL)
-//            verticalView((HorizontalViewHolder) holder);
-//
-////        Company company = (Company) arrayList.get(position);
-////        holder.title.setText((company.getTitle()));
-////        holder.message.setText((company.getMessage()));
-////        holder.profileImage.setImageResource((company.getProfileIcon()));
-////        holder.postImage.setImageResource((company.getPostImage()));
-//    }
+
 
     private void verticalView(VerticalViewHolder holder) {
         VerticalAdapter adapter1 = new VerticalAdapter(HomeActivity.getVerticalData());
@@ -97,7 +85,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             return VERTICAL;
         }
         else if (arrayList.get(position) instanceof SmallCompany){
-        //if (arrayList.get(position) instanceof Company) {
             return HORIZONTAL;
         }
 
@@ -109,6 +96,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public int getItemCount() {
         return arrayList.size();
     }
+
+
 
     public class HorizontalViewHolder extends RecyclerView.ViewHolder {
 

@@ -1,4 +1,4 @@
-package com.example.foodhub;
+package com.example.foodhub.Customer.Home;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -14,7 +14,11 @@ import android.view.View;
 
 import java.util.ArrayList;
 
+import com.example.foodhub.Class.Company;
 import com.example.foodhub.Firm.FirmHomeActivity;
+import com.example.foodhub.R;
+import com.example.foodhub.Recyclers.RecyclerAdapter;
+import com.example.foodhub.Class.SmallCompany;
 import com.example.foodhub.databinding.ActivityHomeBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -66,6 +70,7 @@ public class HomeActivity extends AppCompatActivity {
     private ArrayList<Object> getObject() {
         arrayList.add(getVerticalData().get(0));
         arrayList.add(getHorizontalData().get(0));
+        arrayList.add(getVerticalData().get(0));
         return arrayList;
     }
 

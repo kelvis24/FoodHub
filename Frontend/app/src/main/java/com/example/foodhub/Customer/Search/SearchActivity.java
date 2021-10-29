@@ -1,4 +1,4 @@
-package com.example.foodhub;
+package com.example.foodhub.Customer.Search;
 
 import android.os.Bundle;
 
