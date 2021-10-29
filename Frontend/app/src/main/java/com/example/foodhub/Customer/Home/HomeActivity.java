@@ -49,20 +49,13 @@ public class HomeActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
 
-       LoadCompanies();
+       //LoadCompanies();
 
     }
     
     public void LoadCompanies() {
         arrayList= new ArrayList<Object>();
         recyclerView = findViewById(R.id.recyclerView1);
-
-//        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "title", "This is a message"));
-//        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "titles", "C'est un message"));
-//        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "tit", "enni tie lok"));
-//        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "dfd", "messages appear here"));
-//        arrayList.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "titdfle", "still writing here"));
-
 
         RecyclerAdapter recyclerAdapter = new RecyclerAdapter(this, this.getObject());
         recyclerView.setAdapter(recyclerAdapter);
