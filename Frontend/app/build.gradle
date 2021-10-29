@@ -5,6 +5,11 @@ plugins {
 android {
     compileSdk 31
 
+        lintOptions {
+            abortOnError false
+        }
+
+
     defaultConfig {
         applicationId "com.example.foodhub"
         minSdk 22
