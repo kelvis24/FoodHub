@@ -151,7 +151,6 @@ public class Home extends Fragment {
         ArrayList<Object> arrayList = new ArrayList<>();
         arrayList.add(getVerticalData().get(0));
         arrayList.add(getHorizontalData().get(0));
-        arrayList.add(getVerticalData().get(0));
         return arrayList;
     }
 
