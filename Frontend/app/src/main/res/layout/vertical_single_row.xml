@@ -76,7 +76,7 @@
             app:layout_constraintVertical_bias="0.949" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/cuisine"
             android:layout_width="151dp"
             android:layout_height="25dp"
             android:text="TextView"
@@ -88,7 +88,7 @@
             app:layout_constraintVertical_bias="0.823" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/location"
             android:layout_width="151dp"
             android:layout_height="25dp"
             android:text="TextView"

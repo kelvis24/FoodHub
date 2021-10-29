@@ -30,9 +30,10 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.My
 
     @Override
     public void onBindViewHolder(@NonNull HorizontalAdapter.MyViewHolder holder, int position) {
-        holder.title.setText((data.get(position).getTitle()));
-        holder.message.setText((data.get(position).getMessage()));
-        holder.profileImage.setImageResource((data.get(position).getProfileIcon()));
+        holder.name.setText((data.get(position).getName()));
+        holder.description.setText((data.get(position).getDescription()));
+        holder.location.setText((data.get(position).getLocation()));
+        holder.cuisine.setText((data.get(position).getCuisine()));
         holder.postImage.setImageResource((data.get(position).getPostImage()));
     }
 
@@ -42,17 +43,19 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.My
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView profileImage;
         ImageView postImage;
-        TextView title;
-        TextView message;
+        TextView name;
+        TextView description;
+        TextView location;
+        TextView cuisine;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            profileImage = itemView.findViewById(R.id.ivPost);
             postImage = itemView.findViewById(R.id.ivPost);
-            title = itemView.findViewById(R.id.title);
-            message = itemView.findViewById(R.id.message);
+            name = itemView.findViewById(R.id.title);
+            description = itemView.findViewById(R.id.message);
+            location = itemView.findViewById(R.id.cuisine);
+            cuisine = itemView.findViewById(R.id.location);
         }
     }
 }

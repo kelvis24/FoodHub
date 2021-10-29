@@ -7,9 +7,11 @@ public class Company {
     private String username;
     private String password;
     private String name;
+
     private String location;
     private String cuisine;
     private int open_time;
+
     private int close_time;
     private int employee_count;
 
