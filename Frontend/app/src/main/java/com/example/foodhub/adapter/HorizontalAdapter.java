@@ -10,11 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodhub.R;
-import com.example.foodhub.SmallCompany;
+import com.example.foodhub.Class.SmallCompany;
 
 import java.util.ArrayList;
-
-import javax.xml.transform.dom.DOMLocator;
 
 public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.MyViewHolder> {
 

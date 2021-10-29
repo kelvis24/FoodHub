@@ -1,27 +1,15 @@
 package com.example.foodhub.Firm;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodhub.Company;
-import com.example.foodhub.CompanyPage;
-import com.example.foodhub.Menu;
-import com.example.foodhub.MenuRecyclerAdapter;
+import com.example.foodhub.Class.Menu;
+import com.example.foodhub.Recyclers.MenuRecyclerAdapter;
 import com.example.foodhub.R;
-import com.example.foodhub.RecyclerAdapter;
-import com.example.foodhub.SmallCompany;
-import com.example.foodhub.databinding.FirmMainactivityBinding;
 import com.example.foodhub.databinding.FragmentFirmMenupageBinding;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
