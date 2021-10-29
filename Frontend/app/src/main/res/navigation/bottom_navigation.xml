@@ -11,16 +11,16 @@
             android:name="com.example.foodhub.Customer.Home.Home"
             android:label="Home"
             tools:layout="@layout/fragment_home" />
-        <fragment
-            android:id="@+id/pickup"
-            android:name="com.example.foodhub.Customer.Pickup.Pickup"
-            android:label="Pickup"
-            tools:layout="@layout/fragment_pickup" />
-        <fragment
-            android:id="@+id/search"
-            android:name="com.example.foodhub.Customer.Search.Search"
-            android:label="Search"
-            tools:layout="@layout/fragment_search" />
+<!--        <fragment-->
+<!--            android:id="@+id/pickup"-->
+<!--            android:name="com.example.foodhub.Customer.Pickup.Pickup"-->
+<!--            android:label="Pickup"-->
+<!--            tools:layout="@layout/fragment_pickup" />-->
+<!--        <fragment-->
+<!--            android:id="@+id/search"-->
+<!--            android:name="com.example.foodhub.Customer.Search.Search"-->
+<!--            android:label="Search"-->
+<!--            tools:layout="@layout/fragment_search" />-->
         <fragment
             android:id="@+id/orders"
             android:name="com.example.foodhub.Customer.Orders.Orders"

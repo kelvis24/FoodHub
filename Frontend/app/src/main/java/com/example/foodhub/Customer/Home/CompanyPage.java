@@ -33,7 +33,9 @@ public class CompanyPage extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.bottomNavigationView);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.home2, R.id.pickup, R.id.search, R.id.orders, R.id.account)
+                R.id.home2,
+           //     R.id.pickup, R.id.search,
+                R.id.orders, R.id.account)
                 .build();
 
 //        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main2);
