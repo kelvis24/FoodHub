@@ -6,7 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".Login.InitialActivity">
 
-    <TextView
+<select label="Q2">
+   <title>
+     What kind of user would you like to login?
+   </title>
+   <comment>Please select one</comment>
+   <row label="r1">Logins</row>
+   <choice label="ch1">
+       <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +36,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <TextView
+
+   </choice>
+   <choice label="ch2">
+<TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,7 +62,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <TextView
+   </choice>
+   <choice label="ch3">
+       <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -75,7 +87,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <TextView
+   </choice>
+   
+</select>
+
+<select label="Q3">
+   <title>
+     Would you like to Register?
+   </title>
+   <comment>Please select one</comment>
+   <row label="r2">Registration</row>
+   <choice label="qh1">
+<TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -97,8 +120,9 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <TextView
+   </choice>
+   <choice label="qh2">
+<TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -120,8 +144,9 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <TextView
+   </choice>
+   <choice label="qh3">
+<TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -143,5 +168,9 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
+   </choice>
+   
+</select>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
