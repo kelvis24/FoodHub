@@ -151,25 +151,23 @@ public class Home extends Fragment {
         ArrayList<Object> arrayList = new ArrayList<>();
         arrayList.add(getVerticalData().get(0));
         arrayList.add(getHorizontalData().get(0));
-        arrayList.add(getVerticalData().get(0));
         return arrayList;
     }
 
     public static ArrayList<Company> getVerticalData() {
         ArrayList<Company> company = new ArrayList<>();
-        company.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "dfgfd", "messages appear here"));
-        company.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "dfrtd", "messages appear here"));
-        company.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "dfdgf", "messages appear here"));
-        company.add( new Company(R.drawable.ic_launcher_background, R.drawable.litramen, "dfgfd", "messages appear here"));
+        company.add( new Company(R.drawable.litramen, "this is a description", "userame", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
+        company.add( new Company(R.drawable.litramen, "this is a description", "userame", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
+        company.add( new Company(R.drawable.litramen, "this is a description", "userame", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
         return company;
     }
 
     public static ArrayList<SmallCompany> getHorizontalData() {
         ArrayList<SmallCompany> company = new ArrayList<>();
-        company.add( new SmallCompany(R.drawable.ic_launcher_background, R.drawable.litramen, "dfdew", "messages appear here"));
-        company.add( new SmallCompany(R.drawable.ic_launcher_background, R.drawable.litramen, "dfhd", "messages appear here"));
-        company.add( new SmallCompany(R.drawable.ic_launcher_background, R.drawable.litramen, "dfkjd", "messages appear here"));
-        company.add( new SmallCompany(R.drawable.ic_launcher_background, R.drawable.litramen, "dkjfd", "messages appear here"));
+        company.add( new SmallCompany(R.drawable.litramen, "this is a description", "userame", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
+        company.add( new SmallCompany(R.drawable.litramen, "this is a description", "userame", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
+        company.add( new SmallCompany(R.drawable.litramen, "this is a description", "userame", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
+        company.add( new SmallCompany(R.drawable.litramen, "this is a description", "userame", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
         return company;
     }
 
