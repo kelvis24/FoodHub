@@ -10,9 +10,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Request {
+public class Call {
 
-    public static void getRequest(String route, JSONResponse success, ErrorResponse error) {
+    public static void get(String route, JSONResponse success, ErrorResponse error) {
         JsonObjectRequest request = new JsonObjectRequest(GET, Const.URL + route, null, success::respond,
             response -> {
                 if (error == null) ErrorResponse.getBasic().respond(response);
@@ -26,8 +26,8 @@ public class Request {
         AppController.getInstance().addToRequestQueue(request, "json_obj_req");
     }
 
-    public static void postRequest(String route, JSONObject obj, JSONResponse success, ErrorResponse error) {
-        JsonObjectRequest request = new JsonObjectRequest(POST, CONST.URL + route, obj, success::respond,
+    public static void post(String route, JSONObject obj, JSONResponse success, ErrorResponse error) {
+        JsonObjectRequest request = new JsonObjectRequest(POST, Const.URL + route, obj, success::respond,
             response -> {
                 if (error == null) ErrorResponse.getBasic().respond(response);
                 else error.respond(response);
