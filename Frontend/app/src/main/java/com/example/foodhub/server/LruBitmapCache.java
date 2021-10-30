@@ -1,4 +1,4 @@
-package com.example.foodhub.net_utils;
+package com.example.foodhub.server;
 
 import com.android.volley.toolbox.ImageLoader.ImageCache;
 import android.graphics.Bitmap;

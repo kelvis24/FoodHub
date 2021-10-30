@@ -1,6 +1,5 @@
-package com.example.foodhub.app;
+package com.example.foodhub.server;
 
-import com.example.foodhub.net_utils.LruBitmapCache;
 import android.app.Application;
 import android.text.TextUtils;
 import com.android.volley.Request;
