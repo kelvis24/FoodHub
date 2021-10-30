@@ -4,6 +4,6 @@ import org.json.JSONObject;
 
 public interface JSONResponse {
 
-    public void respond(JSONObject obj);
+    void respond(JSONObject obj);
 
 }
