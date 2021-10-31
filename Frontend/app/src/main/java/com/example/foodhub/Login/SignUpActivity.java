@@ -2,7 +2,6 @@ package com.example.foodhub.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,16 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.foodhub.Customer.Home.HomeActivity;
 import com.example.foodhub.R;
-import com.example.foodhub.app.AppController;
-import com.example.foodhub.net_utils.Const;
+import com.example.foodhub.server.Call;
 
 import org.json.JSONObject;
 
@@ -28,6 +20,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
+
+    Intent I;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +32,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void signUp(View v) {
-        Intent I = new Intent(this, HomeActivity.class);
+        I = new Intent(this, HomeActivity.class);
 
         String name = ((EditText)findViewById(R.id.sign_up_name_field)).getText().toString();
         String email = ((EditText)findViewById(R.id.sign_up_email_field)).getText().toString();
@@ -54,15 +48,15 @@ public class SignUpActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Please Enter Something In All Fields.",Toast.LENGTH_SHORT).show();
             return;
         }
-        if (!hasBetween(password, 'a', 'z')) {
+        if (notHasBetween(password, 'a', 'z')) {
             Toast.makeText(getApplicationContext(),"Password Must Have A Lower Case Letter.",Toast.LENGTH_SHORT).show();
             return;
         }
-        if (!hasBetween(password, 'A', 'Z')) {
+        if (notHasBetween(password, 'A', 'Z')) {
             Toast.makeText(getApplicationContext(),"Password Must Have A Upper Case Letter.",Toast.LENGTH_SHORT).show();
             return;
         }
-        if (!hasBetween(password, '0', '9')) {
+        if (notHasBetween(password, '0', '9')) {
             Toast.makeText(getApplicationContext(),"Password Must Have A Number.",Toast.LENGTH_SHORT).show();
             return;
         }
@@ -79,54 +73,30 @@ public class SignUpActivity extends AppCompatActivity {
             return;
         }
 
-        String tag_json_obj = "json_obj_req";
-        String url = Const.URL + "/customers";
+        Map<String,String> map = new HashMap<>();
+        map.put("username", email);
+        map.put("password", password);
+        map.put("name",     name);
+        map.put("location", location);
+        JSONObject obj = new JSONObject(map);
 
-        ProgressDialog pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Loading...");
-        pDialog.show();
-
-        Map<String, String> postParams = new HashMap<String, String>();
-        postParams.put("username", email);
-        postParams.put("password", password);
-        postParams.put("name", name);
-        postParams.put("location", location);
-
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
-            url, new JSONObject(postParams), new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    Log.d("response", response.toString());
-                    pDialog.hide();
-                    try {if (response.get("message").equals("success"))
-                            startActivity(I);
-                    } catch (Exception e) {Log.d("response", e.toString());}
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d("response", "Error: " + error.getMessage());
-                    pDialog.hide();
-                }
-            }) {
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("Content-Type", "application/json;charset=utf-8");
-                    return headers;
-                }
-        };
-
-        AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+        Call.post("/general-add-customer", obj, this::signup, null);
     }
 
-    public boolean hasBetween(String str, char start, char end) {
+    public void signup(JSONObject response) {
+        Log.d("response", response.toString());
+        try {if (response.get("message").equals("success"))
+            startActivity(I);
+        } catch (Exception e) {Log.d("response", e.toString());}
+    }
+
+    public boolean notHasBetween(String str, char start, char end) {
         int i;
         for (i = 0; i < str.length(); i++) {
             if (start <= str.charAt(i) && str.charAt(i) <= end)
-                return true;
+                return false;
         }
-        return false;
+        return true;
     }
 
     public boolean hasSymbol(String str) {
