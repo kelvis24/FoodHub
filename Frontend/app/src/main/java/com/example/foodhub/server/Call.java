@@ -5,9 +5,13 @@ import static com.android.volley.Request.Method.POST;
 
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +27,8 @@ public class Call {
                 HashMap<String, String> headers = new HashMap<>();
                 headers.put("Content-Type", "application/json;charset=utf-8");
                 return headers;
-        }};
+            }
+        };
         AppController.getInstance().addToRequestQueue(request, "json_obj_req");
     }
 
@@ -37,7 +42,8 @@ public class Call {
                 HashMap<String, String> headers = new HashMap<>();
                 headers.put("Content-Type", "application/json;charset=utf-8");
                 return headers;
-            }};
+            }
+        };
         AppController.getInstance().addToRequestQueue(request, "json_obj_req");
     }
 
@@ -55,20 +61,30 @@ public class Call {
         AppController.getInstance().addToRequestQueue(request, "json_obj_req");
     }
 
-    /*
     public static void post(String route, JSONObject obj, ArrayResponse success, ErrorResponse error) {
-        JsonArrayRequest request = new JsonArrayRequest(POST, Const.URL + route, obj, success::respond,
-                response -> {
-                    if (error == null) ErrorResponse.getBasic().respond(response);
-                    else error.respond(response);
-                }) {
+        String str = obj.toString();
+        StringRequest request = new StringRequest(POST, Const.URL + route,
+            response -> {
+                try {success.respond(new JSONArray(response));
+                } catch (JSONException e) {e.printStackTrace();}
+            }, response -> {
+                if (error == null) ErrorResponse.getBasic().respond(response);
+                else error.respond(response);
+            }) {
+            @Override public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+            @Override public byte[] getBody() {
+                try {return str.getBytes(StandardCharsets.UTF_8);
+                } catch (Exception e) {e.printStackTrace();return null;}
+            }
             @Override public Map<String, String> getHeaders() {
                 HashMap<String, String> headers = new HashMap<>();
                 headers.put("Content-Type", "application/json;charset=utf-8");
                 return headers;
-            }};
+            }
+        };
         AppController.getInstance().addToRequestQueue(request, "json_obj_req");
     }
-    */
 
 }
