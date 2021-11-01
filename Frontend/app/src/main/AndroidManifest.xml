@@ -19,6 +19,9 @@
             android:name=".Customer.Home.CompanyPage"
             android:exported="true" />
         <activity
+            android:name=".Customer.Account.EditCustomerAccount"
+            android:exported="true" />
+        <activity
             android:name=".Firm.FirmHomeActivity"
             android:exported="true" />
         <activity
