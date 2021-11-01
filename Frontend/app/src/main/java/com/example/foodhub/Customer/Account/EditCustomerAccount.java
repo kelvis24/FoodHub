@@ -2,8 +2,11 @@ package com.example.foodhub.Customer.Account;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -32,6 +35,21 @@ public class EditCustomerAccount extends AppCompatActivity {
         binding = ActivityEditcustomerpageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        ActionBar actionBar = getSupportActionBar();
+
+        // showing the back button in action bar
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void clickToCancelEditCustomer(View v) {
@@ -40,6 +58,7 @@ public class EditCustomerAccount extends AppCompatActivity {
 //        I.putExtra("Email", email);
         startActivity(Ph);
     }
+
     public void clickToSaveEditedCustomer(View v) {
         Intent Ph = new Intent(this, Account.class);
 //        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();

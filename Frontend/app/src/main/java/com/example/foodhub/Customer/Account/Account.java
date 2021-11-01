@@ -80,4 +80,6 @@ public class Account extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+
 }
