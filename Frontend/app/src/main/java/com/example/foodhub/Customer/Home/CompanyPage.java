@@ -5,6 +5,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -42,7 +43,7 @@ public class CompanyPage extends AppCompatActivity {
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 //        NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
 
-        LoadMenu();
+          LoadMenu();
     }
 
     public void LoadMenu() {
@@ -60,5 +61,13 @@ public class CompanyPage extends AppCompatActivity {
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
+
+    public void clickToSeeThatMenu(View v) {
+        Intent Ph = new Intent(this, FoodItemPage.class);
+//        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
+//        I.putExtra("Email", email);
+        startActivity(Ph);
+    }
+
 
 }

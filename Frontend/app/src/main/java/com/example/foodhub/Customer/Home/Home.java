@@ -133,7 +133,7 @@ public class Home extends Fragment {
             recyclerView.setAdapter(recyclerAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
-determine = 1;
+             determine = 1;
 //        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
 //            @Override
 //            public void onChanged(@Nullable String s) {
@@ -208,6 +208,7 @@ determine = 1;
         //BottomNavigationView navView = findViewById(R.id.bottomNavigationView);
        // binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding1.getRoot();
+        determine = 0;
 
                 //final RecyclerView recyclerView = binding1.recyclerView_menu_view;
 

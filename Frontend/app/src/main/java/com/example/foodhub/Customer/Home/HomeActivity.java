@@ -43,16 +43,11 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.bottomNavigationView);
 //
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.home2,
-              //  R.id.pickup, R.id.search,
-                R.id.orders, R.id.account)
-                .build();
+                R.id.home2, R.id.orders, R.id.account).build();
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
-
-       //LoadCompanies();
 
     }
     
@@ -118,12 +113,6 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(Ph);
     }
 
-    public void clickToSeeThatMenu(View v) {
-        Intent Ph = new Intent(this, FoodItemPage.class);
-//        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
-//        I.putExtra("Email", email);
-        startActivity(Ph);
-    }
 
 
 }
