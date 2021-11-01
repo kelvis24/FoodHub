@@ -61,7 +61,4 @@ public class CompanyPage extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    public void loginSomething(View v) {
-        int i = 0;
-    }
 }
