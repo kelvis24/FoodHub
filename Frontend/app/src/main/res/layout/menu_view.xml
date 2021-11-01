@@ -56,14 +56,14 @@
             android:id="@+id/imageView_menuFoodPicture"
             android:layout_width="132dp"
             android:layout_height="118dp"
+            android:layout_centerInParent="true"
+            android:onClick="clickToSeeThatMenu"
+            android:scaleType="centerCrop"
+            android:src="@drawable/litramen"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.976"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/litramen"
-            android:layout_centerInParent="true"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

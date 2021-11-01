@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodhub.R;
 import com.example.foodhub.databinding.ActivityEditcustomerpageBinding;
-import com.example.foodhub.databinding.ActivityHomeBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -32,20 +31,7 @@ public class EditCustomerAccount extends AppCompatActivity {
 
         binding = ActivityEditcustomerpageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-//
-//        BottomNavigationView navView = findViewById(R.id.bottomNavigationView);
-////
-//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-//                R.id.home2,
-//                //  R.id.pickup, R.id.search,
-//                R.id.orders, R.id.account)
-//                .build();
-//
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-//        NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
 
-        //LoadCompanies();
     }
 
     public void clickToCancelEditCustomer(View v) {

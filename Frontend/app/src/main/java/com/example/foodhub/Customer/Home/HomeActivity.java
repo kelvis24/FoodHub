@@ -15,6 +15,7 @@ import android.view.View;
 import java.util.ArrayList;
 
 import com.example.foodhub.Admin.AdminHome.AdminHomeActivity;
+import com.example.foodhub.Login.LoginActivity;
 import com.example.foodhub.Class.Company;
 import com.example.foodhub.Customer.Account.EditCustomerAccount;
 import com.example.foodhub.Firm.FirmHomeActivity;
@@ -112,6 +113,13 @@ public class HomeActivity extends AppCompatActivity {
 
     public void clickToSeeEditCustomerPages(View v) {
         Intent Ph = new Intent(this, EditCustomerAccount.class);
+//        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
+//        I.putExtra("Email", email);
+        startActivity(Ph);
+    }
+
+    public void clickToSeeThatMenu(View v) {
+        Intent Ph = new Intent(this, FoodItemPage.class);
 //        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
 //        I.putExtra("Email", email);
         startActivity(Ph);

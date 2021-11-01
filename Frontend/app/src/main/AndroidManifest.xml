@@ -22,6 +22,9 @@
             android:name=".Customer.Account.EditCustomerAccount"
             android:exported="true" />
         <activity
+            android:name=".Customer.Home.FoodItemPage"
+            android:exported="true" />
+        <activity
             android:name=".Firm.FirmHomeActivity"
             android:exported="true" />
         <activity
