@@ -16,15 +16,14 @@
             android:layout_width="411dp"
             android:layout_height="726dp"
             android:layout_marginStart="0.5dp"
+            android:layout_marginBottom="10dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.003"
-            android:layout_marginBottom="10dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/button2"
@@ -34,10 +33,10 @@
             android:text="FirmAccount"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.058"
+            app:layout_constraintHorizontal_bias="0.139"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.024" />
+            app:layout_constraintVertical_bias="0.828" />
 
         <Button
             android:id="@+id/button4"
@@ -47,8 +46,10 @@
             android:text="ADMIN APP"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.845"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.797" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
