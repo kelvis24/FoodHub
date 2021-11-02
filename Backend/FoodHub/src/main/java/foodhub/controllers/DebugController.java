@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 import foodhub.database.*;
 import foodhub.ioObjects.*;
 
+/**
+ * The Debug commands for testing the Backend of FoodHub
+ * @author 1_CW_2
+ *
+ */
 @RestController
 public class DebugController {
 	
