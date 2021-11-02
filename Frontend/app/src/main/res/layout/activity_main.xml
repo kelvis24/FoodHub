@@ -6,14 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Login.InitialActivity">
 
-<select label="Q2">
-   <title>
-     What kind of user would you like to login?
-   </title>
-   <comment>Please select one</comment>
-   <row label="r1">Logins</row>
-   <choice label="ch1">
-       <TextView
+    <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,75 +23,13 @@
         android:layout_width="181dp"
         android:layout_height="73dp"
         android:layout_marginTop="84dp"
-        android:text="CLogin"
+        android:text="@string/Login"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-
-   </choice>
-   <choice label="ch2">
-<TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="@string/FoodHub"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/admin_login_button"
-        android:layout_width="181dp"
-        android:layout_height="73dp"
-        android:layout_marginTop="84dp"
-        android:text="ALogin"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-   </choice>
-   <choice label="ch3">
-       <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="@string/FoodHub"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/firm_login_button"
-        android:layout_width="181dp"
-        android:layout_height="73dp"
-        android:layout_marginTop="84dp"
-        android:text="FLogin"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-   </choice>
-   
-</select>
-
-<select label="Q3">
-   <title>
-     Would you like to Register?
-   </title>
-   <comment>Please select one</comment>
-   <row label="r2">Registration</row>
-   <choice label="qh1">
-<TextView
+    <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -114,63 +45,11 @@
         android:layout_width="184dp"
         android:layout_height="70dp"
         android:layout_marginTop="52dp"
-        android:text="@string/Customer_Sign_Up"
+        android:text="@string/Sign_Up"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
-   </choice>
-   <choice label="qh2">
-<TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="@string/or"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_login_button" />
-
-    <Button
-        android:id="@+id/admin_sign_up_button"
-        android:layout_width="184dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="52dp"
-        android:text="@string/Admin_Sign_Up"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-   </choice>
-   <choice android:label="qh3">
-<TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="@string/or"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/firm_login_button" />
-
-    <Button
-        android:id="@+id/firm_sign_up_button"
-        android:layout_width="184dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="52dp"
-        android:text="firm_Sign_Up"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-   </choice>
-   
-</select>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
