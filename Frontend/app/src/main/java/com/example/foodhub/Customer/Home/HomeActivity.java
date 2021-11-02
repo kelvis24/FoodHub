@@ -1,6 +1,7 @@
 package com.example.foodhub.Customer.Home;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -11,12 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
 import com.example.foodhub.Admin.AdminHome.AdminHomeActivity;
+import com.example.foodhub.Customer.Account.Account;
+import com.example.foodhub.Login.LoginActivity;
 import com.example.foodhub.Class.Company;
+import com.example.foodhub.Customer.Account.EditCustomerAccount;
 import com.example.foodhub.Firm.FirmHomeActivity;
+import com.example.foodhub.Program.ProgramController;
 import com.example.foodhub.R;
 import com.example.foodhub.Recyclers.RecyclerAdapter;
 import com.example.foodhub.Class.SmallCompany;
@@ -41,17 +47,35 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.bottomNavigationView);
 //
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.home2,
-              //  R.id.pickup, R.id.search,
-                R.id.orders, R.id.account)
-                .build();
+                R.id.home2, R.id.orders, R.id.account).build();
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
 
-       //LoadCompanies();
 
+//        Home homeFrag = new Home();
+//        Account accountFrag = new Account();
+//
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        fragmentManager.beginTransaction()
+//                .replace(R.id.nav_host_fragment_activity_main, Home.class, null)
+//                .setReorderingAllowed(true)
+//                .addToBackStack(null) // name can be null
+//                .commit();
+//
+//
+//        ImageView companyPic = (ImageView) findViewById(R.id.ivPost);
+
+//        companyPic.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                fragmentManager.beginTransaction()
+//                        .replace(R.id.nav_host_fragment_activity_main, Account.class, null)
+//                        .setReorderingAllowed(true)
+//                        .addToBackStack(null) // name can be null
+//                        .commit();
+//            }
+//        });
     }
     
     public void LoadCompanies() {
@@ -92,6 +116,7 @@ public class HomeActivity extends AppCompatActivity {
         Intent P = new Intent(this, CompanyPage.class);
 //        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
 //        I.putExtra("Email", email);
+        ProgramController p = new ProgramController();
         startActivity(P);
     }
 
@@ -108,6 +133,15 @@ public class HomeActivity extends AppCompatActivity {
 //        I.putExtra("Email", email);
         startActivity(Ph);
     }
+
+    public void clickToSeeEditCustomerPages(View v) {
+        Intent Ph = new Intent(this, EditCustomerAccount.class);
+//        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
+//        I.putExtra("Email", email);
+        startActivity(Ph);
+    }
+
+
 
 
 }

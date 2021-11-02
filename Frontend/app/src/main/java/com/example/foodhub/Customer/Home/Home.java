@@ -14,9 +14,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.foodhub.Class.Company;
+import com.example.foodhub.Class.Menu;
 import com.example.foodhub.Class.SmallCompany;
 import com.example.foodhub.R;
+import com.example.foodhub.Recyclers.MenuRecyclerAdapter;
 import com.example.foodhub.Recyclers.RecyclerAdapter;
+import com.example.foodhub.databinding.ActivityFullComapnypageViewBinding;
 import com.example.foodhub.databinding.ActivityHomeBinding;
 import com.example.foodhub.databinding.FragmentHomeBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -55,8 +58,10 @@ public class Home extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private HomeViewModel homeViewModel;
+    private ActivityFullComapnypageViewBinding binding1;
     private FragmentHomeBinding binding;
     private ActivityHomeBinding originalBinding;
+    private static int determine = 0;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -84,6 +89,51 @@ public class Home extends Fragment {
         return fragment;
     }
 
+
+    private void setContentView(ConstraintLayout root) {
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+//
+//        if (determine == 0) {
+
+            homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+
+            binding = FragmentHomeBinding.inflate(inflater, container, false);
+            View root = binding.getRoot();
+
+            final RecyclerView recyclerView = binding.recyclerView1;
+
+            // ArrayList<Object> array = new ArrayList<>();
+            //array = (  ArrayList<Object>) homeViewModel.getCompanies();
+
+
+            RecyclerAdapter recyclerAdapter = new RecyclerAdapter(this.getContext(), getObject());
+            recyclerView.setAdapter(recyclerAdapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
+             determine = 1;
+//        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+//            @Override
+//            public void onChanged(@Nullable String s) {
+//                textView.setText(s);
+//            }
+//        });
+            return root;
+
+            // Inflate the layout for this fragment
+            // return inflater.inflate(R.layout.fragment_home, container, false);
+//        }
+//        else {
+//            return experiment(inflater, container, savedInstanceState);
+//
+//        }
+
+    }
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,54 +142,8 @@ public class Home extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-//        originalBinding = ActivityHomeBinding.inflate(getLayoutInflater());
-//        setContentView(originalBinding.getRoot());
-//
-//        final RecyclerView recyclerView = binding.recyclerView1;
-//
-//        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(this.getContext(), getObject());
-//        recyclerView.setAdapter(recyclerAdapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-//
-//        LoadCompanies();
     }
 
-    private void setContentView(ConstraintLayout root) {
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-
-
-        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        final RecyclerView recyclerView = binding.recyclerView1;
-
-       // ArrayList<Object> array = new ArrayList<>();
-        //array = (  ArrayList<Object>) homeViewModel.getCompanies();
-
-
-        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(this.getContext(), getObject());
-        recyclerView.setAdapter(recyclerAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-
-
-//        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
-        return root;
-
-        // Inflate the layout for this fragment
-       // return inflater.inflate(R.layout.fragment_home, container, false);
-    }
 
     @Override
     public void onDestroyView() {
@@ -170,5 +174,52 @@ public class Home extends Fragment {
         company.add( new SmallCompany(R.drawable.litramen, "this is a description", "userame", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
         return company;
     }
+
+    public void LoadMenu1(ArrayList<Object> arrayList, RecyclerView recyclerView) {
+       // arrayList= new ArrayList<Object>();
+       // recyclerView = findViewById(R.id.recyclerView_menu_view);
+
+        arrayList.add( new Menu(R.drawable.litramen, "Lit Ramen", "This is a descyuription of lit ramen", "1000"));
+        arrayList.add( new Menu(R.drawable.litramen, "Lit Ramen", "This is a desclikujyhyription of lit ramen", "1000"));
+        arrayList.add( new Menu(R.drawable.litramen, "Lit Ramen", "This is a deuiytscription of lit ramen", "1000"));
+        arrayList.add( new Menu(R.drawable.litramen, "Lit Ramen", "This is a de=ramen", "1000"));
+
+
+        MenuRecyclerAdapter recyclerAdapter = new MenuRecyclerAdapter(arrayList);
+
+        recyclerView.setAdapter(recyclerAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+    }
+
+    private View experiment(LayoutInflater inflater, ViewGroup container,
+                            Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //    setContentView(R.layout.activity_full_comapnypage_view);
+
+        binding1 = ActivityFullComapnypageViewBinding.inflate(getLayoutInflater());
+        setContentView(binding1.getRoot());
+
+        //BottomNavigationView navView = findViewById(R.id.bottomNavigationView);
+       // binding = FragmentHomeBinding.inflate(inflater, container, false);
+        View root = binding1.getRoot();
+        determine = 0;
+
+                //final RecyclerView recyclerView = binding1.recyclerView_menu_view;
+
+
+//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+//                R.id.home2,
+//                //     R.id.pickup, R.id.search,
+//                R.id.orders, R.id.account)
+//                .build();
+
+//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main2);
+//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+//        NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
+        return root;
+
+     //  LoadMenu1(array);
+    }
+
 
 }
