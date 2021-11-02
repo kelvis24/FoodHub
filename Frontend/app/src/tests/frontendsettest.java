@@ -153,7 +153,8 @@ public class AdminControllerTests {
 		verify(costomerRepository, times(1)).save((costomer)any(costomer.class));
 		verify(costomerRepository, times(0)).findByUsername((String)any(String.class));
 		verify(costomerRepository, times(1)).findAll();
-		verify(this.callset(list), times(1)).findAll();
+		verify(this.Call(list), times(1)).findAll();
+		verify(this.ArrayResponse(list), times(1)).findAll();
 	}
 	
 }
