@@ -1,12 +1,18 @@
 package com.example.foodhub.Customer.Home;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.foodhub.Class.Menu;
@@ -31,6 +37,13 @@ public class CompanyPage extends AppCompatActivity {
         binding = ActivityFullComapnypageViewBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+        ActionBar actionBar = getSupportActionBar();
+
+        // showing the back button in action bar
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+
         BottomNavigationView navView = findViewById(R.id.bottomNavigationView);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -45,6 +58,17 @@ public class CompanyPage extends AppCompatActivity {
 
           LoadMenu();
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     public void LoadMenu() {
         arrayList= new ArrayList<Object>();

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodhub.Customer.Account.Account;
+import com.example.foodhub.Customer.Account.EditCustomerAccount;
 import com.example.foodhub.databinding.ActivityViewthismenuBinding;
 
 import java.util.ArrayList;
@@ -31,4 +32,21 @@ public class FoodItemPage extends AppCompatActivity {
         setContentView(binding.getRoot());
 
     }
+
+
+    public void clickToAddOrder(View v) {
+        Intent Ph = new Intent(this, CompanyPage.class);
+//        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
+//        I.putExtra("Email", email);
+        startActivity(Ph);
+    }
+
+    public void ClickToUnseeMenuItem(View v) {
+        Intent Ph = new Intent(this, CompanyPage.class);
+//        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
+//        I.putExtra("Email", email);
+        startActivity(Ph);
+    }
+
+
 }

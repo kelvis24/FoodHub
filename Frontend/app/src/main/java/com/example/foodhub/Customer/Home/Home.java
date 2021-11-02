@@ -89,25 +89,6 @@ public class Home extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-//        originalBinding = ActivityHomeBinding.inflate(getLayoutInflater());
-//        setContentView(originalBinding.getRoot());
-//
-//        final RecyclerView recyclerView = binding.recyclerView1;
-//
-//        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(this.getContext(), getObject());
-//        recyclerView.setAdapter(recyclerAdapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-//
-//        LoadCompanies();
-    }
 
     private void setContentView(ConstraintLayout root) {
     }
@@ -115,8 +96,8 @@ public class Home extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        if (determine == 0) {
+//
+//        if (determine == 0) {
 
             homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
@@ -144,12 +125,25 @@ public class Home extends Fragment {
 
             // Inflate the layout for this fragment
             // return inflater.inflate(R.layout.fragment_home, container, false);
-        }else {
-            return experiment(inflater, container, savedInstanceState);
+//        }
+//        else {
+//            return experiment(inflater, container, savedInstanceState);
+//
+//        }
 
+    }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
     }
+
 
     @Override
     public void onDestroyView() {
