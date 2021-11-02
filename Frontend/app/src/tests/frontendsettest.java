@@ -105,7 +105,7 @@ public class AdminControllerTests {
 	}
 	
 	@Test
-	public void createFrontTest0() {
+	public void createFrontTest0() {//testing for a name that can be recognized as a costomer and not be given access to certain pages.
 		List<costomer> list = dc.listCostomer();
 		assertEquals(1, list.size());
 		assertEquals(owner.getName(), list.get(0).getName());
@@ -122,7 +122,7 @@ public class AdminControllerTests {
 	}
 	
 	@Test
-	public void createFrontTest1() {
+	public void createFrontTest1() {///testing that a name can be inputted and recognized as a costomer
 		Message response;
 		CostomerInfo a1 = new CostomerInfo("test@gmail.com","test123","Test",1);
 		AddCostomerInput b1 = new AddCostomerInput(owner.getUsername(),owner.getPassword(),a1);
@@ -139,14 +139,21 @@ public class AdminControllerTests {
 		assertEquals(a1.getUsername(), list.get(1).getUsername());
 		assertEquals(a1.getPassword(), list.get(1).getPassword());
 		assertEquals(0, list.get(1).getType());
-		verify(costomerRepository, times(2)).save((Costomer)any(Costomer.class));
-		verify(costomerRepository, times(1)).findByUsername(owner.getUsername());
-		verify(costomerRepository, times(1)).findByUsername(a1.getUsername());
-		verify(costomerRepository, times(2)).findByUsername((String)any(String.class));
+	}
+
+	@Test
+	public void createFrontTest3() {//testing that callset has set proper information for communicating.
+		List<costomer> list = dc.listCostomer();
+		assertEquals(1, list.size());
+		assertEquals(owner.getName(), list.get(0).getName());
+		assertEquals(owner.getUsername(), list.get(0).getUsername());
+		assertEquals(owner.getPassword(), list.get(0).getPassword());
+		assertEquals(1, list.get(0).getType());
+		verify(costomerRepository, times(1)).save(owner);
+		verify(costomerRepository, times(1)).save((costomer)any(costomer.class));
+		verify(costomerRepository, times(0)).findByUsername((String)any(String.class));
 		verify(costomerRepository, times(1)).findAll();
-		verify(firmRepository, times(0)).save((Firm)any(Firm.class));
-		verify(firmRepository, times(0)).findByUsername((String)any(String.class));
-		verify(firmRepository, times(0)).findAll();
+		verify(this.callset(list), times(1)).findAll();
 	}
 	
 }
