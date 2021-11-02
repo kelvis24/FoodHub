@@ -1,13 +1,18 @@
 package com.example.foodhub.Program;
 
+import android.content.Context;
+import android.content.res.Configuration;
+
 import com.example.foodhub.Class.Company;
+import com.example.foodhub.Class.Menu;
 
 import java.util.ArrayList;
 
 public class ProgramController {
 
     public Person Person;
-    public ArrayList<Order> Orders;
+    public static ArrayList<Order> Orders = new ArrayList<>();
+    public static ArrayList<Menu> MenuOrders = new ArrayList<>();
     public ArrayList<Company> Firms;
 
     public ProgramController() {
@@ -34,7 +39,7 @@ public class ProgramController {
         }
     }
 
-    public class Order {
+    public static class Order {
         public String itemId;
         public String quantity;
         public String notes;
@@ -45,5 +50,20 @@ public class ProgramController {
             this.notes = notes;
         }
 
+        public static ArrayList<Object> orderToObjectArrayConverter(ArrayList<Order> array) {
+
+//            for (item : array
+//                 ) {
+//                item.itemId =
+//            }
+            return null;
+        }
+
+        public static void initialize(Context context, Configuration configuration) {
+        }
+
+        public static void add(Order order) {
+            Orders.add(order);
+        }
     }
 }
