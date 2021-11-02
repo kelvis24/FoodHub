@@ -14,6 +14,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodhub.Customer.Home.Home;
+import com.example.foodhub.Customer.Home.HomeActivity;
 import com.example.foodhub.R;
 import com.example.foodhub.databinding.ActivityEditcustomerpageBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -53,14 +55,14 @@ public class EditCustomerAccount extends AppCompatActivity {
     }
 
     public void clickToCancelEditCustomer(View v) {
-        Intent Ph = new Intent(this, Account.class);
+        Intent Ph = new Intent(this, HomeActivity.class);
 //        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
 //        I.putExtra("Email", email);
         startActivity(Ph);
     }
 
     public void clickToSaveEditedCustomer(View v) {
-        Intent Ph = new Intent(this, Account.class);
+        Intent Ph = new Intent(this, HomeActivity.class);
 //        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
 //        I.putExtra("Email", email);
         startActivity(Ph);
