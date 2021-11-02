@@ -12,7 +12,8 @@ import foodhub.database.*;
 import foodhub.ioObjects.*;
 
 /**
- * The controller for all Firm backend methods
+ * The controller for all Firm backend methods.
+ * All permissions that a Firm has are held within this class.
  * @author 1_CW_2
  *
  */
@@ -230,6 +231,15 @@ public class FirmController {
     	return new Message("success");
     }
     
+    /**
+     * Lets Firms see all the incoming Orders from Customers.
+     * This method always returns a List, including ones that may be empty.
+     * Empty order lists are given in the case of a wrong username, wrong password, or
+     * no orders currently being made to the Firm.
+     * @param body an Authentication entity for login information for a Firm
+     * @return a List of all orders connected to the authenticated firm.
+     * @see Authentication
+     */
     @PostMapping("/firms-get-orders")
     public List<OrderOutput> getOrders(@RequestBody Authentication body) {
     	List<OrderOutput> output = new ArrayList<OrderOutput>();
@@ -251,9 +261,10 @@ public class FirmController {
     }
     
     /**
-     * 
-     * @param body a CompleteOrderInput
-     * @return
+     * Allows a Firm to set the status of an Order as complete
+     * @param body a CompleteOrderInput, which includes Firm login details and order details
+     * @return a Message stating the status of completion (success/failure with error)
+     * @see CompleteOrderInput
      */
     @PostMapping("/firms-complete-order")
     public Message completeOrder(@RequestBody CompleteOrderInput body) {
