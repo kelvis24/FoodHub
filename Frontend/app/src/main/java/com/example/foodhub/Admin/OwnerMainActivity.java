@@ -1,5 +1,6 @@
 package com.example.foodhub.Admin;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,11 +14,12 @@ import com.example.foodhub.databinding.ActivityOwnerMainBinding;
 
 public class OwnerMainActivity extends AppCompatActivity {
 
+    private String username;
+    private String password;
     private ActivityOwnerMainBinding binding;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // setContentView(R.layout.activity_owner_main);
         binding = ActivityOwnerMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         AppBarConfiguration config = new AppBarConfiguration.Builder(
@@ -25,6 +27,9 @@ public class OwnerMainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.owner_fragment_main);
         NavigationUI.setupActionBarWithNavController(this, navController, config);
         NavigationUI.setupWithNavController(binding.ownerBottomNavigationView, navController);
+        Intent P = getIntent();
+        username = P.getStringExtra("username");
+        password = P.getStringExtra("password");
     }
 
 }

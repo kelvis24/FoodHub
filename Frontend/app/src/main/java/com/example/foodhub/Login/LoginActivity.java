@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                 else I = new Intent(this, AdminMainActivity.class);
                 break;
         }
-        I.putExtra("email", email);
+        I.putExtra("username", email);
         I.putExtra("password", password);
         startActivity(I);
     }
