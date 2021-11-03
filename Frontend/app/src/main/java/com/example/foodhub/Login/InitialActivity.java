@@ -14,7 +14,7 @@ public class InitialActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_initial);
         Button btn = findViewById(R.id.customer_login_button);
         btn.setOnClickListener(this::goToCustomerLoginActivity);
         btn = findViewById(R.id.firm_login_button);

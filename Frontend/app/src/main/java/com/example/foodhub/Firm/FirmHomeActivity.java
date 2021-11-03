@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodhub.R;
 import com.example.foodhub.databinding.FirmMainactivityBinding;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
@@ -28,29 +27,20 @@ public class FirmHomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      //  setContentView(R.layout.firm_mainactivity);
-
         binding = FirmMainactivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-//
-        BottomNavigationView navView = findViewById(R.id.firmbottomNavigationView);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.firm_home, R.id.firm_menupage, R.id.firm_account)
-                .build();
+                R.id.firm_home, R.id.firm_menu, R.id.firm_account).build();
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_firmactivity_main);
+        NavController navController = Navigation.findNavController(this, R.id.firm_fragment_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.firmbottomNavigationView, navController);
-//
-//        LoadCompanies();
+        NavigationUI.setupWithNavController(binding.firmBottomNavigationView, navController);
 
     }
 
     public void ClickToSaveMenuItem(View v) {
         Intent Ph = new Intent(this, FirmMenuItemActivity.class);
-//        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
-//        I.putExtra("Email", email);
         startActivity(Ph);
     }
 

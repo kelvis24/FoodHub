@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/owner_navigation"
+    app:startDestination="@id/manage_admins">
+
+    <fragment
+        android:id="@+id/manage_admins"
+        android:name="com.example.foodhub.Admin.ManageAdminsFragment"
+        android:label="Manage Admins"
+        tools:layout="@layout/fragment_manage_admins" />
+    <fragment
+        android:id="@+id/manage_firms"
+        android:name="com.example.foodhub.Admin.ManageFirmsFragment"
+        android:label="Manage Firms"
+        tools:layout="@layout/fragment_manage_firms" />
+
+</navigation>

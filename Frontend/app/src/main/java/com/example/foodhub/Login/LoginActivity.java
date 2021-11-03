@@ -9,7 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.util.Log;
 
-import com.example.foodhub.Admin.AdminHome.AdminHomeActivity;
+import com.example.foodhub.Admin.AdminMainActivity;
+import com.example.foodhub.Admin.OwnerMainActivity;
 import com.example.foodhub.Customer.Home.CustomerHomeActivity;
 import com.example.foodhub.Firm.FirmHomeActivity;
 import com.example.foodhub.R;
@@ -22,59 +23,57 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private String route;
-    private Intent I;
+    private String type;
+    private String email;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Intent P = getIntent();
-        String type = P.getStringExtra("type");
+        type = P.getStringExtra("type");
         Button btn = findViewById(R.id.login_button);
         btn.setOnClickListener(this::loginButton);
-        switch (type) {
-            case "customer":
-                route = "customers-authenticate";
-                I = new Intent(this, CustomerHomeActivity.class);
-                break;
-            case "firm":
-                route = "firms-authenticate";
-                I = new Intent(this, FirmHomeActivity.class);
-                break;
-            case "admin":
-                route = "admins-authenticate";
-                I = new Intent(this, AdminHomeActivity.class);
-                break;
-        }
     }
 
     public void loginButton(View v) {
-        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
-        String password = ((EditText)findViewById(R.id.login_password)).getText().toString();
+        email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
+        password = ((EditText)findViewById(R.id.login_password)).getText().toString();
 
-        I.putExtra("email", email);
-        I.putExtra("password", password);
 
         Map<String, String> map = new HashMap<>();
         map.put("username", email);
         map.put("password", password);
         JSONObject obj = new JSONObject(map);
 
-        Call.post(route, obj, this::login, null);
+        Call.post(type+"s-authenticate", obj, this::login, null);
     }
 
     public void login(JSONObject response){
-        try {
-            if (response.get("message").equals("success"))
-                startActivity(I);
-            else if (response.get("message").equals("admin"))
-                startActivity(I);
-            else if (response.get("message").equals("owner"))
-                startActivity(I);
-            else
-                Log.d("debug", response.toString());
-        } catch (Exception e) {Log.d("response", e.toString());}
+        String str;
+        try{str = (String)response.get("message");
+        } catch (Exception e) {Log.d("debug", e.toString());return;}
+        if (str.equals("failure")) {
+            Log.d("debug", response.toString());
+            return;
+        }
+        Intent I = new Intent();
+        switch (type) {
+            case "customer":
+                I = new Intent(this, CustomerHomeActivity.class);
+                break;
+            case "firm":
+                I = new Intent(this, FirmHomeActivity.class);
+                break;
+            case "admin":
+                if (str.equals("owner")) I = new Intent(this, OwnerMainActivity.class);
+                else I = new Intent(this, AdminMainActivity.class);
+                break;
+        }
+        I.putExtra("email", email);
+        I.putExtra("password", password);
+        startActivity(I);
     }
 
 }

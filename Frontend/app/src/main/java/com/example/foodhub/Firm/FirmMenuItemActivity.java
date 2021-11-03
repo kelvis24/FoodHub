@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodhub.Class.Menu;
 import com.example.foodhub.Recyclers.MenuRecyclerAdapter;
 import com.example.foodhub.R;
-import com.example.foodhub.databinding.FragmentFirmMenupageBinding;
+import com.example.foodhub.databinding.FragmentFirmMenuBinding;
 
 import java.util.ArrayList;
 
@@ -17,14 +17,14 @@ public class FirmMenuItemActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ArrayList<Object> arrayList;
-    private FragmentFirmMenupageBinding binding;
+    private FragmentFirmMenuBinding binding;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = FragmentFirmMenupageBinding.inflate(getLayoutInflater());
+        binding = FragmentFirmMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
 //        BottomNavigationView navView = findViewById(R.id.firmbottomNavigationView);

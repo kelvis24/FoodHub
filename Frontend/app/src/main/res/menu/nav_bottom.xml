@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:id="@+id/home2" android:icon="@drawable/home" android:title="Home" />
-<!--    <item  android:id="@+id/pickup" android:title="Pickup" android:icon="@drawable/pickup"/>-->
-<!--    <item  android:id="@+id/search"  android:title="Search" android:icon="@drawable/search"/>-->
-    <item   android:id="@+id/orders"  android:title="Orders" android:icon="@drawable/orders"/>
-    <item  android:id="@+id/account"  android:title="Account" android:icon="@drawable/account"/>
-</menu>

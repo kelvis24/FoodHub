@@ -7,7 +7,7 @@
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/firmbottomNavigationView"
+        android:id="@+id/firm_bottom_navigation_view"
         android:layout_width="412dp"
         android:layout_height="60dp"
         android:layout_marginBottom="6dp"
@@ -18,11 +18,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:menu="@menu/nav_bottom_firm_activities" />
+        app:menu="@menu/nav_bottom_firm" />
 
 
     <fragment
-        android:id="@+id/nav_host_fragment_firmactivity_main"
+        android:id="@+id/firm_fragment_main"
 
         android:name="androidx.navigation.fragment.NavHostFragment"
 
@@ -36,6 +36,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
 
-        app:navGraph="@navigation/bottom_navigation_firmapp" />
+        app:navGraph="@navigation/firm_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
