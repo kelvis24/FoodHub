@@ -80,7 +80,7 @@ public class SignUpActivity extends AppCompatActivity {
         map.put("location", location);
         JSONObject obj = new JSONObject(map);
 
-        Call.post("/general-add-customer", obj, this::signup, null);
+        Call.post("general-add-customer", obj, this::signup, null);
     }
 
     public void signup(JSONObject response) {

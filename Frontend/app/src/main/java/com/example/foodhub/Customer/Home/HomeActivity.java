@@ -38,14 +38,14 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-       super.onCreate(savedInstanceState);
-     //   setContentView(R.layout.activity_home);
+        super.onCreate(savedInstanceState);
+        // setContentView(R.layout.activity_home);
 
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-//
+
         BottomNavigationView navView = findViewById(R.id.bottomNavigationView);
-//
+
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.home2, R.id.orders, R.id.account).build();
 
@@ -73,9 +73,9 @@ public class HomeActivity extends AppCompatActivity {
 
     public static ArrayList<Company> getVerticalData() {
         ArrayList<Company> company = new ArrayList<>();
-        company.add( new Company(R.drawable.litramen, "this is a description", "userame", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
-        company.add( new Company(R.drawable.litramen, "this is a description", "userame", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
-        company.add( new Company(R.drawable.litramen, "this is a description", "userame", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
+        company.add( new Company(R.drawable.litramen, "this is a description", "username", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
+        company.add( new Company(R.drawable.litramen, "this is a description", "username", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
+        company.add( new Company(R.drawable.litramen, "this is a description", "username", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
         return company;
     }
 

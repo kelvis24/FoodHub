@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         mapset.put("password", password);
         JSONObject obj = new JSONObject(mapset);
 
-        Call.post("costomers-authenticate", obj, this::loginset, null);
+        Call.post("customers-authenticate", obj, this::loginset, null);
     }
 
     public void loginset(JSONObject response){
