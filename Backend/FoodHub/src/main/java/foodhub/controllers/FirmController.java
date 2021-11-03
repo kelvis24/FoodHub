@@ -11,6 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import foodhub.database.*;
 import foodhub.ioObjects.*;
 
+/**
+ * The controller for all Firm backend methods.
+ * All permissions that a Firm has are held within this class.
+ * @author 1_CW_2
+ *
+ */
 @RestController
 public class FirmController {
 
@@ -32,6 +38,15 @@ public class FirmController {
 	@Autowired
 	OrderItemRepository orderItemRepository;
 	
+	/**
+	 * Authenticates a Firm using its login credentials.
+	 * This method always returns a Message, either stating the success of authorization
+	 * or a failure with an error explaining why it failed. Errors include wrong username
+	 * and wrong password.
+	 * @param body an Authentication entity, with Firm login details
+	 * @return a Message describing method status (success/failure with error)
+	 * @see Authentication
+	 */
 	@PostMapping("/firms-authenticate")
 	public Message authenticateFirm(@RequestBody Authentication body) {
     	Firm user = firmRepository.findByUsername(body.getUsername());
@@ -42,6 +57,15 @@ public class FirmController {
     	return new Message("success");
 	}
 
+	/**
+	 * Allows a Firm to create a Category to add to their menu.
+	 * This method always returns a Message describing the status of itself, either a success
+	 * following a successful addition of a category, or a failure with an error explaining why 
+	 * it failed. Errors include wrong username, wrong password, or no category data given (null).
+	 * @param body an AddCategoryInput, which includes Firm login details and Category details
+	 * @return a Message describing the status of the method (success/failure with error)
+	 * @see AddCategoryInput
+	 */
     @PostMapping("/firms-create-category")
     public Message createCategory(@RequestBody AddCategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
@@ -56,6 +80,16 @@ public class FirmController {
     	return new Message("success");
     }
     
+    /**
+     * Allows a Firm to edit the information related to a Category on its menu.
+     * This method always returns a message about the status of iteslf, either a success
+     * on successful running or a failure with an error explaining why it failed. Errors include
+     * wrong username, wrong password, the new category information not being supplied (null), or the
+     * category selected to be edited not existing. 
+     * @param body an EditCategoryInput entity, which includes Firm login details and the Category selected to be edited.
+     * @return a Message detailing the status of the method (success/failure with error)
+     * @see EditCategoryInput
+     */
     @PostMapping("/firms-edit-category")
     public Message editCategory(@RequestBody EditCategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
@@ -73,6 +107,15 @@ public class FirmController {
     	return new Message("success");
     }
     
+    /**
+     * Allows a Firm to remove a Category from its menu.
+     * This method always returns a message about its own status, either a success on successfully removing
+     * the category, or a failure with an error explaining why the method failed. Errors include wrong
+     * username, wrong password, or the selected category not existing (null).
+     * @param body a RemoveEntity entity, which includes Firm login details and the Category to be deleted
+     * @return a Message describing the status of the removal (success/failure with error)
+     * @see RemoveEntity
+     */
     @PostMapping("/firms-remove-category")
     public Message removeCateogry(@RequestBody RemoveEntity body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
@@ -98,6 +141,16 @@ public class FirmController {
     	return new Message("success");
     }
 
+	/**
+	 * Allows a Firm to create an Item to add to their menu.
+	 * This method always returns a Message describing the status of itself, either a success
+	 * following a successful addition of a item, or a failure with an error explaining why 
+	 * it failed. Errors include wrong username, wrong password, no item data given (null), or 
+	 * the specified category not existing (null).
+	 * @param body an AddItemInput, which includes Firm login details and Item details.
+	 * @return a Message describing the status of the method (success/failure with error)
+	 * @see AddItemInput
+	 */
     @PostMapping("/firms-create-item")
     public Message createItem(@RequestBody AddItemInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
@@ -115,6 +168,16 @@ public class FirmController {
     	return new Message("success");
     }
     
+    /**
+     * Allows a Firm to edit the information related to a Item on its menu.
+     * This method always returns a message about the status of itself, either a success
+     * on successful running or a failure with an error explaining why it failed. Errors include
+     * wrong username, wrong password, the new Item information not being supplied (null), or the
+     * Item selected to be edited not existing. 
+     * @param body an EditItemInput entity, which includes Firm login details and the Item selected to be edited.
+     * @return a Message detailing the status of the method (success/failure with error)
+     * @see EditItemInput
+     */
     @PostMapping("/firms-edit-item")
     public Message editItem(@RequestBody EditItemInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
@@ -138,6 +201,15 @@ public class FirmController {
     	return new Message("success");
     }
     
+    /**
+     * Allows a Firm to remove an Item from its menu.
+     * This method always returns a message about its own status, either a success on successfully removing
+     * the item, or a failure with an error explaining why the method failed. Errors include wrong
+     * username, wrong password, or the selected item not existing (null).
+     * @param body a RemoveEntity entity, which includes Firm login details and the Item to be deleted
+     * @return a Message describing the status of the removal (success/failure with error)
+     * @see RemoveEntity
+     */
     @PostMapping("/firms-remove-item")
     public Message removeItem(@RequestBody RemoveEntity body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
@@ -159,6 +231,15 @@ public class FirmController {
     	return new Message("success");
     }
     
+    /**
+     * Lets Firms see all the incoming Orders from Customers.
+     * This method always returns a List, including ones that may be empty.
+     * Empty order lists are given in the case of a wrong username, wrong password, or
+     * no orders currently being made to the Firm.
+     * @param body an Authentication entity for login information for a Firm
+     * @return a List of all orders connected to the authenticated firm.
+     * @see Authentication
+     */
     @PostMapping("/firms-get-orders")
     public List<OrderOutput> getOrders(@RequestBody Authentication body) {
     	List<OrderOutput> output = new ArrayList<OrderOutput>();
@@ -179,6 +260,12 @@ public class FirmController {
     	return output;
     }
     
+    /**
+     * Allows a Firm to set the status of an Order as complete
+     * @param body a CompleteOrderInput, which includes Firm login details and order details
+     * @return a Message stating the status of completion (success/failure with error)
+     * @see CompleteOrderInput
+     */
     @PostMapping("/firms-complete-order")
     public Message completeOrder(@RequestBody CompleteOrderInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
