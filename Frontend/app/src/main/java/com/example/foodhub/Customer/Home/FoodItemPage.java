@@ -38,7 +38,7 @@ public class FoodItemPage extends AppCompatActivity {
 
 
     public void clickToAddOrder(View v) {
-        Intent Ph = new Intent(this, CompanyPage.class);
+        Intent Ph = new Intent(this, HomeActivity.class);
 //        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
 //        I.putExtra("Email", email);
 
@@ -48,7 +48,7 @@ public class FoodItemPage extends AppCompatActivity {
     }
 
     public void ClickToUnseeMenuItem(View v) {
-        Intent Ph = new Intent(this, CompanyPage.class);
+        Intent Ph = new Intent(this, HomeActivity.class);
 //        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
 //        I.putExtra("Email", email);
         startActivity(Ph);

@@ -20,7 +20,7 @@ public class MenuRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public MenuRecyclerAdapter(ArrayList<Object> arrayList) {
         this.arrayList  = arrayList;
     }
-    private final int MENU = 0, IMAGE = 1;
+    protected final int MENU = 0, IMAGE = 1;
 
     @NonNull
     @Override

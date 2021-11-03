@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../../layout/custom_preview.xml" value="0.18697916666666667" />
         <entry key="../../../../layout/custom_preview.xml" value="0.14375" />
         <entry key="app/src/main/res/drawable/pickup.xml" value="0.2109375" />
         <entry key="app/src/main/res/layout/activity_admin_home.xml" value="0.14583333333333334" />
@@ -19,6 +20,7 @@
         <entry key="app/src/main/res/layout/companypage_picture.xml" value="0.15260416666666668" />
         <entry key="app/src/main/res/layout/firm_mainactivity.xml" value="0.18614130434782608" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_company_pages.xml" value="0.1515625" />
         <entry key="app/src/main/res/layout/fragment_firm_account.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_firm_home.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_firm_menupage.xml" value="0.125" />
@@ -26,12 +28,13 @@
         <entry key="app/src/main/res/layout/fragment_firmhome.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_menupage.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_orders.xml" value="0.1393110435663627" />
+        <entry key="app/src/main/res/layout/fragment_orders.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_pickup.xml" value="0.11231884057971014" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.1393110435663627" />
         <entry key="app/src/main/res/layout/horizontal.xml" value="0.1" />
         <entry key="app/src/main/res/layout/horizontal_single_row.xml" value="0.1897644927536232" />
         <entry key="app/src/main/res/layout/menu_view.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/order_item.xml" value="0.19114583333333332" />
         <entry key="app/src/main/res/layout/vertical.xml" value="0.1897644927536232" />
         <entry key="app/src/main/res/layout/vertical_single_row.xml" value="0.1" />
         <entry key="app/src/main/res/menu/nav_bottom.xml" value="0.335" />

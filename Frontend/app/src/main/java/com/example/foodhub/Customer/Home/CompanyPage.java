@@ -19,6 +19,7 @@ import com.example.foodhub.Class.Menu;
 import com.example.foodhub.R;
 import com.example.foodhub.Recyclers.MenuRecyclerAdapter;
 import com.example.foodhub.databinding.ActivityFullComapnypageViewBinding;
+import com.example.foodhub.databinding.ActivityHome2Binding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class CompanyPage extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ArrayList<Object> arrayList;
     private ActivityFullComapnypageViewBinding binding;
+//    private ActivityHome2Binding binding1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,9 @@ public class CompanyPage extends AppCompatActivity {
     //    setContentView(R.layout.activity_full_comapnypage_view);
 
         binding = ActivityFullComapnypageViewBinding.inflate(getLayoutInflater());
+//        binding1 = ActivityHome2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+//        setContentView(binding1.getRoot());
 
 
         ActionBar actionBar = getSupportActionBar();
@@ -44,17 +48,17 @@ public class CompanyPage extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
 
-        BottomNavigationView navView = findViewById(R.id.bottomNavigationView);
+//        BottomNavigationView navView = findViewById(R.id.bottomNavigationView2);
 
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.home2,
-           //     R.id.pickup, R.id.search,
-                R.id.orders, R.id.account)
-                .build();
-
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main2);
+//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+//                R.id.home2,
+//           //     R.id.pickup, R.id.search,
+//                R.id.orders, R.id.account)
+//                .build();
+//
+//   NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main2);
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-//        NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
+//        NavigationUI.setupWithNavController(binding1.bottomNavigationView2, navController);
 
           LoadMenu();
     }

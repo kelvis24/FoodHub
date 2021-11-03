@@ -61,5 +61,4 @@ public class GeneralController {
     	customerRepository.save(new Customer(customer));
     	return new Message("success");
     }
-    
 }

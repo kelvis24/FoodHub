@@ -18,6 +18,7 @@ import com.example.foodhub.Program.OrderInitializer;
 import com.example.foodhub.Program.ProgramController;
 import com.example.foodhub.R;
 import com.example.foodhub.Recyclers.MenuRecyclerAdapter;
+import com.example.foodhub.Recyclers.OrderRecyclerAdapter;
 import com.example.foodhub.Recyclers.RecyclerAdapter;
 import com.example.foodhub.databinding.FragmentHomeBinding;
 import com.example.foodhub.databinding.FragmentOrdersBinding;
@@ -89,7 +90,7 @@ private FragmentOrdersBinding binding;
 
 
 //        MenuRecyclerAdapter recyclerAdapter = new MenuRecyclerAdapter( orderViewModel.getOrders());
-        MenuRecyclerAdapter recyclerAdapter = new MenuRecyclerAdapter( getObject());
+        OrderRecyclerAdapter recyclerAdapter = new OrderRecyclerAdapter( getObject());
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
