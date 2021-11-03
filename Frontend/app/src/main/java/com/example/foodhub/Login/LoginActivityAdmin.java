@@ -46,7 +46,7 @@ public class LoginActivityAdmin extends AppCompatActivity {
     }
 
     public void loginset(JSONObject response){
-        //Log.d("response", response.toString());
+       
         try {if (response.get("message").equals("owner"))
             startActivity(I);
         } catch (Exception e) {Log.d("response", e.toString());}
