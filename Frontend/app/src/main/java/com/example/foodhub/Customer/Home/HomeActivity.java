@@ -1,7 +1,6 @@
 package com.example.foodhub.Customer.Home;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -12,17 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-import com.example.foodhub.Admin.AdminHome.AdminHomeActivity;
-import com.example.foodhub.Customer.Account.Account;
-import com.example.foodhub.Login.LoginActivity;
 import com.example.foodhub.Class.Company;
 import com.example.foodhub.Customer.Account.EditCustomerAccount;
-import com.example.foodhub.Firm.FirmHomeActivity;
-import com.example.foodhub.Program.ProgramController;
 import com.example.foodhub.R;
 import com.example.foodhub.Recyclers.RecyclerAdapter;
 import com.example.foodhub.Class.SmallCompany;

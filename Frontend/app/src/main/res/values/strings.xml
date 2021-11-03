@@ -3,9 +3,9 @@
     <string name="Welcome">Welcome</string>
     <string name="or">or</string>
     <string name="Login">Login</string>
-    <string name="LoginC">Login Customer</string>
-    <string name="LoginA">Login Admin</string>
-    <string name="LoginF">Login Firm</string>
+    <string name="CLogin">Customer Login</string>
+    <string name="FLogin">Firm Login</string>
+    <string name="ALogin">Admin Login</string>
     <string name="Sign_Up">Sign Up</string>
     <string name="Name">Name</string>
     <string name="Email">Email</string>
