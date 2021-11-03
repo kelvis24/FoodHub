@@ -35,7 +35,7 @@
             android:name=".Admin.AdminHome.AdminHomeActivity"
             android:exported="true" />
         <activity
-            android:name=".Customer.Home.HomeActivity"
+            android:name=".Customer.Home.CustomerHomeActivity"
             android:exported="true" />
         <activity
             android:name=".Firm.FirmMenuItemActivity"

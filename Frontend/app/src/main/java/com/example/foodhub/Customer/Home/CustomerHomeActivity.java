@@ -22,7 +22,7 @@ import com.example.foodhub.Class.SmallCompany;
 import com.example.foodhub.databinding.ActivityHomeBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class HomeActivity extends AppCompatActivity {
+public class CustomerHomeActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ArrayList<Object> arrayList;

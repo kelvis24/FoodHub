@@ -2,16 +2,13 @@ package com.example.foodhub.Customer.Home;
 
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.foodhub.Class.Company;
 import com.example.foodhub.Class.Menu;
@@ -22,24 +19,8 @@ import com.example.foodhub.Recyclers.RecyclerAdapter;
 import com.example.foodhub.databinding.ActivityFullComapnypageViewBinding;
 import com.example.foodhub.databinding.ActivityHomeBinding;
 import com.example.foodhub.databinding.FragmentHomeBinding;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -47,10 +28,10 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Home#newInstance} factory method to
+ * Use the {@link CustomerHome#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Home extends Fragment {
+public class CustomerHome extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -67,7 +48,7 @@ public class Home extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Home() {
+    public CustomerHome() {
         // Required empty public constructor
     }
 
@@ -80,8 +61,8 @@ public class Home extends Fragment {
      * @return A new instance of fragment Home.
      */
     // TODO: Rename and change types and number of parameters
-    public static Home newInstance(String param1, String param2) {
-        Home fragment = new Home();
+    public static CustomerHome newInstance(String param1, String param2) {
+        CustomerHome fragment = new CustomerHome();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

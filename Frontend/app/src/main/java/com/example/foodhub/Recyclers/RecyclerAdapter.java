@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodhub.Class.Company;
 import com.example.foodhub.Class.SmallCompany;
-import com.example.foodhub.Customer.Home.HomeActivity;
+import com.example.foodhub.Customer.Home.CustomerHomeActivity;
 import com.example.foodhub.R;
 import com.example.foodhub.adapter.HorizontalAdapter;
 import com.example.foodhub.adapter.VerticalAdapter;
@@ -68,13 +68,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
     private void verticalView(VerticalViewHolder holder) {
-        VerticalAdapter adapter1 = new VerticalAdapter(HomeActivity.getVerticalData());
+        VerticalAdapter adapter1 = new VerticalAdapter(CustomerHomeActivity.getVerticalData());
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
         holder.recyclerView.setAdapter(adapter1);
     }
 
     private void horizontalView(HorizontalViewHolder holder) {
-        HorizontalAdapter adapter = new HorizontalAdapter(HomeActivity.getHorizontalData());
+        HorizontalAdapter adapter = new HorizontalAdapter(CustomerHomeActivity.getHorizontalData());
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         holder.recyclerView.setAdapter(adapter);
     }

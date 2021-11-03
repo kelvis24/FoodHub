@@ -26,23 +26,26 @@ public class InitialActivity extends AppCompatActivity {
     }
 
     public void goToCustomerLoginActivity(View v) {
-        Intent i = new Intent(this, LoginActivity.class);
-        startActivity(i);
+        Intent I = new Intent(this, LoginActivity.class);
+        I.putExtra("type", "customer");
+        startActivity(I);
     }
 
     public void goToFirmLoginActivity(View v) {
-        Intent i = new Intent(this, LoginActivity.class);
-        startActivity(i);
+        Intent I = new Intent(this, LoginActivity.class);
+        I.putExtra("type", "firm");
+        startActivity(I);
     }
 
     public void goToAdminLoginActivity(View v) {
-        Intent i = new Intent(this, LoginActivity.class);
-        startActivity(i);
+        Intent I = new Intent(this, LoginActivity.class);
+        I.putExtra("type", "admin");
+        startActivity(I);
     }
 
     public void goToSignUpActivity(View v) {
-        Intent i = new Intent(this, SignUpActivity.class);
-        startActivity(i);
+        Intent I = new Intent(this, SignUpActivity.class);
+        startActivity(I);
     }
 
 }
