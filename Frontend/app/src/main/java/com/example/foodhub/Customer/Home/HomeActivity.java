@@ -93,15 +93,6 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(P);
     }
 
-    public void ClickToSeeFirmAccount(View v) {
-        Intent Ph = new Intent(this, FirmHomeActivity.class);
-        startActivity(Ph);
-    }
-
-    public void clickToSeeAdminPages(View v) {
-        Intent Ph = new Intent(this, AdminHomeActivity.class);
-        startActivity(Ph);
-    }
 
     public void clickToSeeEditCustomerPages(View v) {
         Intent Ph = new Intent(this, EditCustomerAccount.class);

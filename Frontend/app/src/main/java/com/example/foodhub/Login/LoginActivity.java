@@ -8,8 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.foodhub.Admin.AdminHome.AdminHomeActivity;
 import com.example.foodhub.Customer.Home.Home;
 import com.example.foodhub.Customer.Home.HomeActivity;
+import com.example.foodhub.Firm.FirmHomeActivity;
 import com.example.foodhub.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -73,5 +75,16 @@ public class LoginActivity extends AppCompatActivity {
 //                }
 //        };
 //        AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+    }
+
+
+    public void ClickToSeeFirmAccount(View v) {
+        Intent Ph = new Intent(this, FirmHomeActivity.class);
+        startActivity(Ph);
+    }
+
+    public void clickToSeeAdminPages(View v) {
+        Intent Ph = new Intent(this, AdminHomeActivity.class);
+        startActivity(Ph);
     }
 }
