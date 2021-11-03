@@ -53,38 +53,15 @@ public class HomeActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
 
-
-//        Home homeFrag = new Home();
-//        Account accountFrag = new Account();
-//
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        fragmentManager.beginTransaction()
-//                .replace(R.id.nav_host_fragment_activity_main, Home.class, null)
-//                .setReorderingAllowed(true)
-//                .addToBackStack(null) // name can be null
-//                .commit();
-//
-//
-//        ImageView companyPic = (ImageView) findViewById(R.id.ivPost);
-
-//        companyPic.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                fragmentManager.beginTransaction()
-//                        .replace(R.id.nav_host_fragment_activity_main, Account.class, null)
-//                        .setReorderingAllowed(true)
-//                        .addToBackStack(null) // name can be null
-//                        .commit();
-//            }
-//        });
     }
-    
+
     public void LoadCompanies() {
         arrayList= new ArrayList<Object>();
         recyclerView = findViewById(R.id.recyclerView1);
 
         RecyclerAdapter recyclerAdapter = new RecyclerAdapter(this, this.getObject());
         recyclerView.setAdapter(recyclerAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this)); 
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private ArrayList<Object> getObject() {
@@ -112,32 +89,13 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void ClickCompany(View v) {
-        //   ImageView btn = (ImageView) findViewById(R.id.ivPost);
         Intent P = new Intent(this, CompanyPage.class);
-//        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
-//        I.putExtra("Email", email);
-        ProgramController p = new ProgramController();
         startActivity(P);
     }
 
-    public void ClickToSeeFirmAccount(View v) {
-        Intent Ph = new Intent(this, FirmHomeActivity.class);
-//        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
-//        I.putExtra("Email", email);
-        startActivity(Ph);
-    }
-
-    public void clickToSeeAdminPages(View v) {
-        Intent Ph = new Intent(this, AdminHomeActivity.class);
-//        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
-//        I.putExtra("Email", email);
-        startActivity(Ph);
-    }
 
     public void clickToSeeEditCustomerPages(View v) {
         Intent Ph = new Intent(this, EditCustomerAccount.class);
-//        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
-//        I.putExtra("Email", email);
         startActivity(Ph);
     }
 

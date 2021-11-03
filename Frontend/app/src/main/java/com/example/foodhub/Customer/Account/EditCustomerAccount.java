@@ -38,10 +38,7 @@ public class EditCustomerAccount extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         ActionBar actionBar = getSupportActionBar();
-
-        // showing the back button in action bar
         actionBar.setDisplayHomeAsUpEnabled(true);
-
     }
 
     @Override
@@ -56,15 +53,11 @@ public class EditCustomerAccount extends AppCompatActivity {
 
     public void clickToCancelEditCustomer(View v) {
         Intent Ph = new Intent(this, HomeActivity.class);
-//        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
-//        I.putExtra("Email", email);
         startActivity(Ph);
     }
 
     public void clickToSaveEditedCustomer(View v) {
         Intent Ph = new Intent(this, HomeActivity.class);
-//        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
-//        I.putExtra("Email", email);
         startActivity(Ph);
     }
 

@@ -96,25 +96,15 @@ public class Home extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//
-//        if (determine == 0) {
-
             homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-
             binding = FragmentHomeBinding.inflate(inflater, container, false);
             View root = binding.getRoot();
-
             final RecyclerView recyclerView = binding.recyclerView1;
-
-            // ArrayList<Object> array = new ArrayList<>();
-            //array = (  ArrayList<Object>) homeViewModel.getCompanies();
-
 
             RecyclerAdapter recyclerAdapter = new RecyclerAdapter(this.getContext(), getObject());
             recyclerView.setAdapter(recyclerAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
-             determine = 1;
 //        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
 //            @Override
 //            public void onChanged(@Nullable String s) {
@@ -122,14 +112,6 @@ public class Home extends Fragment {
 //            }
 //        });
             return root;
-
-            // Inflate the layout for this fragment
-            // return inflater.inflate(R.layout.fragment_home, container, false);
-//        }
-//        else {
-//            return experiment(inflater, container, savedInstanceState);
-//
-//        }
 
     }
 
@@ -176,17 +158,12 @@ public class Home extends Fragment {
     }
 
     public void LoadMenu1(ArrayList<Object> arrayList, RecyclerView recyclerView) {
-       // arrayList= new ArrayList<Object>();
-       // recyclerView = findViewById(R.id.recyclerView_menu_view);
-
         arrayList.add( new Menu(R.drawable.litramen, "Lit Ramen", "This is a descyuription of lit ramen", "1000"));
         arrayList.add( new Menu(R.drawable.litramen, "Lit Ramen", "This is a desclikujyhyription of lit ramen", "1000"));
         arrayList.add( new Menu(R.drawable.litramen, "Lit Ramen", "This is a deuiytscription of lit ramen", "1000"));
         arrayList.add( new Menu(R.drawable.litramen, "Lit Ramen", "This is a de=ramen", "1000"));
 
-
         MenuRecyclerAdapter recyclerAdapter = new MenuRecyclerAdapter(arrayList);
-
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
     }
@@ -194,31 +171,14 @@ public class Home extends Fragment {
     private View experiment(LayoutInflater inflater, ViewGroup container,
                             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //    setContentView(R.layout.activity_full_comapnypage_view);
 
         binding1 = ActivityFullComapnypageViewBinding.inflate(getLayoutInflater());
         setContentView(binding1.getRoot());
 
-        //BottomNavigationView navView = findViewById(R.id.bottomNavigationView);
-       // binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding1.getRoot();
         determine = 0;
 
-                //final RecyclerView recyclerView = binding1.recyclerView_menu_view;
-
-
-//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-//                R.id.home2,
-//                //     R.id.pickup, R.id.search,
-//                R.id.orders, R.id.account)
-//                .build();
-
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main2);
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-//        NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
         return root;
-
-     //  LoadMenu1(array);
     }
 
 

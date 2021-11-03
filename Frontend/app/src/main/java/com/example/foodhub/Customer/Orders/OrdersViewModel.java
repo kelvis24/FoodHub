@@ -26,7 +26,6 @@ public class OrdersViewModel extends ViewModel {
     public OrdersViewModel() {
         mText = new MutableLiveData<>();
         Orders = new MutableLiveData<ArrayList<Object>>();
-        //  mText.setValue("This is home fragment");
     }
 
     //@Override

@@ -51,11 +51,6 @@ public class ProgramController {
         }
 
         public static ArrayList<Object> orderToObjectArrayConverter(ArrayList<Order> array) {
-
-//            for (item : array
-//                 ) {
-//                item.itemId =
-//            }
             return null;
         }
 

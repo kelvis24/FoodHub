@@ -18,6 +18,7 @@ import com.example.foodhub.Program.OrderInitializer;
 import com.example.foodhub.Program.ProgramController;
 import com.example.foodhub.R;
 import com.example.foodhub.Recyclers.MenuRecyclerAdapter;
+import com.example.foodhub.Recyclers.OrderRecyclerAdapter;
 import com.example.foodhub.Recyclers.RecyclerAdapter;
 import com.example.foodhub.databinding.FragmentHomeBinding;
 import com.example.foodhub.databinding.FragmentOrdersBinding;
@@ -83,45 +84,22 @@ private FragmentOrdersBinding binding;
         View root = binding.getRoot();
 
         final RecyclerView recyclerView = binding.recyclerView2;
-
         // ArrayList<Object> array = new ArrayList<>();
         //array = (  ArrayList<Object>) homeViewModel.getCompanies();
 
-
 //        MenuRecyclerAdapter recyclerAdapter = new MenuRecyclerAdapter( orderViewModel.getOrders());
-        MenuRecyclerAdapter recyclerAdapter = new MenuRecyclerAdapter( getObject());
+        OrderRecyclerAdapter recyclerAdapter = new OrderRecyclerAdapter( getObject());
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
-//        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
         return root;
-
-        // Inflate the layout for this fragment
-        // return inflater.inflate(R.layout.fragment_home, container, false);
-//        }
-//        else {
-//            return experiment(inflater, container, savedInstanceState);
-//
-//        }
-
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_orders, container, false);
     }
-
 
     private ArrayList<Object> getObject() {
         ArrayList<Object> arrayList = new ArrayList<>();
-        //arrayList.add(getlocalArray().get(0));
-
         for(int i = 0; i < ProgramController.MenuOrders.size(); ++i ) {
             arrayList.add(getDynamicArray().get(i));
         }
-
         return arrayList;
     }
 

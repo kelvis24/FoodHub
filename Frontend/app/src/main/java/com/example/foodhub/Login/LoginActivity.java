@@ -9,8 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.util.Log;
 
+import com.example.foodhub.Admin.AdminHome.AdminHomeActivity;
 import com.example.foodhub.Customer.Home.Home;
 import com.example.foodhub.Customer.Home.HomeActivity;
+import com.example.foodhub.Firm.FirmHomeActivity;
 import com.example.foodhub.R;
 import com.example.foodhub.server.Call;
 
@@ -50,5 +52,16 @@ public class LoginActivity extends AppCompatActivity {
         try {if (response.get("message").equals("success"))
             startActivity(I);
         } catch (Exception e) {Log.d("response", e.toString());}
+    }
+
+
+    public void ClickToSeeFirmAccount(View v) {
+        Intent Ph = new Intent(this, FirmHomeActivity.class);
+        startActivity(Ph);
+    }
+
+    public void clickToSeeAdminPages(View v) {
+        Intent Ph = new Intent(this, AdminHomeActivity.class);
+        startActivity(Ph);
     }
 }

@@ -26,7 +26,6 @@ public class OrderInitializer implements Initializer<ProgramController.Order> {
 //        ProgramController.Order.initialize(context, configuration);
 //        return WorkManager.getInstance(context);
 
-
         return null;
     }
 

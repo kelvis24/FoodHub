@@ -68,11 +68,7 @@ public class Account extends Fragment {
 
         binding = FragmentAccountBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        // Inflate the layout for this fragment
-       // return inflater.inflate(R.layout.fragment_account, container, false);
         return root;
-
     }
 
     @Override
