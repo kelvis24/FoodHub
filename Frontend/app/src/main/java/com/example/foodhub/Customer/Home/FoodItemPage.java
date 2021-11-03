@@ -39,18 +39,12 @@ public class FoodItemPage extends AppCompatActivity {
 
     public void clickToAddOrder(View v) {
         Intent Ph = new Intent(this, HomeActivity.class);
-//        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
-//        I.putExtra("Email", email);
-
-//        ProgramController.Order.initialize();
         ProgramController.MenuOrders.add(new Menu(R.drawable.wasabilogo, "death vpoiuytryalley", "usme", "653"));
         startActivity(Ph);
     }
 
     public void ClickToUnseeMenuItem(View v) {
         Intent Ph = new Intent(this, HomeActivity.class);
-//        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
-//        I.putExtra("Email", email);
         startActivity(Ph);
     }
 

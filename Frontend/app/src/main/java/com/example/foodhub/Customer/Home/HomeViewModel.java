@@ -24,8 +24,6 @@ public class HomeViewModel extends ViewModel {
     public HomeViewModel() {
         mText = new MutableLiveData<>();
         Companies = new MutableLiveData<ArrayList<Object>>();
-
-      //  mText.setValue("This is home fragment");
     }
 
     //@Override
@@ -66,13 +64,6 @@ public class HomeViewModel extends ViewModel {
     public LiveData<String> getText() {
         return mText;
     }
-
-//    private ArrayList<Object> getObject() {
-//        MutableLiveData<ArrayList<Object>>arrayList = new MutableLiveData<ArrayList<Object>>();
-//        arrayList.add(getVerticalData().get(0));
-//        arrayList.add(getHorizontalData().get(0));
-//        return arrayList;
-//    }
 
     public static ArrayList<Company> getVerticalData() {
         ArrayList<Company> company = new ArrayList<>();

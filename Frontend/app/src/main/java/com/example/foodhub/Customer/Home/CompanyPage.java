@@ -37,8 +37,8 @@ public class CompanyPage extends AppCompatActivity {
     //    setContentView(R.layout.activity_full_comapnypage_view);
 
         binding = ActivityFullComapnypageViewBinding.inflate(getLayoutInflater());
-//        binding1 = ActivityHome2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        //        binding1 = ActivityHome2Binding.inflate(getLayoutInflater());
 //        setContentView(binding1.getRoot());
 
 
@@ -92,10 +92,6 @@ public class CompanyPage extends AppCompatActivity {
 
     public void clickToSeeThatMenu(View v) {
         Intent Ph = new Intent(this, FoodItemPage.class);
-//        String email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
-//        I.putExtra("Email", email);
         startActivity(Ph);
     }
-
-
 }
