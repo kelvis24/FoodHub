@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/manage_admins" android:title="@string/admins" android:icon="@drawable/account" />
-    <item android:id="@+id/manage_firms"  android:title="@string/firms"  android:icon="@drawable/orders"/>
+    <item android:id="@+id/manage_admins_option" android:title="@string/admins" android:icon="@drawable/account" />
+    <item android:id="@+id/manage_firms_option"  android:title="@string/firms"  android:icon="@drawable/orders"/>
 </menu>

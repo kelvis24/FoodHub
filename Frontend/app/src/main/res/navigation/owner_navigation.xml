@@ -3,15 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/owner_navigation"
-    app:startDestination="@id/manage_admins">
+    app:startDestination="@id/AdminBlankFragment">
 
     <fragment
-        android:id="@+id/manage_admins"
+        android:id="@+id/AdminBlankFragment"
+        android:name="com.example.foodhub.Admin.BlankFragment"
+        android:label="Loading"
+        tools:layout="@layout/fragment_blank" />
+
+    <fragment
+        android:id="@+id/ManageAdmins"
         android:name="com.example.foodhub.Admin.ManageAdminsFragment"
         android:label="Manage Admins"
         tools:layout="@layout/fragment_manage_admins" />
+
     <fragment
-        android:id="@+id/manage_firms"
+        android:id="@+id/ManageFirms"
         android:name="com.example.foodhub.Admin.ManageFirmsFragment"
         android:label="Manage Firms"
         tools:layout="@layout/fragment_manage_firms" />
