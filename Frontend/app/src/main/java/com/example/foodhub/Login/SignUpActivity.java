@@ -84,8 +84,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void signup(JSONObject response) {
-        Log.d("response", response.toString());
-        try {if (response.get("message").equals("success"))
+        try{if (response.get("message").equals("success"))
             startActivity(I);
         } catch (Exception e) {Log.d("response", e.toString());}
     }
