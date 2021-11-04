@@ -12,7 +12,7 @@ import android.util.Log;
 import com.example.foodhub.Admin.AdminMainActivity;
 import com.example.foodhub.Admin.OwnerMainActivity;
 import com.example.foodhub.Customer.Home.CustomerHomeActivity;
-import com.example.foodhub.Firm.FirmHomeActivity;
+import com.example.foodhub.Firm.FirmMainActivity;
 import com.example.foodhub.R;
 import com.example.foodhub.server.Call;
 
@@ -53,27 +53,28 @@ public class LoginActivity extends AppCompatActivity {
     public void login(JSONObject response){
         String str;
         try{str = (String)response.get("message");
+            if (str.equals("failure")) {
+                Log.d("debug", response.toString());
+                return;
+            }
+            Intent I = new Intent();
+            switch (type) {
+                case "customer":
+                    I = new Intent(this, CustomerHomeActivity.class);
+                    break;
+                case "firm":
+                    I = new Intent(this, FirmMainActivity.class);
+                    I.putExtra("firmId", response.getLong("id"));
+                    break;
+                case "admin":
+                    if (str.equals("owner")) I = new Intent(this, OwnerMainActivity.class);
+                    else I = new Intent(this, AdminMainActivity.class);
+                    break;
+            }
+            I.putExtra("username", email);
+            I.putExtra("password", password);
+            startActivity(I);
         } catch (Exception e) {Log.d("debug", e.toString());return;}
-        if (str.equals("failure")) {
-            Log.d("debug", response.toString());
-            return;
-        }
-        Intent I = new Intent();
-        switch (type) {
-            case "customer":
-                I = new Intent(this, CustomerHomeActivity.class);
-                break;
-            case "firm":
-                I = new Intent(this, FirmHomeActivity.class);
-                break;
-            case "admin":
-                if (str.equals("owner")) I = new Intent(this, OwnerMainActivity.class);
-                else I = new Intent(this, AdminMainActivity.class);
-                break;
-        }
-        I.putExtra("username", email);
-        I.putExtra("password", password);
-        startActivity(I);
     }
 
 }

@@ -33,7 +33,8 @@ public class ManageAdminsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private ArrayList<Admin> admins;
 
-    public ManageAdminsAdapter(String username, String password, ManageAdminsFragment fragment, ArrayList<Admin> admins) {
+    public ManageAdminsAdapter(String username, String password,
+            ManageAdminsFragment fragment, ArrayList<Admin> admins) {
         this.username = username;
         this.password = password;
         this.fragment = fragment;

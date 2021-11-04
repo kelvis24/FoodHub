@@ -14,8 +14,11 @@
     <string name="FoodHub">FoodHub</string>
     <string name="Confirm_Password">Confirm Password</string>
     <string name="admins">Admins</string>
+    <string name="menu">Menu</string>
+    <string name="orders">Orders</string>
     <string name="Add_Admin">Add Admin</string>
     <string name="Add_Firm">Add Firm</string>
+    <string name="Add_Category">Add Category</string>
     <string name="firms">Firms</string>
     <string name="Username">Username</string>
     <string name="Cuisine">Cuisine</string>

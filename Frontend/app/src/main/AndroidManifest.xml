@@ -26,7 +26,7 @@
             android:name=".Customer.Home.FoodItemPage"
             android:exported="true" />
         <activity
-            android:name=".Firm.FirmHomeActivity"
+            android:name=".Firm.FirmMainActivity"
             android:exported="true" />
         <activity
             android:name=".Login.SignUpActivity"
@@ -39,9 +39,6 @@
             android:exported="true" />
         <activity
             android:name=".Customer.Home.CustomerHomeActivity"
-            android:exported="true" />
-        <activity
-            android:name=".Firm.FirmMenuItemActivity"
             android:exported="true" />
         <activity
             android:name=".Login.LoginActivity"

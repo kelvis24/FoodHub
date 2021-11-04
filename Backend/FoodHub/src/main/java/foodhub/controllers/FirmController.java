@@ -48,13 +48,13 @@ public class FirmController {
 	 * @see Authentication
 	 */
 	@PostMapping("/firms-authenticate")
-	public Message authenticateFirm(@RequestBody Authentication body) {
+	public MessageAndId authenticateFirm(@RequestBody Authentication body) {
     	Firm user = firmRepository.findByUsername(body.getUsername());
     	if (user == null)
-    		return new Message("failure","wrong username");
+    		return new MessageAndId("failure","wrong username");
     	if (!user.getPassword().equals(body.getPassword()))
-    		return new Message("failure","wrong password");
-    	return new Message("success");
+    		return new MessageAndId("failure","wrong password");
+    	return new MessageAndId("success", user.getId());
 	}
 
 	/**
