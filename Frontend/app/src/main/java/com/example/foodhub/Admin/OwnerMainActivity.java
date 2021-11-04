@@ -15,6 +15,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.foodhub.R;
 import com.example.foodhub.databinding.ActivityOwnerMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class OwnerMainActivity extends AppCompatActivity {
 
@@ -23,6 +25,7 @@ public class OwnerMainActivity extends AppCompatActivity {
     private ActivityOwnerMainBinding binding;
     private BottomNavigationItemView manageAdmins;
     private BottomNavigationItemView manageFirms;
+    private BottomNavigationView menu;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,16 +38,17 @@ public class OwnerMainActivity extends AppCompatActivity {
         manageAdmins.setOnClickListener(this::manageAdmins);
         manageFirms = findViewById(R.id.manage_firms_option);
         manageFirms.setOnClickListener(this::manageFirms);
+        menu = findViewById(R.id.owner_bottom_navigation_view);
         manageAdmins(manageAdmins);
     }
 
     public void manageAdmins(View view) {
-        // manageAdmins.setChecked(true);
+        menu.setSelectedItemId(R.id.manage_admins_option);
         navController.navigate(R.id.ManageAdmins, bundle);
     }
 
     public void manageFirms(View view) {
-        // manageFirms.setChecked(true);
+        menu.setSelectedItemId(R.id.manage_firms_option);
         navController.navigate(R.id.ManageFirms, bundle);
     }
 
