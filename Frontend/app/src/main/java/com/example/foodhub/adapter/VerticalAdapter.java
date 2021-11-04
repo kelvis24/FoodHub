@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodhub.Class.Company;
+import com.example.foodhub.Common.Company;
 import com.example.foodhub.R;
 
 import java.util.ArrayList;

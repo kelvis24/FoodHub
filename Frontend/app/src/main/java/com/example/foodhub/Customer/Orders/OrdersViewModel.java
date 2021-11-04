@@ -7,10 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.foodhub.Class.Company;
-import com.example.foodhub.Class.SmallCompany;
 import com.example.foodhub.Program.ProgramController;
-import com.example.foodhub.R;
 
 import java.util.ArrayList;
 import java.util.Collections;

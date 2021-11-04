@@ -14,11 +14,11 @@ import android.view.View;
 
 import java.util.ArrayList;
 
-import com.example.foodhub.Class.Company;
+import com.example.foodhub.Common.Company;
 import com.example.foodhub.Customer.Account.EditCustomerAccount;
 import com.example.foodhub.R;
 import com.example.foodhub.Recyclers.RecyclerAdapter;
-import com.example.foodhub.Class.SmallCompany;
+import com.example.foodhub.Common.SmallCompany;
 import com.example.foodhub.databinding.ActivityHomeBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

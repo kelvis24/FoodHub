@@ -7,13 +7,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.foodhub.Class.Company;
-import com.example.foodhub.Class.SmallCompany;
+import com.example.foodhub.Common.Company;
+import com.example.foodhub.Common.SmallCompany;
 import com.example.foodhub.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 public class HomeViewModel extends ViewModel {

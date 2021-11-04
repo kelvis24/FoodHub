@@ -11,16 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.foodhub.Class.Company;
-import com.example.foodhub.Class.Menu;
-import com.example.foodhub.Customer.Home.HomeViewModel;
-import com.example.foodhub.Program.OrderInitializer;
+import com.example.foodhub.Common.Menu;
 import com.example.foodhub.Program.ProgramController;
 import com.example.foodhub.R;
-import com.example.foodhub.Recyclers.MenuRecyclerAdapter;
 import com.example.foodhub.Recyclers.OrderRecyclerAdapter;
-import com.example.foodhub.Recyclers.RecyclerAdapter;
-import com.example.foodhub.databinding.FragmentHomeBinding;
 import com.example.foodhub.databinding.FragmentOrdersBinding;
 
 import java.util.ArrayList;

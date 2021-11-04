@@ -1,4 +1,4 @@
-package com.example.foodhub.Admin;
+package com.example.foodhub.Common;
 
 import android.os.Bundle;
 

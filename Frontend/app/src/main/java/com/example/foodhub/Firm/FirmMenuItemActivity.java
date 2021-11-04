@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodhub.Class.Menu;
+import com.example.foodhub.Common.Menu;
 import com.example.foodhub.Recyclers.MenuRecyclerAdapter;
 import com.example.foodhub.R;
 import com.example.foodhub.databinding.FragmentFirmMenuBinding;

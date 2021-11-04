@@ -1,7 +1,6 @@
-package com.example.foodhub.Class;
+package com.example.foodhub.Common;
 
-public class Company {
-
+public class SmallCompany {
     private int postImage;
     private String description;
     private String username;
@@ -15,7 +14,7 @@ public class Company {
     private int close_time;
     private int employee_count;
 
-    public Company(int postImage, String description, String username, String password, String name, String location, String cuisine, int open_time, int close_time, int employee_count ) {
+    public SmallCompany(int postImage, String description, String username, String password, String name, String location, String cuisine, int open_time, int close_time, int employee_count ) {
         this.postImage = postImage;
         this.description = description;
         this.username = username;
@@ -102,4 +101,4 @@ public class Company {
     public void setEmployee_count(int employee_count) {
         this.employee_count = employee_count;
     }
-}
+    }

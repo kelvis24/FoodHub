@@ -3,8 +3,8 @@ package com.example.foodhub.Program;
 import android.content.Context;
 import android.content.res.Configuration;
 
-import com.example.foodhub.Class.Company;
-import com.example.foodhub.Class.Menu;
+import com.example.foodhub.Common.Company;
+import com.example.foodhub.Common.Menu;
 
 import java.util.ArrayList;
 

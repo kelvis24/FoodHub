@@ -10,9 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.foodhub.Class.Company;
-import com.example.foodhub.Class.Menu;
-import com.example.foodhub.Class.SmallCompany;
+import com.example.foodhub.Common.Company;
+import com.example.foodhub.Common.Menu;
+import com.example.foodhub.Common.SmallCompany;
 import com.example.foodhub.R;
 import com.example.foodhub.Recyclers.MenuRecyclerAdapter;
 import com.example.foodhub.Recyclers.RecyclerAdapter;

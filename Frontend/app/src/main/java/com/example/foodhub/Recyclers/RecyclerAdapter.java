@@ -9,8 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodhub.Class.Company;
-import com.example.foodhub.Class.SmallCompany;
+import com.example.foodhub.Common.Company;
+import com.example.foodhub.Common.SmallCompany;
 import com.example.foodhub.Customer.Home.CustomerHomeActivity;
 import com.example.foodhub.R;
 import com.example.foodhub.adapter.HorizontalAdapter;
