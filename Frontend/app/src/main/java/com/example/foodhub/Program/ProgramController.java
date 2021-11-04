@@ -3,8 +3,8 @@ package com.example.foodhub.Program;
 import android.content.Context;
 import android.content.res.Configuration;
 
-import com.example.foodhub.Class.Company;
-import com.example.foodhub.Class.Menu;
+import com.example.foodhub.Common.Firm;
+import com.example.foodhub.Common.Menu;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ public class ProgramController {
     public Person Person;
     public static ArrayList<Order> Orders = new ArrayList<>();
     public static ArrayList<Menu> MenuOrders = new ArrayList<>();
-    public ArrayList<Company> Firms;
+    public ArrayList<Firm> Firms;
 
     public ProgramController() {
         Person = new Person();

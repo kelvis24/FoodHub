@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/admin_home" android:title="Home"  android:icon="@drawable/home" />
-    <item  android:id="@+id/admin_main" android:title="Main" android:icon="@drawable/orders"/>
-    <item  android:id="@+id/admin_account"  android:title="Admin Account" android:icon="@drawable/account"/>
-</menu>

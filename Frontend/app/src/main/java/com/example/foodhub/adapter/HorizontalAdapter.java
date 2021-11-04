@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodhub.R;
-import com.example.foodhub.Class.SmallCompany;
+import com.example.foodhub.Common.SmallCompany;
 
 import java.util.ArrayList;
 

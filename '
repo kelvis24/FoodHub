@@ -1,0 +1,27 @@
+Gave username/password info to fragments
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch 49-construct-admin-side-of-the-application
+# Your branch is up to date with 'origin/49-construct-admin-side-of-the-application'.
+#
+# Changes to be committed:
+#	modified:   Frontend/.gradle/7.0.2/executionHistory/executionHistory.bin
+#	modified:   Frontend/.gradle/7.0.2/executionHistory/executionHistory.lock
+#	modified:   Frontend/.gradle/7.0.2/fileHashes/fileHashes.bin
+#	modified:   Frontend/.gradle/7.0.2/fileHashes/fileHashes.lock
+#	modified:   Frontend/.gradle/7.0.2/fileHashes/resourceHashesCache.bin
+#	modified:   Frontend/.gradle/7.0.2/javaCompile/classAnalysis.bin
+#	modified:   Frontend/.gradle/7.0.2/javaCompile/jarAnalysis.bin
+#	modified:   Frontend/.gradle/7.0.2/javaCompile/javaCompile.lock
+#	modified:   Frontend/.gradle/7.0.2/javaCompile/taskHistory.bin
+#	modified:   Frontend/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+#	modified:   Frontend/.idea/misc.xml
+#	new file:   Frontend/app/src/main/java/com/example/foodhub/Admin/BlankFragment.java
+#	modified:   Frontend/app/src/main/java/com/example/foodhub/Admin/ManageAdminsFragment.java
+#	modified:   Frontend/app/src/main/java/com/example/foodhub/Admin/OwnerMainActivity.java
+#	new file:   Frontend/app/src/main/res/layout/fragment_blank.xml
+#	modified:   Frontend/app/src/main/res/menu/nav_bottom_owner.xml
+#	modified:   Frontend/app/src/main/res/navigation/owner_navigation.xml
+#

@@ -12,7 +12,7 @@ public class AdminOutput {
 	public AdminOutput(Admin admin) {
 		this.id = admin.getId();
 		this.username = admin.getUsername();
-		this.name = admin.getUsername();
+		this.name = admin.getName();
 		this.type = admin.getType();
 	}
 	

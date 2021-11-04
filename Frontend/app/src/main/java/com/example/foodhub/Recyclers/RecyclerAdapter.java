@@ -9,9 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodhub.Class.Company;
-import com.example.foodhub.Class.SmallCompany;
-import com.example.foodhub.Customer.Home.HomeActivity;
+import com.example.foodhub.Common.Firm;
+import com.example.foodhub.Common.SmallCompany;
+import com.example.foodhub.Customer.Home.CustomerHomeActivity;
 import com.example.foodhub.R;
 import com.example.foodhub.adapter.HorizontalAdapter;
 import com.example.foodhub.adapter.VerticalAdapter;
@@ -27,8 +27,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
     public RecyclerAdapter(Context context, ArrayList<Object> arrayList) {
-    this.arrayList  = arrayList;
-    this.context = context;
+        this.arrayList  = arrayList;
+        this.context = context;
     }
 
 
@@ -68,20 +68,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
     private void verticalView(VerticalViewHolder holder) {
-        VerticalAdapter adapter1 = new VerticalAdapter(HomeActivity.getVerticalData());
+        VerticalAdapter adapter1 = new VerticalAdapter(CustomerHomeActivity.getVerticalData());
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
         holder.recyclerView.setAdapter(adapter1);
     }
 
     private void horizontalView(HorizontalViewHolder holder) {
-        HorizontalAdapter adapter = new HorizontalAdapter(HomeActivity.getHorizontalData());
+        HorizontalAdapter adapter = new HorizontalAdapter(CustomerHomeActivity.getHorizontalData());
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         holder.recyclerView.setAdapter(adapter);
     }
 
     @Override
     public int getItemViewType (int position) {
-        if (arrayList.get(position) instanceof Company) {
+        if (arrayList.get(position) instanceof Firm) {
             return VERTICAL;
         }
         else if (arrayList.get(position) instanceof SmallCompany){

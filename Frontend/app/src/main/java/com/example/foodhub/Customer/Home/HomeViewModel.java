@@ -7,13 +7,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.foodhub.Class.Company;
-import com.example.foodhub.Class.SmallCompany;
+import com.example.foodhub.Common.Firm;
+import com.example.foodhub.Common.SmallCompany;
 import com.example.foodhub.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 public class HomeViewModel extends ViewModel {
@@ -65,11 +64,11 @@ public class HomeViewModel extends ViewModel {
         return mText;
     }
 
-    public static ArrayList<Company> getVerticalData() {
-        ArrayList<Company> company = new ArrayList<>();
-        company.add( new Company(R.drawable.litramen, "this is a description", "userame", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
-        company.add( new Company(R.drawable.litramen, "this is a description", "userame", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
-        company.add( new Company(R.drawable.litramen, "this is a description", "userame", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
+    public static ArrayList<Firm> getVerticalData() {
+        ArrayList<Firm> company = new ArrayList<>();
+        // company.add( new Firm(R.drawable.litramen, "this is a description", "userame", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
+        // company.add( new Firm(R.drawable.litramen, "this is a description", "userame", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
+        // company.add( new Firm(R.drawable.litramen, "this is a description", "userame", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
         return company;
     }
 

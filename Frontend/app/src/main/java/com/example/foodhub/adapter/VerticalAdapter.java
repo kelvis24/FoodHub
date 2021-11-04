@@ -8,15 +8,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodhub.Class.Company;
+import com.example.foodhub.Common.Firm;
 import com.example.foodhub.R;
 
 import java.util.ArrayList;
 
 public class VerticalAdapter extends RecyclerView.Adapter<VerticalAdapter.MyViewHolder> {
 
-    ArrayList<Company> data = new ArrayList<>();
-    public VerticalAdapter(ArrayList<Company> data) {
+    ArrayList<Firm> data = new ArrayList<>();
+    public VerticalAdapter(ArrayList<Firm> data) {
         this.data = data;
     }
 
@@ -30,10 +30,10 @@ public class VerticalAdapter extends RecyclerView.Adapter<VerticalAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.name.setText((data.get(position).getName()));
-        holder.description.setText((data.get(position).getDescription()));
+        holder.description.setText("description");
         holder.location.setText((data.get(position).getLocation()));
         holder.cuisine.setText((data.get(position).getCuisine()));
-        holder.postImage.setImageResource((data.get(position).getPostImage()));
+        // holder.postImage.setImageResource((data.get(position).getPostImage()));
     }
 
     @Override

@@ -81,7 +81,7 @@ public class GeneralController {
      * @param customer a CustomerInfo entity, with the information needed for a Customer account
      * @return a Message stating the status of the creation(success/failure with error)
      */
-    @PostMapping("/general-add-customer")
+    @PostMapping("/general-create-customer")
     public Message createCustomer(@RequestBody CustomerInfo customer) {
     	if (customer == null)
     		return new Message("failure","no data");

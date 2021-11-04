@@ -10,47 +10,67 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="288dp"
         android:text="@string/FoodHub"
         android:textAppearance="@style/TextAppearance.AppCompat.Display3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/customer_login_button"
-        android:layout_width="181dp"
-        android:layout_height="73dp"
-        android:layout_marginTop="84dp"
-        android:text="@string/LoginC"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-<!--
-    <Button
-        android:id="@+id/admin_login_button"
-        android:layout_width="181dp"
-        android:layout_height="73dp"
-        android:layout_marginTop="84dp"
-        android:text="@string/LoginA"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="412dp"
+        android:layout_height="60dp"
+        android:background="#fff"
+        app:layout_constraintBottom_toBottomOf="@+id/nav_host_fragment_activity_main"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/firm_login_button"
-        android:layout_width="181dp"
-        android:layout_height="73dp"
-        android:layout_marginTop="84dp"
-        android:text="@string/LoginF"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
--->
+    <fragment
+        android:id="@+id/nav_host_fragment_activity_main"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:navGraph="@navigation/customer_navigation" />
+
+    <!--
+        <Button
+            android:id="@+id/customer_login_button"
+            android:layout_width="181dp"
+            android:layout_height="73dp"
+            android:layout_marginTop="84dp"
+            android:text="@string/LoginC"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <Button
+            android:id="@+id/admin_login_button"
+            android:layout_width="181dp"
+            android:layout_height="73dp"
+            android:layout_marginTop="84dp"
+            android:text="@string/LoginA"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <Button
+            android:id="@+id/firm_login_button"
+            android:layout_width="181dp"
+            android:layout_height="73dp"
+            android:layout_marginTop="84dp"
+            android:text="@string/LoginF"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView2"
@@ -67,13 +87,14 @@
         android:id="@+id/customer_sign_up_button"
         android:layout_width="184dp"
         android:layout_height="70dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="240dp"
         android:text="@string/Sign_Up"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
+    -->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
