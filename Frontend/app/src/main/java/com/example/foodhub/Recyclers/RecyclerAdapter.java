@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodhub.Common.Company;
+import com.example.foodhub.Common.Firm;
 import com.example.foodhub.Common.SmallCompany;
 import com.example.foodhub.Customer.Home.CustomerHomeActivity;
 import com.example.foodhub.R;
@@ -81,7 +81,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType (int position) {
-        if (arrayList.get(position) instanceof Company) {
+        if (arrayList.get(position) instanceof Firm) {
             return VERTICAL;
         }
         else if (arrayList.get(position) instanceof SmallCompany){

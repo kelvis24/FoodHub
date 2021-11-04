@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.foodhub.Common.Company;
+import com.example.foodhub.Common.Firm;
 import com.example.foodhub.Common.SmallCompany;
 import com.example.foodhub.R;
 
@@ -64,11 +64,11 @@ public class HomeViewModel extends ViewModel {
         return mText;
     }
 
-    public static ArrayList<Company> getVerticalData() {
-        ArrayList<Company> company = new ArrayList<>();
-        company.add( new Company(R.drawable.litramen, "this is a description", "userame", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
-        company.add( new Company(R.drawable.litramen, "this is a description", "userame", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
-        company.add( new Company(R.drawable.litramen, "this is a description", "userame", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
+    public static ArrayList<Firm> getVerticalData() {
+        ArrayList<Firm> company = new ArrayList<>();
+        // company.add( new Firm(R.drawable.litramen, "this is a description", "userame", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
+        // company.add( new Firm(R.drawable.litramen, "this is a description", "userame", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
+        // company.add( new Firm(R.drawable.litramen, "this is a description", "userame", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
         return company;
     }
 

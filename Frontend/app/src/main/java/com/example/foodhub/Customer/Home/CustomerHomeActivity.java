@@ -14,7 +14,7 @@ import android.view.View;
 
 import java.util.ArrayList;
 
-import com.example.foodhub.Common.Company;
+import com.example.foodhub.Common.Firm;
 import com.example.foodhub.Customer.Account.EditCustomerAccount;
 import com.example.foodhub.R;
 import com.example.foodhub.Recyclers.RecyclerAdapter;
@@ -64,11 +64,11 @@ public class CustomerHomeActivity extends AppCompatActivity {
         return arrayList;
     }
 
-    public static ArrayList<Company> getVerticalData() {
-        ArrayList<Company> company = new ArrayList<>();
-        company.add( new Company(R.drawable.litramen, "this is a description", "username", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
-        company.add( new Company(R.drawable.litramen, "this is a description", "username", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
-        company.add( new Company(R.drawable.litramen, "this is a description", "username", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
+    public static ArrayList<Firm> getVerticalData() {
+        ArrayList<Firm> company = new ArrayList<>();
+        // company.add( new Firm(R.drawable.litramen, "this is a description", "username", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
+        // company.add( new Firm(R.drawable.litramen, "this is a description", "username", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
+        // company.add( new Firm(R.drawable.litramen, "this is a description", "username", "password" ,"name" ,"Ames","African", 10, 5, 13 ));
         return company;
     }
 

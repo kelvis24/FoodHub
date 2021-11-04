@@ -42,18 +42,15 @@ public class ManageAdminsFragment extends Fragment {
         this.password = null;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
+    @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            Bundle bundle = getArguments();
-            username = bundle.getString("username");
-            password = bundle.getString("password");
+            username = getArguments().getString("username");
+            password = getArguments().getString("password");
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_manage_admins, container, false);
         this.container = container;
         Button btn = view.findViewById(R.id.add_admin_button1);

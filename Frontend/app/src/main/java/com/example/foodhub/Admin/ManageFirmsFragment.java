@@ -3,64 +3,78 @@ package com.example.foodhub.Admin;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.foodhub.Common.Firm;
 import com.example.foodhub.R;
+import com.example.foodhub.server.Call;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ManageFirmsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+
 public class ManageFirmsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private String username;
+    private String password;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private ViewGroup container;
+
+    public ManageFirmsFragment(String username, String password) {
+        super();
+        this.username = username;
+        this.password = password;
+    }
 
     public ManageFirmsFragment() {
-        // Required empty public constructor
+        this.username = null;
+        this.password = null;
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ManageFirmsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ManageFirmsFragment newInstance(String param1, String param2) {
-        ManageFirmsFragment fragment = new ManageFirmsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
+    @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            username = getArguments().getString("username");
+            password = getArguments().getString("password");
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_manage_firms, container, false);
+    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_manage_firms, container, false);
+        this.container = container;
+        Button btn = view.findViewById(R.id.add_firm_button1);
+        btn.setOnClickListener(this::goToCreateFirm);
+        refresh();
+        return view;
     }
+
+    public void refresh() {
+        Call.get("general-get-firms", this::listFirms, null);
+    }
+
+    public void listFirms(JSONArray arr) {
+        ArrayList<Firm> firms = new ArrayList<>();
+        for (int i = 0; i < arr.length(); i++) {
+            try{firms.add(new Firm(arr.getJSONObject(i)));
+            } catch (JSONException e) {e.printStackTrace();}
+        }
+        RecyclerView recyclerView = container.findViewById(R.id.manage_firms_recycler);
+        recyclerView.setAdapter(new ManageFirmsAdapter(username, password, this, firms));
+        recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
+    }
+
+    public void goToCreateFirm(View view) {
+        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.owner_fragment_main, new AddFirmFragment(username, password));
+        ft.commit();
+    }
+
 }
