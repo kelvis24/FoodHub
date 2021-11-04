@@ -25,18 +25,21 @@ public class ManageFirmsFragment extends Fragment {
 
     private String username;
     private String password;
+    private String type;
 
     private ViewGroup container;
 
-    public ManageFirmsFragment(String username, String password) {
+    public ManageFirmsFragment(String username, String password, String type) {
         super();
         this.username = username;
         this.password = password;
+        this.type = type;
     }
 
     public ManageFirmsFragment() {
         this.username = null;
         this.password = null;
+        this.type = null;
     }
 
     @Override public void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class ManageFirmsFragment extends Fragment {
         if (getArguments() != null) {
             username = getArguments().getString("username");
             password = getArguments().getString("password");
+            type = getArguments().getString("type");
         }
     }
 
@@ -73,7 +77,10 @@ public class ManageFirmsFragment extends Fragment {
 
     public void goToCreateFirm(View view) {
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.owner_fragment_main, new AddFirmFragment(username, password));
+        if (type.equals("owner"))
+            ft.replace(R.id.owner_fragment_main, new AddFirmFragment(username, password, type));
+        else
+            ft.replace(R.id.admin_fragment_main, new AddFirmFragment(username, password, type));
         ft.commit();
     }
 

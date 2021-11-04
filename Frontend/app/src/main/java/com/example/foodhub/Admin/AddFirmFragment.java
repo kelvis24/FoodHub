@@ -24,19 +24,22 @@ public class AddFirmFragment extends Fragment {
 
     private final String username;
     private final String password;
+    private final String type;
 
     private ViewGroup container;
     View view;
 
-    public AddFirmFragment(String username, String password) {
+    public AddFirmFragment(String username, String password, String type) {
         super();
         this.username = username;
         this.password = password;
+        this.type = type;
     }
 
     public AddFirmFragment() {
         this.username = null;
         this.password = null;
+        this.type = null;
     }
 
     @Override public void onCreate(Bundle savedInstanceState) {
@@ -82,7 +85,10 @@ public class AddFirmFragment extends Fragment {
     public void addFirmResponse(JSONObject response) {
         try{if (response.get("message").equals("success")) {
             final FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.replace(R.id.owner_fragment_main, new ManageFirmsFragment(username, password));
+            if (type.equals("owner"))
+                ft.replace(R.id.owner_fragment_main, new ManageFirmsFragment(username, password, type));
+            else
+                ft.replace(R.id.admin_fragment_main, new ManageFirmsFragment(username, password, type));
             ft.commit();
         }} catch (Exception e) {Log.d("response", e.toString());}
     }

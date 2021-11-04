@@ -23,6 +23,7 @@ public class OwnerMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_owner_main);
         Intent P = getIntent();
         bundle = P.getExtras();
+        bundle.putString("type", "owner");
         navController = Navigation.findNavController(this, R.id.owner_fragment_main);
         menu = findViewById(R.id.owner_bottom_navigation_view);
         View manageAdmins = findViewById(R.id.manage_admins_option);
