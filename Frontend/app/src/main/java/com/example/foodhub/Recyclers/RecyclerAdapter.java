@@ -27,8 +27,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
     public RecyclerAdapter(Context context, ArrayList<Object> arrayList) {
-    this.arrayList  = arrayList;
-    this.context = context;
+        this.arrayList  = arrayList;
+        this.context = context;
     }
 
 

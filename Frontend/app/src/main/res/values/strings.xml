@@ -14,7 +14,10 @@
     <string name="FoodHub">FoodHub</string>
     <string name="Confirm_Password">Confirm Password</string>
     <string name="admins">Admins</string>
+    <string name="Add_Admin">Add Admin</string>
     <string name="firms">Firms</string>
+    <string name="Username">Username</string>
+    <string name="Delete">Delete</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="textview">TextView</string>
