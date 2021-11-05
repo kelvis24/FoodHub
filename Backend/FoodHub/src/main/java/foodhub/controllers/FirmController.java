@@ -130,7 +130,7 @@ public class FirmController {
     	List<Item> items = itemRepository.findByCategoryId(category.getId());
     	for (Item i : items) {
     		itemRepository.deleteById(i.getId());
-    		List<OrderItem> orderItems = orderItemRepository.findByOrderId(i.getId());
+    		List<OrderItem> orderItems = orderItemRepository.findByItemId(i.getId());
     		for (OrderItem oi : orderItems) {
     			orderItemRepository.deleteById(oi.getId());
     			Order order = orderRepository.findById(oi.getOrderId());
@@ -221,7 +221,7 @@ public class FirmController {
     	if (item == null)
     		return new Message("failure","no such item");
     	itemRepository.deleteById(item.getId());
-		List<OrderItem> orderItems = orderItemRepository.findByOrderId(item.getId());
+		List<OrderItem> orderItems = orderItemRepository.findByItemId(item.getId());
 		for (OrderItem oi : orderItems) {
 			orderItemRepository.deleteById(oi.getId());
 			Order order = orderRepository.findById(oi.getOrderId());
@@ -255,7 +255,7 @@ public class FirmController {
     			Item item = itemRepository.findById(orderItem.getItemId());
     			orderList.add(new OrderItemOutput(orderItem, item));
     		}
-    		output.add(new OrderOutput(firm.getUsername(), customer.getUsername(), order, orderList));
+    		output.add(new OrderOutput(firm.getName(), customer.getName(), customer.getLocation(), order, orderList));
     	}
     	return output;
     }

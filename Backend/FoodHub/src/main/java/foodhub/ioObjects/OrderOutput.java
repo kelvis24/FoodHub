@@ -9,14 +9,16 @@ public class OrderOutput {
 	private long id;
 	private String firm;
 	private String customer;
+	private String location;
 	private int status;
 	private double total;
 	private List<OrderItemOutput> orderList;
 	
-	public OrderOutput(String firm, String customer, Order order, List<OrderItemOutput> orderList) {
+	public OrderOutput(String firm, String customer, String location, Order order, List<OrderItemOutput> orderList) {
 		this.id = order.getId();
 		this.firm = firm;
 		this.customer = customer;
+		this.location = location;
 		this.status = order.getStatus();
 		this.orderList = orderList;
 		this.total = 0;
@@ -25,10 +27,11 @@ public class OrderOutput {
 		}
 	}
 	
-	public OrderOutput(long id, String firm, String customer, String title, int status, List<OrderItemOutput> orderList) {
+	public OrderOutput(long id, String firm, String customer, String location, String title, int status, List<OrderItemOutput> orderList) {
 		this.id = id;
 		this.firm = firm;
 		this.customer = customer;
+		this.location = location;
 		this.status = status;
 		this.orderList = orderList;
 		this.total = 0;
@@ -49,6 +52,10 @@ public class OrderOutput {
 	
 	public String getCustomer() {
 		return customer;
+	}
+	
+	public String getLocation() {
+		return location;
 	}
 	
 	public int getStatus() {
