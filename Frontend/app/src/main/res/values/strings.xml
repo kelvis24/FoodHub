@@ -8,20 +8,28 @@
     <string name="FLogin">Firm Login</string>
     <string name="ALogin">Admin Login</string>
     <string name="Sign_Up">Sign Up</string>
+    <string name="Logout">Logout</string>
     <string name="Name">Name</string>
     <string name="Email">Email</string>
     <string name="Location">Location</string>
     <string name="Password">Password</string>
     <string name="FoodHub">FoodHub</string>
     <string name="Confirm_Password">Confirm Password</string>
-    <string name="admins">Admins</string>
-    <string name="menu">Menu</string>
-    <string name="orders">Orders</string>
+    <string name="Home">Home</string>
+    <string name="Admins">Admins</string>
+    <string name="Menu">Menu</string>
+    <string name="Orders">Orders</string>
+    <string name="Account">Account</string>
     <string name="Add_Admin">Add Admin</string>
     <string name="Add_Firm">Add Firm</string>
     <string name="Add_Category">Add Category</string>
     <string name="Add_Item">Add Item</string>
-    <string name="firms">Firms</string>
+    <string name="Firm">Firm</string>
+    <string name="Id">Id</string>
+    <string name="Total">Total</string>
+    <string name="Status">Status</string>
+    <string name="Discard">Discard</string>
+    <string name="Firms">Firms</string>
     <string name="Username">Username</string>
     <string name="Cuisine">Cuisine</string>
     <string name="Open_Time">Open Time</string>
@@ -30,8 +38,11 @@
     <string name="Title">Title</string>
     <string name="Description">Description</string>
     <string name="Price">Price</string>
+    <string name="Quantity">Quantity</string>
     <string name="Delete">Delete</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Add">Add</string>
+    <string name="Submit">Submit</string>
+    <string name="Cancel_Order">Cancel Order</string>
+    <string name="View_Order">View Order</string>
     <string name="textview">TextView</string>
 </resources>

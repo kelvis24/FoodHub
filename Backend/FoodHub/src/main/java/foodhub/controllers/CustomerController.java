@@ -113,7 +113,7 @@ public class CustomerController {
     	Customer customer = customerRepository.findByUsername(body.getUsername());
     	if (customer == null || !customer.getPassword().equals(body.getPassword()))
         	return output;
-    	List<Order> orders = orderRepository.findByFirmId(customer.getId());
+    	List<Order> orders = orderRepository.findByCustomerId(customer.getId());
     	for (Order order : orders) {
     		Firm firm = firmRepository.getById(order.getFirmId());
     		List<OrderItemOutput> orderList = new ArrayList<OrderItemOutput>();
@@ -146,10 +146,10 @@ public class CustomerController {
     		return new Message("failure","wrong password");
     	if (body.getData() == null)
     		return new Message("failure","no data");
-    	Firm firm = firmRepository.findById(body.getFirmId());
+    	OrderInfo data = body.getData();
+    	Firm firm = firmRepository.findById(data.getFirmId());
     	if (firm == null)
     		return new Message("failure","no such firm");
-    	OrderInfo data = body.getData();
     	Order order = new Order(firm.getId(), customer.getId(), 0);
     	orderRepository.save(order);
     	List<Order> sameCustomer = orderRepository.findByCustomerId(customer.getId());

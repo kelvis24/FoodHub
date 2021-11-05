@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.foodhub.Customer.Home.CustomerHomeActivity;
+import com.example.foodhub.Customer.CustomerMainActivity;
 import com.example.foodhub.R;
 import com.example.foodhub.server.Call;
 
@@ -32,7 +32,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void signUp(View v) {
-        I = new Intent(this, CustomerHomeActivity.class);
+        I = new Intent(this, CustomerMainActivity.class);
 
         String name = ((EditText)findViewById(R.id.sign_up_name_field)).getText().toString();
         String email = ((EditText)findViewById(R.id.sign_up_email_field)).getText().toString();

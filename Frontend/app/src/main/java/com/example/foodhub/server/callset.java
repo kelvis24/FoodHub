@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.foodhub.Customer.Home.CustomerHomeActivity;
+import com.example.foodhub.Customer.CustomerMainActivity;
 import com.example.foodhub.R;
 
 public class callset extends AppCompatActivity {
@@ -21,7 +21,7 @@ public class callset extends AppCompatActivity {
     }
 
     public void login(View v) {
-        Intent I = new Intent(this, CustomerHomeActivity.class);
+        Intent I = new Intent(this, CustomerMainActivity.class);
         ByPassPasswordCheck(true, I);  //false if you want proof
     }
 
