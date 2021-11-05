@@ -8,10 +8,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodhub.Admin.ManageAdminsAdapter;
-import com.example.foodhub.Admin.ManageAdminsFragment;
 import com.example.foodhub.Common.Category;
 import com.example.foodhub.R;
 import com.example.foodhub.server.Call;
@@ -51,8 +50,10 @@ public class ManageCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         CategoryHolder categoryHolder = (CategoryHolder) holder;
         categoryHolder.usernameText.setText(categories.get(index).getTitle());
-        DeleteCategory response = new DeleteCategory(categories.get(index).getId(), fragment);
-        categoryHolder.deleteButton.setOnClickListener(response);
+        GoToManageItems goToManageItems = new GoToManageItems(categories.get(index).getId(), fragment);
+        categoryHolder.usernameText.setOnClickListener(goToManageItems);
+        DeleteCategory deleteCategory = new DeleteCategory(categories.get(index).getId(), fragment);
+        categoryHolder.deleteButton.setOnClickListener(deleteCategory);
     }
 
     @Override public int getItemViewType(int index) {
@@ -93,12 +94,26 @@ public class ManageCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
 
         public void respond(JSONObject response) {
-            try{System.out.println(response.toString());
-                if (response.get("message").equals("success")) {
+            try{if (response.get("message").equals("success")) {
                 fragment.refresh();
             }} catch (Exception e) {Log.d("response", e.toString());}
         }
+    }
 
+    class GoToManageItems implements View.OnClickListener {
+        private long categoryId;
+        private ManageCategoriesFragment fragment;
+
+        public GoToManageItems(long categoryId, ManageCategoriesFragment fragment) {
+            this.categoryId = categoryId;
+            this.fragment = fragment;
+        }
+
+        public void onClick(View v) {
+            final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
+            ft.replace(R.id.firm_fragment_main, new ManageItemsFragment(firmId, categoryId, username, password));
+            ft.commit();
+        }
     }
 
 }
