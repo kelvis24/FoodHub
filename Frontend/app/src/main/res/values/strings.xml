@@ -29,6 +29,7 @@
     <string name="Total">Total</string>
     <string name="Status">Status</string>
     <string name="Discard">Discard</string>
+    <string name="Customer">Customer</string>
     <string name="Firms">Firms</string>
     <string name="Username">Username</string>
     <string name="Cuisine">Cuisine</string>
@@ -44,5 +45,9 @@
     <string name="Submit">Submit</string>
     <string name="Cancel_Order">Cancel Order</string>
     <string name="View_Order">View Order</string>
+    <string name="In_Progress">In Progress</string>
+    <string name="Complete">Complete</string>
+    <string name="Obsolete">Obsolete</string>
+    <string name="Jeopardized">Jeopardized</string>
     <string name="textview">TextView</string>
 </resources>

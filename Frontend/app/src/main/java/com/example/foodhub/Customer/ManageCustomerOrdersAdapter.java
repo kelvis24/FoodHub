@@ -47,17 +47,17 @@ public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerVi
         orderHolder.id.setText(String.format(Locale.ENGLISH, "%d", (int)orders.get(index).getId()));
         switch (orders.get(index).getStatus()) {
             case 0:
-                orderHolder.status.setText("In Progress");
+                orderHolder.status.setText(R.string.In_Progress);
                 orderHolder.discardButton.setEnabled(false);
                 break;
             case 1:
-                orderHolder.status.setText("Complete");
+                orderHolder.status.setText(R.string.Complete);
                 break;
             case 2:
-                orderHolder.status.setText("Obsolete");
+                orderHolder.status.setText(R.string.Obsolete);
                 break;
             case 3:
-                orderHolder.status.setText("Jeopardised");
+                orderHolder.status.setText(R.string.Jeopardized);
                 break;
             default:
                 break;

@@ -255,7 +255,7 @@ public class FirmController {
     			Item item = itemRepository.findById(orderItem.getItemId());
     			orderList.add(new OrderItemOutput(orderItem, item));
     		}
-    		output.add(new OrderOutput(firm.getUsername(), customer.getUsername(), order, orderList));
+    		output.add(new OrderOutput(firm.getName(), customer.getName(), customer.getLocation(), order, orderList));
     	}
     	return output;
     }
