@@ -11,7 +11,7 @@ public class CategoryOutput {
 	public CategoryOutput(Category category) {
 		this.id = category.getId();
 		this.title = category.getTitle();
-		this.description = category.getTitle();
+		this.description = category.getDescription();
 	}
 
 	public CategoryOutput(long id, String title, String description) {

@@ -33,7 +33,8 @@ public class ManageAdminsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private ArrayList<Admin> admins;
 
-    public ManageAdminsAdapter(String username, String password, ManageAdminsFragment fragment, ArrayList<Admin> admins) {
+    public ManageAdminsAdapter(String username, String password,
+            ManageAdminsFragment fragment, ArrayList<Admin> admins) {
         this.username = username;
         this.password = password;
         this.fragment = fragment;
@@ -86,7 +87,6 @@ public class ManageAdminsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             JSONObject obj = new JSONObject(map);
             try{obj.put("id", id);
             } catch (JSONException e) {e.printStackTrace();}
-            System.out.println(obj.toString());
             Call.post("admins-remove-admin", obj, this, null);
         }
 
