@@ -146,10 +146,10 @@ public class CustomerController {
     		return new Message("failure","wrong password");
     	if (body.getData() == null)
     		return new Message("failure","no data");
-    	Firm firm = firmRepository.findById(body.getFirmId());
+    	OrderInfo data = body.getData();
+    	Firm firm = firmRepository.findById(data.getFirmId());
     	if (firm == null)
     		return new Message("failure","no such firm");
-    	OrderInfo data = body.getData();
     	Order order = new Order(firm.getId(), customer.getId(), 0);
     	orderRepository.save(order);
     	List<Order> sameCustomer = orderRepository.findByCustomerId(customer.getId());

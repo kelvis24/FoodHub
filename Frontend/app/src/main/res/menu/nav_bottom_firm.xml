@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/manage_categories_option" android:title="@string/Menu"   android:icon="@drawable/home" />
-    <item android:id="@+id/manage_firm_orders_option"     android:title="@string/Orders" android:icon="@drawable/orders"/>
+    <item android:id="@+id/manage_categories_option"  android:title="@string/Menu"    android:icon="@drawable/home" />
+    <item android:id="@+id/manage_firm_orders_option" android:title="@string/Orders"  android:icon="@drawable/orders"/>
+    <item android:id="@+id/firm_account_option"       android:title="@string/Account" android:icon="@drawable/account"/>
 </menu>

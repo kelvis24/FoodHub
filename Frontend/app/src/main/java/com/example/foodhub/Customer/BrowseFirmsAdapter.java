@@ -3,7 +3,6 @@ package com.example.foodhub.Customer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,8 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodhub.Common.Firm;
-import com.example.foodhub.Firm.ManageCategoriesAdapter;
-import com.example.foodhub.Firm.ManageItemsFragment;
+import com.example.foodhub.Common.ItemReference;
 import com.example.foodhub.R;
 
 import java.util.ArrayList;
@@ -35,7 +33,7 @@ public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     @NonNull @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_see_firm, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_browse_firm, parent, false);
         return new FirmHolder(view);
     }
 
@@ -54,12 +52,11 @@ public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return firms.size();
     }
 
-
     class FirmHolder extends RecyclerView.ViewHolder {
         TextView usernameText;
         public FirmHolder(@NonNull View view) {
             super(view);
-            usernameText = view.findViewById(R.id.see_firm_textview);
+            usernameText = view.findViewById(R.id.browse_firm_textview);
         }
     }
 
@@ -73,9 +70,10 @@ public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
 
         public void onClick(View v) {
-            // final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
-            // ft.replace(R.id.firm_fragment_main, new BrowseCategoriesFragment(firmId, username, password));
-            // ft.commit();
+            ArrayList<ItemReference> order = new ArrayList<>();
+            final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
+            ft.replace(R.id.customer_fragment_main, new BrowseCategoriesFragment(firmId, username, password, order));
+            ft.commit();
         }
     }
 

@@ -23,4 +23,10 @@
         android:label="Orders"
         tools:layout="@layout/fragment_manage_firm_orders" />
 
+    <fragment
+        android:id="@+id/FirmAccount"
+        android:name="com.example.foodhub.Firm.FirmAccountFragment"
+        android:label="Account"
+        tools:layout="@layout/fragment_firm_account" />
+
 </navigation>
