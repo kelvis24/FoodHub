@@ -87,7 +87,6 @@ public class ManageAdminsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             JSONObject obj = new JSONObject(map);
             try{obj.put("id", id);
             } catch (JSONException e) {e.printStackTrace();}
-            System.out.println(obj.toString());
             Call.post("admins-remove-admin", obj, this, null);
         }
 

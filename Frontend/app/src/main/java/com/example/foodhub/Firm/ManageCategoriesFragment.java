@@ -7,9 +7,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodhub.Admin.AddAdminFragment;
 import com.example.foodhub.Common.Category;
 import com.example.foodhub.R;
 import com.example.foodhub.server.Call;
@@ -61,7 +63,8 @@ public class ManageCategoriesFragment extends Fragment {
     }
 
     public void refresh() {
-        JSONObject obj = new JSONObject();
+        Map<String, String> map = new HashMap<>();
+        JSONObject obj = new JSONObject(map);
         try{obj.put("id", firmId);
         } catch (JSONException e) {e.printStackTrace();}
         Call.post("general-get-categories", obj, this::listCategories, null);
@@ -74,11 +77,14 @@ public class ManageCategoriesFragment extends Fragment {
             } catch (JSONException e) {e.printStackTrace();}
         }
         RecyclerView recyclerView = container.findViewById(R.id.manage_categories_recycler);
-        // recyclerView.setAdapter(new ManageAdminsAdapter(id, username, password, this, categories));
+        recyclerView.setAdapter(new ManageCategoriesAdapter(firmId, username, password, this, categories));
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
     }
 
     public void goToCreateCategory(View view) {
+        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.firm_fragment_main, new AddCategoryFragment(firmId, username, password));
+        ft.commit();
     }
 
 }
