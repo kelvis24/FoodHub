@@ -1,5 +1,6 @@
 package com.example.foodhub.Customer;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +15,18 @@ import com.example.foodhub.Common.ItemReferenceAdapter;
 import com.example.foodhub.Common.Order;
 import com.example.foodhub.Firm.ManageCategoriesAdapter;
 import com.example.foodhub.Firm.ManageCategoriesFragment;
+import com.example.foodhub.Firm.ManageFirmOrdersAdapter;
 import com.example.foodhub.R;
+import com.example.foodhub.server.Call;
+import com.example.foodhub.server.ObjectResponse;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -65,6 +74,8 @@ public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerVi
         orderHolder.total.setText(String.format(Locale.ENGLISH, "$%.2f", orders.get(index).getTotal()));
         orderHolder.recycler.setAdapter(new ItemReferenceAdapter(fragment, orders.get(index).getList()));
         orderHolder.recycler.setLayoutManager(new LinearLayoutManager(fragment.getContext()));
+        DiscardOrder discardOrder = new DiscardOrder(orders.get(index).getId());
+        orderHolder.discardButton.setOnClickListener(discardOrder);
     }
 
     @Override public int getItemViewType(int index) {
@@ -91,6 +102,32 @@ public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerVi
             discardButton = view.findViewById(R.id.customer_order_discard_button);
             recycler = view.findViewById(R.id.customer_order_recycler);
         }
+    }
+
+    class DiscardOrder implements View.OnClickListener, ObjectResponse {
+        private long id;
+
+        public DiscardOrder(long id) {
+            this.id = id;
+        }
+
+        public void onClick(View v) {
+            Map<String, String> map = new HashMap<>();
+            map.put("username", username);
+            map.put("password", password);
+            JSONObject obj = new JSONObject(map);
+            try{obj.put("id", id);
+            } catch (JSONException e) {e.printStackTrace();}
+            Call.post("customers-remove-order", obj, this, null);
+        }
+
+        public void respond(JSONObject response) {
+            try{if (response.get("message").equals("success")) {
+                fragment.refresh();
+            }} catch (Exception e) {
+                Log.d("response", e.toString());}
+        }
+
     }
 
 }

@@ -58,7 +58,7 @@
             app:layout_constraintTop_toBottomOf="@+id/firm_order_id_text" />
 
         <Button
-            android:id="@+id/firm_order_discard_button"
+            android:id="@+id/firm_order_complete_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"

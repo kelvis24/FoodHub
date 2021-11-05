@@ -1,5 +1,6 @@
 package com.example.foodhub.Firm;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodhub.Common.ItemReferenceAdapter;
 import com.example.foodhub.Common.Order;
-import com.example.foodhub.Customer.ManageCustomerOrdersAdapter;
-import com.example.foodhub.Customer.ManageCustomerOrdersFragment;
 import com.example.foodhub.R;
+import com.example.foodhub.server.Call;
+import com.example.foodhub.server.ObjectResponse;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class ManageFirmOrdersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -49,6 +55,8 @@ public class ManageFirmOrdersAdapter extends RecyclerView.Adapter<RecyclerView.V
         orderHolder.total.setText(String.format(Locale.ENGLISH, "$%.2f", orders.get(index).getTotal()));
         orderHolder.recycler.setAdapter(new ItemReferenceAdapter(fragment, orders.get(index).getList()));
         orderHolder.recycler.setLayoutManager(new LinearLayoutManager(fragment.getContext()));
+        CompleteOrder completeOrder = new CompleteOrder(orders.get(index).getId());
+        orderHolder.completeButton.setOnClickListener(completeOrder);
     }
 
     @Override public int getItemViewType(int index) {
@@ -64,7 +72,7 @@ public class ManageFirmOrdersAdapter extends RecyclerView.Adapter<RecyclerView.V
         TextView id;
         TextView location;
         TextView total;
-        Button discardButton;
+        Button completeButton;
         RecyclerView recycler;
         public OrderHolder(@NonNull View view) {
             super(view);
@@ -72,9 +80,34 @@ public class ManageFirmOrdersAdapter extends RecyclerView.Adapter<RecyclerView.V
             id = view.findViewById(R.id.firm_order_id_text);
             location = view.findViewById(R.id.firm_order_location_text);
             total = view.findViewById(R.id.firm_order_total_text);
-            discardButton = view.findViewById(R.id.firm_order_discard_button);
+            completeButton = view.findViewById(R.id.firm_order_complete_button);
             recycler = view.findViewById(R.id.firm_order_recycler);
         }
+    }
+
+    class CompleteOrder implements View.OnClickListener, ObjectResponse {
+        private long id;
+
+        public CompleteOrder(long id) {
+            this.id = id;
+        }
+
+        public void onClick(View v) {
+            Map<String, String> map = new HashMap<>();
+            map.put("username", username);
+            map.put("password", password);
+            JSONObject obj = new JSONObject(map);
+            try{obj.put("orderId", id);
+            } catch (JSONException e) {e.printStackTrace();}
+            Call.post("firms-complete-order", obj, this, null);
+        }
+
+        public void respond(JSONObject response) {
+            try{if (response.get("message").equals("success")) {
+                fragment.refresh();
+            }} catch (Exception e) {Log.d("response", e.toString());}
+        }
+
     }
 
 }

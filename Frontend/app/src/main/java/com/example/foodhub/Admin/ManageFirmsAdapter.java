@@ -84,7 +84,6 @@ public class ManageFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             JSONObject obj = new JSONObject(map);
             try{obj.put("id", id);
             } catch (JSONException e) {e.printStackTrace();}
-            System.out.println(obj.toString());
             Call.post("admins-remove-firm", obj, this, null);
         }
 

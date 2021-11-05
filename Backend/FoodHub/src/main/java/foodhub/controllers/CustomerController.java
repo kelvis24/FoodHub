@@ -115,14 +115,19 @@ public class CustomerController {
         	return output;
     	List<Order> orders = orderRepository.findByCustomerId(customer.getId());
     	for (Order order : orders) {
-    		Firm firm = firmRepository.getById(order.getFirmId());
-    		List<OrderItemOutput> orderList = new ArrayList<OrderItemOutput>();
-    		List<OrderItem> orderItems = orderItemRepository.findByOrderId(order.getId());
-    		for (OrderItem orderItem : orderItems) {
-    			Item item = itemRepository.findById(orderItem.getItemId());
-    			orderList.add(new OrderItemOutput(orderItem, item));
+    		if (order.getStatus() == 3) {
+	    		output.add(new OrderOutput("removed", customer.getName(), customer.getLocation(), order, new ArrayList<OrderItemOutput>()));
     		}
-    		output.add(new OrderOutput(firm.getName(), customer.getName(), customer.getLocation(), order, orderList));
+    		else {
+	    		Firm firm = firmRepository.getById(order.getFirmId());
+	    		List<OrderItemOutput> orderList = new ArrayList<OrderItemOutput>();
+	    		List<OrderItem> orderItems = orderItemRepository.findByOrderId(order.getId());
+	    		for (OrderItem orderItem : orderItems) {
+	    			Item item = itemRepository.findById(orderItem.getItemId());
+	    			orderList.add(new OrderItemOutput(orderItem, item));
+	    		}
+	    		output.add(new OrderOutput(firm.getName(), customer.getName(), customer.getLocation(), order, orderList));
+    		}
     	}
     	return output;
     }
