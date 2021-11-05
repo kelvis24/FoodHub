@@ -11,7 +11,7 @@ import android.util.Log;
 
 import com.example.foodhub.Admin.AdminMainActivity;
 import com.example.foodhub.Admin.OwnerMainActivity;
-import com.example.foodhub.Customer.Home.CustomerHomeActivity;
+import com.example.foodhub.Customer.CustomerMainActivity;
 import com.example.foodhub.Firm.FirmMainActivity;
 import com.example.foodhub.R;
 import com.example.foodhub.server.Call;
@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent I = new Intent();
             switch (type) {
                 case "customer":
-                    I = new Intent(this, CustomerHomeActivity.class);
+                    I = new Intent(this, CustomerMainActivity.class);
                     break;
                 case "firm":
                     I = new Intent(this, FirmMainActivity.class);

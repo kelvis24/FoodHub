@@ -28,8 +28,8 @@ public class FirmMainActivity extends AppCompatActivity {
         menu = findViewById(R.id.firm_bottom_navigation_view);
         View manageMenu = findViewById(R.id.manage_categories_option);
         manageMenu.setOnClickListener(this::manageMenu);
-        View firmManageOrders = findViewById(R.id.manage_orders_option);
-        firmManageOrders.setOnClickListener(this::firmManageOrders);
+        View manageFirmOrders = findViewById(R.id.manage_firm_orders_option);
+        manageFirmOrders.setOnClickListener(this::manageFirmOrders);
         manageMenu(manageMenu);
     }
 
@@ -38,8 +38,8 @@ public class FirmMainActivity extends AppCompatActivity {
         navController.navigate(R.id.ManageCategories, bundle);
     }
 
-    public void firmManageOrders(View view) {
-        menu.setSelectedItemId(R.id.manage_orders_option);
+    public void manageFirmOrders(View view) {
+        menu.setSelectedItemId(R.id.manage_firm_orders_option);
         navController.navigate(R.id.ManageFirmOrders, bundle);
     }
 

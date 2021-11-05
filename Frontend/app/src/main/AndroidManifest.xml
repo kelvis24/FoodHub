@@ -38,7 +38,7 @@
             android:name=".Admin.AdminMainActivity"
             android:exported="true" />
         <activity
-            android:name=".Customer.Home.CustomerHomeActivity"
+            android:name=".Customer.CustomerMainActivity"
             android:exported="true" />
         <activity
             android:name=".Login.LoginActivity"
