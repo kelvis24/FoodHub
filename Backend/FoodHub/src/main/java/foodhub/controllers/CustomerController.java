@@ -113,7 +113,7 @@ public class CustomerController {
     	Customer customer = customerRepository.findByUsername(body.getUsername());
     	if (customer == null || !customer.getPassword().equals(body.getPassword()))
         	return output;
-    	List<Order> orders = orderRepository.findByFirmId(customer.getId());
+    	List<Order> orders = orderRepository.findByCustomerId(customer.getId());
     	for (Order order : orders) {
     		Firm firm = firmRepository.getById(order.getFirmId());
     		List<OrderItemOutput> orderList = new ArrayList<OrderItemOutput>();

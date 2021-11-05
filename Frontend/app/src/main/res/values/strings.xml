@@ -24,6 +24,11 @@
     <string name="Add_Firm">Add Firm</string>
     <string name="Add_Category">Add Category</string>
     <string name="Add_Item">Add Item</string>
+    <string name="Firm">Firm</string>
+    <string name="Id">Id</string>
+    <string name="Total">Total</string>
+    <string name="Status">Status</string>
+    <string name="Discard">Discard</string>
     <string name="Firms">Firms</string>
     <string name="Username">Username</string>
     <string name="Cuisine">Cuisine</string>

@@ -6,6 +6,7 @@ import foodhub.database.Order;
 
 public class OrderOutput {
 	
+	private long id;
 	private String firm;
 	private String customer;
 	private int status;
@@ -13,6 +14,7 @@ public class OrderOutput {
 	private List<OrderItemOutput> orderList;
 	
 	public OrderOutput(String firm, String customer, Order order, List<OrderItemOutput> orderList) {
+		this.id = order.getId();
 		this.firm = firm;
 		this.customer = customer;
 		this.status = order.getStatus();
@@ -23,7 +25,8 @@ public class OrderOutput {
 		}
 	}
 	
-	public OrderOutput(String firm, String customer, String title, int status, List<OrderItemOutput> orderList) {
+	public OrderOutput(long id, String firm, String customer, String title, int status, List<OrderItemOutput> orderList) {
+		this.id = id;
 		this.firm = firm;
 		this.customer = customer;
 		this.status = status;
@@ -35,6 +38,10 @@ public class OrderOutput {
 	}
 	
 	public OrderOutput() {}
+	
+	public long getId() {
+		return id;
+	}
 	
 	public String getFirm() {
 		return firm;
