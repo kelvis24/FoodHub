@@ -33,7 +33,6 @@ public class ManageCategoriesFragment extends Fragment {
     private ViewGroup container;
 
     public ManageCategoriesFragment(long firmId, String username, String password) {
-        super();
         this.firmId = firmId;
         this.username = username;
         this.password = password;
