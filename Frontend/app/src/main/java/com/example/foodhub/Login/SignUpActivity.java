@@ -19,10 +19,19 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+/** 
+ * The class responsible for signing up users.
+ * @author 1_CW_2
+*/
+
 public class SignUpActivity extends AppCompatActivity {
 
     Intent I;
 
+    /** Creates an initial instance that displays the on screen.
+    * @param savedInstanceState bundle of a saved instance brought up on creation
+    * @return NULL
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +39,12 @@ public class SignUpActivity extends AppCompatActivity {
         Button btn = findViewById(R.id.add_customer_button);
         btn.setOnClickListener(this::signUp);
     }
-
+    /** The main method for creating sign up, letting the user input their name, email, location, password, and letting them
+    * confirm said password. It utalizes the Intent I and after making sure that all information meets
+    * premade specifications, it adds those pieces of information to a Hashmap to be used with a JSON object request. 
+    * @param v A View 
+    * @return NULL
+    */
     public void signUp(View v) {
         I = new Intent(this, CustomerMainActivity.class);
 
@@ -83,12 +97,23 @@ public class SignUpActivity extends AppCompatActivity {
         Call.post("general-create-customer", obj, this::signup, null);
     }
 
+    /** Method for signup, that takes in a JSONObject response and begins the activity should the message response equal success
+    * @param response A JSONObject inputted from the signUP class
+    * @return NULL
+    */
     public void signup(JSONObject response) {
         try{if (response.get("message").equals("success"))
             startActivity(I);
         } catch (Exception e) {Log.d("response", e.toString());}
     }
 
+    /** Method for checking the strings on the signUp method so that the password has a lowercse letter, 
+    * an uppercase letter, and a number.
+    * @param str a String that is inputted from the password check
+    * @param start A char that is the first character of the string str
+    * @param end A char that is the last character of the string str
+    * @return A True or False
+    */
     public boolean notHasBetween(String str, char start, char end) {
         int i;
         for (i = 0; i < str.length(); i++) {
@@ -97,7 +122,10 @@ public class SignUpActivity extends AppCompatActivity {
         }
         return true;
     }
-
+    /** Method for checking the strings on the signUp method so that the password has a symbol.
+    * @param str a String that is inputted from the password check
+    * @return A True or False
+    */
     public boolean hasSymbol(String str) {
         int i;
         for (i = 0; i < str.length(); i++) {
