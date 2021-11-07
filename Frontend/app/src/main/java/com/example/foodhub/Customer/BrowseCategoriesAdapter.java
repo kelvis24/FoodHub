@@ -29,6 +29,14 @@ public class BrowseCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.V
     private BrowseCategoriesFragment fragment;
 
     private ArrayList<Category> categories;
+    /**
+    * Constructor for browsing the given catagories
+    * @param username Users Username
+    * @param password Users Password
+    * @param order ArrayList of the orders
+    * @param fragment BrowseCatagoriesFragment
+    * @param catagories ArrayList of the catagories
+    */
 
     public BrowseCategoriesAdapter(long firmId, String username, String password, ArrayList<ItemReference> order,
                                    BrowseCategoriesFragment fragment, ArrayList<Category> categories) {
