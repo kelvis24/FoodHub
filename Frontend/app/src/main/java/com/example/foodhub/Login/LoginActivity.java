@@ -21,10 +21,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Main login method for each type of user
- * @author 1_CW_2
+/**
+ * Controls the R.layout.activity_login view
+ * @author Arvid Gustafson
+ * @see AppCompatActivity
  */
-
 public class LoginActivity extends AppCompatActivity {
 
     private String type;
@@ -32,12 +33,10 @@ public class LoginActivity extends AppCompatActivity {
     private String password;
 
     /**
-     * Creates a specified instance based on the bundle that is inputted.
-     * @param savedInstanance State The Bundle that contains the instance state to be shown.
+     * Binds the "login" button to its respective method
+     * @param savedInstanceState A bundle that is passed in
      */
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Intent P = getIntent();
@@ -46,32 +45,24 @@ public class LoginActivity extends AppCompatActivity {
         btn.setOnClickListener(this::loginButton);
     }
 
-
-/**
-     * Method for commanding the login button that takes a set view.
-     * Checks the inputted email and password and converts to strings.
-     * Puts those email and password into a hashmap, then a JSONObject that is tested and authenticated.
-     * @param v A View stage
+    /**
+     * Sends a request to verify the claim of the user, that they have that username and password,
+     *      according to what they claim to be, upon clicking the "login" button
+     * @param v The "login" button
      */
     public void loginButton(View v) {
         email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
         password = ((EditText)findViewById(R.id.login_password)).getText().toString();
-
-
         Map<String, String> map = new HashMap<>();
         map.put("username", email);
         map.put("password", password);
         JSONObject obj = new JSONObject(map);
-
         Call.post(type+"s-authenticate", obj, this::login, null);
     }
 
-/**
-     * Method for loggin in the given user should they pass authentication.
-     * Ensures that there is no failure in communication between Frontend and server.
-     * Checks which type of user is being logged in, puts that type of information into the appropriate creation methods.
-     * Puts the correct information into the started intent, and starts the activity (The app) with that given information.
-     * @param reponse A JSONObject that was inputted from the logged information
+    /**
+     * Upon a successful call, if they are verified, it advances to the relevant main activity
+     * @param response The response from the server as a JSONObject
      */
     public void login(JSONObject response){
         String str;
