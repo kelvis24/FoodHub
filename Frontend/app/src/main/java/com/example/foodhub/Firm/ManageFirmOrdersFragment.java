@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodhub.Common.Order;
-import com.example.foodhub.Customer.ManageCustomerOrdersAdapter;
 import com.example.foodhub.R;
 import com.example.foodhub.server.Call;
 
