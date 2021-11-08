@@ -23,6 +23,7 @@ import java.util.Map;
 /**
  * A controller for the R.layout.fragment_add_firm view
  * @author Arvid Gustafson
+ * @see Fragment
  */
 public class AddFirmFragment extends Fragment {
 

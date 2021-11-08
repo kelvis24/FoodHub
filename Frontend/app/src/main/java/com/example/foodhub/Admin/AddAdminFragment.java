@@ -23,6 +23,7 @@ import java.util.Map;
 /**
  * Controls the R.layout.fragment_add_admin view
  * @author Arvid Gustafson
+ * @see Fragment
  */
 public class AddAdminFragment extends Fragment {
 

@@ -19,6 +19,7 @@ import java.util.Locale;
 /**
  * The controller for the R.layout.view_item_reference view, placing them in a recycler
  * @author Arvid Gustafson
+ * @see RecyclerView.Adapter
  */
 public class ItemReferenceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

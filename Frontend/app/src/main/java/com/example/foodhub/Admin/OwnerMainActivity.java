@@ -14,6 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 /**
  * The controller for the R.layout.activity_owner_main view
  * @author Arvid Gustafson
+ * @see AppCompatActivity
  */
 public class OwnerMainActivity extends AppCompatActivity {
 

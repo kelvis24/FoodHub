@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -14,6 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 /**
  * The controller for the R.layout.activity_admin_main view
  * @author Arvid Gustafson
+ * @see AppCompatActivity
  */
 public class AdminMainActivity extends AppCompatActivity {
 

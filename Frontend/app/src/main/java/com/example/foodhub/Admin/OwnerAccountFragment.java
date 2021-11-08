@@ -15,6 +15,7 @@ import com.example.foodhub.R;
 /**
  * Controls the R.layout.fragment_owner_account view
  * @author Arvid Gustafson
+ * @see Fragment
  */
 public class OwnerAccountFragment extends Fragment {
 

@@ -24,6 +24,7 @@ import java.util.ArrayList;
 /**
  * Controls the R.layout.fragment_manage_firms view
  * @author Arvid Gustafson
+ * @see Fragment
  */
 public class ManageFirmsFragment extends Fragment {
 

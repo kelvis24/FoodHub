@@ -13,6 +13,7 @@ import com.example.foodhub.R;
 /**
  * Controls the R.layout.fragment_blank view
  * @author Arvid Gustafson
+ * @see Fragment
  */
 public class BlankFragment extends Fragment {
 

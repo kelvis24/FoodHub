@@ -48,47 +48,47 @@ public class Order {
 
     /**
      * A getter method for the firm field
-     * @return The firm of the order
+     * @return The firm's name of the order
      */
     public String getFirm() {
         return firm;
     }
 
     /**
-     * A getter method for the id field
-     * @return The id of the order
+     * A getter method for the customer field
+     * @return The customer's name of the order
      */
     public String getCustomer() {
         return customer;
     }
 
     /**
-     * A getter method for the id field
-     * @return The id of the order
+     * A getter method for the location field
+     * @return The location of the customer of the order
      */
     public String getLocation() {
         return location;
     }
 
     /**
-     * A getter method for the id field
-     * @return The id of the order
+     * A getter method for the status field
+     * @return The status of the order
      */
     public int getStatus() {
         return status;
     }
 
     /**
-     * A getter method for the id field
-     * @return The id of the order
+     * A getter method for the total field
+     * @return The total of the order
      */
     public double getTotal() {
         return total;
     }
 
     /**
-     * A getter method for the id field
-     * @return The id of the order
+     * A getter method for the list field
+     * @return The list of the ItemReferences of the order
      */
     public ArrayList<ItemReference> getList() {
         return list;

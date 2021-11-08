@@ -25,6 +25,7 @@ import java.util.Map;
 /**
  * A class for controlling the R.layout.view_edit_firm view, placing it in a recycler
  * @author Arvid Gustafson
+ * @see RecyclerView.Adapter
  */
 public class ManageFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

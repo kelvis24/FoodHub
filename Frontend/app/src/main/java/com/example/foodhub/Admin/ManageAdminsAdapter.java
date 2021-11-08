@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +28,7 @@ import java.util.Map;
 /** 
  * The controller for the R.layout.view_edit_admin view, placing them in a recycler
  * @author Arvid Gustafson
+ * @see RecyclerView.Adapter
 */
 public class ManageAdminsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

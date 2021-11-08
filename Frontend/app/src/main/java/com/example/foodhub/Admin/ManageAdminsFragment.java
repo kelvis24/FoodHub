@@ -27,6 +27,7 @@ import java.util.Map;
 /**
  * A controller for the R.layout.fragment_manage_admins view
  * @author Arvid Gustafson
+ * @see Fragment
  */
 public class ManageAdminsFragment extends Fragment {
 
