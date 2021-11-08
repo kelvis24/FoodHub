@@ -28,6 +28,12 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+/** 
+ * The class responsible allowing the user to look through their orders.
+ * @author 1_CW_2
+*/
+
+
 public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private String username;
@@ -37,6 +43,11 @@ public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerVi
 
     private ArrayList<Order> orders;
 
+    /** 
+ * Constructer for the addapter
+ * @param username The Users username
+ * @param password The Users password
+*/
     public ManageCustomerOrdersAdapter(String username, String password,
             ManageCustomerOrdersFragment fragment, ArrayList<Order> orders) {
         this.username = username;
@@ -45,11 +56,23 @@ public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerVi
         this.orders = orders;
     }
 
+    /** 
+    * Creates a recycle view on the creation of the method
+    * @param viewType Int to designate the type of view
+    * @param parent A ViewGroup that allows the program to remember the last layout
+    * @return OrderHolder(view)
+    * @see OrderHolder
+    */
     @NonNull @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_customer_order, parent, false);
         return new OrderHolder(view);
     }
-
+    /** 
+    * Instigates the recycled view
+    * @param index Int to designate the type of view
+    * @param holder A ViewGroup that allows the program to remember the last layout
+    * @return OrderHolder(view)
+    */
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         OrderHolder orderHolder = (OrderHolder) holder;
         orderHolder.firm.setText(orders.get(index).getFirm());
@@ -78,13 +101,27 @@ public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerVi
         orderHolder.discardButton.setOnClickListener(discardOrder);
     }
 
+    /** 
+    * Method to get the item view type
+    * @param index Int to check the view type
+    * @return Item view type
+    * @see OrderHolder
+    */
     @Override public int getItemViewType(int index) {
         return orders.get(index) == null ? -1 : 0;
     }
-
+    /** 
+    * Method to get the item count
+    * @return order size
+    * @see OrderHolder
+    */
     @Override public int getItemCount() {
         return orders.size();
     }
+
+    /** 
+    * Class creator to check information on the order holder
+    */
 
     class OrderHolder extends RecyclerView.ViewHolder {
         TextView firm;
@@ -104,13 +141,22 @@ public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerVi
         }
     }
 
+    /** 
+    * Class creator to discard an order 
+    */
     class DiscardOrder implements View.OnClickListener, ObjectResponse {
         private long id;
-
+        /** 
+    * Method to designate id to be discarded.
+    * @param id The Id of the order to be discarded, in long 
+    */
         public DiscardOrder(long id) {
             this.id = id;
         }
-
+    /** 
+    * Method to discard order on click.
+    * @param v View 
+    */
         public void onClick(View v) {
             Map<String, String> map = new HashMap<>();
             map.put("username", username);
@@ -120,7 +166,10 @@ public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerVi
             } catch (JSONException e) {e.printStackTrace();}
             Call.post("customers-remove-order", obj, this, null);
         }
-
+        /** 
+    * Method ensure communication between frontend and server.
+    * @param response JSONObject inputted from request 
+    */
         public void respond(JSONObject response) {
             try{if (response.get("message").equals("success")) {
                 fragment.refresh();

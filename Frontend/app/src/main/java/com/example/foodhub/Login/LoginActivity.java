@@ -21,11 +21,20 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+/** Main login method for each type of user
+ * @author 1_CW_2
+ */
+
 public class LoginActivity extends AppCompatActivity {
 
     private String type;
     private String email;
     private String password;
+
+    /**
+     * Creates a specified instance based on the bundle that is inputted.
+     * @param savedInstanance State The Bundle that contains the instance state to be shown.
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +46,13 @@ public class LoginActivity extends AppCompatActivity {
         btn.setOnClickListener(this::loginButton);
     }
 
+
+/**
+     * Method for commanding the login button that takes a set view.
+     * Checks the inputted email and password and converts to strings.
+     * Puts those email and password into a hashmap, then a JSONObject that is tested and authenticated.
+     * @param v A View stage
+     */
     public void loginButton(View v) {
         email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
         password = ((EditText)findViewById(R.id.login_password)).getText().toString();
@@ -50,6 +66,13 @@ public class LoginActivity extends AppCompatActivity {
         Call.post(type+"s-authenticate", obj, this::login, null);
     }
 
+/**
+     * Method for loggin in the given user should they pass authentication.
+     * Ensures that there is no failure in communication between Frontend and server.
+     * Checks which type of user is being logged in, puts that type of information into the appropriate creation methods.
+     * Puts the correct information into the started intent, and starts the activity (The app) with that given information.
+     * @param reponse A JSONObject that was inputted from the logged information
+     */
     public void login(JSONObject response){
         String str;
         try{str = (String)response.get("message");
