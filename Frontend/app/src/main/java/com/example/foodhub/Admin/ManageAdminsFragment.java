@@ -84,7 +84,7 @@ public class ManageAdminsFragment extends Fragment {
     }
 
     /**
-     * Makes a call to the server to get admins refresh the page
+     * Makes a call to the server to get admins, refresh the page
      */
     public void refresh() {
         Map<String, String> map = new HashMap<>();

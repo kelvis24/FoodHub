@@ -13,7 +13,9 @@ import com.example.foodhub.R;
 import java.util.ArrayList;
 
 /**
- * Class responsible for the browswer Categories
+ * The controller for the R.layout.view_browse_category view, placing them in a recycler
+ * @author Arvid Gustafson
+ * @see RecyclerView.Adapter
  */
 public class BrowseCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -25,7 +27,13 @@ public class BrowseCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.V
     private ArrayList<Category> categories;
 
     /**
-     * Constructor responsible for initializing what a category would look like.
+     * Constructs a BrowseCategoryAdapter given enumerated information
+     * @param firmId The id of the firm of the categories being browsed
+     * @param username The username of the current user
+     * @param password The password of the current user
+     * @param order The qualities of the ongoing order
+     * @param fragment The specific fragment within which the recycler lies
+     * @param categories The list of categories retrieved form the backend
      */
     public BrowseCategoriesAdapter(long firmId, String username, String password, ArrayList<ItemReference> order,
                                    BrowseCategoriesFragment fragment, ArrayList<Category> categories) {
@@ -38,7 +46,10 @@ public class BrowseCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     /**
-     * Method responsible for returning the recycler view
+     * Creates a ViewHolder for a view; called for each view
+     * @param parent The parent view of the recycler
+     * @param viewType The type of view, which should always be 0
+     * @return The tailored ViewHolder for the corresponding view
      */
     @NonNull @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_browse_category, parent, false);
@@ -46,7 +57,9 @@ public class BrowseCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     /**
-     * Method responsible for binding the views
+     * Binds a ViewHolder to the recycler; sets TextViews and binds it to its proper function
+     * @param holder A ViewHolder
+     * @param index The index of the ViewHolder in the categories arraylist
      */
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         CategoryHolder categoryHolder = (CategoryHolder) holder;
@@ -56,21 +69,22 @@ public class BrowseCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     /**
-     * Method responsible for returning number of items
+     * Returns the type of view that will be in the recycler at a specified index
+     * @param index The index of the category within the categories arraylist
+     * @return The type of category in the arraylist, which should always be 0
      */
     @Override public int getItemViewType(int index) {
         return categories.get(index) == null ? -1 : 0;
     }
 
     /**
-     * Class responsible for returning number of categories
+     * Returns the number of views that will be in the recycler
+     * @return The number of views that will be in the recycler
      */
     @Override public int getItemCount() {
         return categories.size();
     }
-    /**
-     * Class that controls the view
-     */
+
     private class CategoryHolder extends RecyclerView.ViewHolder {
         TextView usernameText;
         public CategoryHolder(@NonNull View view) {
@@ -78,28 +92,19 @@ public class BrowseCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.V
             usernameText = view.findViewById(R.id.browse_category_textview);
         }
     }
-    /**
-     * Class responsible for taking you to browsed items
-     */
+
     private class GoToBrowseItems implements View.OnClickListener {
         private long categoryId;
         private BrowseCategoriesFragment fragment;
-
-        /**
-         * method responsible for initializing goToBrowse category items
-         */
         public GoToBrowseItems(long categoryId, BrowseCategoriesFragment fragment) {
             this.categoryId = categoryId;
             this.fragment = fragment;
         }
-
-        /**
-         * method responsible for the onclick when the button is pressed.
-         */
         public void onClick(View v) {
             final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
             ft.replace(R.id.customer_fragment_main, new BrowseItemsFragment(firmId, categoryId, username, password, order));
             ft.commit();
         }
     }
+
 }

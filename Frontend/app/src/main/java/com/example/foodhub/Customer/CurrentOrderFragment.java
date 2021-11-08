@@ -25,8 +25,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 /**
- * Class responsible for Current Order Fragment
+ * A controller for the R.layout.fragment_current_order view
+ * @author Arvid Gustafson
+ * @see Fragment
  */
 public class CurrentOrderFragment extends Fragment {
 
@@ -39,7 +42,13 @@ public class CurrentOrderFragment extends Fragment {
     private ViewGroup container;
 
     /**
-     * Method responsible for initailizing
+     * Constructs a CurrentOrderFragment from enumerated information
+     * @param firmId The id of the current firm to which the order is to be placed
+     * @param firmId The id of the category of the  items was being view (if from browse items)
+     * @param username The username of the current user
+     * @param password The password of the current user
+     * @param order The qualities of the order thus far
+     * @param from The page that the user came from
      */
     public CurrentOrderFragment(long firmId, long categoryId, String username, String password,
             ArrayList<ItemReference> order, String from) {
@@ -52,14 +61,19 @@ public class CurrentOrderFragment extends Fragment {
     }
 
     /**
-     * Method responsible for onCreate
+     * Gets information from the passed in bundle when applicable
+     * @param savedInstanceState A bundle passed in
      */
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     /**
-     * Method responsible for creating View
+     * Creates the view, binding the buttons to the proper methods, and sets up the order
+     * @param inflater A layout inflater
+     * @param container The view that contains this one
+     * @param savedInstanceState A bundle passed in
+     * @return The view that is created
      */
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_current_order, container, false);
@@ -75,7 +89,8 @@ public class CurrentOrderFragment extends Fragment {
     }
 
     /**
-     * Method responsible loading the View
+     * Goes to the page to the prior page when the "back" button is pressed
+     * @param view The "back" button
      */
     public void goBack(View view) {
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -87,7 +102,8 @@ public class CurrentOrderFragment extends Fragment {
     }
 
     /**
-     * Method responsible for Submitting the Request
+     * Makes a request to submit an order when the "submit" button is pressed
+     * @param view The "submit" button
      */
     public void submitRequest(View view) {
         Map<String, String> map = new HashMap<>();
@@ -112,7 +128,8 @@ public class CurrentOrderFragment extends Fragment {
     }
 
     /**
-     * Method responsible for submiting response
+     * Goes back to the "browse firms" page upon a successful submission
+     * @param response The response from the server, as a JSONObject
      */
     public void submitResponse(JSONObject response) {
         System.out.println(response.toString());

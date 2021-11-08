@@ -22,7 +22,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Class responsible for Customer Order Fragment
+ * Controls the R.layout.fragment_manage_customer_orders view
+ * @author Arvid Gustafson
+ * @see Fragment
  */
 public class ManageCustomerOrdersFragment extends Fragment {
 
@@ -31,7 +33,8 @@ public class ManageCustomerOrdersFragment extends Fragment {
     private ViewGroup container;
 
     /**
-     * Method responsible for on create
+     * Collects information from bundle where applicable
+     * @param savedInstanceState a bundle passed in
      */
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,9 +45,13 @@ public class ManageCustomerOrdersFragment extends Fragment {
     }
 
     /**
-     * Method responsible for OnCreateView
+     * Does bookkeeping, including refreshing the page
+     * @param inflater A layout inflater
+     * @param container The container of this view
+     * @param savedInstanceState a bundle passed in
+     * @return The created view
      */
-    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
+    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_manage_customer_orders, container, false);
         this.container = container;
         refresh();
@@ -52,7 +59,7 @@ public class ManageCustomerOrdersFragment extends Fragment {
     }
 
     /**
-     * Method responsible for refreshing
+     * Makes a call to refresh the page
      */
     public void refresh() {
         Map<String, String> map = new HashMap<>();
@@ -63,7 +70,8 @@ public class ManageCustomerOrdersFragment extends Fragment {
     }
 
     /**
-     * Method responsible for listOrders
+     * Lists order information upon a successful call to refresh the page
+     * @param arr The response from the server as a JSONArray
      */
     public void listOrders(JSONArray arr) {
         ArrayList<Order> orders = new ArrayList<>();

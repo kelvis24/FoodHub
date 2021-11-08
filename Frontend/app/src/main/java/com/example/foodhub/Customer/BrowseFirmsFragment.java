@@ -23,7 +23,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Class responsible for the Browse Firms Fragment
+ * A controller for the R.layout.fragment_browse_firms view
+ * @author Arvid Gustafson
+ * @see Fragment
  */
 public class BrowseFirmsFragment extends Fragment {
 
@@ -32,7 +34,9 @@ public class BrowseFirmsFragment extends Fragment {
     private ViewGroup container;
 
     /**
-     * Method responsible for initializing
+     * Constructs a BrowseFirmsFragment from enumerated information
+     * @param username The username of the current user
+     * @param password The password of the current user
      */
     public BrowseFirmsFragment(String username, String password) {
         this.username = username;
@@ -40,7 +44,7 @@ public class BrowseFirmsFragment extends Fragment {
     }
 
     /**
-     * Another Method responsible for initializing
+     * A default constructor
      */
     public BrowseFirmsFragment() {
         this.username = null;
@@ -48,7 +52,8 @@ public class BrowseFirmsFragment extends Fragment {
     }
 
     /**
-     * Method responsible for the onCreate
+     * Gets information from the passed in bundle when applicable
+     * @param savedInstanceState A bundle passed in
      */
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,9 +64,13 @@ public class BrowseFirmsFragment extends Fragment {
     }
 
     /**
-     * Method responsible foronCreateView
+     * Creates the view, and refreshes the page
+     * @param inflater A layout inflater
+     * @param container The view that contains this one
+     * @param savedInstanceState A bundle passed in
+     * @return The view that is created
      */
-    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
+    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_browse_firms, container, false);
         this.container = container;
         refresh();
@@ -69,14 +78,15 @@ public class BrowseFirmsFragment extends Fragment {
     }
 
     /**
-     * Method responsible for refreshing
+     * Makes a call to the server to get firms, refresh the page
      */
     public void refresh() {
         Call.get("general-get-firms", this::listFirms, null);
     }
 
     /**
-     * Method responsible for using the JSON array
+     * Builds the list of firms in the recycler upon a successful get-firms method call
+     * @param arr The response from the server, as a JSONArray
      */
     public void listFirms(JSONArray arr) {
         ArrayList<Firm> firms = new ArrayList<>();
