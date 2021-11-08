@@ -28,7 +28,6 @@ import java.util.Map;
  * Class responsible for returning the view
  */
 public class BrowseItemsFragment extends Fragment {
-
     private long firmId;
     private long categoryId;
     private String username;
