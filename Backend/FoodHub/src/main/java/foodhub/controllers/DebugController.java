@@ -13,6 +13,8 @@ import foodhub.ioObjects.*;
 
 /**
  * The Debug commands for testing the Backend of FoodHub
+ *     DO NOT USE
+ *     REMOVE BEFORE DEPLOYMENT
  * @author 1_CW_2
  *
  */
@@ -20,25 +22,25 @@ import foodhub.ioObjects.*;
 public class DebugController {
 	
 	@Autowired
-	AdminRepository adminRepository;
+	private AdminRepository adminRepository;
 	
 	@Autowired
-	FirmRepository firmRepository;
+	private FirmRepository firmRepository;
 	
 	@Autowired
-	CustomerRepository customerRepository;
+	private CustomerRepository customerRepository;
 	
 	@Autowired
-	CategoryRepository categoryRepository;
+	private CategoryRepository categoryRepository;
 	
 	@Autowired
-	ItemRepository itemRepository;
+	private ItemRepository itemRepository;
 	
 	@Autowired
-	OrderRepository orderRepository;
+	private OrderRepository orderRepository;
 	
 	@Autowired
-	OrderItemRepository orderItemsRepository;
+	private OrderItemRepository orderItemsRepository;
     
 	/**
 	 * Sets an Owner into the Admin repository with basic information.
