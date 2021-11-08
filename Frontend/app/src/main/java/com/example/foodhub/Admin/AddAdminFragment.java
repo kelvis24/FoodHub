@@ -61,7 +61,7 @@ public class AddAdminFragment extends Fragment {
     }
 
     /**
-     * Binds button to appropriate function when the view is created
+     * Binds the "add admin" button to appropriate function when the view is created
      * @param inflater A layout inflater
      * @param container The view that contains this one
      * @param savedInstanceState a bundle passed in

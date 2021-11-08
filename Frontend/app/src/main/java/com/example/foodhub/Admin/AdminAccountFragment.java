@@ -43,7 +43,7 @@ public class AdminAccountFragment extends Fragment {
 
     /**
      * Goes to the initial activity upon clicking the logout button
-     * @param v The "logout" button
+     * @param view The "logout" button
      */
     public void goToSignIn(View view) {
         Intent I = new Intent(getContext(), InitialActivity.class);

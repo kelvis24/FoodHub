@@ -23,6 +23,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A class for controlling the R.layout.view_edit_category view, placing it in a recycler
+ * @author Arvid Gustafson
+ * @see RecyclerView.Adapter
+ */
 public class ManageCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private long firmId;
@@ -33,6 +38,14 @@ public class ManageCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private ArrayList<Category> categories;
 
+    /**
+     * Constructs a ManageCategoriesAdapter object given enumerated information
+     * @param firmId The id of the firm to which the categories belong
+     * @param username The username of the current user
+     * @param password The password of the current user
+     * @param fragment The fragment that contains the recycler
+     * @param categories The list information about categories, which will be listed in the recycler
+     */
     public ManageCategoriesAdapter(long firmId, String username, String password,
             ManageCategoriesFragment fragment, ArrayList<Category> categories) {
         this.firmId = firmId;
@@ -42,11 +55,22 @@ public class ManageCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.V
         this.categories = categories;
     }
 
+    /**
+     * Creates a ViewHolder given a view
+     * @param parent The parent view of the recycler
+     * @param viewType The type of view; it should always be 0
+     * @return The ViewHolder that is created
+     */
     @NonNull @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_edit_category, parent, false);
         return new CategoryHolder(view);
     }
 
+    /**
+     * Binds a ViewHolder to the recycler; it sets the text and binds the button to the right method
+     * @param holder The ViewHolder about to be bound
+     * @param index The index of the information of ViewHolder in the categories array
+     */
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         CategoryHolder categoryHolder = (CategoryHolder) holder;
         categoryHolder.usernameText.setText(categories.get(index).getTitle());
@@ -56,15 +80,24 @@ public class ManageCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.V
         categoryHolder.deleteButton.setOnClickListener(deleteCategory);
     }
 
+    /**
+     * Retrieves the type of view given its index in the categories array
+     * @param index The index of the view in question
+     * @return The type of view; it should always be 0
+     */
     @Override public int getItemViewType(int index) {
         return categories.get(index) == null ? -1 : 0;
     }
 
+    /**
+     * Retrieves the number of views to be in the recycler
+     * @return The number of views to be in the recycler
+     */
     @Override public int getItemCount() {
         return categories.size();
     }
 
-    class CategoryHolder extends RecyclerView.ViewHolder {
+    private class CategoryHolder extends RecyclerView.ViewHolder {
         TextView usernameText;
         Button deleteButton;
         public CategoryHolder(@NonNull View view) {
@@ -74,7 +107,7 @@ public class ManageCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
     }
 
-    class DeleteCategory implements View.OnClickListener, ObjectResponse {
+    private class DeleteCategory implements View.OnClickListener, ObjectResponse {
         private long categoryId;
         private ManageCategoriesFragment fragment;
 
