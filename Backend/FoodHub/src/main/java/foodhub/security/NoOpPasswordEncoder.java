@@ -2,6 +2,11 @@ package foodhub.security;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * To my knowledge, this class is unused; please disregard it.
+ * It has to do with security.
+ * @author Jamie Anderson
+ */
 public final class NoOpPasswordEncoder implements PasswordEncoder {
 
 	private static final PasswordEncoder INSTANCE = new NoOpPasswordEncoder();

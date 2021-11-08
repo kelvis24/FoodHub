@@ -96,6 +96,7 @@ public class CurrentOrderFragment extends Fragment {
     }
 
     public void submitResponse(JSONObject response) {
+        System.out.println(response.toString());
         try{if (response.get("message").equals("success")) {
             final FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.replace(R.id.customer_fragment_main, new BrowseFirmsFragment(username, password));

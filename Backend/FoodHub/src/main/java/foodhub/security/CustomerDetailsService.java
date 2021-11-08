@@ -10,6 +10,11 @@ import org.springframework.stereotype.Service;
 import foodhub.database.Customer;
 import foodhub.database.CustomerRepository;
 
+/**
+ * To my knowledge, this class is unused; please disregard it.
+ * It has to do with security.
+ * @author Jamie Anderson
+ */
 @Qualifier("customerSerivce")
 @Service
 public class CustomerDetailsService implements UserDetailsService{

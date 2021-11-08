@@ -21,22 +21,22 @@ import foodhub.ioObjects.*;
 public class FirmController {
 
 	@Autowired
-	CustomerRepository customerRepository;
+	private CustomerRepository customerRepository;
 	
 	@Autowired
-	FirmRepository firmRepository;
+	private FirmRepository firmRepository;
 	
 	@Autowired
-	CategoryRepository categoryRepository;
+	private CategoryRepository categoryRepository;
 	
 	@Autowired
-	ItemRepository itemRepository;
+	private ItemRepository itemRepository;
 	
 	@Autowired
-	OrderRepository orderRepository;
+	private OrderRepository orderRepository;
 	
 	@Autowired
-	OrderItemRepository orderItemRepository;
+	private OrderItemRepository orderItemRepository;
 	
 	/**
 	 * Authenticates a Firm using its login credentials.

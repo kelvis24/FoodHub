@@ -21,16 +21,16 @@ import foodhub.ioObjects.*;
 public class GeneralController {
 	
 	@Autowired
-	FirmRepository firmRepository;
+	private FirmRepository firmRepository;
 	
 	@Autowired
-	CustomerRepository customerRepository;
+	private CustomerRepository customerRepository;
 	
 	@Autowired
-	CategoryRepository categoryRepository;
+	private CategoryRepository categoryRepository;
 	
 	@Autowired
-	ItemRepository itemRepository;
+	private ItemRepository itemRepository;
 
 	/**
 	 * Lists all Firms within the Firm repository.

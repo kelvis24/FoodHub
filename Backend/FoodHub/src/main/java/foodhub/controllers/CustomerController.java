@@ -20,19 +20,19 @@ import foodhub.ioObjects.*;
 public class CustomerController {
 
 	@Autowired
-	CustomerRepository customerRepository;
+	private CustomerRepository customerRepository;
 
 	@Autowired
-	FirmRepository firmRepository;
+	private FirmRepository firmRepository;
 
 	@Autowired
-	ItemRepository itemRepository;
+	private ItemRepository itemRepository;
 	
 	@Autowired
-	OrderRepository orderRepository;
+	private OrderRepository orderRepository;
 
 	@Autowired
-	OrderItemRepository orderItemRepository;
+	private OrderItemRepository orderItemRepository;
 	
 	/**
 	 * Authenticates a Customers login.
