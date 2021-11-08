@@ -29,7 +29,9 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * Class responsible for creating View
+ * A class for controlling the R.layout.view_customer_order view, placing it in a recycler
+ * @author Arvid Gustafson
+ * @see RecyclerView.Adapter
  */
 public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -39,7 +41,11 @@ public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerVi
     private ArrayList<Order> orders;
 
     /**
-     * Method responsible for initializing
+     * Constructs a ManageFirmOrdersAdapter object given enumerated information
+     * @param username The username of the current user
+     * @param password The password of the current user
+     * @param fragment The fragment that contains the recycler
+     * @param orders The list information about orders, which will be listed in the recycler
      */
     public ManageCustomerOrdersAdapter(String username, String password,
                                        ManageCustomerOrdersFragment fragment, ArrayList<Order> orders) {
@@ -50,7 +56,10 @@ public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerVi
     }
 
     /**
-     * Method responsible for returning View
+     * Creates a ViewHolder given a view
+     * @param parent The parent view of the recycler
+     * @param viewType The type of view; it should always be 0
+     * @return The ViewHolder that is created
      */
     @NonNull @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_customer_order, parent, false);
@@ -58,7 +67,9 @@ public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerVi
     }
 
     /**
-     * Method responsible for binding View
+     * Binds a ViewHolder to the recycler; it sets up the TextViews and inner recycler
+     * @param holder The ViewHolder about to be bound
+     * @param index The index of the information of ViewHolder in the orders array
      */
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         OrderHolder orderHolder = (OrderHolder) holder;
@@ -89,14 +100,17 @@ public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerVi
     }
 
     /**
-     * Method responsible for getting Item View
+     * Retrieves the type of view given its index in the orders array
+     * @param index The index of the view in question
+     * @return The type of view; it should always be 0
      */
     @Override public int getItemViewType(int index) {
         return orders.get(index) == null ? -1 : 0;
     }
 
     /**
-     * Method responsible for geting item count
+     * Retrieves the number of views to be in the recycler
+     * @return The number of views to be in the recycler
      */
     @Override public int getItemCount() {
         return orders.size();
@@ -122,11 +136,9 @@ public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerVi
 
     private class DiscardOrder implements View.OnClickListener, ObjectResponse {
         private long id;
-
         public DiscardOrder(long id) {
             this.id = id;
         }
-
         public void onClick(View v) {
             Map<String, String> map = new HashMap<>();
             map.put("username", username);
@@ -136,15 +148,12 @@ public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerVi
             } catch (JSONException e) {e.printStackTrace();}
             Call.post("customers-remove-order", obj, this, null);
         }
-
-
         public void respond(JSONObject response) {
             try{if (response.get("message").equals("success")) {
                 fragment.refresh();
             }} catch (Exception e) {
                 Log.d("response", e.toString());}
         }
-
     }
 
 }

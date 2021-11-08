@@ -157,8 +157,6 @@ public class CustomerController {
     		return new Message("failure","no such firm");
     	Order order = new Order(firm.getId(), customer.getId(), 0);
     	orderRepository.save(order);
-    	List<Order> sameCustomer = orderRepository.findByCustomerId(customer.getId());
-    	for (Order o : sameCustomer) {if (o.getFirmId()==firm.getId()) order = o;}
     	List<OrderItemInfo> list = data.getOrderList();
     	for (OrderItemInfo o : list) {
     		Item item = itemRepository.findById(o.getItemId());

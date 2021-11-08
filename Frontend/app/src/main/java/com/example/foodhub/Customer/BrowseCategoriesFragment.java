@@ -25,8 +25,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 /**
- * Class responsible for Browse Category Fragment
+ * A controller for the R.layout.fragment_browse_categories view
+ * @author Arvid Gustafson
+ * @see Fragment
  */
 public class BrowseCategoriesFragment extends Fragment {
 
@@ -37,7 +40,11 @@ public class BrowseCategoriesFragment extends Fragment {
     private ViewGroup container;
 
     /**
-     * Constructor responsible for initializing what a category fragment would look like.
+     * Constructs a BrowseCategoriesFragment from enumerated information
+     * @param firmId The id of the firm of the categories being browsed
+     * @param username The username of the current user
+     * @param password The password of the current user
+     * @param order The qualities of the ongoing order
      */
     public BrowseCategoriesFragment(long firmId, String username, String password, ArrayList<ItemReference> order) {
         this.firmId = firmId;
@@ -45,8 +52,9 @@ public class BrowseCategoriesFragment extends Fragment {
         this.password = password;
         this.order = order;
     }
+
     /**
-     * Another Constructor responsible for initializing what a category fragment would look like.
+     * A default constructor
      */
     public BrowseCategoriesFragment() {
         this.username = null;
@@ -54,16 +62,21 @@ public class BrowseCategoriesFragment extends Fragment {
     }
 
     /**
-     * Method responsible for the onCreate
+     * Does bookkeeping related to the onCreate method
+     * @param savedInstanceState A bundle passed in
      */
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     /**
-     * Method responsible for the onCreateView
+     * Creates the view, binding the buttons to the proper methods
+     * @param inflater A layout inflater
+     * @param container The view that contains this one
+     * @param savedInstanceState A bundle passed in
+     * @return The view that is created
      */
-    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
+    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_browse_categories, container, false);
         this.container = container;
         Button btn = view.findViewById(R.id.browse_categories_view_order_button);
@@ -75,7 +88,7 @@ public class BrowseCategoriesFragment extends Fragment {
     }
 
     /**
-     * Method responsible for the refreshing
+     * Makes a call to the server to get categories, and refresh the page
      */
     public void refresh() {
         Map<String, String> map = new HashMap<>();
@@ -86,7 +99,8 @@ public class BrowseCategoriesFragment extends Fragment {
     }
 
     /**
-     * Method responsible for turning JSON array into List categories
+     * Builds the list of categories in the recycler upon a successful get-categories method call
+     * @param arr The response from the server, as a JSONArray
      */
     public void listCategories(JSONArray arr) {
         ArrayList<Category> categories = new ArrayList<>();
@@ -100,7 +114,8 @@ public class BrowseCategoriesFragment extends Fragment {
     }
 
     /**
-     * Method responsible for initializing what a category would look like.
+     * Goes to the page to view and confirm an order when the "view order" button is pressed
+     * @param view The "view order" button
      */
     public void goToViewOrder(View view) {
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -109,7 +124,8 @@ public class BrowseCategoriesFragment extends Fragment {
     }
 
     /**
-     * Method responsible for returning the Browse item View
+     * Goes to the page to browse firms when the "back" button is pressed
+     * @param view The "back" button
      */
     public void goToBrowseFirms(View view) {
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
