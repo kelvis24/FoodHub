@@ -20,25 +20,25 @@ import foodhub.ioObjects.*;
 public class AdminController {
 	
 	@Autowired
-	AdminRepository adminRepository;
+	private AdminRepository adminRepository;
 
 	@Autowired
-	FirmRepository firmRepository;
+	private FirmRepository firmRepository;
 
 	@Autowired
-	CategoryRepository categoryRepository;
+	private CategoryRepository categoryRepository;
 
 	@Autowired
-	ItemRepository itemRepository;
+	private ItemRepository itemRepository;
 	
 	@Autowired
-	OrderRepository orderRepository;
+	private OrderRepository orderRepository;
 
 	@Autowired
-	OrderItemRepository orderItemRepository;
+	private OrderItemRepository orderItemRepository;
 	
 	/**
-	 * Authenticates an Admin login based on given login details.
+	 * Returns whether or not the given credentials are a valid admin or owner.
 	 * Always returns a Message entity, either the type of Admin logged in on success or
 	 * a failure with error on failing to authorize the Admin. Errors include wrong username and
 	 * wrong password. 
