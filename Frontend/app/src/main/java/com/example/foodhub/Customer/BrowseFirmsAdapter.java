@@ -15,15 +15,19 @@ import com.example.foodhub.R;
 
 import java.util.ArrayList;
 
+/**
+ * Class that's the Adapter for the recycler views
+ */
 public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private String username;
     private String password;
-
     private BrowseFirmsFragment fragment;
-
     private ArrayList<Firm> firms;
 
+    /**
+     * Method responsible for the initailizing the class
+     */
     public BrowseFirmsAdapter(String username, String password,
             BrowseFirmsFragment fragment, ArrayList<Firm> firms) {
         this.username = username;
@@ -32,11 +36,17 @@ public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.firms = firms;
     }
 
+    /**
+     * Method responsible for returning the view
+     */
     @NonNull @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_browse_firm, parent, false);
         return new FirmHolder(view);
     }
 
+    /**
+     * Method responsible for binding the views
+     */
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         FirmHolder firmHolder = (FirmHolder) holder;
         firmHolder.usernameText.setText(firms.get(index).getName());
@@ -44,15 +54,20 @@ public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         firmHolder.usernameText.setOnClickListener(goToBrowseCategories);
     }
 
+    /**
+     * Method responsible for the item view type
+     */
     @Override public int getItemViewType(int index) {
         return firms.get(index) == null ? -1 : 0;
     }
-
+    /**
+     * Method responsible for the returning size
+     */
     @Override public int getItemCount() {
         return firms.size();
     }
 
-    class FirmHolder extends RecyclerView.ViewHolder {
+    private class FirmHolder extends RecyclerView.ViewHolder {
         TextView usernameText;
         public FirmHolder(@NonNull View view) {
             super(view);
@@ -60,7 +75,7 @@ public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    class GoToBrowseCategories implements View.OnClickListener {
+    private class GoToBrowseCategories implements View.OnClickListener {
         private long firmId;
         private BrowseFirmsFragment fragment;
 

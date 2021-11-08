@@ -25,7 +25,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * Class responsible for Current Order Fragment
+ */
 public class CurrentOrderFragment extends Fragment {
 
     private long firmId;
@@ -34,9 +36,11 @@ public class CurrentOrderFragment extends Fragment {
     private String password;
     private ArrayList<ItemReference> order;
     private String from;
-
     private ViewGroup container;
 
+    /**
+     * Method responsible for initailizing
+     */
     public CurrentOrderFragment(long firmId, long categoryId, String username, String password,
             ArrayList<ItemReference> order, String from) {
         this.firmId = firmId;
@@ -47,10 +51,16 @@ public class CurrentOrderFragment extends Fragment {
         this.from = from;
     }
 
+    /**
+     * Method responsible for onCreate
+     */
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Method responsible for creating View
+     */
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_current_order, container, false);
         this.container = container;
@@ -64,6 +74,9 @@ public class CurrentOrderFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Method responsible loading the View
+     */
     public void goBack(View view) {
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
         if (from.equals("BrowseItems"))
@@ -73,6 +86,9 @@ public class CurrentOrderFragment extends Fragment {
         ft.commit();
     }
 
+    /**
+     * Method responsible for Submitting the Request
+     */
     public void submitRequest(View view) {
         Map<String, String> map = new HashMap<>();
         map.put("username", username);
@@ -95,6 +111,9 @@ public class CurrentOrderFragment extends Fragment {
         Call.post("customers-create-order", obj, this::submitResponse, null);
     }
 
+    /**
+     * Method responsible for submiting response
+     */
     public void submitResponse(JSONObject response) {
         try{if (response.get("message").equals("success")) {
             final FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -102,5 +121,4 @@ public class CurrentOrderFragment extends Fragment {
             ft.commit();
         }} catch (Exception e) {Log.d("response", e.toString());}
     }
-
 }

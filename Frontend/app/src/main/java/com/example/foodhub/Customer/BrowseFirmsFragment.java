@@ -22,23 +22,34 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class responsible for the Browse Firms Fragment
+ */
 public class BrowseFirmsFragment extends Fragment {
 
     private String username;
     private String password;
-
     private ViewGroup container;
 
+    /**
+     * Method responsible for initializing
+     */
     public BrowseFirmsFragment(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
+    /**
+     * Another Method responsible for initializing
+     */
     public BrowseFirmsFragment() {
         this.username = null;
         this.password = null;
     }
 
+    /**
+     * Method responsible for the onCreate
+     */
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -47,6 +58,9 @@ public class BrowseFirmsFragment extends Fragment {
         }
     }
 
+    /**
+     * Method responsible foronCreateView
+     */
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         View view = inflater.inflate(R.layout.fragment_browse_firms, container, false);
         this.container = container;
@@ -54,10 +68,16 @@ public class BrowseFirmsFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Method responsible for refreshing
+     */
     public void refresh() {
         Call.get("general-get-firms", this::listFirms, null);
     }
 
+    /**
+     * Method responsible for using the JSON array
+     */
     public void listFirms(JSONArray arr) {
         ArrayList<Firm> firms = new ArrayList<>();
         for (int i = 0; i < arr.length(); i++) {

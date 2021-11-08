@@ -11,13 +11,18 @@ import android.view.View;
 import com.example.foodhub.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+/**
+ * Class responsible for creating View
+ */
 public class CustomerMainActivity extends AppCompatActivity {
 
     private Bundle bundle;
     private NavController navController;
-
     private BottomNavigationView menu;
 
+    /**
+     * Method responsible for creating View
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,19 +40,27 @@ public class CustomerMainActivity extends AppCompatActivity {
         browseFirms(browseFirms);
     }
 
+    /**
+     * Method responsible for Loadidng View
+     */
     public void browseFirms(View view) {
         menu.setSelectedItemId(R.id.browse_firms_option);
         navController.navigate(R.id.BrowseFirms, bundle);
     }
 
+    /**
+     * Method responsible for loading View
+     */
     public void manageCustomerOrders(View view) {
         menu.setSelectedItemId(R.id.manage_customer_orders_option);
         navController.navigate(R.id.ManageCustomerOrders, bundle);
     }
 
+    /**
+     * Method responsible for loading View
+     */
     public void customerAccount(View view) {
         menu.setSelectedItemId(R.id.customer_account_option);
         navController.navigate(R.id.CustomerAccount, bundle);
     }
-
 }

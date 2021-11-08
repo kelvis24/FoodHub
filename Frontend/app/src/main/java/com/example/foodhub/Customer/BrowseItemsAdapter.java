@@ -15,18 +15,21 @@ import com.example.foodhub.R;
 
 import java.util.ArrayList;
 import java.util.Locale;
-
+/**
+ * Class responsible for returning the view
+ */
 public class BrowseItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private long categoryId;
     private String username;
     private String password;
     private ArrayList<ItemReference> order;
-
     private BrowseItemsFragment fragment;
-
     private ArrayList<Item> items;
 
+    /**
+     * Method responsible for initializing
+     */
     public BrowseItemsAdapter(long categoryId, String username, String password, ArrayList<ItemReference> order,
                               BrowseItemsFragment fragment, ArrayList<Item> items) {
         this.categoryId = categoryId;
@@ -37,11 +40,17 @@ public class BrowseItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.items = items;
     }
 
+    /**
+     * Method responsible for returning the view
+     */
     @NonNull @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_browse_item, parent, false);
         return new ItemHolder(view);
     }
 
+    /**
+     * Method responsible for Binding Views
+     */
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         ItemHolder itemHolder = (ItemHolder) holder;
         itemHolder.usernameText.setText(items.get(index).getTitle());
@@ -50,15 +59,21 @@ public class BrowseItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         itemHolder.addButton.setOnClickListener(addItem);
     }
 
+    /**
+     * Method responsible for returning the type
+     */
     @Override public int getItemViewType(int index) {
         return items.get(index) == null ? -1 : 0;
     }
 
+    /**
+     * Method responsible for returning the size
+     */
     @Override public int getItemCount() {
         return items.size();
     }
 
-    class ItemHolder extends RecyclerView.ViewHolder {
+    private class ItemHolder extends RecyclerView.ViewHolder {
         TextView usernameText;
         TextView price;
         Button addButton;
@@ -70,7 +85,7 @@ public class BrowseItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    class AddItem implements View.OnClickListener {
+    private class AddItem implements View.OnClickListener {
         private Item item;
         private BrowseItemsFragment fragment;
 

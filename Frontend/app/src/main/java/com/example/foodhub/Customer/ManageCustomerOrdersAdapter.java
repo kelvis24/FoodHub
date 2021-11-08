@@ -28,15 +28,19 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * Class responsible for creating View
+ */
 public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private String username;
     private String password;
-
     private ManageCustomerOrdersFragment fragment;
-
     private ArrayList<Order> orders;
 
+    /**
+     * Method responsible for initializing
+     */
     public ManageCustomerOrdersAdapter(String username, String password,
             ManageCustomerOrdersFragment fragment, ArrayList<Order> orders) {
         this.username = username;
@@ -45,11 +49,17 @@ public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerVi
         this.orders = orders;
     }
 
+    /**
+     * Method responsible for returning View
+     */
     @NonNull @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_customer_order, parent, false);
         return new OrderHolder(view);
     }
 
+    /**
+     * Method responsible for binding View
+     */
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         OrderHolder orderHolder = (OrderHolder) holder;
         orderHolder.firm.setText(orders.get(index).getFirm());
@@ -78,15 +88,21 @@ public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerVi
         orderHolder.discardButton.setOnClickListener(discardOrder);
     }
 
+    /**
+     * Method responsible for getting Item View
+     */
     @Override public int getItemViewType(int index) {
         return orders.get(index) == null ? -1 : 0;
     }
 
+    /**
+     * Method responsible for geting item count
+     */
     @Override public int getItemCount() {
         return orders.size();
     }
 
-    class OrderHolder extends RecyclerView.ViewHolder {
+    private class OrderHolder extends RecyclerView.ViewHolder {
         TextView firm;
         TextView id;
         TextView status;
@@ -104,7 +120,7 @@ public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerVi
         }
     }
 
-    class DiscardOrder implements View.OnClickListener, ObjectResponse {
+    private class DiscardOrder implements View.OnClickListener, ObjectResponse {
         private long id;
 
         public DiscardOrder(long id) {
@@ -120,6 +136,7 @@ public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerVi
             } catch (JSONException e) {e.printStackTrace();}
             Call.post("customers-remove-order", obj, this, null);
         }
+
 
         public void respond(JSONObject response) {
             try{if (response.get("message").equals("success")) {

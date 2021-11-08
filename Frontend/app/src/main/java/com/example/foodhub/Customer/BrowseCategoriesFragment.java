@@ -25,32 +25,44 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * Class responsible for Browse Category Fragment
+ */
 public class BrowseCategoriesFragment extends Fragment {
 
     private long firmId;
     private String username;
     private String password;
     private ArrayList<ItemReference> order;
-
     private ViewGroup container;
 
+    /**
+     * Constructor responsible for initializing what a category fragment would look like.
+     */
     public BrowseCategoriesFragment(long firmId, String username, String password, ArrayList<ItemReference> order) {
         this.firmId = firmId;
         this.username = username;
         this.password = password;
         this.order = order;
     }
-
+    /**
+     * Another Constructor responsible for initializing what a category fragment would look like.
+     */
     public BrowseCategoriesFragment() {
         this.username = null;
         this.password = null;
     }
 
+    /**
+     * Method responsible for the onCreate
+     */
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Method responsible for the onCreateView
+     */
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         View view = inflater.inflate(R.layout.fragment_browse_categories, container, false);
         this.container = container;
@@ -62,6 +74,9 @@ public class BrowseCategoriesFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Method responsible for the refreshing
+     */
     public void refresh() {
         Map<String, String> map = new HashMap<>();
         JSONObject obj = new JSONObject(map);
@@ -70,6 +85,9 @@ public class BrowseCategoriesFragment extends Fragment {
         Call.post("general-get-categories", obj, this::listCategories, null);
     }
 
+    /**
+     * Method responsible for turning JSON array into List categories
+     */
     public void listCategories(JSONArray arr) {
         ArrayList<Category> categories = new ArrayList<>();
         for (int i = 0; i < arr.length(); i++) {
@@ -81,12 +99,18 @@ public class BrowseCategoriesFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
     }
 
+    /**
+     * Method responsible for initializing what a category would look like.
+     */
     public void goToViewOrder(View view) {
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.customer_fragment_main, new CurrentOrderFragment(firmId, -1, username, password, order, "BrowseCategories"));
         ft.commit();
     }
 
+    /**
+     * Method responsible for returning the Browse item View
+     */
     public void goToBrowseFirms(View view) {
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.customer_fragment_main, new BrowseFirmsFragment(username, password));

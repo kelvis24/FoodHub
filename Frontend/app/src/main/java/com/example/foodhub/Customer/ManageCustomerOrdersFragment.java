@@ -21,13 +21,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class responsible for Customer Order Fragment
+ */
 public class ManageCustomerOrdersFragment extends Fragment {
 
     private String username;
     private String password;
-
     private ViewGroup container;
 
+    /**
+     * Method responsible for on create
+     */
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -36,6 +41,9 @@ public class ManageCustomerOrdersFragment extends Fragment {
         }
     }
 
+    /**
+     * Method responsible for OnCreateView
+     */
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         View view = inflater.inflate(R.layout.fragment_manage_customer_orders, container, false);
         this.container = container;
@@ -43,6 +51,9 @@ public class ManageCustomerOrdersFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Method responsible for refreshing
+     */
     public void refresh() {
         Map<String, String> map = new HashMap<>();
         map.put("username", username);
@@ -51,6 +62,9 @@ public class ManageCustomerOrdersFragment extends Fragment {
         Call.post("customers-get-orders", obj, this::listOrders, null);
     }
 
+    /**
+     * Method responsible for listOrders
+     */
     public void listOrders(JSONArray arr) {
         ArrayList<Order> orders = new ArrayList<>();
         for (int i = 0; i < arr.length(); i++) {
@@ -61,5 +75,4 @@ public class ManageCustomerOrdersFragment extends Fragment {
         recyclerView.setAdapter(new ManageCustomerOrdersAdapter(username, password, this, orders));
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
     }
-
 }
