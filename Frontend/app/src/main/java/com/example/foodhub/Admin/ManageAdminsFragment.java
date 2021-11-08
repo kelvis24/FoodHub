@@ -24,6 +24,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A controller for the R.layout.fragment_manage_admins view
+ * @author Arvid Gustafson
+ */
 public class ManageAdminsFragment extends Fragment {
 
     private String username;
@@ -31,17 +35,29 @@ public class ManageAdminsFragment extends Fragment {
 
     private ViewGroup container;
 
+    /**
+     * Constructs a ManageAdminsFragment from enumerated information
+     * @param username The username of the current user
+     * @param password The password of the current user
+     */
     public ManageAdminsFragment(String username, String password) {
         super();
         this.username = username;
         this.password = password;
     }
 
+    /**
+     * A default constructor
+     */
     public ManageAdminsFragment() {
         this.username = null;
         this.password = null;
     }
 
+    /**
+     * Gets information from the passed in bundle when applicable
+     * @param savedInstanceState A bundle passed in
+     */
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -50,6 +66,13 @@ public class ManageAdminsFragment extends Fragment {
         }
     }
 
+    /**
+     * Creates the view, binding the "add admin" button to the proper method
+     * @param inflater A layout inflater
+     * @param container The view that contains this one
+     * @param savedInstanceState A bundle passed in
+     * @return The view that is created
+     */
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_manage_admins, container, false);
         this.container = container;
@@ -59,6 +82,9 @@ public class ManageAdminsFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Makes a call to the server to get admins refresh the page
+     */
     public void refresh() {
         Map<String, String> map = new HashMap<>();
         map.put("username", username);
@@ -67,6 +93,10 @@ public class ManageAdminsFragment extends Fragment {
         Call.post("admins-get-admins", obj, this::listAdmins, null);
     }
 
+    /**
+     * Builds the list of admins in the recycler upon a successful get-admins method call
+     * @param arr The response from the server, as a JSONArray
+     */
     public void listAdmins(JSONArray arr) {
         ArrayList<Admin> admins = new ArrayList<>();
         for (int i = 0; i < arr.length(); i++) {
@@ -79,6 +109,10 @@ public class ManageAdminsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
     }
 
+    /**
+     * Goes to the page to create an admin when the "add admin" button is pressed
+     * @param view The "add admin" button
+     */
     public void goToCreateAdmin(View view) {
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.owner_fragment_main, new AddAdminFragment(username, password));

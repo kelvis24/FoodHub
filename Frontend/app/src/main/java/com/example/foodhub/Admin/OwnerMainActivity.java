@@ -11,6 +11,10 @@ import androidx.navigation.Navigation;
 import com.example.foodhub.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+/**
+ * The controller for the R.layout.activity_owner_main view
+ * @author Arvid Gustafson
+ */
 public class OwnerMainActivity extends AppCompatActivity {
 
     private Bundle bundle;
@@ -18,6 +22,10 @@ public class OwnerMainActivity extends AppCompatActivity {
 
     private BottomNavigationView menu;
 
+    /**
+     * Receives bundle contents and binds menu options upon creation
+     * @param savedInstanceState a bundle passed in
+     */
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_main);
@@ -35,16 +43,31 @@ public class OwnerMainActivity extends AppCompatActivity {
         manageAdmins(manageAdmins);
     }
 
+    /**
+     * Navigates to the "manage admins" fragment once the corresponding
+     *      menu option is selected
+     * @param view The corresponding menu option
+     */
     public void manageAdmins(View view) {
         menu.setSelectedItemId(R.id.manage_admins_option);
         navController.navigate(R.id.ManageAdmins, bundle);
     }
 
+    /**
+     * Navigates to the "manage firms" fragment once the corresponding
+     *      menu option is selected
+     * @param view The corresponding menu option
+     */
     public void manageFirms(View view) {
         menu.setSelectedItemId(R.id.manage_firms_option);
         navController.navigate(R.id.ManageFirms, bundle);
     }
 
+    /**
+     * Navigates to the "admin account" fragment once the corresponding
+     *      menu option is selected
+     * @param view The corresponding menu option
+     */
     public void ownerAccount(View view) {
         menu.setSelectedItemId(R.id.owner_account_option);
         navController.navigate(R.id.OwnerAccount, bundle);

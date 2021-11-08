@@ -20,6 +20,10 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A controller for the R.layout.fragment_add_firm view
+ * @author Arvid Gustafson
+ */
 public class AddFirmFragment extends Fragment {
 
     private final String username;
@@ -29,6 +33,12 @@ public class AddFirmFragment extends Fragment {
     private ViewGroup container;
     View view;
 
+    /**
+     * Constructs an AddFirmFragment given enumerated information
+     * @param username The username of the current user
+     * @param password The password of the current user
+     * @param type The type of user, whether owner or admin
+     */
     public AddFirmFragment(String username, String password, String type) {
         super();
         this.username = username;
@@ -36,16 +46,30 @@ public class AddFirmFragment extends Fragment {
         this.type = type;
     }
 
+    /**
+     * A Default Constructor
+     */
     public AddFirmFragment() {
         this.username = null;
         this.password = null;
         this.type = null;
     }
 
+    /**
+     * Does bookkeeping regarding the onCreate method
+     * @param savedInstanceState A bundle passed in
+     */
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Binds the "add firm" to the appropriate method upon creation of the view
+     * @param inflater A layout inflater
+     * @param container The view within which this one is contained
+     * @param savedInstanceState A bundle passed in
+     * @return The view that is created
+     */
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_add_firm, container, false);
         this.container = container;
@@ -54,6 +78,10 @@ public class AddFirmFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Sends a request to add a firm upon clicking the "add firm" button
+     * @param v the "add firm" button
+     */
     public void addFirmRequest(View v) {
         String d_name = ((EditText)view.findViewById(R.id.add_firm_name)).getText().toString();
         String d_username = ((EditText)view.findViewById(R.id.add_firm_username)).getText().toString();
@@ -82,6 +110,10 @@ public class AddFirmFragment extends Fragment {
         Call.post("admins-create-firm", obj, this::addFirmResponse, null);
     }
 
+    /**
+     * Traverses to the appropriate fragment upon a successful request to add a firm
+     * @param response The response of the server as a JSONObject
+     */
     public void addFirmResponse(JSONObject response) {
         try{if (response.get("message").equals("success")) {
             final FragmentTransaction ft = getFragmentManager().beginTransaction();

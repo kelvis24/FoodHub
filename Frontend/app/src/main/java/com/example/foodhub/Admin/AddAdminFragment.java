@@ -20,6 +20,10 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Controls the R.layout.fragment_add_admin view
+ * @author Arvid Gustafson
+ */
 public class AddAdminFragment extends Fragment {
 
     private final String username;
@@ -28,21 +32,40 @@ public class AddAdminFragment extends Fragment {
     private ViewGroup container;
     View view;
 
+    /**
+     * Constructs a new AddAdminFragment given enumerated information
+     * @param username The username of the current user
+     * @param password The password of the current user
+     */
     public AddAdminFragment(String username, String password) {
         super();
         this.username = username;
         this.password = password;
     }
 
+    /**
+     * A default constructor
+     */
     public AddAdminFragment() {
         this.username = null;
         this.password = null;
     }
 
+    /**
+     * Does bookkeeping for the onCreate method
+     * @param savedInstanceState a bundle passed in
+     */
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Binds button to appropriate function when the view is created
+     * @param inflater A layout inflater
+     * @param container The view that contains this one
+     * @param savedInstanceState a bundle passed in
+     * @return The view that is created
+     */
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_add_admin, container, false);
         this.container = container;
@@ -51,6 +74,10 @@ public class AddAdminFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Sends a request to add an admin upon clicking the "add admin" button
+     * @param v the "add admin" button
+     */
     public void addAdminRequest(View v) {
         String d_name = ((EditText)view.findViewById(R.id.add_admin_name)).getText().toString();
         String d_username = ((EditText)view.findViewById(R.id.add_admin_username)).getText().toString();
@@ -69,6 +96,10 @@ public class AddAdminFragment extends Fragment {
         Call.post("admins-create-admin", obj, this::addAdminResponse, null);
     }
 
+    /**
+     * Goes back to the R.layout.fragment_manage_admins view upon successfully adding an admin
+     * @param response The response from the server as a JSONObject
+     */
     public void addAdminResponse(JSONObject response) {
         try{if (response.get("message").equals("success")) {
             final FragmentTransaction ft = getFragmentManager().beginTransaction();
