@@ -20,6 +20,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Controls the R.layout.fragment_add_category view
+ * @author Arvid Gustafson
+ * @see Fragment
+ */
 public class AddCategoryFragment extends Fragment {
 
     private final long firmId;
@@ -29,6 +34,12 @@ public class AddCategoryFragment extends Fragment {
     private ViewGroup container;
     View view;
 
+    /**
+     * Constructs a new AddCategoryFragment given enumerated information
+     * @param firmId The id of the current user
+     * @param username The username of the current user
+     * @param password The password of the current user
+     */
     public AddCategoryFragment(long firmId, String username, String password) {
         super();
         this.firmId = firmId;
@@ -36,16 +47,30 @@ public class AddCategoryFragment extends Fragment {
         this.password = password;
     }
 
+    /**
+     * A default constructor
+     */
     public AddCategoryFragment() {
         this.firmId = -1;
         this.username = null;
         this.password = null;
     }
 
+    /**
+     * Does bookkeeping for the onCreate method
+     * @param savedInstanceState a bundle passed in
+     */
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Binds "add category" button to appropriate function when the view is created
+     * @param inflater A layout inflater
+     * @param container The view that contains this one
+     * @param savedInstanceState a bundle passed in
+     * @return The view that is created
+     */
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_add_category, container, false);
         this.container = container;
@@ -54,6 +79,10 @@ public class AddCategoryFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Sends a request to add a category upon clicking the "add category" button
+     * @param v the "add category" button
+     */
     public void addCategoryRequest(View v) {
         String d_title = ((EditText)view.findViewById(R.id.add_category_title)).getText().toString();
         String d_description = ((EditText)view.findViewById(R.id.add_category_description)).getText().toString();
@@ -70,6 +99,10 @@ public class AddCategoryFragment extends Fragment {
         Call.post("firms-create-category", obj, this::addCategoryResponse, null);
     }
 
+    /**
+     * Goes back to the R.layout.fragment_manage_categories view upon successfully adding an category
+     * @param response The response from the server as a JSONObject
+     */
     public void addCategoryResponse(JSONObject response) {
         try{if (response.get("message").equals("success")) {
             final FragmentTransaction ft = getFragmentManager().beginTransaction();

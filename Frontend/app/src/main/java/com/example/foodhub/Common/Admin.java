@@ -4,63 +4,69 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
-* Class responsible for creating and setting up the 'admin' user type
-* @author 1_CW_1
-*/
+ * Formats the qualities of an admin
+ * @author Arvid Gustafson
+ */
 public class Admin {
 
     private final long id;
     private final String username;
     private final String name;
     private final int type;
+
     /**
-    * Method constructor to set up an admin user in response to a JSONObject request
-    * @param obj JSONObject from the JSONObject request
-    */
+     * Constructs an Admin given a JSONObject
+     * @param obj A JSONObject with the same information format
+     */
     public Admin(JSONObject obj) throws JSONException {
         this.id = obj.getLong("id");
         this.username = (String)obj.get("username");
         this.name = (String)obj.get("name");
         this.type = obj.getInt("type");
     }
+
     /**
-    * Method to input values into the given admin request
-    * @param id ID of the amin
-    * @param username User admin's username
-    * @param name User admin's name
-    * @param type User admin's type designating them owner or admin
-    */
+     * Constructs an Admin given enumerated information
+     * @param id The id of the admin
+     * @param username The username of the admin
+     * @param name The name of the admin
+     * @param type The type of the admin, 1 if it is an owner
+     */
     public Admin(long id, String username, String name, int type) {
         this.id = id;
         this.username = username;
         this.name = name;
         this.type = type;
     }
+
     /**
-    * Method to return the ID of the admin when requested.
-    * @return id
-    */
+     * A getter method for the id field
+     * @return The id of the admin
+     */
     public long getId() {
         return id;
     }
+
     /**
-    * Method to return the username of the admin when requested.
-    * @return username
-    */
+     * A getter method for the username field
+     * @return The username of the admin
+     */
     public String getUsername() {
         return username;
     }
+
     /**
-    * Method to return the name of the admin when requested.
-    * @return name
-    */
+     * A getter method for the name field
+     * @return The name of the admin
+     */
     public String getName() {
         return name;
     }
+
     /**
-    * Method to return the type of the admin when requested.
-    * @return TYPE
-    */
+     * A getter method for the type field
+     * @return The type of the admin: 1 if owner; 0 if admin
+     */
     public int getType() {
         return type;
     }

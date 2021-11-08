@@ -25,6 +25,11 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * A class for controlling the R.layout.view_firm_order view, placing it in a recycler
+ * @author Arvid Gustafson
+ * @see RecyclerView.Adapter
+ */
 public class ManageFirmOrdersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private String username;
@@ -34,6 +39,13 @@ public class ManageFirmOrdersAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private ArrayList<Order> orders;
 
+    /**
+     * Constructs a ManageFirmOrdersAdapter object given enumerated information
+     * @param username The username of the current user
+     * @param password The password of the current user
+     * @param fragment The fragment that contains the recycler
+     * @param orders The list information about orders, which will be listed in the recycler
+     */
     public ManageFirmOrdersAdapter(String username, String password,
             ManageFirmOrdersFragment fragment, ArrayList<Order> orders) {
         this.username = username;
@@ -42,11 +54,22 @@ public class ManageFirmOrdersAdapter extends RecyclerView.Adapter<RecyclerView.V
         this.orders = orders;
     }
 
+    /**
+     * Creates a ViewHolder given a view
+     * @param parent The parent view of the recycler
+     * @param viewType The type of view; it should always be 0
+     * @return The ViewHolder that is created
+     */
     @NonNull @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_firm_order, parent, false);
         return new OrderHolder(view);
     }
 
+    /**
+     * Binds a ViewHolder to the recycler; it sets up the TextViews and inner recycler
+     * @param holder The ViewHolder about to be bound
+     * @param index The index of the information of ViewHolder in the orders array
+     */
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         OrderHolder orderHolder = (OrderHolder) holder;
         orderHolder.customer.setText(orders.get(index).getCustomer());
@@ -59,15 +82,24 @@ public class ManageFirmOrdersAdapter extends RecyclerView.Adapter<RecyclerView.V
         orderHolder.completeButton.setOnClickListener(completeOrder);
     }
 
+    /**
+     * Retrieves the type of view given its index in the orders array
+     * @param index The index of the view in question
+     * @return The type of view; it should always be 0
+     */
     @Override public int getItemViewType(int index) {
         return orders.get(index) == null ? -1 : 0;
     }
 
+    /**
+     * Retrieves the number of views to be in the recycler
+     * @return The number of views to be in the recycler
+     */
     @Override public int getItemCount() {
         return orders.size();
     }
 
-    class OrderHolder extends RecyclerView.ViewHolder {
+    private class OrderHolder extends RecyclerView.ViewHolder {
         TextView customer;
         TextView id;
         TextView location;
@@ -85,13 +117,11 @@ public class ManageFirmOrdersAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
     }
 
-    class CompleteOrder implements View.OnClickListener, ObjectResponse {
+    private class CompleteOrder implements View.OnClickListener, ObjectResponse {
         private long id;
-
         public CompleteOrder(long id) {
             this.id = id;
         }
-
         public void onClick(View v) {
             Map<String, String> map = new HashMap<>();
             map.put("username", username);
@@ -101,13 +131,11 @@ public class ManageFirmOrdersAdapter extends RecyclerView.Adapter<RecyclerView.V
             } catch (JSONException e) {e.printStackTrace();}
             Call.post("firms-complete-order", obj, this, null);
         }
-
         public void respond(JSONObject response) {
             try{if (response.get("message").equals("success")) {
                 fragment.refresh();
             }} catch (Exception e) {Log.d("response", e.toString());}
         }
-
     }
 
 }

@@ -5,10 +5,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
 /**
-* Class responsible for creating and setting up the 'order' type
-* @author 1_CW_1
-*/
+ * Formats the qualities of an order
+ * @author Arvid Gustafson
+ */
 public class Order {
 
     private long id;
@@ -18,10 +19,11 @@ public class Order {
     private int status;
     private double total;
     private ArrayList<ItemReference> list;
+
     /**
-    * Method constructor to set up an order in response to a JSONObject request
-    * @param obj JSONObject from the JSONObject request
-    */
+     * Constructs an Order given a JSONObject
+     * @param obj A JSONObject with the same information format
+     */
     public Order(JSONObject obj) throws JSONException {
         this.id = obj.getLong("id");
         this.firm = (String)obj.get("firm");
@@ -35,52 +37,59 @@ public class Order {
             list.add(new ItemReference(arr.getJSONObject(i)));
         }
     }
+
     /**
-    * Method to return the ID of the order when requested.
-    * @return id
-    */
+     * A getter method for the id field
+     * @return The id of the order
+     */
     public long getId() {
         return id;
     }
+
     /**
-    * Method to return the firm of the order when requested.
-    * @return firm
-    */
+     * A getter method for the firm field
+     * @return The firm's name of the order
+     */
     public String getFirm() {
         return firm;
     }
+
     /**
-    * Method to return the customer of the order when requested.
-    * @return customer
-    */
+     * A getter method for the customer field
+     * @return The customer's name of the order
+     */
     public String getCustomer() {
         return customer;
     }
+
     /**
-    * Method to return the location of the order when requested.
-    * @return location
-    */
+     * A getter method for the location field
+     * @return The location of the customer of the order
+     */
     public String getLocation() {
         return location;
     }
+
     /**
-    * Method to return the status of the order when requested.
-    * @return status
-    */
+     * A getter method for the status field
+     * @return The status of the order
+     */
     public int getStatus() {
         return status;
-    }   
+    }
+
     /**
-    * Method to return the total of the order when requested.
-    * @return total
-    */
+     * A getter method for the total field
+     * @return The total of the order
+     */
     public double getTotal() {
         return total;
     }
+
     /**
-    * Method to return the list of item references of the order when requested.
-    * @return id
-    */
+     * A getter method for the list field
+     * @return The list of the ItemReferences of the order
+     */
     public ArrayList<ItemReference> getList() {
         return list;
     }
