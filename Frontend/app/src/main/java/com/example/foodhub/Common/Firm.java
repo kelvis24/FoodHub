@@ -4,10 +4,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
-* Class responsible for creating and setting up the 'firm' user type
-* @author 1_CW_1
-*/
-
+ * Formats teh qualities of a Firm
+ * @author Arvid Gustafson
+ */
 public class Firm {
 
     private long id;
@@ -18,10 +17,11 @@ public class Firm {
     private int open_time;
     private int close_time;
     private int employee_count;
+
     /**
-    * Method constructor to set up an firm user in response to a JSONObject request
-    * @param obj JSONObject from the JSONObject request
-    */
+     * Constructs a Firm given a JSONObject
+     * @param obj A JSONObject with the same information format
+     */
     public Firm(JSONObject obj) throws JSONException {
         this.id = obj.getLong("id");
         this.username = (String)obj.get("username");
@@ -32,17 +32,18 @@ public class Firm {
         this.close_time = obj.getInt("close_time");
         this.employee_count = obj.getInt("employee_count");
     }
+
     /**
-    * Method to input values into the given firm request
-    * @param id ID of the firm
-    * @param username User firm's username
-    * @param name User firm's name
-    * @param location User firm's location
-    * @param cuisine User firm's cuisine
-    * @param open_time User firm's open time
-    * @param close_time User firm's close time
-    * @param employee_count User firms number of employees
-    */
+     * Constructs a Firm given enumerated information
+     * @param id The id of the firm
+     * @param username The username of the firm
+     * @param name The name of the firm
+     * @param location The location of the firm
+     * @param cuisine The cuisine of the firm
+     * @param open_time The time the firm opens, expressed as an int
+     * @param close_time The time the firm closes, expressed as an int
+     * @param employee_count The number of employees that the firm has
+     */
     public Firm(long id, String username, String name, String location, String cuisine,
                 int open_time, int close_time, int employee_count ) {
         this.id = id;
@@ -53,61 +54,68 @@ public class Firm {
         this.open_time = open_time;
         this.close_time= close_time;
         this.employee_count = employee_count;
-
     }
+
     /**
-    * Method to return the ID of the firm when requested.
-    * @return id
-    */
+     * A getter method for the id field
+     * @return The id of the firm
+     */
     public long getId() {
         return id;
     }
+
     /**
-    * Method to return the ID of the firm when requested.
-    * @return username
-    */
+     * A getter method for the username field
+     * @return The username of the firm
+     */
     public String getUsername() {
         return username;
     }
+
     /**
-    * Method to return the name of the firm when requested.
-    * @return name
-    */
+     * A getter method for the name field
+     * @return The name of the firm
+     */
     public String getName() {
         return name;
     }
+
     /**
-    * Method to return the location of the firm when requested.
-    * @return location
-    */
+     * A getter method for the location field
+     * @return The location of the firm
+     */
     public String getLocation() {
         return location;
     }
+
     /**
-    * Method to return the cuisine of the firm when requested.
-    * @return cuisin
-    */
+     * A getter method for the cuisine field
+     * @return The cuisine of the firm
+     */
     public String getCuisine() {
         return cuisine;
     }
+
     /**
-    * Method to return the open time of the firm when requested.
-    * @return open time
-    */
+     * A getter method for the open_time field
+     * @return The time the firm opens, expressed by an int
+     */
     public int getOpen_time() {
         return open_time;
     }
-     /**
-    * Method to return the close time of the firm when requested.
-    * @return close time
-    */
+
+    /**
+     * A getter method for the close_time field
+     * @return The time the firm closes, expressed by an int
+     */
     public int getClose_time() {
         return close_time;
     }
-     /**
-    * Method to return the employee count of the firm when requested.
-    * @return employee count
-    */
+
+    /**
+     * A getter method for the employee_count field
+     * @return The number of employees the firm has
+     */
     public int getEmployee_count() {
         return employee_count;
     }

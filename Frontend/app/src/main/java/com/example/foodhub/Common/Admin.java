@@ -4,7 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Keeps track of the qualities of admins for listing them
+ * Formats the qualities of an admin
  * @author Arvid Gustafson
  */
 public class Admin {
@@ -16,7 +16,7 @@ public class Admin {
 
     /**
      * Constructs an Admin given a JSONObject
-     * @param obj A JSONObject with the same information
+     * @param obj A JSONObject with the same information format
      */
     public Admin(JSONObject obj) throws JSONException {
         this.id = obj.getLong("id");
