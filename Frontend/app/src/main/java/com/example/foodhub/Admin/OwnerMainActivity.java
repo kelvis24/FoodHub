@@ -30,6 +30,8 @@ public class OwnerMainActivity extends AppCompatActivity {
         manageAdmins.setOnClickListener(this::manageAdmins);
         View manageFirms = findViewById(R.id.manage_firms_option);
         manageFirms.setOnClickListener(this::manageFirms);
+        View ownerAccount = findViewById(R.id.owner_account_option);
+        ownerAccount.setOnClickListener(this::ownerAccount);
         manageAdmins(manageAdmins);
     }
 
@@ -41,6 +43,11 @@ public class OwnerMainActivity extends AppCompatActivity {
     public void manageFirms(View view) {
         menu.setSelectedItemId(R.id.manage_firms_option);
         navController.navigate(R.id.ManageFirms, bundle);
+    }
+
+    public void ownerAccount(View view) {
+        menu.setSelectedItemId(R.id.owner_account_option);
+        navController.navigate(R.id.OwnerAccount, bundle);
     }
 
 }

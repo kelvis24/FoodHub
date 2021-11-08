@@ -17,7 +17,7 @@
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/activity_initial.xml" value="0.4" />
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/activity_main.xml" value="0.38229166666666664" />
-        <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/activity_owner_main.xml" value="0.25" />
+        <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/activity_owner_main.xml" value="0.33" />
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/activity_sign_up.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/activity_viewthismenu.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/admin_navigation.xml" value="0.4" />
@@ -25,9 +25,10 @@
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/fragment_account.xml" value="0.38871794871794874" />
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/fragment_add_admin.xml" value="0.38333333333333336" />
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/fragment_add_category.xml" value="0.3234375" />
-        <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/fragment_add_firm.xml" value="0.33" />
+        <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/fragment_add_firm.xml" value="0.5" />
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/fragment_add_item.xml" value="0.33" />
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/fragment_add_order.xml" value="0.38871794871794874" />
+        <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/fragment_admin_account.xml" value="0.3375" />
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/fragment_admin_main.xml" value="0.3307291666666667" />
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/fragment_blank.xml" value="0.3984375" />
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/fragment_browse_categories.xml" value="0.39479166666666665" />
@@ -47,10 +48,12 @@
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/fragment_manage_firms.xml" value="0.33" />
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/fragment_manage_items.xml" value="0.3375" />
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/fragment_orders.xml" value="0.38229166666666664" />
+        <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/fragment_owner_account.xml" value="0.3748717948717949" />
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/fragment_view_orders.xml" value="0.3748717948717949" />
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/horizontal.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/horizontal_single_row.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/menu_view.xml" value="0.33177083333333335" />
+        <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/nav_bottom_admin.xml" value="0.3234375" />
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/order_item.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/vertical.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/gusta/309project/Frontend/app/src/main/res/layout/vertical_single_row.xml" value="0.33177083333333335" />

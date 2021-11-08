@@ -23,4 +23,10 @@
         android:label="Manage Firms"
         tools:layout="@layout/fragment_manage_firms" />
 
+    <fragment
+        android:id="@+id/OwnerAccount"
+        android:name="com.example.foodhub.Admin.OwnerAccountFragment"
+        android:label="Account"
+        tools:layout="@layout/fragment_owner_account" />
+
 </navigation>
