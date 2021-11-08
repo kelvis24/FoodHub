@@ -8,6 +8,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import foodhub.database.Customer;
 
+/**
+ * To my knowledge, this class is unused; please disregard it.
+ * It has to do with security.
+ * @author Jamie Anderson
+ */
 @SuppressWarnings("serial")
 public class CustomerDetails implements UserDetails{
 	private String username;

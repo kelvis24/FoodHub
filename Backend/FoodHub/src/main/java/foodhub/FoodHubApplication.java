@@ -11,6 +11,10 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = "foodhub")
 public class FoodHubApplication {
 
+	/**
+	 * Main method; it starts the server
+	 * @param args Command line arguments
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(FoodHubApplication.class, args);
 	}
