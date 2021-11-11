@@ -14,7 +14,6 @@ import foodhub.ioObjects.*;
 /**
  * The controller for all Customer backend methods
  * @author 1_CW_2
- *
  */
 @RestController
 public class CustomerController {
