@@ -35,7 +35,7 @@ public class CustomerController {
 	
 	/**
 	 * Authenticates a Customers login.
-	 * This method always returns a message, either a success on successful authentication
+	 * This method returns a message, either a success on successful authentication
 	 * or a failure with error on failure. Errors include wrong username and wrong password.
 	 * @param body an Authentication entity, includes Customer username and password.
 	 * @return a Message with status of authentication (success/failure with error)
