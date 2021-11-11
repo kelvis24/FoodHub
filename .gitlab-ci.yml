@@ -12,6 +12,15 @@ maven-build:
     script:
         - cd Backend/FoodHub
         - mvn package -B
+    only:
+        refs:
+            - main
+        changes:
+            - Backend/FoodHub/src/main/java/foodhub/*.java
+            - Backend/FoodHub/src/main/java/foodhub/controllers/*.java
+            - Backend/FoodHub/src/main/java/foodhub/database/*.java
+            - Backend/FoodHub/src/main/java/foodhub/ioObjects/*.java
+            - Backend/FoodHub/src/main/java/foodhub/security/*.java
 
 maven-test:
     stage: maventest
