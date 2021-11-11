@@ -53,7 +53,7 @@ public class AddAdminFragment extends Fragment {
     }
 
     /**
-     * Does bookkeeping for the onCreate method
+     * Does some bookkeeping for the onCreate method
      * @param savedInstanceState a bundle passed in
      */
     @Override public void onCreate(Bundle savedInstanceState) {
