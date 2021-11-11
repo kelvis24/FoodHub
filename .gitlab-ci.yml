@@ -28,6 +28,11 @@ maven-test:
     artifacts:
         paths:
             - Backend/FoodHub/target/*.jar
+    only:
+        refs:
+            - main
+        changes:
+            - Backend/**/*
 
 auto-deploy:
     stage: autodeploy
@@ -39,6 +44,11 @@ auto-deploy:
         - sudo mv target/*.jar /target/web-demo.jar
         - sudo systemctl stop systemd-web-demo
         - sudo systemctl start systemd-web-demo
+    only:
+        refs:
+            - main
+        changes:
+            - Backend/**/*
 
 android-build:
     image: gjandres/android-ci:latest
@@ -54,6 +64,11 @@ android-build:
     artifacts:
         paths:
             - Frontend/app/build/outputs/
+    only:
+        refs:
+            - main
+        changes:
+            - Frontend/**/*
 
 android-test:
     image: gjandres/android-ci:latest
@@ -66,3 +81,8 @@ android-test:
     script:
         - cd Frontend
         - ./gradlew test
+    only:
+        refs:
+            - main
+        changes:
+            - Frontend/**/*
