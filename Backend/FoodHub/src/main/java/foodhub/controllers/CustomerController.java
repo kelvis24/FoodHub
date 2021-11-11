@@ -12,7 +12,6 @@ import foodhub.database.*;
 import foodhub.ioObjects.*;
 
 /**
- * yeet
  * The controller for all Customer backend methods
  * @author 1_CW_2
  *
