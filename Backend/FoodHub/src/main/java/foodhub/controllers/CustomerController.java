@@ -101,7 +101,7 @@ public class CustomerController {
     /**
      * Shows a Customer all their current orders.
      * This method always returns a List of OrderOutputs. This list can be null, and will
-     * be null if the body param is not successfully filled with correct information.
+     * be null if the body parameter is not successfully filled with correct information.
      * @param body an Authentication entity, which includes Customer login details
      * @return a List of OrderOutputs for the authorized Customer. 
      * @see Authentication
