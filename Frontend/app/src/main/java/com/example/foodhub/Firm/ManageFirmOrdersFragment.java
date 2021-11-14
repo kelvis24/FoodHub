@@ -21,6 +21,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Controls the R.layout.fragment_manage_firm_orders view
+ * @author Arvid Gustafson
+ * @see Fragment
+ */
 public class ManageFirmOrdersFragment extends Fragment {
 
     private String username;
@@ -28,6 +33,10 @@ public class ManageFirmOrdersFragment extends Fragment {
 
     private ViewGroup container;
 
+    /**
+     * Collects information from bundle where applicable
+     * @param savedInstanceState a bundle passed in
+     */
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -36,13 +45,23 @@ public class ManageFirmOrdersFragment extends Fragment {
         }
     }
 
-    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
+    /**
+     * Does bookkeeping, including refreshing the page
+     * @param inflater A layout inflater
+     * @param container The container of this view
+     * @param savedInstanceState a bundle passed in
+     * @return The created view
+     */
+    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_manage_firm_orders, container, false);
         this.container = container;
         refresh();
         return view;
     }
 
+    /**
+     * Makes a call to refresh the page
+     */
     public void refresh() {
         Map<String, String> map = new HashMap<>();
         map.put("username", username);
@@ -51,6 +70,10 @@ public class ManageFirmOrdersFragment extends Fragment {
         Call.post("firms-get-orders", obj, this::listOrders, null);
     }
 
+    /**
+     * Lists order information upon a successful call to refresh the page
+     * @param arr The response from the server as a JSONArray
+     */
     public void listOrders(JSONArray arr) {
         ArrayList<Order> orders = new ArrayList<>();
         for (int i = 0; i < arr.length(); i++) {

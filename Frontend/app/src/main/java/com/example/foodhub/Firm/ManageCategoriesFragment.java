@@ -24,6 +24,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Controls the R.layout.fragment_manage_categories view
+ * @author Arvid Gustafson
+ * @see Fragment
+ */
 public class ManageCategoriesFragment extends Fragment {
 
     private long firmId;
@@ -32,17 +37,30 @@ public class ManageCategoriesFragment extends Fragment {
 
     private ViewGroup container;
 
+    /**
+     * Constructs a ManageCategoriesFragment from enumerated information
+     * @param firmid The id of the firm of the categories herein
+     * @param username The username of the current user
+     * @param password The password of the current user
+     */
     public ManageCategoriesFragment(long firmId, String username, String password) {
         this.firmId = firmId;
         this.username = username;
         this.password = password;
     }
 
+    /**
+     * A default constructor
+     */
     public ManageCategoriesFragment() {
         this.username = null;
         this.password = null;
     }
 
+    /**
+     * Collects information from bundle where applicable
+     * @param savedInstanceState a bundle passed in
+     */
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -52,6 +70,13 @@ public class ManageCategoriesFragment extends Fragment {
         }
     }
 
+    /**
+     * Binds the "add category" button to its proper method when view is created
+     * @param inflater A layout inflater
+     * @param container The container of this view
+     * @param savedInstanceState a bundle passed in
+     * @return The created view
+     */
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         View view = inflater.inflate(R.layout.fragment_manage_categories, container, false);
         this.container = container;
@@ -61,6 +86,9 @@ public class ManageCategoriesFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Makes a call to refresh the page
+     */
     public void refresh() {
         Map<String, String> map = new HashMap<>();
         JSONObject obj = new JSONObject(map);
@@ -69,6 +97,10 @@ public class ManageCategoriesFragment extends Fragment {
         Call.post("general-get-categories", obj, this::listCategories, null);
     }
 
+    /**
+     * Lists categories information upon a successful call to refresh the page
+     * @param arr The response from the server as a JSONArray
+     */
     public void listCategories(JSONArray arr) {
         ArrayList<Category> categories = new ArrayList<>();
         for (int i = 0; i < arr.length(); i++) {
@@ -80,6 +112,10 @@ public class ManageCategoriesFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
     }
 
+    /**
+     * Correctly navigates to the view to add a category when the "add category" button is clicked
+     * @param view The "add category" button
+     */
     public void goToCreateCategory(View view) {
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.firm_fragment_main, new AddCategoryFragment(firmId, username, password));

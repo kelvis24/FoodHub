@@ -15,8 +15,19 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Has methods that add some JSON volley request to the request queue, "making a request;"
+ *      an "output" is the parameter of the method called upon success.
+ * @author Arvid Gustafson
+ */
 public class Call {
 
+    /**
+     * Makes a get request that "outputs" a JSONObject
+     * @param route The route of the request
+     * @param success The method called upon a successful call
+     * @param error The method called upon an unsuccessful call; a default is used if error is null
+     */
     public static void get(String route, ObjectResponse success, ErrorResponse error) {
         JsonObjectRequest request = new JsonObjectRequest(GET, Const.URL + route, null, success::respond,
             response -> {
@@ -32,6 +43,12 @@ public class Call {
         AppController.getInstance().addToRequestQueue(request, "json_obj_req");
     }
 
+    /**
+     * Makes a get request that "outputs" a JSONArray
+     * @param route The route of the request
+     * @param success The method called upon a successful call
+     * @param error The method called upon an unsuccessful call; a default is used if error is null
+     */
     public static void get(String route, ArrayResponse success, ErrorResponse error) {
         JsonArrayRequest request = new JsonArrayRequest(GET, Const.URL + route, null, success::respond,
                 response -> {
@@ -47,6 +64,13 @@ public class Call {
         AppController.getInstance().addToRequestQueue(request, "json_obj_req");
     }
 
+    /**
+     * Makes a post request that accepts a JSONObject "outputs" a JSONObject
+     * @param route The route of the request
+     * @param obj The JSONObject that is accepted as an input
+     * @param success The method called upon a successful call
+     * @param error The method called upon an unsuccessful call; a default is used if error is null
+     */
     public static void post(String route, JSONObject obj, ObjectResponse success, ErrorResponse error) {
         JsonObjectRequest request = new JsonObjectRequest(POST, Const.URL + route, obj, success::respond,
             response -> {
@@ -61,6 +85,13 @@ public class Call {
         AppController.getInstance().addToRequestQueue(request, "json_obj_req");
     }
 
+    /**
+     * Makes a post request that accepts a JSONObject "outputs" a JSONArray
+     * @param route The route of the request
+     * @param obj The JSONObject that is accepted as an input
+     * @param success The method called upon a successful call
+     * @param error The method called upon an unsuccessful call; a default is used if error is null
+     */
     public static void post(String route, JSONObject obj, ArrayResponse success, ErrorResponse error) {
         String str = obj.toString();
         StringRequest request = new StringRequest(POST, Const.URL + route,

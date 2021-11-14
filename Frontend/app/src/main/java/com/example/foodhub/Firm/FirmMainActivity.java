@@ -11,7 +11,11 @@ import androidx.navigation.Navigation;
 import com.example.foodhub.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-
+/**
+ * The controller for the R.layout.activity_firm_main view
+ * @author Arvid Gustafson
+ * @see AppCompatActivity
+ */
 public class FirmMainActivity extends AppCompatActivity {
 
     private Bundle bundle;
@@ -19,6 +23,10 @@ public class FirmMainActivity extends AppCompatActivity {
 
     private BottomNavigationView menu;
 
+    /**
+     * Receives bundle contents and binds menu options upon creation
+     * @param savedInstanceState a bundle passed in
+     */
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_firm_main);
@@ -35,16 +43,31 @@ public class FirmMainActivity extends AppCompatActivity {
         manageMenu(manageMenu);
     }
 
+    /**
+     * Navigates to the "manage menu" (manage categories) fragment once
+     *      the corresponding menu option is selected
+     * @param view The corresponding menu option
+     */
     public void manageMenu(View view) {
         menu.setSelectedItemId(R.id.manage_categories_option);
         navController.navigate(R.id.ManageCategories, bundle);
     }
 
+    /**
+     * Navigates to the "manage firm orders" fragment once
+     *      the corresponding menu option is selected
+     * @param view The corresponding menu option
+     */
     public void manageFirmOrders(View view) {
         menu.setSelectedItemId(R.id.manage_firm_orders_option);
         navController.navigate(R.id.ManageFirmOrders, bundle);
     }
 
+    /**
+     * Navigates to the "firm account" fragment once
+     *      the corresponding menu option is selected
+     * @param view The corresponding menu option
+     */
     public void firmAccount(View view) {
         menu.setSelectedItemId(R.id.firm_account_option);
         navController.navigate(R.id.FirmAccount, bundle);

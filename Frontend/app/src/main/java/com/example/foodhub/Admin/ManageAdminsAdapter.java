@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,11 +26,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /** 
- * The class responsible allowing admins to be managed.
- * @author 1_CW_2
+ * The controller for the R.layout.view_edit_admin view, placing them in a recycler
+ * @author Arvid Gustafson
+ * @see RecyclerView.Adapter
 */
-
-
 public class ManageAdminsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private String username;
@@ -38,15 +38,14 @@ public class ManageAdminsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private ManageAdminsFragment fragment;
 
     private ArrayList<Admin> admins;
-    /**
-    * Constructor for managing admins
-    * @param username Users Username
-    * @param password Users Password
-    * @param order ArrayList of the orders
-    * @param fragment BrowseAdminsFragment
-    * @param admins ArrayList of the admins
-    */
 
+    /**
+     * Constructs a ManageAdminsAdapter given enumerated information
+     * @param username The username of the current user
+     * @param password The password of the current user
+     * @param fragment The specific fragment within which the recycler lies
+     * @param admins The list of admins retrieved form the backend
+     */
     public ManageAdminsAdapter(String username, String password,
             ManageAdminsFragment fragment, ArrayList<Admin> admins) {
         this.username = username;
@@ -54,47 +53,48 @@ public class ManageAdminsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.fragment = fragment;
         this.admins = admins;
     }
-    /** 
-    * Creates a recycle view on the creation of the method
-    * @param viewType Int to designate the type of view
-    * @param parent A ViewGroup that allows the program to remember the last layout
-    * @return AdminHolder(view)
-    * @see AdminHolder
-    */
+
+    /**
+     * Creates a ViewHolder for a view; called for each view
+     * @param parent The parent view of the recycler
+     * @param viewType The type of view, which should always be 0
+     * @return The tailored ViewHolder for the corresponding view
+     */
     @NonNull @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_edit_admin, parent, false);
         return new AdminHolder(view);
     }
-    /** 
-    * Instigates the recycled view
-    * @param index Int to designate the type of view
-    * @param holder A ViewGroup that allows the program to remember the last layout
-    */
+
+    /**
+     * Binds a ViewHolder to the recycler; sets TextViews and binds buttons
+     * @param holder A ViewHolder
+     * @param index The index of the ViewHolder in the admins arraylist
+     */
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         AdminHolder adminHolder = (AdminHolder) holder;
         adminHolder.usernameText.setText(admins.get(index).getUsername());
         DeleteAdmin response = new DeleteAdmin(admins.get(index).getId(), fragment);
         adminHolder.deleteButton.setOnClickListener(response);
     }
-    /** 
-    * Method to get the amin item view type
-    * @param index Int to check the view type
-    * @return admin view type
-    */
+
+    /**
+     * Returns the type of view that will be in the recycler at a specified index
+     * @param index The index of the admin within the admins arraylist
+     * @return The type of admin in the arraylist, which should always be 0
+     */
     @Override public int getItemViewType(int index) {
         return admins.get(index) == null ? -1 : 0;
     }
-    /** 
-    * Method to get the admin count
-    * @return admin size
-    */
+
+    /**
+     * Returns the number of views that will be in the recycler
+     * @return The number of views that will be in the recycler
+     */
     @Override public int getItemCount() {
         return admins.size();
     }
-    /** 
-    * Class designated to browse through/manage the given admins
-    */
-    class AdminHolder extends RecyclerView.ViewHolder {
+
+    private class AdminHolder extends RecyclerView.ViewHolder {
         TextView usernameText;
         Button deleteButton;
         public AdminHolder(@NonNull View view) {
@@ -103,24 +103,14 @@ public class ManageAdminsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             deleteButton = view.findViewById(R.id.edit_admin_button);
         }
     }
-    /** 
-    * Class designated to delete an admin
-    */
-    class DeleteAdmin implements View.OnClickListener, ObjectResponse {
+
+    private class DeleteAdmin implements View.OnClickListener, ObjectResponse {
         private long id;
         private ManageAdminsFragment fragment;
-        /** 
-        * Method for getting the deleted admin information
-        * @param id ID of the admin to be deleted
-        * @fragment ManageAdminsFragment constructor
-        */
         public DeleteAdmin(long id, ManageAdminsFragment fragment) {
             this.id = id;
             this.fragment = fragment;
         }
-        /**
-        * Method to activate class on click
-        */
         public void onClick(View v) {
             Map<String, String> map = new HashMap<>();
             map.put("username", username);
@@ -130,13 +120,11 @@ public class ManageAdminsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             } catch (JSONException e) {e.printStackTrace();}
             Call.post("admins-remove-admin", obj, this, null);
         }
-
         public void respond(JSONObject response) {
             try{if (response.get("message").equals("success")) {
                 fragment.refresh();
             }} catch (Exception e) {Log.d("response", e.toString());}
         }
-
     }
 
 }

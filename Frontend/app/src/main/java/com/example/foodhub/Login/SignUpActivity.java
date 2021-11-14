@@ -19,19 +19,19 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-/** 
- * The class responsible for signing up users.
- * @author 1_CW_2
-*/
-
+/**
+ * Controls the R.layout.activity_sign_up view
+ * @author Arvid Gustafson
+ * @see AppCompatActivity
+ */
 public class SignUpActivity extends AppCompatActivity {
 
     Intent I;
 
-    /** Creates an initial instance that displays the on screen.
-    * @param savedInstanceState bundle of a saved instance brought up on creation
-    * @return NULL
-    */
+    /**
+     * Binds the "sign up" button to its respective method
+     * @param savedInstanceState A bundle that is passed in
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,81 +39,72 @@ public class SignUpActivity extends AppCompatActivity {
         Button btn = findViewById(R.id.add_customer_button);
         btn.setOnClickListener(this::signUp);
     }
-    /** The main method for creating sign up, letting the user input their name, email, location, password, and letting them
-    * confirm said password. It utalizes the Intent I and after making sure that all information meets
-    * premade specifications, it adds those pieces of information to a Hashmap to be used with a JSON object request. 
-    * @param v A View 
-    * @return NULL
-    */
+
+    /**
+     * If valid, sends a request to sign-up the user upon clicking the "sign up" button
+     * @param v The "sign up" button
+     */
     public void signUp(View v) {
         I = new Intent(this, CustomerMainActivity.class);
-
         String name = ((EditText)findViewById(R.id.sign_up_name_field)).getText().toString();
         String email = ((EditText)findViewById(R.id.sign_up_email_field)).getText().toString();
         String location = ((EditText)findViewById(R.id.sign_up_location_field)).getText().toString();
         String password = ((EditText)findViewById(R.id.sign_up_password_field)).getText().toString();
         String cPassword = ((EditText)findViewById(R.id.sign_up_confirm_password_field)).getText().toString();
-
         I.putExtra("Name", name);
         I.putExtra("Email", email);
         I.putExtra("Location", location);
-
         if (name.length() == 0 || email.length() == 0 || location.length() == 0) {
             Toast.makeText(getApplicationContext(),"Please Enter Something In All Fields.",Toast.LENGTH_SHORT).show();
             return;
-        }
-        if (notHasBetween(password, 'a', 'z')) {
+        } if (notHasBetween(password, 'a', 'z')) {
             Toast.makeText(getApplicationContext(),"Password Must Have A Lower Case Letter.",Toast.LENGTH_SHORT).show();
             return;
-        }
-        if (notHasBetween(password, 'A', 'Z')) {
+        } if (notHasBetween(password, 'A', 'Z')) {
             Toast.makeText(getApplicationContext(),"Password Must Have A Upper Case Letter.",Toast.LENGTH_SHORT).show();
             return;
-        }
-        if (notHasBetween(password, '0', '9')) {
+        } if (notHasBetween(password, '0', '9')) {
             Toast.makeText(getApplicationContext(),"Password Must Have A Number.",Toast.LENGTH_SHORT).show();
             return;
-        }
-        if (!hasSymbol(password)) {
+        } if (!hasSymbol(password)) {
             Toast.makeText(getApplicationContext(),"Password Must Have A Symbol.",Toast.LENGTH_SHORT).show();
             return;
-        }
-        if (password.length() < 12) {
+        } if (password.length() < 12) {
             Toast.makeText(getApplicationContext(),"Password must have at least 12 characters.",Toast.LENGTH_SHORT).show();
             return;
-        }
-        if (!password.equals(cPassword)) {
+        } if (!password.equals(cPassword)) {
             Toast.makeText(getApplicationContext(),"Passwords Do Not Match",Toast.LENGTH_SHORT).show();
             return;
         }
-
+        I.putExtra("username", email);
+        I.putExtra("password", password);
         Map<String,String> map = new HashMap<>();
         map.put("username", email);
         map.put("password", password);
         map.put("name",     name);
         map.put("location", location);
         JSONObject obj = new JSONObject(map);
-
         Call.post("general-create-customer", obj, this::signup, null);
     }
 
-    /** Method for signup, that takes in a JSONObject response and begins the activity should the message response equal success
-    * @param response A JSONObject inputted from the signUP class
-    * @return NULL
-    */
+    /**
+     * Upon a successful call, if sign up succeeds, it advances to the customer's main activity
+     * @param response The response from the server as a JSONObject
+     */
     public void signup(JSONObject response) {
         try{if (response.get("message").equals("success"))
             startActivity(I);
         } catch (Exception e) {Log.d("response", e.toString());}
     }
 
-    /** Method for checking the strings on the signUp method so that the password has a lowercse letter, 
-    * an uppercase letter, and a number.
-    * @param str a String that is inputted from the password check
-    * @param start A char that is the first character of the string str
-    * @param end A char that is the last character of the string str
-    * @return A True or False
-    */
+    /**
+     * Returns true if the string does not have a character within the bounds
+     *      between the specified start and end values.
+     * @param str The string to be tested
+     * @param start The starting character of the bounds
+     * @param end The ending character of the bounds
+     * @return If the string does not have a character within the specified bounds
+     */
     public boolean notHasBetween(String str, char start, char end) {
         int i;
         for (i = 0; i < str.length(); i++) {
@@ -122,10 +113,12 @@ public class SignUpActivity extends AppCompatActivity {
         }
         return true;
     }
-    /** Method for checking the strings on the signUp method so that the password has a symbol.
-    * @param str a String that is inputted from the password check
-    * @return A True or False
-    */
+
+    /**
+     * Returns true if the string has a symbol
+     * @param str The string to be tested
+     * @return If the string has a symbol
+     */
     public boolean hasSymbol(String str) {
         int i;
         for (i = 0; i < str.length(); i++) {

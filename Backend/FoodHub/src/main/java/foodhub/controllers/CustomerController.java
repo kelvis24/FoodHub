@@ -14,7 +14,6 @@ import foodhub.ioObjects.*;
 /**
  * The controller for all Customer backend methods
  * @author 1_CW_2
- *
  */
 @RestController
 public class CustomerController {
@@ -36,7 +35,7 @@ public class CustomerController {
 	
 	/**
 	 * Authenticates a Customers login.
-	 * This method always returns a message, either a success on successful authentication
+	 * This method returns a message, either a success on successful authentication
 	 * or a failure with error on failure. Errors include wrong username and wrong password.
 	 * @param body an Authentication entity, includes Customer username and password.
 	 * @return a Message with status of authentication (success/failure with error)
@@ -102,7 +101,7 @@ public class CustomerController {
     /**
      * Shows a Customer all their current orders.
      * This method always returns a List of OrderOutputs. This list can be null, and will
-     * be null if the body param is not successfully filled with correct information.
+     * be null if the body parameter is not successfully filled with correct information.
      * @param body an Authentication entity, which includes Customer login details
      * @return a List of OrderOutputs for the authorized Customer. 
      * @see Authentication
@@ -157,8 +156,6 @@ public class CustomerController {
     		return new Message("failure","no such firm");
     	Order order = new Order(firm.getId(), customer.getId(), 0);
     	orderRepository.save(order);
-    	List<Order> sameCustomer = orderRepository.findByCustomerId(customer.getId());
-    	for (Order o : sameCustomer) {if (o.getFirmId()==firm.getId()) order = o;}
     	List<OrderItemInfo> list = data.getOrderList();
     	for (OrderItemInfo o : list) {
     		Item item = itemRepository.findById(o.getItemId());

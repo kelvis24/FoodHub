@@ -15,8 +15,11 @@ import com.example.foodhub.R;
 
 import java.util.ArrayList;
 import java.util.Locale;
+
 /**
- * Class responsible for returning the view
+ * The controller for the R.layout.view_browse_item view, placing them in a recycler
+ * @author Arvid Gustafson
+ * @see RecyclerView.Adapter
  */
 public class BrowseItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -28,7 +31,11 @@ public class BrowseItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private ArrayList<Item> items;
 
     /**
-     * Method responsible for initializing
+     * Constructs a BrowseItemsAdapter given enumerated information
+     * @param username The username of the current user
+     * @param password The password of the current user
+     * @param fragment The specific fragment within which the recycler lies
+     * @param items The list of items retrieved form the backend
      */
     public BrowseItemsAdapter(long categoryId, String username, String password, ArrayList<ItemReference> order,
                               BrowseItemsFragment fragment, ArrayList<Item> items) {
@@ -41,7 +48,10 @@ public class BrowseItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     /**
-     * Method responsible for returning the view
+     * Creates a ViewHolder for a view; called for each view
+     * @param parent The parent view of the recycler
+     * @param viewType The type of view, which should always be 0
+     * @return The tailored ViewHolder for the corresponding view
      */
     @NonNull @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_browse_item, parent, false);
@@ -49,7 +59,9 @@ public class BrowseItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     /**
-     * Method responsible for Binding Views
+     * Binds a ViewHolder to the recycler; sets TextViews and binds buttons
+     * @param holder A ViewHolder
+     * @param index The index of the ViewHolder in the items arraylist
      */
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         ItemHolder itemHolder = (ItemHolder) holder;
@@ -60,14 +72,17 @@ public class BrowseItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     /**
-     * Method responsible for returning the type
+     * Returns the type of view that will be in the recycler at a specified index
+     * @param index The index of the item within the items arraylist
+     * @return The type of items in the arraylist, which should always be 0
      */
     @Override public int getItemViewType(int index) {
         return items.get(index) == null ? -1 : 0;
     }
 
     /**
-     * Method responsible for returning the size
+     * Returns the number of views that will be in the recycler
+     * @return The number of views that will be in the recycler
      */
     @Override public int getItemCount() {
         return items.size();
@@ -88,16 +103,13 @@ public class BrowseItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private class AddItem implements View.OnClickListener {
         private Item item;
         private BrowseItemsFragment fragment;
-
         public AddItem(Item item, BrowseItemsFragment fragment) {
             this.item = item;
             this.fragment = fragment;
         }
-
         public void onClick(View v) {
             order.add(new ItemReference(item, 1, ""));
         }
-
     }
 
 }

@@ -16,7 +16,9 @@ import com.example.foodhub.R;
 import java.util.ArrayList;
 
 /**
- * Class that's the Adapter for the recycler views
+ * The controller for the R.layout.view_browse_firm view, placing them in a recycler
+ * @author Arvid Gustafson
+ * @see RecyclerView.Adapter
  */
 public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -26,7 +28,11 @@ public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private ArrayList<Firm> firms;
 
     /**
-     * Method responsible for the initailizing the class
+     * Constructs a BrowseFirmsAdapter given enumerated information
+     * @param username The username of the current user
+     * @param password The password of the current user
+     * @param fragment The specific fragment within which the recycler lies
+     * @param firms The list of firms retrieved form the backend
      */
     public BrowseFirmsAdapter(String username, String password,
             BrowseFirmsFragment fragment, ArrayList<Firm> firms) {
@@ -37,7 +43,10 @@ public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     /**
-     * Method responsible for returning the view
+     * Creates a ViewHolder for a view; called for each view
+     * @param parent The parent view of the recycler
+     * @param viewType The type of view, which should always be 0
+     * @return The tailored ViewHolder for the corresponding view
      */
     @NonNull @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_browse_firm, parent, false);
@@ -45,7 +54,9 @@ public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     /**
-     * Method responsible for binding the views
+     * Binds a ViewHolder to the recycler; sets TextViews and binds them to their respective methods
+     * @param holder A ViewHolder
+     * @param index The index of the ViewHolder in the firms arraylist
      */
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         FirmHolder firmHolder = (FirmHolder) holder;
@@ -55,13 +66,17 @@ public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     /**
-     * Method responsible for the item view type
+     * Returns the type of view that will be in the recycler at a specified index
+     * @param index The index of the firm within the firm arraylist
+     * @return The type of firm in the arraylist, which should always be 0
      */
     @Override public int getItemViewType(int index) {
         return firms.get(index) == null ? -1 : 0;
     }
+
     /**
-     * Method responsible for the returning size
+     * Returns the number of views that will be in the recycler
+     * @return The number of views that will be in the recycler
      */
     @Override public int getItemCount() {
         return firms.size();
@@ -78,12 +93,10 @@ public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private class GoToBrowseCategories implements View.OnClickListener {
         private long firmId;
         private BrowseFirmsFragment fragment;
-
         public GoToBrowseCategories(long firmId, BrowseFirmsFragment fragment) {
             this.firmId = firmId;
             this.fragment = fragment;
         }
-
         public void onClick(View v) {
             ArrayList<ItemReference> order = new ArrayList<>();
             final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();

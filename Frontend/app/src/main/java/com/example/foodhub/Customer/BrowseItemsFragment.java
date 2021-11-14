@@ -24,11 +24,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 /**
- * Class responsible for returning the view
+ * The controller for the R.layout.view_browse_items view, placing them in a recycler
+ * @author Arvid Gustafson
+ * @see RecyclerView.Adapter
  */
 public class BrowseItemsFragment extends Fragment {
-
     private long firmId;
     private long categoryId;
     private String username;
@@ -37,7 +39,12 @@ public class BrowseItemsFragment extends Fragment {
     private ViewGroup container;
 
     /**
-     * Method responsible for returning initializing
+     * Constructs a ManageAdminsAdapter given enumerated information
+     * @param firmId The id of the firm of the items herein
+     * @param categoryId The id of the category of the items herein
+     * @param username The username of the current user
+     * @param password The password of the current user
+     * @param order The qualities of the order thus far
      */
     public BrowseItemsFragment(long firmId, long categoryId, String username, String password, ArrayList<ItemReference> order) {
         this.firmId = firmId;
@@ -48,14 +55,19 @@ public class BrowseItemsFragment extends Fragment {
     }
 
     /**
-     * Method responsible for returning the onCreate Definition
+     * Gets information from the passed in bundle when applicable
+     * @param savedInstanceState A bundle passed in
      */
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     /**
-     * Method responsible for returning the view
+     * Creates the view, binding the buttons to the proper methods, and refreshes the page
+     * @param inflater A layout inflater
+     * @param container The view that contains this one
+     * @param savedInstanceState A bundle passed in
+     * @return The view that is created
      */
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_browse_items, container, false);
@@ -69,7 +81,7 @@ public class BrowseItemsFragment extends Fragment {
     }
 
     /**
-     * Method responsible for returning the refreshing
+     * Makes a call to the server to get items, refresh the page
      */
     public void refresh() {
         Map<String, String> map = new HashMap<>();
@@ -80,7 +92,8 @@ public class BrowseItemsFragment extends Fragment {
     }
 
     /**
-     * Method responsible for returning the view
+     * Builds the list of items in the recycler upon a successful get-items method call
+     * @param arr The response from the server, as a JSONArray
      */
     public void listItems(JSONArray arr) {
         ArrayList<Item> items = new ArrayList<>();
@@ -94,7 +107,8 @@ public class BrowseItemsFragment extends Fragment {
     }
 
     /**
-     * Method responsible for implementing the ViewOrder
+     * Navigates to the "view order" page upon clicking the "view order" button
+     * @param view The "view order" button
      */
     public void goToViewOrder(View view) {
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -103,7 +117,8 @@ public class BrowseItemsFragment extends Fragment {
     }
 
     /**
-     * Method responsible for browseCategories
+     * Navigates to the "browse categories" page upon clicking the "back" button
+     * @param view The "back" button
      */
     public void goToBrowseCategories(View view) {
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
