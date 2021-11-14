@@ -19,5 +19,4 @@ public interface ErrorResponse {
             VolleyLog.d("Error", "Error: " + error.getMessage());
         }
     }
-
 }
