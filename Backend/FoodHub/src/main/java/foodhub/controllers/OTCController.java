@@ -25,11 +25,9 @@ import foodhub.database.*;
 @Component
 public class OTCController {
 	
-	@Autowired
-	private OrderRepository orderRepository;
+	@Autowired private OrderRepository orderRepository;
 	
-	@Autowired
-	private OTMessageRepository otmRepository;
+	@Autowired private OTMessageRepository otmRepository;
 
 	private static Map<Session,Long> SIM = new Hashtable<>();
 	private static Map<Long,Session> ISM = new Hashtable<>();
@@ -71,8 +69,7 @@ public class OTCController {
 		SQM.remove(id);
 	}
 
-	@OnError
-	public void onError(Session session, Throwable throwable) {
+	@OnError public void onError(Session session, Throwable throwable) {
 		logger.info("Entered into Error");
 	}
 	

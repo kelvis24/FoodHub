@@ -33,6 +33,9 @@ public class CustomerController {
 	@Autowired
 	private OrderItemRepository orderItemRepository;
 	
+	@Autowired
+	private OTMessageRepository otmRepository;
+	
 	/**
 	 * Authenticates a Customers login.
 	 * This method returns a message, either a success on successful authentication
@@ -189,6 +192,19 @@ public class CustomerController {
     		return new Message("failure","not permitted");
     	deleteOrder(order.getId());
     	return new Message("success");
+    }
+    
+    @PostMapping("cusotmers-get-otmessages")
+    public List<OTMessageOutput> getOTMessages(@RequestBody AuthenticationAndId body) {
+    	List<OTMessageOutput> output = new ArrayList<>();
+    	Customer customer = customerRepository.findByUsername(body.getUsername());
+    	if (customer == null)
+    		return output;
+    	if (!customer.getPassword().equals(body.getPassword()))
+    		return output;
+    	List<OTMessage> list = otmRepository.findByOrderId(body.getId());
+    	for (OTMessage m : list) output.add(new OTMessageOutput(m));
+    	return output;
     }
     
     /**
