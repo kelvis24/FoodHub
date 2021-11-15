@@ -16,9 +16,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import foodhub.database.*;
+
 @ServerEndpoint("/OTF/{orderId}")
 @Component
 public class OTFController {
+	
+	@Autowired
+	private OTMessageRepository otm;
 
 	private static Map<Session,Long> SIM = new Hashtable<>();
 	private static Map<Long,Session> IMS = new Hashtable<>();
@@ -41,6 +48,14 @@ public class OTFController {
 	@OnError
 	public void onError(Session session, Throwable throwable) {
 		logger.info("Entered into Error");
+	}
+	
+	public static boolean hasId(long id) {
+		return SQM.get(id) != null;
+	}
+	
+	public static int getSequence(long id) {
+		return SQM.get(id);
 	}
 	
 	/*

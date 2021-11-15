@@ -2,6 +2,7 @@ package foodhub.controllers;
 
 import java.io.IOException;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 import javax.websocket.OnClose;
@@ -16,9 +17,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import foodhub.database.*;
+
 @ServerEndpoint("/OTC/{orderId}")
 @Component
 public class OTCController {
+	
+	@Autowired
+	private OTMessageRepository otmRepository;
 
 	private static Map<Session,Long> SIM = new Hashtable<>();
 	private static Map<Long,Session> ISM = new Hashtable<>();
@@ -27,7 +35,18 @@ public class OTCController {
 	private final Logger logger = LoggerFactory.getLogger(OTCController.class);
 
 	@OnOpen	public void onOpen(Session session, @PathParam("orderId") String orderId) throws IOException {
-		
+		long id = Long.parseLong(orderId);
+		if (ISM.get(id) != null) return;
+		int sequence;
+		if (OTFController.hasId(id)) {
+			sequence = OTFController.getSequence(id);
+		} else {
+			List<OTMessage> list = otmRepository.findByOrderId(id);
+			sequence = list.size();
+		}
+		ISM.put(id,session);
+		SIM.put(session,id);
+		SQM.put(id,sequence);
 	}
 
 	@OnMessage public void onMessage(Session session, String message) throws IOException {
@@ -35,7 +54,10 @@ public class OTCController {
 	}
 
 	@OnClose public void onClose(Session session) throws IOException {
-		
+		long id = SIM.get(session);
+		SIM.remove(session);
+		ISM.remove(id);
+		SQM.remove(id);
 	}
 
 	@OnError

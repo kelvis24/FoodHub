@@ -17,13 +17,13 @@ public class OTMessage {
 	@Column(nullable = false)
 	private long orderId;
 	@Column(nullable = false)
-	private long sequence;
+	private int sequence;
 	@Column(nullable = false)
 	private int who; // 0 => Firm; 1 => Customer
 	@Column(nullable = false, length = 250)
 	private String message;
 	
-	public OTMessage(long orderId, long sequence, int who, String message) {
+	public OTMessage(long orderId, int sequence, int who, String message) {
 		this.orderId = orderId;
 		this.sequence = sequence;
 		this.who = who;
@@ -39,7 +39,7 @@ public class OTMessage {
 	public long getOrderId() {
 		return orderId;
 	}
-	public long getSequence() {
+	public int getSequence() {
 		return sequence;
 	}
 	
