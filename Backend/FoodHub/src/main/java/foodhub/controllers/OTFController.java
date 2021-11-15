@@ -16,10 +16,34 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-@ServerEndpoint("/ordertext/{username}")
+@ServerEndpoint("/OTF/{orderId}")
 @Component
-public class OrderTextController {
+public class OTFController {
+
+	private static Map<Session,Long> SIM = new Hashtable<>();
+	private static Map<Long,Session> IMS = new Hashtable<>();
+	private static Map<Long,Integer> SQM = new Hashtable<>();
+
+	private final Logger logger = LoggerFactory.getLogger(OTFController.class);
+
+	@OnOpen	public void onOpen(Session session, @PathParam("orderId") String orderId) throws IOException {
+		
+	}
+
+	@OnMessage public void onMessage(Session session, String message) throws IOException {
+		
+	}
+
+	@OnClose public void onClose(Session session) throws IOException {
+		
+	}
+
+	@OnError
+	public void onError(Session session, Throwable throwable) {
+		logger.info("Entered into Error");
+	}
 	
+	/*
 	private static Map<Session,String> sessionUsernameMap = new Hashtable<>();
 	private static Map<String,Session> usernameSessionMap = new Hashtable<>();
 
@@ -86,4 +110,6 @@ public class OrderTextController {
 			}
 		});
 	}
+	*/
+	
 }
