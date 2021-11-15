@@ -39,8 +39,8 @@ public class OTFController {
 		long id = Long.parseLong(orderId);
 		if (ISM.get(id) != null) return;
 		int sequence;
-		if (OTFController.hasId(id)) {
-			sequence = OTFController.getSequence(id);
+		if (OTCController.hasId(id)) {
+			sequence = OTCController.getSequence(id);
 		} else {
 			List<OTMessage> list = otmRepository.findByOrderId(id);
 			sequence = list.size();
@@ -57,9 +57,9 @@ public class OTFController {
 			OTMessage otmessage = new OTMessage(id,++sequence,0,message);
 			otmRepository.save(otmessage);
 			SQM.replace(id,sequence);
-			OTFController.setSequence(id,sequence);
+			OTCController.setSequence(id,sequence);
 		}
-		OTFController.sendMessage(id,message);
+		OTCController.sendMessage(id,message);
 	}
 
 	@OnClose public void onClose(Session session) throws IOException {
