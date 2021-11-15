@@ -26,6 +26,9 @@ import foodhub.database.*;
 public class OTCController {
 	
 	@Autowired
+	private OrderRepository orderRepository;
+	
+	@Autowired
 	private OTMessageRepository otmRepository;
 
 	private static Map<Session,Long> SIM = new Hashtable<>();
@@ -50,7 +53,15 @@ public class OTCController {
 	}
 
 	@OnMessage public void onMessage(Session session, String message) throws IOException {
-		
+		long id = SIM.get(session);
+		if (orderRepository.findById(id) != null) {
+			int sequence = SQM.get(id);
+			OTMessage otmessage = new OTMessage(id,++sequence,1,message);
+			otmRepository.save(otmessage);
+			SQM.replace(id,sequence);
+			OTFController.setSequence(id,sequence);
+		}
+		OTFController.sendMessage(id,message);
 	}
 
 	@OnClose public void onClose(Session session) throws IOException {
@@ -65,73 +76,24 @@ public class OTCController {
 		logger.info("Entered into Error");
 	}
 	
-	/*
-	private static Map<Session,String> sessionUsernameMap = new Hashtable<>();
-	private static Map<String,Session> usernameSessionMap = new Hashtable<>();
-
-	private final Logger logger = LoggerFactory.getLogger(OrderTextController.class);
-
-	@OnOpen
-	public void onOpen(Session session, @PathParam("username") String username) throws IOException {
-		logger.info("Entered into Open");
-
-		sessionUsernameMap.put(session, username);
-		usernameSessionMap.put(username, session);
-
-		String message = "User:" + username + " has Joined the Chat";
-		broadcast(message);
+	public static boolean hasId(long id) {
+		return SQM.get(id) != null;
 	}
-
-	@OnMessage
-	public void onMessage(Session session, String message) throws IOException {
-		logger.info("Entered into Message: Got Message:" + message);
-		String username = sessionUsernameMap.get(session);
-
-		if (message.startsWith("@")) {
-			String destUsername = message.split(" ")[0].substring(1);
-			sendMessageToPArticularUser(destUsername, "[DM] " + username + ": " + message);
-			sendMessageToPArticularUser(username, "[DM] " + username + ": " + message);
-		} else {
-			broadcast(username + ": " + message);
+	
+	public static int getSequence(long id) {
+		return SQM.get(id);
+	}
+	
+	public static void setSequence(long id, int sequence) {
+		SQM.replace(id,sequence);
+	}
+	
+	public static void sendMessage(long id, String message) {
+		Session session = ISM.get(id);
+		if (session != null) {
+			try{session.getBasicRemote().sendText(message);
+			}catch(IOException e){e.printStackTrace();}
 		}
 	}
-
-	@OnClose
-	public void onClose(Session session) throws IOException {
-		logger.info("Entered into Close");
-		
-		String username = sessionUsernameMap.get(session);
-		sessionUsernameMap.remove(session);
-		usernameSessionMap.remove(username);
-
-		String message = username + " disconnected";
-		broadcast(message);
-	}
-
-	@OnError
-	public void onError(Session session, Throwable throwable) {
-		logger.info("Entered into Error");
-	}
-
-	private void sendMessageToPArticularUser(String username, String message) {
-		try {
-			usernameSessionMap.get(username).getBasicRemote().sendText(message);
-		} catch (IOException e) {
-			logger.info("Exception: " + e.getMessage().toString());
-			e.printStackTrace();
-		}
-	}
-
-	private void broadcast(String message) {
-		sessionUsernameMap.forEach((session, username) -> {
-			try {
-				session.getBasicRemote().sendText(message);
-			} catch (IOException e) {
-				logger.info("Exception: " + e.getMessage().toString());
-				e.printStackTrace();
-			}
-		});
-	}
-	*/
 	
 }
