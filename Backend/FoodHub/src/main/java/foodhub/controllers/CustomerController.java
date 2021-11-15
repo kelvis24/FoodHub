@@ -213,8 +213,10 @@ public class CustomerController {
      */
     private void deleteOrder(long id) {
     	orderRepository.deleteById(id);
-    	List<OrderItem> list = orderItemRepository.findByOrderId(id);
-    	for (OrderItem o : list) orderItemRepository.deleteById(o.getId());
+    	List<OrderItem> oilist = orderItemRepository.findByOrderId(id);
+    	for (OrderItem i : oilist) orderItemRepository.deleteById(i.getId());
+    	List<OTMessage> otlist = otmRepository.findByOrderId(id);
+    	for (OTMessage m : otlist) otmRepository.deleteById(m.getId());
     }
 
 }
