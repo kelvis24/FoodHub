@@ -72,4 +72,5 @@ public class CustomerMainActivity extends AppCompatActivity {
         menu.setSelectedItemId(R.id.customer_account_option);
         navController.navigate(R.id.CustomerAccount, bundle);
     }
+
 }

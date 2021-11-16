@@ -57,7 +57,32 @@ public class LoginActivity extends AppCompatActivity {
         map.put("username", email);
         map.put("password", password);
         JSONObject obj = new JSONObject(map);
-        Call.post(type+"s-authenticate", obj, this::login, null);
+        Authenticate(false, obj);
+    }
+
+    private void Authenticate(boolean bool, JSONObject obj) {
+        if (bool){
+            Call.post(type+"s-authenticate", obj, this::login, null);
+        }else {
+            Intent I = new Intent();
+            switch (type) {
+                case "customer":
+                    I = new Intent(this, CustomerMainActivity.class);
+                    break;
+                case "firm":
+                    I = new Intent(this, FirmMainActivity.class);
+               //     I.putExtra("firmId", response.getLong("id"));
+                    break;
+                case "admin":
+                  //  if (str.equals("owner")) I = new Intent(this, OwnerMainActivity.class);
+                  //  else
+                        I = new Intent(this, AdminMainActivity.class);
+                    break;
+            }
+            I.putExtra("username", "ekimara");
+            I.putExtra("password", "HelloWorld@24");
+            startActivity(I);
+        }
     }
 
     /**

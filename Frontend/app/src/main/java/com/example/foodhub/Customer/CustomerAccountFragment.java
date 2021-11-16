@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -20,12 +22,37 @@ import com.example.foodhub.R;
  */
 public class CustomerAccountFragment extends Fragment {
 
+    private String username;
+    private String email;
+    private String location;
+    private String password;
+
+    public CustomerAccountFragment(String username, String email, String location, String password) {
+        this.username = username;
+        this.email = email;
+        this.location = location;
+        this.password = password;
+    }
+
+    public CustomerAccountFragment() {
+        this.username = null;
+        this.email = null;
+        this.location = null;
+        this.password = null;
+    }
+
     /**
      * Does bookkeeping with the onCreate method
      * @param savedInstanceState a bundle passed in
      */
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            username = getArguments().getString("username");
+            email = getArguments().getString("email");
+            location = getArguments().getString("location");
+            password = getArguments().getString("password");
+        }
     }
 
     /**
@@ -41,6 +68,13 @@ public class CustomerAccountFragment extends Fragment {
         btn.setOnClickListener(this::goToSignIn);
         Button btn1 = view.findViewById(R.id.editCustomerAccountButton);
         btn1.setOnClickListener(this::clickToSeeEditCustomerPages);
+
+        TextView usernameTextView = view.findViewById(R.id.customerName1);
+        usernameTextView.setText(username);
+        TextView emailTextView = view.findViewById(R.id.customerEmail);
+        emailTextView.setText("email");
+        TextView locationTextView = view.findViewById(R.id.customerLocation);
+        locationTextView.setText("location");
         return view;
     }
 
@@ -55,7 +89,7 @@ public class CustomerAccountFragment extends Fragment {
 
     public void clickToSeeEditCustomerPages(View view) {
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.customer_fragment_main, new  EditCustomerFragment("ekimara", "HelloWorld@24"));
+        ft.replace(R.id.customer_fragment_main, new  EditCustomerFragment(username, email, location, password));
         ft.commit();
     }
 }
