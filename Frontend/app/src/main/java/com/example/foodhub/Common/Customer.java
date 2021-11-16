@@ -7,11 +7,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class Customer {
-    public long id;
-    public String username;
-    public String name;
-    public String location;
-    public String password;
+    private long id;
+    private String username;
+    private String name;
+    private String location;
+    private String password;
 
     /**
      * Constructs a customer given all information thereon
@@ -39,24 +39,11 @@ public class Customer {
         this.password = (String)obj.get("password");
         this.name = (String)obj.get("name");
         this.location = (String)obj.get("location");
-
-//        JSONArray arr = obj.getJSONArray("orderList");
-//        list = new ArrayList<ItemReference>();
-//        for (int i = 0; i < arr.length(); i++) {
-//            list.add(new ItemReference(arr.getJSONObject(i)));
-//        }
-//
-//
-//        this.username = jsonObject.username;
-//        this.password = password;
-//        this.name = name;
-//        this.location = location;
     }
 
     public static Customer SortExactCustomer(String username, ArrayList<Customer> Customers) {
-
         for (Customer customer: Customers) {
-            if (customer.username == username) {
+            if (customer.getUsername() == username) {
                 return  customer;
             }
         }

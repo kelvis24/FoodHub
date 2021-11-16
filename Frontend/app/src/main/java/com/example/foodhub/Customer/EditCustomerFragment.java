@@ -105,9 +105,7 @@ public class EditCustomerFragment extends Fragment {
        this.container = container;
       //  refresh();
         View view = inflater.inflate(R.layout.fragment_edit_customer, container, false);
-       // this.container = container;
-       // String word = customer.username;
-   //     ArrayList<Customer> cus = customers;
+
         EditText usernameTextView = view.findViewById(R.id.sign_up_name_field);
         usernameTextView.setText(username, TextView.BufferType.EDITABLE);
         EditText passwordTextView = view.findViewById(R.id.sign_up_password_field);
@@ -119,16 +117,11 @@ public class EditCustomerFragment extends Fragment {
         EditText confirmPassordTextView = view.findViewById(R.id.sign_up_confirm_password_field);
         confirmPassordTextView.setText(password, TextView.BufferType.EDITABLE);
 
-
-
         Button btn = (Button) view.findViewById(R.id.registerCancel);
         btn.setOnClickListener(this::CancelCustomerAccountEdit);
         Button btn1 = (Button) view.findViewById(R.id.registerSave);
         btn1.setOnClickListener(this::SaveCustomerAccountEdit);
         return view;
-
-
-        // Inflate the layout for this fragment
     }
 
     private void CancelCustomerAccountEdit(View view) {
@@ -138,11 +131,10 @@ public class EditCustomerFragment extends Fragment {
     }
 
     public void SaveCustomerAccountEdit(View view) {
-
-        username = ((EditText)view.findViewById(R.id.sign_up_name_field)).getText().toString();
-        email = ((EditText)view.findViewById(R.id.sign_up_email_field)).getText().toString();
-        location = ((EditText)view.findViewById(R.id.sign_up_location_field)).getText().toString();
-        password = ((EditText)view.findViewById(R.id.sign_up_password_field)).getText().toString();
+        String username = ((EditText)view.findViewById(R.id.sign_up_name_field)).getText().toString();
+        String email = ((EditText)view.findViewById(R.id.sign_up_email_field)).getText().toString();
+        String location = ((EditText)view.findViewById(R.id.sign_up_location_field)).getText().toString();
+        String password = ((EditText)view.findViewById(R.id.sign_up_password_field)).getText().toString();
         Map<String, String> map = new HashMap<>();
         map.put("username", username);
         map.put("email", email);
@@ -171,15 +163,7 @@ public class EditCustomerFragment extends Fragment {
      * Makes a call to refresh the page
      */
     public void refresh() {
-        ArrayList<Customer> cus = null;
-
-//        Map<String, String> map = new HashMap<>();
-//        map.put("username", username);
-//        map.put("password", password);
-//        JSONObject obj = new JSONObject(map);
         Call.get("debug-get-customers", this::CustomerDetails, null);
-         cus = customers;
-
     }
 
     /**
@@ -193,10 +177,6 @@ public class EditCustomerFragment extends Fragment {
             } catch (JSONException e) {e.printStackTrace();}
         }
         customer = Customer.SortExactCustomer(username, customers);
-
-//        RecyclerView recyclerView = container.findViewById(R.id.manage_customer_orders_recycler);
-//        recyclerView.setAdapter(new ManageCustomerOrdersAdapter(username, password, this, orders));
-//        recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
     }
 
 }
