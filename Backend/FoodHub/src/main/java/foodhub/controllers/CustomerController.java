@@ -33,6 +33,9 @@ public class CustomerController {
 	@Autowired
 	private OrderItemRepository orderItemRepository;
 	
+	@Autowired
+	private OTMessageRepository otmRepository;
+	
 	/**
 	 * Authenticates a Customers login.
 	 * This method returns a message, either a success on successful authentication
@@ -191,14 +194,29 @@ public class CustomerController {
     	return new Message("success");
     }
     
+    @PostMapping("cusotmers-get-otmessages")
+    public List<OTMessageOutput> getOTMessages(@RequestBody AuthenticationAndId body) {
+    	List<OTMessageOutput> output = new ArrayList<>();
+    	Customer customer = customerRepository.findByUsername(body.getUsername());
+    	if (customer == null)
+    		return output;
+    	if (!customer.getPassword().equals(body.getPassword()))
+    		return output;
+    	List<OTMessage> list = otmRepository.findByOrderId(body.getId());
+    	for (OTMessage m : list) output.add(new OTMessageOutput(m));
+    	return output;
+    }
+    
     /**
      * Deletes an Order from the repository based on its ID
      * @param id the ID of the order to be deleted
      */
     private void deleteOrder(long id) {
     	orderRepository.deleteById(id);
-    	List<OrderItem> list = orderItemRepository.findByOrderId(id);
-    	for (OrderItem o : list) orderItemRepository.deleteById(o.getId());
+    	List<OrderItem> oilist = orderItemRepository.findByOrderId(id);
+    	for (OrderItem i : oilist) orderItemRepository.deleteById(i.getId());
+    	List<OTMessage> otlist = otmRepository.findByOrderId(id);
+    	for (OTMessage m : otlist) otmRepository.deleteById(m.getId());
     }
 
 }
