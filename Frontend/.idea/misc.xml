@@ -91,7 +91,8 @@
         <entry key="app/src/main/res/layout/fragment_admin_account.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_browse_firms.xml" value="0.20652173913043478" />
         <entry key="app/src/main/res/layout/fragment_company_pages.xml" value="0.1515625" />
-        <entry key="app/src/main/res/layout/fragment_customer_account.xml" value="0.17291666666666666" />
+        <entry key="app/src/main/res/layout/fragment_customer_account.xml" value="0.4008501767670224" />
+        <entry key="app/src/main/res/layout/fragment_edit_customer.xml" value="0.41576177138446885" />
         <entry key="app/src/main/res/layout/fragment_firm_account.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_firm_home.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_firm_menupage.xml" value="0.125" />

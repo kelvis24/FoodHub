@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.foodhub.Login.InitialActivity;
 import com.example.foodhub.R;
@@ -38,6 +39,8 @@ public class CustomerAccountFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_customer_account, container, false);
         Button btn = view.findViewById(R.id.customer_logout_button);
         btn.setOnClickListener(this::goToSignIn);
+        Button btn1 = view.findViewById(R.id.editCustomerAccountButton);
+        btn1.setOnClickListener(this::clickToSeeEditCustomerPages);
         return view;
     }
 
@@ -48,5 +51,11 @@ public class CustomerAccountFragment extends Fragment {
     public void goToSignIn(View view) {
         Intent I = new Intent(getContext(), InitialActivity.class);
         startActivity(I);
+    }
+
+    public void clickToSeeEditCustomerPages(View view) {
+        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.customer_fragment_main, new  EditCustomerFragment("ekimara", "HelloWorld@24"));
+        ft.commit();
     }
 }

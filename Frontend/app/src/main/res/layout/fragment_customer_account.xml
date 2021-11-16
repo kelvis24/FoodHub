@@ -107,11 +107,10 @@
         app:layout_constraintVertical_bias="0.575" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/editCustomerAccountButton"
         android:layout_width="205dp"
         android:layout_height="56dp"
         android:layout_marginEnd="1dp"
-        android:onClick="clickToSeeEditCustomerPages"
         android:text="Edit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
