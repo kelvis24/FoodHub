@@ -16,6 +16,7 @@ public class FirmOutput {
 	private int open_time;
 	private int close_time;
 	private int employee_count;
+	private String imageSource;
 
 	/**
 	 * Constructs a FirmOutput object from a firm entity, from the database
@@ -30,6 +31,7 @@ public class FirmOutput {
 		this.open_time = f.getOpen_time();
 		this.close_time = f.getClose_time();
 		this.employee_count = f.getEmployee_count();
+		this.imageSource = f.getImageSource();
 	}
 
 	/**
@@ -44,7 +46,7 @@ public class FirmOutput {
 	 * @param employee_count The numer of employees that the firm has
 	 */
 	public FirmOutput(long id, String name, String username, String location, String cuisine,
-					int open_time,   int close_time,  int employee_count) {
+					int open_time,   int close_time,  int employee_count, String imageSource) {
 		this.id = id;
 		this.name = name;
 		this.username = username;
@@ -53,6 +55,7 @@ public class FirmOutput {
 		this.open_time = open_time;
 		this.close_time = close_time;
 		this.employee_count = employee_count;
+		this.imageSource = imageSource;
 	}
 	
 	/**
@@ -122,6 +125,14 @@ public class FirmOutput {
 	 */
 	public int getEmployee_count() {
 		return employee_count;
+	}
+	
+	/**
+	 * A getter for the imageSource field
+	 * @return The string address of the image a firm uses on frontend
+	 */
+	public String getImageSource() {
+		return imageSource;
 	}
 	
 }
