@@ -217,7 +217,7 @@ public class AdminController {
     	if (old == null)
     		return new Message("failure","no such user");
     	firmRepository.setById(old.getId(), d.getUsername(), d.getPassword(), d.getName(), d.getLocation(),
-    			d.getCuisine(), d.getOpen_time(), d.getClose_time(), d.getEmployee_count());
+    			d.getCuisine(), d.getOpen_time(), d.getClose_time(), d.getEmployee_count(), d.getImageSource());
     	return new Message("success");
     }
     
