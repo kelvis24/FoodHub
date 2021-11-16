@@ -119,5 +119,4 @@ public class ManageFirmsFragment extends Fragment {
             ft.replace(R.id.admin_fragment_main, new AddFirmFragment(username, password, type));
         ft.commit();
     }
-
 }
