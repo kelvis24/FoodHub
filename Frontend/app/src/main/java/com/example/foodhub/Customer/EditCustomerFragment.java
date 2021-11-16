@@ -120,12 +120,21 @@ public class EditCustomerFragment extends Fragment {
         confirmPassordTextView.setText(password, TextView.BufferType.EDITABLE);
 
 
-        Button btn = (Button) view.findViewById(R.id.registerSave);
-        btn.setOnClickListener(this::SaveCustomerAccountEdit);
+
+        Button btn = (Button) view.findViewById(R.id.registerCancel);
+        btn.setOnClickListener(this::CancelCustomerAccountEdit);
+        Button btn1 = (Button) view.findViewById(R.id.registerSave);
+        btn1.setOnClickListener(this::SaveCustomerAccountEdit);
         return view;
 
 
         // Inflate the layout for this fragment
+    }
+
+    private void CancelCustomerAccountEdit(View view) {
+        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.customer_fragment_main, new CustomerAccountFragment(username, email, location, password));
+        ft.commit();
     }
 
     public void SaveCustomerAccountEdit(View view) {
