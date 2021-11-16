@@ -68,19 +68,24 @@ public class LoginActivity extends AppCompatActivity {
             switch (type) {
                 case "customer":
                     I = new Intent(this, CustomerMainActivity.class);
+                    I.putExtra("username", "ekimara");
+                    I.putExtra("password", "HelloWorld@24");
                     break;
                 case "firm":
                     I = new Intent(this, FirmMainActivity.class);
-               //     I.putExtra("firmId", response.getLong("id"));
+                    I.putExtra("username", "arvidg@iastate.edu");
+                    I.putExtra("password", "aA0/aaaaaaaa");
+                    I.putExtra("firmId", 2);
                     break;
                 case "admin":
                   //  if (str.equals("owner")) I = new Intent(this, OwnerMainActivity.class);
                   //  else
-                        I = new Intent(this, AdminMainActivity.class);
+                    I = new Intent(this, AdminMainActivity.class);
+                    I.putExtra("username", "agustafson");
+                    I.putExtra("password", "a");
                     break;
             }
-            I.putExtra("username", "ekimara");
-            I.putExtra("password", "HelloWorld@24");
+
             startActivity(I);
         }
     }
