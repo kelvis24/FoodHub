@@ -38,9 +38,6 @@ public class FirmController {
 	@Autowired
 	private OrderItemRepository orderItemRepository;
 	
-	@Autowired
-	private OTMessageRepository otmRepository;
-	
 	/**
 	 * Authenticates a Firm using its login credentials.
 	 * This method always returns a Message, either stating the success of authorization
@@ -283,19 +280,6 @@ public class FirmController {
     		return new Message("failure","invalid operation");
     	orderRepository.setById(order.getId(), 1);
 		return new Message("success");
-    }
-    
-    @PostMapping("firmss-get-otmessages")
-    public List<OTMessageOutput> getOTMessages(@RequestBody AuthenticationAndId body) {
-    	List<OTMessageOutput> output = new ArrayList<>();
-    	Firm firm = firmRepository.findByUsername(body.getUsername());
-    	if (firm == null)
-    		return output;
-    	if (!firm.getPassword().equals(body.getPassword()))
-    		return output;
-    	List<OTMessage> list = otmRepository.findByOrderId(body.getId());
-    	for (OTMessage m : list) output.add(new OTMessageOutput(m));
-    	return output;
     }
     
 }
