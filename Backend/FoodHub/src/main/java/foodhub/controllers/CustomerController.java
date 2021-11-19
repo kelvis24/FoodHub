@@ -50,6 +50,16 @@ public class CustomerController {
     		return new Message("failure","wrong password");
     	return new Message("success");
 	}
+	
+	@PostMapping("/customers-get-info")
+	public NameAndLocation getInfo(@RequestBody Authentication body) {
+    	Customer user = customerRepository.findByUsername(body.getUsername());
+    	if (user == null)
+    		return new NameAndLocation();
+    	if (!user.getPassword().equals(body.getPassword()))
+    		return new NameAndLocation();
+    	return new NameAndLocation(user.getName(), user.getLocation());
+	}
     
 	/**
 	 * Allows a Customer to edit their own information. 
