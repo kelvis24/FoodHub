@@ -14,6 +14,12 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.foodhub.Login.InitialActivity;
 import com.example.foodhub.R;
+import com.example.foodhub.server.Call;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A controller for the R.layout.fragment_customer_account view
@@ -92,4 +98,13 @@ public class CustomerAccountFragment extends Fragment {
         ft.replace(R.id.customer_fragment_main, new  EditCustomerFragment(username, email, location, password));
         ft.commit();
     }
+
+//
+//    public void getCustomerDetails() {
+//        Map<String, String> map = new HashMap<>();
+//        map.put("username", username);
+//        map.put("password", password);
+//        JSONObject obj = new JSONObject(map);
+//        Call.post("customers-get-info", obj, this::injectCustomerDetails, null);
+//    }
 }

@@ -39,7 +39,10 @@ import java.util.Map;
  */
 public class EditCustomerFragment extends Fragment {
     ArrayList<Customer> customers;
+    private View view;
     private Customer customer;
+    private String oldusername;
+    private String oldpassword;
     private String username;
     private String email;
     private String location;
@@ -102,20 +105,15 @@ public class EditCustomerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       this.container = container;
-        refresh();
         View view = inflater.inflate(R.layout.fragment_edit_customer, container, false);
+        this.container = container;
+        this.view = view;
+        oldusername = username;
+        oldpassword = password;
 
-        EditText usernameTextView = view.findViewById(R.id.sign_up_name_field);
-        usernameTextView.setText(username, TextView.BufferType.EDITABLE);
-        EditText passwordTextView = view.findViewById(R.id.sign_up_password_field);
-        passwordTextView.setText(customer.getPassword(), TextView.BufferType.EDITABLE);
-        EditText emailTextView = view.findViewById(R.id.sign_up_email_field);
-        emailTextView.setText(password, TextView.BufferType.EDITABLE);
-        EditText locationTextView = view.findViewById(R.id.sign_up_location_field);
-        locationTextView.setText(password, TextView.BufferType.EDITABLE);
-        EditText confirmPassordTextView = view.findViewById(R.id.sign_up_confirm_password_field);
-        confirmPassordTextView.setText(password, TextView.BufferType.EDITABLE);
+
+        getCustomerDetails();
+
 
         Button btn = (Button) view.findViewById(R.id.registerCancel);
         btn.setOnClickListener(this::CancelCustomerAccountEdit);
@@ -130,18 +128,35 @@ public class EditCustomerFragment extends Fragment {
         ft.commit();
     }
 
-    public void SaveCustomerAccountEdit(View view) {
+    public void SaveCustomerAccountEdit(View v) {
         String username = ((EditText)view.findViewById(R.id.sign_up_name_field)).getText().toString();
         String email = ((EditText)view.findViewById(R.id.sign_up_email_field)).getText().toString();
         String location = ((EditText)view.findViewById(R.id.sign_up_location_field)).getText().toString();
         String password = ((EditText)view.findViewById(R.id.sign_up_password_field)).getText().toString();
-        Map<String, String> map = new HashMap<>();
-        map.put("username", username);
-        map.put("email", email);
-        map.put("location", location);
-        map.put("password", password);
-        JSONObject obj = new JSONObject(map);
-        Call.post("customers-edit-customer", obj, this::ReturnToAccountPage, null);
+
+        Map<String, String> OldDetails = new HashMap<>();
+        OldDetails.put("username", oldusername);
+        OldDetails.put("password", oldpassword);
+
+
+        Map<String, String> NewDetails = new HashMap<>();
+        NewDetails.put("username", username);
+        NewDetails.put("name", email);
+        NewDetails.put("location", location);
+        NewDetails.put("password", password);
+
+
+        try {
+        JSONObject objOldDetails = new JSONObject(OldDetails);
+        JSONObject objNewDetails = new JSONObject(NewDetails);
+        objOldDetails.put("data", objNewDetails);
+
+
+        Call.post("customers-edit-customer", objOldDetails, this::ReturnToAccountPage, null);
+        } catch (JSONException jsonException) {
+
+        }
+
     }
 
     public void ReturnToAccountPage(JSONObject response) {
@@ -151,7 +166,6 @@ public class EditCustomerFragment extends Fragment {
                 Log.d("debug", response.toString());
                 return;
             }
-
             final FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.replace(R.id.customer_fragment_main, new CustomerAccountFragment(username, email, location, password));
             ft.commit();
@@ -159,11 +173,33 @@ public class EditCustomerFragment extends Fragment {
         } catch (Exception e) {Log.d("debug", e.toString());return;}
     }
 
-    /**
-     * Makes a call to refresh the page
-     */
-    public void refresh() {
-        Call.get("debug-get-customers", this::CustomerDetails, null);
+    public void getCustomerDetails() {
+        Map<String, String> map = new HashMap<>();
+        map.put("username", username);
+        map.put("password", password);
+        JSONObject obj = new JSONObject(map);
+        Call.post("customers-get-info", obj, this::injectCustomerDetails, null);
+    }
+
+    public void injectCustomerDetails(JSONObject response) {
+        try{
+           email = response.get("name").toString();
+           location = response.get("location").toString();
+
+            EditText usernameTextView = view.findViewById(R.id.sign_up_name_field);
+            usernameTextView.setText(username, TextView.BufferType.EDITABLE);
+            EditText passwordTextView = view.findViewById(R.id.sign_up_password_field);
+            passwordTextView.setText(password, TextView.BufferType.EDITABLE);
+            EditText emailTextView = view.findViewById(R.id.sign_up_email_field);
+            emailTextView.setText(email, TextView.BufferType.EDITABLE);
+            EditText locationTextView = view.findViewById(R.id.sign_up_location_field);
+            locationTextView.setText(location, TextView.BufferType.EDITABLE);
+            EditText confirmPassordTextView = view.findViewById(R.id.sign_up_confirm_password_field);
+            confirmPassordTextView.setText(password, TextView.BufferType.EDITABLE);
+
+        } catch (Exception e) {Log.d("debug", e.toString());return;}
+
+
     }
 
     /**
