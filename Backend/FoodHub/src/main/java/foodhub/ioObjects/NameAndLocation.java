@@ -15,7 +15,7 @@ public class NameAndLocation {
 		this.location = "null";
 	}
 	
-	public String getTitle() {
+	public String getName() {
 		return name;
 	}
 	
