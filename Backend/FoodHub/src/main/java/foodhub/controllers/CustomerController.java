@@ -81,7 +81,7 @@ public class CustomerController {
     		return new Message("failure","no data");
     	CustomerInfo d = body.getData();
     	Customer sameUsername = customerRepository.findByUsername(d.getUsername());
-    	if (sameUsername != null)
+    	if (sameUsername != null && !sameUsername.getUsername().equals(user.getUsername()))
     		return new Message("failure","username taken");
     	customerRepository.setById(user.getId(),d.getUsername(),d.getPassword(),d.getName(),user.getLocation());
     	return new Message("success");
