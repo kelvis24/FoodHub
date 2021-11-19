@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         map.put("username", email);
         map.put("password", password);
         JSONObject obj = new JSONObject(map);
-        Authenticate(false, obj);
+        Authenticate(true, obj);
     }
 
     private void Authenticate(boolean bool, JSONObject obj) {
@@ -120,5 +120,4 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(I);
         } catch (Exception e) {Log.d("debug", e.toString());return;}
     }
-
 }

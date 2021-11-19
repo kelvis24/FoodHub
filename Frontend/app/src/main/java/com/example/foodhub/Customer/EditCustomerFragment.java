@@ -96,8 +96,6 @@ public class EditCustomerFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             username = getArguments().getString("username");
-            email = getArguments().getString("email");
-            location = getArguments().getString("location");
             password = getArguments().getString("password");
         }
     }
@@ -111,14 +109,14 @@ public class EditCustomerFragment extends Fragment {
         oldusername = username;
         oldpassword = password;
 
-
-        getCustomerDetails();
+        setTextViewDetails();
 
 
         Button btn = (Button) view.findViewById(R.id.registerCancel);
         btn.setOnClickListener(this::CancelCustomerAccountEdit);
         Button btn1 = (Button) view.findViewById(R.id.registerSave);
         btn1.setOnClickListener(this::SaveCustomerAccountEdit);
+
         return view;
     }
 
@@ -137,6 +135,11 @@ public class EditCustomerFragment extends Fragment {
         Map<String, String> OldDetails = new HashMap<>();
         OldDetails.put("username", oldusername);
         OldDetails.put("password", oldpassword);
+
+        this.username = username;
+        this.email = email;
+        this.location = location;
+        this.password = password;
 
 
         Map<String, String> NewDetails = new HashMap<>();
@@ -167,6 +170,8 @@ public class EditCustomerFragment extends Fragment {
                 return;
             }
             final FragmentTransaction ft = getFragmentManager().beginTransaction();
+     //       setArguments(savedInstanceState);
+
             ft.replace(R.id.customer_fragment_main, new CustomerAccountFragment(username, email, location, password));
             ft.commit();
 
@@ -200,6 +205,19 @@ public class EditCustomerFragment extends Fragment {
         } catch (Exception e) {Log.d("debug", e.toString());return;}
 
 
+    }
+
+    public void setTextViewDetails() {
+        EditText usernameTextView = view.findViewById(R.id.sign_up_name_field);
+        usernameTextView.setText(username, TextView.BufferType.EDITABLE);
+        EditText passwordTextView = view.findViewById(R.id.sign_up_password_field);
+        passwordTextView.setText(password, TextView.BufferType.EDITABLE);
+        EditText emailTextView = view.findViewById(R.id.sign_up_email_field);
+        emailTextView.setText(email, TextView.BufferType.EDITABLE);
+        EditText locationTextView = view.findViewById(R.id.sign_up_location_field);
+        locationTextView.setText(location, TextView.BufferType.EDITABLE);
+        EditText confirmPassordTextView = view.findViewById(R.id.sign_up_confirm_password_field);
+        confirmPassordTextView.setText(password, TextView.BufferType.EDITABLE);
     }
 
     /**

@@ -2,6 +2,7 @@ package com.example.foodhub.Customer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,8 @@ public class CustomerAccountFragment extends Fragment {
     private String email;
     private String location;
     private String password;
+    private View view;
+
 
     public CustomerAccountFragment(String username, String email, String location, String password) {
         this.username = username;
@@ -55,9 +58,11 @@ public class CustomerAccountFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             username = getArguments().getString("username");
-            email = getArguments().getString("email");
-            location = getArguments().getString("location");
+//            email = getArguments().getString("email");
+//            location = getArguments().getString("location");
             password = getArguments().getString("password");
+
+//            setArguments(savedInstanceState);
         }
     }
 
@@ -74,13 +79,8 @@ public class CustomerAccountFragment extends Fragment {
         btn.setOnClickListener(this::goToSignIn);
         Button btn1 = view.findViewById(R.id.editCustomerAccountButton);
         btn1.setOnClickListener(this::clickToSeeEditCustomerPages);
-
-        TextView usernameTextView = view.findViewById(R.id.customerName1);
-        usernameTextView.setText(username);
-        TextView emailTextView = view.findViewById(R.id.customerEmail);
-        emailTextView.setText("email");
-        TextView locationTextView = view.findViewById(R.id.customerLocation);
-        locationTextView.setText("location");
+        this.view = view;
+        getCustomerDetails();
         return view;
     }
 
@@ -99,12 +99,27 @@ public class CustomerAccountFragment extends Fragment {
         ft.commit();
     }
 
-//
-//    public void getCustomerDetails() {
-//        Map<String, String> map = new HashMap<>();
-//        map.put("username", username);
-//        map.put("password", password);
-//        JSONObject obj = new JSONObject(map);
-//        Call.post("customers-get-info", obj, this::injectCustomerDetails, null);
-//    }
+
+    public void getCustomerDetails() {
+        Map<String, String> map = new HashMap<>();
+        map.put("username", username);
+        map.put("password", password);
+        JSONObject obj = new JSONObject(map);
+        Call.post("customers-get-info", obj, this::injectCustomerDetails, null);
+    }
+
+    public void injectCustomerDetails(JSONObject response) {
+        try{
+            email = response.get("name").toString();
+            location = response.get("location").toString();
+
+            TextView usernameTextView = view.findViewById(R.id.customerName1);
+            usernameTextView.setText(username);
+            TextView emailTextView = view.findViewById(R.id.customerEmail);
+            emailTextView.setText(email);
+            TextView locationTextView = view.findViewById(R.id.customerLocation);
+            locationTextView.setText(location);
+        } catch (Exception e) {
+            Log.d("debug", e.toString());return;}
+    }
 }
