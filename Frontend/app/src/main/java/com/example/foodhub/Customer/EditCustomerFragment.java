@@ -103,13 +103,13 @@ public class EditCustomerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
        this.container = container;
-      //  refresh();
+        refresh();
         View view = inflater.inflate(R.layout.fragment_edit_customer, container, false);
 
         EditText usernameTextView = view.findViewById(R.id.sign_up_name_field);
         usernameTextView.setText(username, TextView.BufferType.EDITABLE);
         EditText passwordTextView = view.findViewById(R.id.sign_up_password_field);
-        passwordTextView.setText(password, TextView.BufferType.EDITABLE);
+        passwordTextView.setText(customer.getPassword(), TextView.BufferType.EDITABLE);
         EditText emailTextView = view.findViewById(R.id.sign_up_email_field);
         emailTextView.setText(password, TextView.BufferType.EDITABLE);
         EditText locationTextView = view.findViewById(R.id.sign_up_location_field);

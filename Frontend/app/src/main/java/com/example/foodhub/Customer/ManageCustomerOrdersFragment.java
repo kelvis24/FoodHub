@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodhub.Common.Firm;
 import com.example.foodhub.Common.Order;
 import com.example.foodhub.R;
 import com.example.foodhub.server.Call;
@@ -31,6 +32,7 @@ public class ManageCustomerOrdersFragment extends Fragment {
     private String username;
     private String password;
     private ViewGroup container;
+    ArrayList<Firm> Firms;
 
     /**
      * Collects information from bundle where applicable
@@ -66,6 +68,7 @@ public class ManageCustomerOrdersFragment extends Fragment {
         map.put("username", username);
         map.put("password", password);
         JSONObject obj = new JSONObject(map);
+        Call.get("general-get-firms", this::listFirms, null);
         Call.post("customers-get-orders", obj, this::listOrders, null);
     }
 
@@ -75,12 +78,28 @@ public class ManageCustomerOrdersFragment extends Fragment {
      */
     public void listOrders(JSONArray arr) {
         ArrayList<Order> orders = new ArrayList<>();
+        ArrayList<Firm> firms = new ArrayList<>();
         for (int i = 0; i < arr.length(); i++) {
             try{orders.add(new Order(arr.getJSONObject(i)));
+
+             //   Firms.get
+            //    firms.add(new Firm((String)arr.getJSONObject(i).get("firm")));
             } catch (JSONException e) {e.printStackTrace();}
         }
         RecyclerView recyclerView = container.findViewById(R.id.manage_customer_orders_recycler);
         recyclerView.setAdapter(new ManageCustomerOrdersAdapter(username, password, this, orders));
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
     }
+
+    public void listFirms(JSONArray arr) {
+        Firms = new ArrayList<>();
+        for (int i = 0; i < arr.length(); i++) {
+            try{Firms.add(new Firm(arr.getJSONObject(i)));
+            } catch (JSONException e) {e.printStackTrace();}
+        }
+//        RecyclerView recyclerView = container.findViewById(R.id.browse_firms_recycler);
+//        recyclerView.setAdapter(new BrowseFirmsAdapter(username, password, this, firms));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
+    }
+
 }
