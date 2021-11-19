@@ -32,115 +32,97 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link EditCustomerFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class EditCustomerFragment extends Fragment {
-    ArrayList<Customer> customers;
-    private View view;
-    private Customer customer;
     private String oldusername;
     private String oldpassword;
     private String username;
-    private String email;
+    private String name;
     private String location;
     private String password;
+    private View view;
     private ViewGroup container;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    /**
+     * Constructor if values have been passed through
+     */
     public EditCustomerFragment(String username, String email, String location, String password) {
-        this.customer = new Customer();
         this.username = username;
-        this.email = email;
+        this.name = email;
         this.location = location;
         this.password = password;
     }
 
+    /**
+     * Constructor if everything is null
+     */
     public EditCustomerFragment() {
-        this.customer = null;
         this.username = null;
-        this.email = null;
+        this.name = null;
         this.location = null;
         this.password = null;
     }
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment EditCustomerFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static EditCustomerFragment newInstance(String param1, String param2) {
-        EditCustomerFragment fragment = new EditCustomerFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
+    /**
+     * Creates the fragment
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            username = getArguments().getString("username");
-            password = getArguments().getString("password");
         }
     }
 
+    /**
+     * Creates the page and implements all the button onclicks plus other functionality
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_customer, container, false);
         this.container = container;
         this.view = view;
         oldusername = username;
         oldpassword = password;
-
         setTextViewDetails();
-
-
         Button btn = (Button) view.findViewById(R.id.registerCancel);
         btn.setOnClickListener(this::CancelCustomerAccountEdit);
         Button btn1 = (Button) view.findViewById(R.id.registerSave);
         btn1.setOnClickListener(this::SaveCustomerAccountEdit);
-
         return view;
     }
 
+    /**
+     * Switches back to the Customer Account Fragment
+     * @param view, takes in the view to control the button
+     */
     private void CancelCustomerAccountEdit(View view) {
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.customer_fragment_main, new CustomerAccountFragment(username, email, location, password));
+        ft.replace(R.id.customer_fragment_main, new CustomerAccountFragment(username, name, location, password));
         ft.commit();
     }
 
+    /**
+     * Gets the user inut and puts it into a combined jSON before using backend to change the user's details
+     * @param v, takes in the view to control the button
+     */
     public void SaveCustomerAccountEdit(View v) {
         String username = ((EditText)view.findViewById(R.id.sign_up_name_field)).getText().toString();
         String email = ((EditText)view.findViewById(R.id.sign_up_email_field)).getText().toString();
         String location = ((EditText)view.findViewById(R.id.sign_up_location_field)).getText().toString();
         String password = ((EditText)view.findViewById(R.id.sign_up_password_field)).getText().toString();
 
-        Map<String, String> OldDetails = new HashMap<>();
-        OldDetails.put("username", oldusername);
-        OldDetails.put("password", oldpassword);
-
         this.username = username;
-        this.email = email;
+        this.name = email;
         this.location = location;
         this.password = password;
 
+        Map<String, String> OldDetails = new HashMap<>();
+        OldDetails.put("username", oldusername);
+        OldDetails.put("password", oldpassword);
 
         Map<String, String> NewDetails = new HashMap<>();
         NewDetails.put("username", username);
@@ -148,20 +130,19 @@ public class EditCustomerFragment extends Fragment {
         NewDetails.put("location", location);
         NewDetails.put("password", password);
 
-
         try {
         JSONObject objOldDetails = new JSONObject(OldDetails);
         JSONObject objNewDetails = new JSONObject(NewDetails);
         objOldDetails.put("data", objNewDetails);
-
-
         Call.post("customers-edit-customer", objOldDetails, this::ReturnToAccountPage, null);
         } catch (JSONException jsonException) {
-
         }
-
     }
 
+    /**
+     * Returns the user back to the Customer account page upon successful implementation to the edit customer
+     * @param response
+     */
     public void ReturnToAccountPage(JSONObject response) {
         String str;
         try{str = (String)response.get("message");
@@ -170,67 +151,25 @@ public class EditCustomerFragment extends Fragment {
                 return;
             }
             final FragmentTransaction ft = getFragmentManager().beginTransaction();
-     //       setArguments(savedInstanceState);
-
-            ft.replace(R.id.customer_fragment_main, new CustomerAccountFragment(username, email, location, password));
+            ft.replace(R.id.customer_fragment_main, new CustomerAccountFragment(username, name, location, password));
             ft.commit();
 
         } catch (Exception e) {Log.d("debug", e.toString());return;}
     }
 
-    public void getCustomerDetails() {
-        Map<String, String> map = new HashMap<>();
-        map.put("username", username);
-        map.put("password", password);
-        JSONObject obj = new JSONObject(map);
-        Call.post("customers-get-info", obj, this::injectCustomerDetails, null);
-    }
-
-    public void injectCustomerDetails(JSONObject response) {
-        try{
-           email = response.get("name").toString();
-           location = response.get("location").toString();
-
-            EditText usernameTextView = view.findViewById(R.id.sign_up_name_field);
-            usernameTextView.setText(username, TextView.BufferType.EDITABLE);
-            EditText passwordTextView = view.findViewById(R.id.sign_up_password_field);
-            passwordTextView.setText(password, TextView.BufferType.EDITABLE);
-            EditText emailTextView = view.findViewById(R.id.sign_up_email_field);
-            emailTextView.setText(email, TextView.BufferType.EDITABLE);
-            EditText locationTextView = view.findViewById(R.id.sign_up_location_field);
-            locationTextView.setText(location, TextView.BufferType.EDITABLE);
-            EditText confirmPassordTextView = view.findViewById(R.id.sign_up_confirm_password_field);
-            confirmPassordTextView.setText(password, TextView.BufferType.EDITABLE);
-
-        } catch (Exception e) {Log.d("debug", e.toString());return;}
-
-
-    }
-
+    /**
+     * Sets the TextView to have information pulled in from the backend
+     */
     public void setTextViewDetails() {
         EditText usernameTextView = view.findViewById(R.id.sign_up_name_field);
         usernameTextView.setText(username, TextView.BufferType.EDITABLE);
         EditText passwordTextView = view.findViewById(R.id.sign_up_password_field);
         passwordTextView.setText(password, TextView.BufferType.EDITABLE);
         EditText emailTextView = view.findViewById(R.id.sign_up_email_field);
-        emailTextView.setText(email, TextView.BufferType.EDITABLE);
+        emailTextView.setText(name, TextView.BufferType.EDITABLE);
         EditText locationTextView = view.findViewById(R.id.sign_up_location_field);
         locationTextView.setText(location, TextView.BufferType.EDITABLE);
         EditText confirmPassordTextView = view.findViewById(R.id.sign_up_confirm_password_field);
         confirmPassordTextView.setText(password, TextView.BufferType.EDITABLE);
     }
-
-    /**
-     * Lists order information upon a successful call to refresh the page
-     * @param arr The response from the server as a JSONArray
-     */
-    public void CustomerDetails(JSONArray arr) {
-        customers = new ArrayList<>();
-        for (int i = 0; i < arr.length(); i++) {
-            try{customers.add(new Customer(arr.getJSONObject(i)));
-            } catch (JSONException e) {e.printStackTrace();}
-        }
-        customer = Customer.SortExactCustomer(username, customers);
-    }
-
 }

@@ -57,9 +57,14 @@ public class LoginActivity extends AppCompatActivity {
         map.put("username", email);
         map.put("password", password);
         JSONObject obj = new JSONObject(map);
-        Authenticate(true, obj);
+        Authenticate(false, obj);
     }
 
+    /**
+     * Takes in parameter bool and JSONObject
+     * If true, does the authentication with the backend,
+     * if false, forces or mimics a log in
+     */
     private void Authenticate(boolean bool, JSONObject obj) {
         if (bool){
             Call.post(type+"s-authenticate", obj, this::login, null);
@@ -78,14 +83,12 @@ public class LoginActivity extends AppCompatActivity {
                     I.putExtra("firmId", 2);
                     break;
                 case "admin":
-                  //  if (str.equals("owner")) I = new Intent(this, OwnerMainActivity.class);
-                  //  else
+                  //  doesn't work for owner type
                     I = new Intent(this, AdminMainActivity.class);
                     I.putExtra("username", "agustafson");
                     I.putExtra("password", "a");
                     break;
             }
-
             startActivity(I);
         }
     }

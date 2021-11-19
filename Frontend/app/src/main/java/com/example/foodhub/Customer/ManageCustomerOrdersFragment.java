@@ -81,7 +81,6 @@ public class ManageCustomerOrdersFragment extends Fragment {
         ArrayList<Firm> firms = new ArrayList<>();
         for (int i = 0; i < arr.length(); i++) {
             try{orders.add(new Order(arr.getJSONObject(i)));
-
              //   Firms.get
             //    firms.add(new Firm((String)arr.getJSONObject(i).get("firm")));
             } catch (JSONException e) {e.printStackTrace();}

@@ -98,5 +98,4 @@ public class BrowseFirmsFragment extends Fragment {
         recyclerView.setAdapter(new BrowseFirmsAdapter(username, password, this, firms));
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
     }
-
 }

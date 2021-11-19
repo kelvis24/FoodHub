@@ -30,22 +30,27 @@ import java.util.Map;
 public class CustomerAccountFragment extends Fragment {
 
     private String username;
-    private String email;
+    private String name;
     private String location;
     private String password;
     private View view;
 
-
+    /**
+     * Constructor sets the Defaults instances upon call
+     */
     public CustomerAccountFragment(String username, String email, String location, String password) {
         this.username = username;
-        this.email = email;
+        this.name = email;
         this.location = location;
         this.password = password;
     }
 
+    /**
+     * Defaults all instances to null upon call
+     */
     public CustomerAccountFragment() {
         this.username = null;
-        this.email = null;
+        this.name = null;
         this.location = null;
         this.password = null;
     }
@@ -58,11 +63,7 @@ public class CustomerAccountFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             username = getArguments().getString("username");
-//            email = getArguments().getString("email");
-//            location = getArguments().getString("location");
             password = getArguments().getString("password");
-
-//            setArguments(savedInstanceState);
         }
     }
 
@@ -93,13 +94,18 @@ public class CustomerAccountFragment extends Fragment {
         startActivity(I);
     }
 
+    /**
+     * Takes you to the edit customer page
+     */
     public void clickToSeeEditCustomerPages(View view) {
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.customer_fragment_main, new  EditCustomerFragment(username, email, location, password));
+        ft.replace(R.id.customer_fragment_main, new  EditCustomerFragment(username, name, location, password));
         ft.commit();
     }
 
-
+    /**
+     * Makes a request to get other customer details based on username and password
+     */
     public void getCustomerDetails() {
         Map<String, String> map = new HashMap<>();
         map.put("username", username);
@@ -108,15 +114,18 @@ public class CustomerAccountFragment extends Fragment {
         Call.post("customers-get-info", obj, this::injectCustomerDetails, null);
     }
 
+    /**
+     * Updates the name and location instances with the value received
+     * from the database and sets the text views to hold the old data
+     */
     public void injectCustomerDetails(JSONObject response) {
         try{
-            email = response.get("name").toString();
+            name = response.get("name").toString();
             location = response.get("location").toString();
-
             TextView usernameTextView = view.findViewById(R.id.customerName1);
             usernameTextView.setText(username);
             TextView emailTextView = view.findViewById(R.id.customerEmail);
-            emailTextView.setText(email);
+            emailTextView.setText(name);
             TextView locationTextView = view.findViewById(R.id.customerLocation);
             locationTextView.setText(location);
         } catch (Exception e) {

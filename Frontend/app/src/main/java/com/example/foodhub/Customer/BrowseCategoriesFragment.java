@@ -132,5 +132,4 @@ public class BrowseCategoriesFragment extends Fragment {
         ft.replace(R.id.customer_fragment_main, new BrowseFirmsFragment(username, password));
         ft.commit();
     }
-
 }
