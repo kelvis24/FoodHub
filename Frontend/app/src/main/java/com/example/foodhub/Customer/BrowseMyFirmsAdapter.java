@@ -15,23 +15,6 @@ import com.example.foodhub.R;
 
 import java.util.ArrayList;
 
-//public class BrowseMyFirmsAdapter extends BrowseFirmsAdapter{
-//    private ManageCustomerOrdersFragment fragment;
-//
-//    /**
-//     * Constructs a BrowseFirmsAdapter given enumerated information
-//     *
-//     * @param username The username of the current user
-//     * @param password The password of the current user
-//     * @param firms    The list of firms retrieved form the backend
-//     */
-//    public BrowseMyFirmsAdapter(String username, String password,  ArrayList<Firm> firms) {
-//        super(username, password, firms);
-//        this.fragment = new ManageCustomerOrdersFragment();
-//    }
-//}
-
-
 public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private String username;
@@ -63,7 +46,7 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
      */
     @NonNull
     @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_browse_firm, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_order_firm, parent, false);
         return new FirmHolder(view);
     }
 
@@ -74,9 +57,11 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
      */
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         FirmHolder firmHolder = (FirmHolder) holder;
-        firmHolder.usernameText.setText(firms.get(index).getName());
+        firmHolder.firmNameText.setText(firms.get(index).getName());
+        firmHolder.firmPriceText.setText(firms.get(index).getLocation());
+        firmHolder.firmItemText.setText(firms.get(index).getCuisine());
         GoToManageCustomerOrders goToManageCustomerOrders = new GoToManageCustomerOrders(firms.get(index).getName(), fragment);
-        firmHolder.usernameText.setOnClickListener(goToManageCustomerOrders);
+        firmHolder.firmNameText.setOnClickListener(goToManageCustomerOrders);
     }
 
     /**
@@ -97,10 +82,14 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     private class FirmHolder extends RecyclerView.ViewHolder {
-        TextView usernameText;
+        TextView firmNameText;
+        TextView firmPriceText;
+        TextView firmItemText;
         public FirmHolder(@NonNull View view) {
             super(view);
-            usernameText = view.findViewById(R.id.browse_firm_textview);
+            firmNameText = view.findViewById(R.id.title);
+            firmPriceText = view.findViewById(R.id.firm_total_price);
+            firmItemText = view.findViewById(R.id.firm_item_count);
         }
     }
 
