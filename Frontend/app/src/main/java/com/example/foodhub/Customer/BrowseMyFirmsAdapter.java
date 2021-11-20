@@ -23,6 +23,7 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
     private ManageCustomerOrdersFragment fragment;
     private ArrayList<Firm> firms;
 
+
     /**
      * Constructs a BrowseFirmsAdapter given enumerated information
      * @param username The username of the current user

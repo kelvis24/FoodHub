@@ -15,7 +15,6 @@
         android:layout_centerInParent="true"
         android:background="#fff"
         android:maxHeight="500dp"
-        android:onClick="ClickCompany"
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher_round"
         app:layout_constraintBottom_toBottomOf="parent"
