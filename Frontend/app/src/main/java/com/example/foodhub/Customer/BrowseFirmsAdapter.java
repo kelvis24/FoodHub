@@ -3,6 +3,7 @@ package com.example.foodhub.Customer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -67,6 +68,7 @@ public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         FirmHolder firmHolder = (FirmHolder) holder;
         firmHolder.usernameText.setText(firms.get(index).getName());
+        firmHolder.firmPicture.setImageResource(Firm.randomFirmImage());
         GoToBrowseCategories goToBrowseCategories = new GoToBrowseCategories(firms.get(index).getId(), fragment);
         firmHolder.usernameText.setOnClickListener(goToBrowseCategories);
     }
@@ -79,7 +81,6 @@ public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override public int getItemViewType(int index) {
         return firms.get(index) == null ? -1 : 0;
     }
-
     /**
      * Returns the number of views that will be in the recycler
      * @return The number of views that will be in the recycler
@@ -89,9 +90,11 @@ public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     private class FirmHolder extends RecyclerView.ViewHolder {
+        ImageView firmPicture;
         TextView usernameText;
         public FirmHolder(@NonNull View view) {
             super(view);
+            firmPicture= view.findViewById(R.id.ivPost);
             usernameText = view.findViewById(R.id.browse_firm_textview);
         }
     }
