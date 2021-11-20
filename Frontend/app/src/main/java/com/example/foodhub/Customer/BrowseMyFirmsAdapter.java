@@ -3,6 +3,7 @@ package com.example.foodhub.Customer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -62,6 +63,8 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
         firmHolder.firmItemText.setText(firms.get(index).getCuisine());
         GoToManageCustomerOrders goToManageCustomerOrders = new GoToManageCustomerOrders(firms.get(index).getName(), fragment);
         firmHolder.firmNameText.setOnClickListener(goToManageCustomerOrders);
+        GoToOrderChat goToOrderChat = new GoToOrderChat(firms.get(index).getName(), fragment);
+        firmHolder.goToChatButton.setOnClickListener(goToOrderChat);
     }
 
     /**
@@ -85,11 +88,13 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
         TextView firmNameText;
         TextView firmPriceText;
         TextView firmItemText;
+        Button goToChatButton;
         public FirmHolder(@NonNull View view) {
             super(view);
             firmNameText = view.findViewById(R.id.title);
             firmPriceText = view.findViewById(R.id.firm_total_price);
             firmItemText = view.findViewById(R.id.firm_item_count);
+            goToChatButton = view.findViewById(R.id.button);
         }
     }
 
@@ -105,6 +110,21 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
             ArrayList<ItemReference> order = new ArrayList<>();
             final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
             ft.replace(R.id.customer_fragment_main, new BrowseSpecificFirmOrders(firmName, username, password));
+            ft.commit();
+        }
+    }
+
+
+    private class GoToOrderChat implements View.OnClickListener {
+        private String firmName;
+        private ManageCustomerOrdersFragment fragment;
+        public GoToOrderChat(String firmName, ManageCustomerOrdersFragment fragment) {
+            this.firmName = firmName;
+            this.fragment = fragment;
+        }
+        public void onClick(View v) {
+            final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
+            ft.replace(R.id.customer_fragment_main, new OrderChatFragment(firmName, username, password));
             ft.commit();
         }
     }
