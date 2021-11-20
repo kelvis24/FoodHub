@@ -33,6 +33,8 @@ public class ManageCustomerOrdersFragment extends Fragment {
     private String password;
     private ViewGroup container;
     ArrayList<Firm> Firms;
+    ArrayList<Firm> myFirms;
+    ArrayList<Order> Orders;
 
     /**
      * Collects information from bundle where applicable
@@ -64,12 +66,9 @@ public class ManageCustomerOrdersFragment extends Fragment {
      * Makes a call to refresh the page
      */
     public void refresh() {
-        Map<String, String> map = new HashMap<>();
-        map.put("username", username);
-        map.put("password", password);
-        JSONObject obj = new JSONObject(map);
+
         Call.get("general-get-firms", this::listFirms, null);
-        Call.post("customers-get-orders", obj, this::listOrders, null);
+
     }
 
     /**
@@ -77,17 +76,21 @@ public class ManageCustomerOrdersFragment extends Fragment {
      * @param arr The response from the server as a JSONArray
      */
     public void listOrders(JSONArray arr) {
-        ArrayList<Order> orders = new ArrayList<>();
-        ArrayList<Firm> firms = new ArrayList<>();
+        Orders = new ArrayList<>();
         for (int i = 0; i < arr.length(); i++) {
-            try{orders.add(new Order(arr.getJSONObject(i)));
-             //   Firms.get
-            //    firms.add(new Firm((String)arr.getJSONObject(i).get("firm")));
+            try{Orders.add(new Order(arr.getJSONObject(i)));
             } catch (JSONException e) {e.printStackTrace();}
         }
+
+        myFirms = Firm.getListOfFirmsWithMyOrders(Firms, Orders);
+
         RecyclerView recyclerView = container.findViewById(R.id.manage_customer_orders_recycler);
-        recyclerView.setAdapter(new ManageCustomerOrdersAdapter(username, password, this, orders));
+        recyclerView.setAdapter(new BrowseMyFirmsAdapter(username, password, this, myFirms));
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
+//
+//        RecyclerView recyclerView = container.findViewById(R.id.manage_customer_orders_recycler);
+//        recyclerView.setAdapter(new ManageCustomerOrdersAdapter(username, password, this, Orders));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
     }
 
     public void listFirms(JSONArray arr) {
@@ -96,9 +99,15 @@ public class ManageCustomerOrdersFragment extends Fragment {
             try{Firms.add(new Firm(arr.getJSONObject(i)));
             } catch (JSONException e) {e.printStackTrace();}
         }
-//        RecyclerView recyclerView = container.findViewById(R.id.browse_firms_recycler);
-//        recyclerView.setAdapter(new BrowseFirmsAdapter(username, password, this, firms));
+        Map<String, String> map = new HashMap<>();
+        map.put("username", username);
+        map.put("password", password);
+        JSONObject obj = new JSONObject(map);
+
+        Call.post("customers-get-orders", obj, this::listOrders, null);
+//
+//        RecyclerView recyclerView = container.findViewById(R.id.manage_customer_orders_recycler);
+//        recyclerView.setAdapter(new BrowseFirmsAdapter(username, password, new BrowseFirmsFragment(), myFirms));
 //        recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
     }
-
 }

@@ -3,6 +3,8 @@ package com.example.foodhub.Common;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 /**
  * Formats teh qualities of a Firm
  * @author Arvid Gustafson
@@ -118,6 +120,25 @@ public class Firm {
      */
     public int getEmployee_count() {
         return employee_count;
+    }
+
+    public static ArrayList<Firm> getListOfFirmsWithMyOrders(ArrayList<Firm> Firms, ArrayList<Order> Orders) {
+        int i = 0;
+        ArrayList<Firm> myFirms = new ArrayList<>();
+        for(Order order: Orders){
+            i = 0;
+            for(Firm firm: Firms) {
+                if (firm != null) {
+                    if( order.getFirm().equals(firm.getName())) {
+                    myFirms.add(firm);
+                    Firms.add(i, null);
+                    i++;
+                    }
+                }
+            }
+
+        }
+        return myFirms;
     }
 
 }

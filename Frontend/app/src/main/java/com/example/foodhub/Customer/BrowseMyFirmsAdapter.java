@@ -15,16 +15,28 @@ import com.example.foodhub.R;
 
 import java.util.ArrayList;
 
-/**
- * The controller for the R.layout.view_browse_firm view, placing them in a recycler
- * @author Arvid Gustafson
- * @see RecyclerView.Adapter
- */
-public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+//public class BrowseMyFirmsAdapter extends BrowseFirmsAdapter{
+//    private ManageCustomerOrdersFragment fragment;
+//
+//    /**
+//     * Constructs a BrowseFirmsAdapter given enumerated information
+//     *
+//     * @param username The username of the current user
+//     * @param password The password of the current user
+//     * @param firms    The list of firms retrieved form the backend
+//     */
+//    public BrowseMyFirmsAdapter(String username, String password,  ArrayList<Firm> firms) {
+//        super(username, password, firms);
+//        this.fragment = new ManageCustomerOrdersFragment();
+//    }
+//}
+
+
+public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private String username;
     private String password;
-    private BrowseFirmsFragment fragment;
+    private ManageCustomerOrdersFragment fragment;
     private ArrayList<Firm> firms;
 
     /**
@@ -34,19 +46,14 @@ public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
      * @param fragment The specific fragment within which the recycler lies
      * @param firms The list of firms retrieved form the backend
      */
-    public BrowseFirmsAdapter(String username, String password,
-            BrowseFirmsFragment fragment, ArrayList<Firm> firms) {
+    public BrowseMyFirmsAdapter(String username, String password,
+                                ManageCustomerOrdersFragment fragment, ArrayList<Firm> firms) {
         this.username = username;
         this.password = password;
         this.fragment = fragment;
         this.firms = firms;
     }
 
-    public BrowseFirmsAdapter(String username, String password, ArrayList<Firm> firms) {
-        this.username = username;
-        this.password = password;
-        this.firms = firms;
-    }
 
     /**
      * Creates a ViewHolder for a view; called for each view
@@ -54,7 +61,8 @@ public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
      * @param viewType The type of view, which should always be 0
      * @return The tailored ViewHolder for the corresponding view
      */
-    @NonNull @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    @NonNull
+    @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_browse_firm, parent, false);
         return new FirmHolder(view);
     }
@@ -67,8 +75,8 @@ public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         FirmHolder firmHolder = (FirmHolder) holder;
         firmHolder.usernameText.setText(firms.get(index).getName());
-        GoToBrowseCategories goToBrowseCategories = new GoToBrowseCategories(firms.get(index).getId(), fragment);
-        firmHolder.usernameText.setOnClickListener(goToBrowseCategories);
+//        GoToBrowseCategories goToBrowseCategories = new GoToBrowseCategories(firms.get(index).getId(), fragment);
+//        firmHolder.usernameText.setOnClickListener(goToBrowseCategories);
     }
 
     /**
@@ -95,20 +103,4 @@ public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             usernameText = view.findViewById(R.id.browse_firm_textview);
         }
     }
-
-    private class GoToBrowseCategories implements View.OnClickListener {
-        private long firmId;
-        private BrowseFirmsFragment fragment;
-        public GoToBrowseCategories(long firmId, BrowseFirmsFragment fragment) {
-            this.firmId = firmId;
-            this.fragment = fragment;
-        }
-        public void onClick(View v) {
-            ArrayList<ItemReference> order = new ArrayList<>();
-            final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
-            ft.replace(R.id.customer_fragment_main, new BrowseCategoriesFragment(firmId, username, password, order));
-            ft.commit();
-        }
-    }
-
 }
