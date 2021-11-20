@@ -152,7 +152,7 @@ public class Firm {
     public static int randomFirmImage() {
         int returnId = 0;
         Random ran = new Random(System.currentTimeMillis());
-        int radomInt = ran.nextInt(5);
+        int radomInt = ran.nextInt(3);
 
         if (radomInt == 0) {
             returnId = R.drawable.litramen;
@@ -160,10 +160,10 @@ public class Firm {
             returnId = R.drawable.pizza;
         } else if (radomInt == 2) {
             returnId = R.drawable.chipotle;
-        } else if (radomInt == 3) {
-            returnId = R.drawable.macdonalds;
-        } else if (radomInt == 4) {
-            returnId = R.drawable.chickfila;
+//        } else if (radomInt == 3) {
+//            returnId = R.drawable.macdonalds;
+//        } else if (radomInt == 4) {
+//            returnId = R.drawable.chickfila;
         }
         return  returnId;
     }
