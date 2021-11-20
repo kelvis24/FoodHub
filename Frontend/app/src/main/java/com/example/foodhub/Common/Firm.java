@@ -1,7 +1,12 @@
 package com.example.foodhub.Common;
 
+import com.example.foodhub.R;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Formats teh qualities of a Firm
@@ -120,4 +125,46 @@ public class Firm {
         return employee_count;
     }
 
+    /**
+     * Filters and returns an arraylist of firms firms that have received orders
+     * @param Firms
+     * @param Orders
+     * @return
+     */
+    public static ArrayList<Firm> getListOfFirmsWithMyOrders(ArrayList<Firm> Firms, ArrayList<Order> Orders) {
+        int i = 0;
+        ArrayList<Firm> myFirms = new ArrayList<>();
+        for(Order order: Orders){
+            i = 0;
+            for(Firm firm: Firms) {
+                if (firm != null) {
+                    if( order.getFirm().equals(firm.getName())) {
+                    myFirms.add(firm);
+                    Firms.set(i, null);
+                    }
+                }
+                i++;
+            }
+        }
+        return myFirms;
+    }
+
+    public static int randomFirmImage() {
+        int returnId = 0;
+        Random ran = new Random(System.currentTimeMillis());
+        int radomInt = ran.nextInt(5);
+
+        if (radomInt == 0) {
+            returnId = R.drawable.litramen;
+        } else if (radomInt == 1) {
+            returnId = R.drawable.pizza;
+        } else if (radomInt == 2) {
+            returnId = R.drawable.chipotle;
+        } else if (radomInt == 3) {
+            returnId = R.drawable.macdonalds;
+        } else if (radomInt == 4) {
+            returnId = R.drawable.chickfila;
+        }
+        return  returnId;
+    }
 }

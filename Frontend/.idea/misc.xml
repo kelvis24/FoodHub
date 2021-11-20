@@ -92,6 +92,7 @@
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_admin_account.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_browse_firms.xml" value="0.20652173913043478" />
+        <entry key="app/src/main/res/layout/fragment_browse_specific_firm_orders.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_company_pages.xml" value="0.1515625" />
         <entry key="app/src/main/res/layout/fragment_customer_account.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_edit_customer.xml" value="0.2693935119887165" />
@@ -102,6 +103,7 @@
         <entry key="app/src/main/res/layout/fragment_firmhome.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_menupage.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_order_chat.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_orders.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_pickup.xml" value="0.11231884057971014" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.1393110435663627" />
@@ -112,6 +114,8 @@
         <entry key="app/src/main/res/layout/vertical.xml" value="0.1897644927536232" />
         <entry key="app/src/main/res/layout/vertical_single_row.xml" value="0.1" />
         <entry key="app/src/main/res/layout/view_browse_firm.xml" value="0.20833333333333334" />
+        <entry key="app/src/main/res/layout/view_customer_order.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/view_order_firm.xml" value="0.1" />
         <entry key="app/src/main/res/menu/nav_bottom.xml" value="0.335" />
         <entry key="app/src/main/res/menu/nav_bottom_admin.xml" value="0.1" />
         <entry key="app/src/main/res/menu/nav_bottom_admin_activities.xml" value="0.335" />

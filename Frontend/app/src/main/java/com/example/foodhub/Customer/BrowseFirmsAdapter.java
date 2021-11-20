@@ -42,6 +42,12 @@ public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.firms = firms;
     }
 
+    public BrowseFirmsAdapter(String username, String password, ArrayList<Firm> firms) {
+        this.username = username;
+        this.password = password;
+        this.firms = firms;
+    }
+
     /**
      * Creates a ViewHolder for a view; called for each view
      * @param parent The parent view of the recycler

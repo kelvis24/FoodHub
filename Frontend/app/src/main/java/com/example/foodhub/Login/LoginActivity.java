@@ -73,8 +73,8 @@ public class LoginActivity extends AppCompatActivity {
             switch (type) {
                 case "customer":
                     I = new Intent(this, CustomerMainActivity.class);
-                    I.putExtra("username", "ekimara");
-                    I.putExtra("password", "HelloWorld@24");
+                    I.putExtra("username", "e");
+                    I.putExtra("password", "e");
                     break;
                 case "firm":
                     I = new Intent(this, FirmMainActivity.class);

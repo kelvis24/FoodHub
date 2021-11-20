@@ -37,7 +37,7 @@ public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerVi
 
     private String username;
     private String password;
-    private ManageCustomerOrdersFragment fragment;
+    private BrowseSpecificFirmOrders fragment;
     private ArrayList<Order> orders;
 
     /**
@@ -48,7 +48,7 @@ public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerVi
      * @param orders The list information about orders, which will be listed in the recycler
      */
     public ManageCustomerOrdersAdapter(String username, String password,
-                                       ManageCustomerOrdersFragment fragment, ArrayList<Order> orders) {
+                                       BrowseSpecificFirmOrders fragment, ArrayList<Order> orders) {
         this.username = username;
         this.password = password;
         this.fragment = fragment;

@@ -94,4 +94,13 @@ public class Order {
         return list;
     }
 
+    public static ArrayList<Order> returnOrdersSpecificToAFirm(String firmName, ArrayList<Order> orders) {
+        ArrayList<Order> newOrders = new ArrayList<>();
+        for (Order order: orders) {
+            if(order.getFirm().equals(firmName)) {
+                newOrders.add(order);
+            }
+        }
+        return newOrders;
+    }
 }
