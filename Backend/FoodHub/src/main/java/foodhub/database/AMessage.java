@@ -1,47 +1,66 @@
 package foodhub.database;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="AMessages")
+@Table(name = "adminMessages")
 public class AMessage {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
-	@Column(nullable = false)
-	private int sequence;
-	@Column(nullable = false)
-	private long sender; //who sent this message
-	@Column(nullable = false)
-	private String message;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 	
-	public AMessage(int sequence, long sender, String message) {
-		this.sequence = sequence;
-		this.sender = sender;
-		this.message = message;
+    @Column
+    private String username;
+    @Lob
+    private String content;
+	
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "sent")
+    private Date sent = new Date();
+	
+	
+	public AMessage() {};
+	
+	public AMessage(String username, String content) {
+		this.username = username;
+		this.content = content;
 	}
-	
-	public AMessage() {}
-	
-	public long getId() {
-		return id;
-	}
-	
-	public int getSequence() {
-		return sequence;
-	}
-	
-	public long getSender() {
-		return sender;
-	}
-	
-	public String getMessage() {
-		return message;
-	}
-	
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Date getSent() {
+        return sent;
+    }
+
+    public void setSent(Date sent) {
+        this.sent = sent;
+    }
 }
