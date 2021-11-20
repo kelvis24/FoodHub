@@ -70,7 +70,7 @@ public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         firmHolder.usernameText.setText(firms.get(index).getName());
         firmHolder.firmPicture.setImageResource(Firm.randomFirmImage());
         GoToBrowseCategories goToBrowseCategories = new GoToBrowseCategories(firms.get(index).getId(), fragment);
-        firmHolder.usernameText.setOnClickListener(goToBrowseCategories);
+        firmHolder.firmPicture.setOnClickListener(goToBrowseCategories);
     }
 
     /**
