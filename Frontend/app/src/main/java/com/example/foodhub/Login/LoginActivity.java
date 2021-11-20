@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         map.put("username", email);
         map.put("password", password);
         JSONObject obj = new JSONObject(map);
-        Authenticate(true, obj);
+        Authenticate(false, obj);
     }
 
     /**

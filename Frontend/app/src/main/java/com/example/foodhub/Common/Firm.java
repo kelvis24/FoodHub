@@ -1,9 +1,12 @@
 package com.example.foodhub.Common;
 
+import com.example.foodhub.R;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Formats teh qualities of a Firm
@@ -142,8 +145,26 @@ public class Firm {
                 }
                 i++;
             }
-
         }
         return myFirms;
+    }
+
+    public static int randomFirmImage() {
+        int returnId = 0;
+        Random ran = new Random(System.currentTimeMillis());
+        int radomInt = ran.nextInt(5);
+
+        if (radomInt == 0) {
+            returnId = R.drawable.litramen;
+        } else if (radomInt == 1) {
+            returnId = R.drawable.pizza;
+        } else if (radomInt == 2) {
+            returnId = R.drawable.chipotle;
+        } else if (radomInt == 3) {
+            returnId = R.drawable.macdonalds;
+        } else if (radomInt == 4) {
+            returnId = R.drawable.chickfila;
+        }
+        return  returnId;
     }
 }

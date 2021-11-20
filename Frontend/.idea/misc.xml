@@ -115,7 +115,7 @@
         <entry key="app/src/main/res/layout/vertical_single_row.xml" value="0.1" />
         <entry key="app/src/main/res/layout/view_browse_firm.xml" value="0.20833333333333334" />
         <entry key="app/src/main/res/layout/view_customer_order.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/view_order_firm.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/view_order_firm.xml" value="0.1" />
         <entry key="app/src/main/res/menu/nav_bottom.xml" value="0.335" />
         <entry key="app/src/main/res/menu/nav_bottom_admin.xml" value="0.1" />
         <entry key="app/src/main/res/menu/nav_bottom_admin_activities.xml" value="0.335" />

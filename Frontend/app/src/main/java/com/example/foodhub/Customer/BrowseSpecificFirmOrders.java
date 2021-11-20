@@ -70,8 +70,6 @@ public class BrowseSpecificFirmOrders extends Fragment {
             try{orders.add(new Order(arr.getJSONObject(i)));
             } catch (JSONException e) {e.printStackTrace();}
         }
-
-
         RecyclerView recyclerView = container.findViewById(R.id.see_specific_orders_to_firm);
         recyclerView.setAdapter(new ManageCustomerOrdersAdapter(username, password, this, Order.returnOrdersSpecificToAFirm(firmName, orders)));
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));

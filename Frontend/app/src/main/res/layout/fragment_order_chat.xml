@@ -11,6 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Chat Feature Coming Soon" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/order_chat_recycler"
             android:layout_width="match_parent"

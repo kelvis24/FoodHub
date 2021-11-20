@@ -66,9 +66,7 @@ public class ManageCustomerOrdersFragment extends Fragment {
      * Makes a call to refresh the page
      */
     public void refresh() {
-
         Call.get("general-get-firms", this::listFirms, null);
-
     }
 
     /**
@@ -81,16 +79,9 @@ public class ManageCustomerOrdersFragment extends Fragment {
             try{Orders.add(new Order(arr.getJSONObject(i)));
             } catch (JSONException e) {e.printStackTrace();}
         }
-
-        myFirms = Firm.getListOfFirmsWithMyOrders(Firms, Orders);
-
         RecyclerView recyclerView = container.findViewById(R.id.manage_customer_orders_recycler);
-        recyclerView.setAdapter(new BrowseMyFirmsAdapter(username, password, this, myFirms));
+        recyclerView.setAdapter(new BrowseMyFirmsAdapter(username, password, this, Firm.getListOfFirmsWithMyOrders(Firms, Orders)));
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
-//
-//        RecyclerView recyclerView = container.findViewById(R.id.manage_customer_orders_recycler);
-//        recyclerView.setAdapter(new ManageCustomerOrdersAdapter(username, password, this, Orders));
-//        recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
     }
 
     public void listFirms(JSONArray arr) {
@@ -103,11 +94,6 @@ public class ManageCustomerOrdersFragment extends Fragment {
         map.put("username", username);
         map.put("password", password);
         JSONObject obj = new JSONObject(map);
-
         Call.post("customers-get-orders", obj, this::listOrders, null);
-//
-//        RecyclerView recyclerView = container.findViewById(R.id.manage_customer_orders_recycler);
-//        recyclerView.setAdapter(new BrowseFirmsAdapter(username, password, new BrowseFirmsFragment(), myFirms));
-//        recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
     }
 }

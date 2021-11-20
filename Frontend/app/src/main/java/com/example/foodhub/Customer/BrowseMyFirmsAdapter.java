@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,7 +40,6 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
         this.firms = firms;
     }
 
-
     /**
      * Creates a ViewHolder for a view; called for each view
      * @param parent The parent view of the recycler
@@ -59,6 +59,7 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
      */
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         FirmHolder firmHolder = (FirmHolder) holder;
+        firmHolder.firmImage.setImageResource(Firm.randomFirmImage());
         firmHolder.firmNameText.setText(firms.get(index).getName());
         firmHolder.firmPriceText.setText(firms.get(index).getLocation());
         firmHolder.firmItemText.setText(firms.get(index).getCuisine());
@@ -86,19 +87,20 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     private class FirmHolder extends RecyclerView.ViewHolder {
+        ImageView firmImage;
         TextView firmNameText;
         TextView firmPriceText;
         TextView firmItemText;
         Button goToChatButton;
         public FirmHolder(@NonNull View view) {
             super(view);
+            firmImage = view.findViewById(R.id.ivPost);
             firmNameText = view.findViewById(R.id.title);
             firmPriceText = view.findViewById(R.id.firm_total_price);
             firmItemText = view.findViewById(R.id.firm_item_count);
             goToChatButton = view.findViewById(R.id.button);
         }
     }
-
 
     private class GoToManageCustomerOrders implements View.OnClickListener {
         private String firmName;
@@ -115,7 +117,6 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
-
     private class GoToOrderChat implements View.OnClickListener {
         private String firmName;
         private ManageCustomerOrdersFragment fragment;
@@ -129,5 +130,4 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
             ft.commit();
         }
     }
-
 }
