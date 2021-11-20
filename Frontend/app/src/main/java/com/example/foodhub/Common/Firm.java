@@ -122,6 +122,12 @@ public class Firm {
         return employee_count;
     }
 
+    /**
+     * Filters and returns an arraylist of firms firms that have received orders
+     * @param Firms
+     * @param Orders
+     * @return
+     */
     public static ArrayList<Firm> getListOfFirmsWithMyOrders(ArrayList<Firm> Firms, ArrayList<Order> Orders) {
         int i = 0;
         ArrayList<Firm> myFirms = new ArrayList<>();
@@ -131,14 +137,13 @@ public class Firm {
                 if (firm != null) {
                     if( order.getFirm().equals(firm.getName())) {
                     myFirms.add(firm);
-                    Firms.add(i, null);
-                    i++;
+                    Firms.set(i, null);
                     }
                 }
+                i++;
             }
 
         }
         return myFirms;
     }
-
 }

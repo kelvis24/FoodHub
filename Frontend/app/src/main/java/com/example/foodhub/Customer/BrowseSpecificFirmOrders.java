@@ -23,24 +23,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link BrowseSpecificFirmOrders#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class BrowseSpecificFirmOrders extends Fragment {
 
     private String username;
     private String password;
-    private long firmId;
+    private String firmName;
     private ViewGroup container;
     ArrayList<Order> orders;
 
-    public BrowseSpecificFirmOrders(long firmId, String username, String password) {
-
+    public BrowseSpecificFirmOrders(String firmName, String username, String password) {
         this.username = username;
         this.password = password;
-        this.firmId = firmId;
+        this.firmName = firmName;
     }
 
     @Override
@@ -51,15 +45,11 @@ public class BrowseSpecificFirmOrders extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_browse_specific_firm_orders, container, false);
         this.container = container;
         refresh();
         return view;
-        // Inflate the layout for this fragment
-     //   return inflater.inflate(R.layout.fragment_browse_specific_firm_orders, container, false);
     }
 
     public void refresh() {
@@ -67,11 +57,8 @@ public class BrowseSpecificFirmOrders extends Fragment {
         map.put("username", username);
         map.put("password", password);
         JSONObject obj = new JSONObject(map);
-
         Call.post("customers-get-orders", obj, this::listOrders, null);
-
     }
-
 
     /**
      * Lists order information upon a successful call to refresh the page
@@ -84,8 +71,9 @@ public class BrowseSpecificFirmOrders extends Fragment {
             } catch (JSONException e) {e.printStackTrace();}
         }
 
+
         RecyclerView recyclerView = container.findViewById(R.id.see_specific_orders_to_firm);
-        recyclerView.setAdapter(new ManageCustomerOrdersAdapter(username, password, this, orders));
+        recyclerView.setAdapter(new ManageCustomerOrdersAdapter(username, password, this, Order.returnOrdersSpecificToAFirm(firmName, orders)));
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
     }
 }
