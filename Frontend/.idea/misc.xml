@@ -75,6 +75,7 @@
         <entry key="app/src/main/res/drawable/account.xml" value="0.115625" />
         <entry key="app/src/main/res/drawable/pickup.xml" value="0.2109375" />
         <entry key="app/src/main/res/layout/activity_admin_home.xml" value="0.3001555209953344" />
+        <entry key="app/src/main/res/layout/activity_admin_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_customer_main.xml" value="0.20652173913043478" />
         <entry key="app/src/main/res/layout/activity_editcustomerpage.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_firm_main.xml" value="0.1" />
@@ -84,13 +85,20 @@
         <entry key="app/src/main/res/layout/activity_home2.xml" value="0.1933876811594203" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.547945205479452" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1393110435663627" />
+        <entry key="app/src/main/res/layout/activity_owner_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.24049151550614395" />
         <entry key="app/src/main/res/layout/activity_viewthismenu.xml" value="0.25" />
         <entry key="app/src/main/res/layout/company_view.xml" value="0.125" />
         <entry key="app/src/main/res/layout/companypage_picture.xml" value="0.15260416666666668" />
         <entry key="app/src/main/res/layout/firm_mainactivity.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_add_admin.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_add_category.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_add_firm.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_add_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_admin_account.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_browse_categories.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_browse_firms.xml" value="0.20652173913043478" />
         <entry key="app/src/main/res/layout/fragment_browse_specific_firm_orders.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_company_pages.xml" value="0.1515625" />
@@ -102,9 +110,12 @@
         <entry key="app/src/main/res/layout/fragment_firmaccount.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_firmhome.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_manage_admins.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_manage_firms.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_menupage.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_order_chat.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_orders.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_owner_account.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_pickup.xml" value="0.11231884057971014" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.1393110435663627" />
         <entry key="app/src/main/res/layout/horizontal.xml" value="0.1" />
