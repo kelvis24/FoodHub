@@ -150,6 +150,7 @@ public class EditCustomerFragment extends Fragment {
                 Log.d("debug", response.toString());
                 return;
             }
+            //here
             final FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.replace(R.id.customer_fragment_main, new CustomerAccountFragment(username, name, location, password));
             ft.commit();

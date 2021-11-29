@@ -1,0 +1,9 @@
+
+To Build (and produce a jar file):
+    Right Click FoodHub"
+        >> Run As
+        >> Maven build...
+        >> Goals: clean package
+        >> Run
+
+Jar file Location: target/FoodHub-0.0.1-SNAPSHOT.jar

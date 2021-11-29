@@ -73,4 +73,11 @@ public class CustomerMainActivity extends AppCompatActivity {
         navController.navigate(R.id.CustomerAccount, bundle);
     }
 
+    public void editCredentials(String username, String password) {
+        Bundle newBundle = new Bundle();
+        newBundle.putString("username", username);
+        newBundle.putString("password", password);
+        this.bundle = newBundle;
+    }
+
 }

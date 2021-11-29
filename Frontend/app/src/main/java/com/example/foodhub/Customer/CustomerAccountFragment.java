@@ -82,6 +82,8 @@ public class CustomerAccountFragment extends Fragment {
         btn1.setOnClickListener(this::clickToSeeEditCustomerPages);
         this.view = view;
         getCustomerDetails();
+
+        ((CustomerMainActivity) getActivity()).editCredentials(username, password );
         return view;
     }
 
