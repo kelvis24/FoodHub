@@ -36,8 +36,6 @@ public class Firm {
 	private int close_time;
 	@Column(nullable = false)
 	private int employee_count;
-	@Column(nullable = true, length = 128)
-	private String imageSource;
 
 	/**
 	 * Constructs a new firm given information for it
@@ -52,7 +50,6 @@ public class Firm {
 		this.open_time = firm.getOpen_time();
 		this.close_time = firm.getClose_time();
 		this.employee_count = firm.getEmployee_count();
-		imageSource = firm.getImageSource();
 	}
 	
 	/**
@@ -67,7 +64,7 @@ public class Firm {
 	 * @param employee_count The number of employees at that firm, expressed as an int
 	 */
 	public Firm(String username, String password, String name, String location,
-				String cuisine, int open_time,   int close_time,  int employee_count, String imageSource) {
+				String cuisine, int open_time,   int close_time,  int employee_count) {
 		this.name = name;
 		this.username = username;
 		this.password = password;
@@ -76,7 +73,6 @@ public class Firm {
 		this.open_time = open_time;
 		this.close_time = close_time;
 		this.employee_count = employee_count;
-		this.imageSource = imageSource;
 	}
 	
 	/**
@@ -154,13 +150,5 @@ public class Firm {
 	 */
 	public int getEmployee_count() {
 		return employee_count;
-	}
-	
-	/**
-	 * A getter for the image source field
-	 * @return The string of the image file a firm will use on frontend
-	 */
-	public String getImageSource() {
-		return imageSource;
 	}
 }

@@ -74,7 +74,7 @@ public class FirmControllerTests {
 	@Mock
 	OrderItemRepository orderItemRepository;
 	
-	Firm initial = new Firm("testfirm@gmail.com", "truePassword", "CyBurger", "Ames", "Borger", 500, 2000,  3, null);
+	Firm initial = new Firm("testfirm@gmail.com", "truePassword", "CyBurger", "Ames", "Borger", 500, 2000,  3);
 	
 	Customer customer = new Customer("customUser", "customPass", "Custoomer", "Ames");
 	
