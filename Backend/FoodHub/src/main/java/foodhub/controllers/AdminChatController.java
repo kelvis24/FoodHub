@@ -119,7 +119,7 @@ public class AdminChatController {
 	}
 	
 
-  // Gets the Chat history from the repository
+  // Gets the Chat history from the repository 
 	private String getChatHistory() {
 		List<AMessage> messages = msgRepo.findAll();
     
