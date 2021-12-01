@@ -23,7 +23,7 @@ import java.util.Map;
 
 /**
  * Controls the R.layout.activity_login view
- * @author Arvid Gustafson
+ * @author Arvid Gustafson, Elvis Kimara.
  * @see AppCompatActivity
  */
 public class LoginActivity extends AppCompatActivity {
@@ -57,7 +57,11 @@ public class LoginActivity extends AppCompatActivity {
         map.put("username", email);
         map.put("password", password);
         JSONObject obj = new JSONObject(map);
-        Authenticate(false, obj);
+
+
+        Call.post(type+"s-authenticate", obj, this::login, null);
+
+//        Authenticate(false, obj);
     }
 
     /**
