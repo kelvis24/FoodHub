@@ -48,9 +48,9 @@ public interface FirmRepository extends JpaRepository<Firm, Long> {
 	@Modifying
 	@Transactional
 	@Query("update Firm x set x.username = ?2, x.password = ?3, x.name = ?4, x.location = ?5,"
-		+ " x.cuisine = ?6, x.open_time = ?7, x.close_time = ?8, x.employee_count = ?9, x.imageSource = ?10 where x.id = ?1")
+		+ " x.cuisine = ?6, x.open_time = ?7, x.close_time = ?8, x.employee_count = ?9 where x.id = ?1")
 	void setById(long id, String username, String password, String name, String location,
-					 String cuisine, int open_time, int close_time, int employee_count, String imageSource);
+					 String cuisine, int open_time, int close_time, int employee_count);
 	
 	/**
 	 * Deletes the firm with the given id
