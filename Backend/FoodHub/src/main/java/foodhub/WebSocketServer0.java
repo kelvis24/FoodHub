@@ -15,6 +15,7 @@ import javax.websocket.server.ServerEndpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
 /**
  *
  * @author Vamsi Krishna Calpakkam
@@ -25,14 +26,14 @@ import org.springframework.stereotype.Component;
 public class WebSocketServer0 {
 
   // Store all socket session and their corresponding username.
-  private static Map < Session, String > sessionUsernameMap = new Hashtable < > ();
-  private static Map < String, Session > usernameSessionMap = new Hashtable < > ();
+  private static Map<Session, String> sessionUsernameMap = new Hashtable<>();
+  private static Map<String, Session> usernameSessionMap = new Hashtable<>();
 
-  private final Logger logger = LoggerFactory.getLogger(WebSocketServer.class);
+  private final Logger logger = LoggerFactory.getLogger(WebSocketServer0.class);
 
   @OnOpen
   public void onOpen(Session session, @PathParam("user") String username)
-  throws IOException {
+      throws IOException {
     logger.info("Entered into Open");
 
     sessionUsernameMap.put(session, username);
