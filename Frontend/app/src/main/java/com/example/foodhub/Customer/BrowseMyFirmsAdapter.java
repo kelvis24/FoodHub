@@ -1,5 +1,6 @@
 package com.example.foodhub.Customer;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodhub.Chat.ChatActivity;
 import com.example.foodhub.Common.Firm;
 import com.example.foodhub.Common.ItemReference;
 import com.example.foodhub.R;
@@ -125,6 +127,12 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
             this.fragment = fragment;
         }
         public void onClick(View v) {
+
+//            Intent intent = new Intent(this.getClass(), ChatActivity.class);
+//            intent.putExtra("name", username);
+//            startActivity(intent);
+
+
             final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
             ft.replace(R.id.customer_fragment_main, new OrderChatFragment(firmName, username, password));
             ft.commit();

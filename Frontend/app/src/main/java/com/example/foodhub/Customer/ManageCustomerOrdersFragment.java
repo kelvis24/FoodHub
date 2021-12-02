@@ -1,14 +1,21 @@
 package com.example.foodhub.Customer;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodhub.Chat.ChatActivity;
 import com.example.foodhub.Common.Firm;
 import com.example.foodhub.Common.Order;
 import com.example.foodhub.R;
@@ -46,6 +53,21 @@ public class ManageCustomerOrdersFragment extends Fragment {
             username = getArguments().getString("username");
             password = getArguments().getString("password");
         }
+
+        if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED)
+            ActivityCompat.requestPermissions(this.getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 10);
+
+//        findViewById(R.id.button)
+//                .setOnClickListener(v -> {
+//
+//                    Intent intent = new Intent(this, ChatActivity.class);
+//                    intent.putExtra("name", username);
+//                    startActivity(intent);
+//
+//                });
+
+
     }
 
     /**
@@ -59,7 +81,16 @@ public class ManageCustomerOrdersFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_manage_customer_orders, container, false);
         this.container = container;
         refresh();
+
+        view.findViewById(R.id.button).setOnClickListener(this::clid);
         return view;
+    }
+
+
+    public void clid(View v) {
+        final FragmentTransaction ft = this.getFragmentManager().beginTransaction();
+        ft.replace(R.id.customer_fragment_main, new OrderChatFragment("Taco House", username, password));
+        ft.commit();
     }
 
     /**
