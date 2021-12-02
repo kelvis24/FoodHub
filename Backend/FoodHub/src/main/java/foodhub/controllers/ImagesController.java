@@ -19,9 +19,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import foodhub.ImageStorageService;
 import foodhub.database.CategoryImage;
+import foodhub.database.Firm;
 import foodhub.database.FirmImage;
+import foodhub.database.Item;
 import foodhub.database.ItemImage;
 import foodhub.ioObjects.Authentication;
+import foodhub.ioObjects.Message;
+
+import foodhub.database.FirmRepository;
 
 
 @Controller
@@ -30,31 +35,49 @@ public class ImagesController {
 	@Autowired 
 	private ImageStorageService imageStorageService;
 	
+	@Autowired
+	private FirmRepository firmRepository;
+	
 	@PostMapping("/uploadFirmFiles")
-	public String uploadMultipleFilesFirm(@RequestParam("files") MultipartFile[] files, Authentication login) {
+	public Message uploadMultipleFilesFirm(@RequestParam("files") MultipartFile[] files, Authentication login) {
+    	Firm firm = firmRepository.findByUsername(login.getUsername());
+    	if (firm == null)
+    		return new Message("failure","wrong username");
+    	if (!firm.getPassword().equals(login.getPassword()))
+        	return new Message("failure","wrong password");
 		for (MultipartFile file: files) {
 			imageStorageService.saveFirmFile(file, login);
 			
 		}
-		return "redirect:/";
+		return new Message("success");
 	}
 	
 	@PostMapping("/uploadCategoryFiles")
-	public String uploadMultipleFilesCategory(@RequestParam("files") MultipartFile[] files, Authentication login, long categoryID) {
+	public Message uploadMultipleFilesCategory(@RequestParam("files") MultipartFile[] files, Authentication login, long categoryID) {
+    	Firm firm = firmRepository.findByUsername(login.getUsername());
+    	if (firm == null)
+    		return new Message("failure","wrong username");
+    	if (!firm.getPassword().equals(login.getPassword()))
+        	return new Message("failure","wrong password");
 		for (MultipartFile file: files) {
 			imageStorageService.saveCategoryFile(file, login, categoryID);
 			
 		}
-		return "redirect:/";
+		return new Message("success");
 	}
 	
-	@PostMapping("/uploadFirmFiles")
-	public String uploadMultipleFilesItem(@RequestParam("files") MultipartFile[] files, Authentication login, long itemID) {
+	@PostMapping("/uploadItemFiles")
+	public Message uploadMultipleFilesItem(@RequestParam("files") MultipartFile[] files, Authentication login, long itemID) {
+    	Firm firm = firmRepository.findByUsername(login.getUsername());
+    	if (firm == null)
+    		return new Message("failure","wrong username");
+    	if (!firm.getPassword().equals(login.getPassword()))
+        	return new Message("failure","wrong password");
 		for (MultipartFile file: files) {
 			imageStorageService.saveItemFile(file, login, itemID);
 			
 		}
-		return "redirect:/";
+		return new Message("success");
 	}
 	
 	@GetMapping("/downloadFirmFile/{fileId}")
