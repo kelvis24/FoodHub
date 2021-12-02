@@ -273,7 +273,7 @@ public class AdminControllerTests {
 	@Test
 	public void createFirmTest0() {
 		Message response;
-		FirmInfo f1 = new FirmInfo("tacohouse@gmail.com","taco123","Taco House","taco town","tacos",1,2,3);
+		FirmInfo f1 = new FirmInfo("tacohouse@gmail.com","taco123","Taco House","taco town","tacos",1,2,3, null);
 		AddFirmInput b1 = new AddFirmInput(owner.getUsername(),owner.getPassword(),f1);
 		response = ac.createFirm(b1);
 		assertEquals("success", response.getMessage());
@@ -307,8 +307,8 @@ public class AdminControllerTests {
 	@Test
 	public void createFirmTest1() {
 		Message response;
-		FirmInfo f1 = new FirmInfo("tacohouse@gmail.com","taco123","Taco House","taco town","tacos",1,2,3);
-		FirmInfo f2 = new FirmInfo("tacoplace@gmail.com","taco123","Taco Place","taco town","tacos",1,2,3);
+		FirmInfo f1 = new FirmInfo("tacohouse@gmail.com","taco123","Taco House","taco town","tacos",1,2,3, null);
+		FirmInfo f2 = new FirmInfo("tacoplace@gmail.com","taco123","Taco Place","taco town","tacos",1,2,3, null);
 		AddFirmInput b1 = new AddFirmInput(owner.getUsername(),owner.getPassword(),f1);
 		AddFirmInput b2 = new AddFirmInput(owner.getUsername(),owner.getPassword(),f2);
 		response = ac.createFirm(b1);
@@ -363,9 +363,9 @@ public class AdminControllerTests {
 		response = ac.createAdmin(ab);
 		assertEquals("success", response.getMessage());
 		assertEquals("", response.getError());
-		FirmInfo f1 = new FirmInfo("tacohouse@gmail.com","taco123","Taco House","taco town","tacos",1,2,3);
-		FirmInfo f2 = new FirmInfo("tacoplace@gmail.com","taco123","Taco Place","taco town","tacos",1,2,3);
-		FirmInfo f3 = new FirmInfo("tacofort@gmail.com","taco123","Taco Fort","taco town","tacos",1,2,3);
+		FirmInfo f1 = new FirmInfo("tacohouse@gmail.com","taco123","Taco House","taco town","tacos",1,2,3, null);
+		FirmInfo f2 = new FirmInfo("tacoplace@gmail.com","taco123","Taco Place","taco town","tacos",1,2,3, null);
+		FirmInfo f3 = new FirmInfo("tacofort@gmail.com","taco123","Taco Fort","taco town","tacos",1,2,3, null);
 		AddFirmInput b1 = new AddFirmInput(a1.getUsername(),a1.getPassword(),f1);
 		AddFirmInput b2 = new AddFirmInput(a1.getUsername(),a1.getPassword(),f2);
 		AddFirmInput b3 = new AddFirmInput(owner.getUsername(),a1.getPassword(),f3);

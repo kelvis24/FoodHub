@@ -14,6 +14,7 @@ public class FirmInfo {
 	private int open_time;
 	private int close_time;
 	private int employee_count;
+	private String imageSource;
 
 	/**
 	 * Constructs a FirmInfo object given enumerated information
@@ -27,7 +28,7 @@ public class FirmInfo {
 	 * @param employee_count The number of employees that a firm has
 	 */
 	public FirmInfo(String username, String password, String name, String location, String cuisine,
-					int open_time,   int close_time,  int employee_count) {
+					int open_time,   int close_time,  int employee_count, String imageSource) {
 		this.name = name;
 		this.password = password;
 		this.username = username;
@@ -36,6 +37,7 @@ public class FirmInfo {
 		this.open_time = open_time;
 		this.close_time = close_time;
 		this.employee_count = employee_count;
+		this.imageSource = imageSource;
 	}
 	
 	/**
@@ -105,6 +107,14 @@ public class FirmInfo {
 	 */
 	public int getEmployee_count() {
 		return employee_count;
+	}
+	
+	/**
+	 * A getter for the imageSource field
+	 * @return The string of the image
+	 */
+	public String getImageSource() {
+		return imageSource;
 	}
 	
 }

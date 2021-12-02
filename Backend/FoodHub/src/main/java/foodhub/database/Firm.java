@@ -151,5 +151,4 @@ public class Firm {
 	public int getEmployee_count() {
 		return employee_count;
 	}
-	
 }
