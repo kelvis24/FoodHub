@@ -59,9 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         JSONObject obj = new JSONObject(map);
 
 
-        Call.post(type+"s-authenticate", obj, this::login, null);
-
-//        Authenticate(false, obj);
+        Authenticate(false, obj);
     }
 
     /**
