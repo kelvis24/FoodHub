@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodhub.Chat.ChatActivity;
 import com.example.foodhub.Common.Firm;
 import com.example.foodhub.Common.ItemReference;
 import com.example.foodhub.R;

@@ -15,7 +15,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodhub.Chat.ChatActivity;
 import com.example.foodhub.Common.Firm;
 import com.example.foodhub.Common.Order;
 import com.example.foodhub.R;

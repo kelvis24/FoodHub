@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.foodhub.Chat.ChatActivity;
 import com.example.foodhub.Chat.MessageAdapter;
 import com.example.foodhub.R;
 
