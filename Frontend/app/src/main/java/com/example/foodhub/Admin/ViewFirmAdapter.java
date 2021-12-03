@@ -15,6 +15,11 @@ import com.example.foodhub.R;
 
 import java.util.ArrayList;
 
+/*
+
+    @author Marcus
+ */
+
 public class ViewFirmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private long firmId;
@@ -25,7 +30,7 @@ public class ViewFirmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private ArrayList<Category> categories;
 
-    public ViewFirmAdapter(long firmId, String username, String password, ArrayList<ItemReference> order,
+    public ViewFirmAdapter(long firmId, String username, String password,
                            ViewFirmFragment fragment) {
         this.firmId = firmId;
         this.username = username;
@@ -41,8 +46,8 @@ public class ViewFirmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         CategoryHolder categoryHolder = (CategoryHolder) holder;
         categoryHolder.usernameText.setText(categories.get(index).getTitle());
-        GoToBrowseItems goToBrowseItems = new GoToBrowseItems(categories.get(index).getId(), fragment);
-        categoryHolder.usernameText.setOnClickListener(goToBrowseItems);
+        GoToBrowseFirms goToBrowseFirms = new GoToBrowseFirms(categories.get(index).getId(), fragment);
+        categoryHolder.usernameText.setOnClickListener(goToBrowseFirms);
     }
 
     @Override public int getItemViewType(int index) {
@@ -60,13 +65,13 @@ public class ViewFirmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             usernameText = view.findViewById(R.id.browse_category_textview);
         }
     }
-
-    class GoToBrowseItems implements View.OnClickListener {
-        private long categoryId;
+    //Set up brows firsms and sets
+    class GoToBrowseFirms implements View.OnClickListener {
+        private long firmId;
         private ViewFirmFragment fragment;
 
-        public GoToBrowseItems(long categoryId, ViewFirmFragment fragment) {
-            this.categoryId = categoryId;
+        public GoToBrowseFirms(long firmId, ViewFirmFragment fragment) {
+            this.firmId = firmId;
             this.fragment = fragment;
         }
 
