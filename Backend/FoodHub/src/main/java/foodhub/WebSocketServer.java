@@ -20,18 +20,18 @@ import org.springframework.stereotype.Component;
  * @author Vamsi Krishna Calpakkam
  *
  */
-@ServerEndpoint("/websocket0/{user}")
+@ServerEndpoint("/websocket/{username}")
 @Component
-public class WebSocketServer0 {
+public class WebSocketServer {
 
   // Store all socket session and their corresponding username.
   private static Map < Session, String > sessionUsernameMap = new Hashtable < > ();
   private static Map < String, Session > usernameSessionMap = new Hashtable < > ();
 
-  private final Logger logger = LoggerFactory.getLogger(WebSocketServer0.class);
+  private final Logger logger = LoggerFactory.getLogger(WebSocketServer.class);
 
   @OnOpen
-  public void onOpen(Session session, @PathParam("user") String username)
+  public void onOpen(Session session, @PathParam("username") String username)
   throws IOException {
     logger.info("Entered into Open");
 

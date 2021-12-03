@@ -44,7 +44,7 @@ public class FirmOutput {
 	 * @param employee_count The numer of employees that the firm has
 	 */
 	public FirmOutput(long id, String name, String username, String location, String cuisine,
-					int open_time,   int close_time,  int employee_count) {
+					int open_time,   int close_time,  int employee_count, String imageSource) {
 		this.id = id;
 		this.name = name;
 		this.username = username;
@@ -123,5 +123,4 @@ public class FirmOutput {
 	public int getEmployee_count() {
 		return employee_count;
 	}
-	
 }
