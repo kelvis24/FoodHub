@@ -12,12 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodhub.Common.Category;
-import com.example.foodhub.Common.ItemReference;
-import com.example.foodhub.Customer.BrowseCategoriesAdapter;
-import com.example.foodhub.Customer.BrowseFirmsFragment;
-import com.example.foodhub.Customer.CurrentOrderFragment;
-import com.example.foodhub.Firm.AddCategoryFragment;
-import com.example.foodhub.Firm.ManageCategoriesAdapter;
 import com.example.foodhub.R;
 import com.example.foodhub.server.Call;
 
@@ -28,6 +22,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+/*
+
+    @author Marcus
+ */
+
 
 public class ViewFirmFragment extends Fragment {
 
@@ -78,19 +78,19 @@ public class ViewFirmFragment extends Fragment {
             } catch (JSONException e) {e.printStackTrace();}
         }
         RecyclerView recyclerView = container.findViewById(R.id.browse_categories_recycler);
-        recyclerView.setAdapter(new BrowseCategoriesAdapter(firmId, username, password, order, this, categories));
+        recyclerView.setAdapter(new ViewFirmAdapter(firmId, username, password, this));
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
     }
 
     public void goToViewOrder(View view) {
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.customer_fragment_main, new CurrentOrderFragment(firmId, -1, username, password, order, "BrowseCategories"));
+        ft.replace(R.id.customer_fragment_main, new ViewFirmFragment(firmId, username, password));
         ft.commit();
     }
 
     public void goToBrowseFirms(View view) {
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.customer_fragment_main, new BrowseFirmsFragment(username, password));
+        ft.replace(R.id.customer_fragment_main, new ViewFirmFragment(firmId, username, password));
         ft.commit();
     }
 
