@@ -77,7 +77,7 @@ public class OrderChatFragment extends Fragment implements TextWatcher {
     private WebSocket webSocket;
     public static final String OTHER_URL = "http://10.0.2.2:3000/";
     // private String SERVER_PATH = "ws://SERVER-IP-HERE:PORT-NUMBER-HERE"; 192.168.0.136
-    private String SERVER_PATH = "ws://192.168.0.136:3000/websocket0/elvis";
+    private String SERVER_PATH = "ws://192.168.0.136:3000";
     private EditText messageEdit;
     private View sendBtn, pickImgBtn;
     private RecyclerView recyclerView;
