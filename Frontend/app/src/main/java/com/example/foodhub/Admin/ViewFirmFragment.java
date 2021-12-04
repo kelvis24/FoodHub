@@ -23,12 +23,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/*
-
-    @author Marcus
+/**
+ * Sets up the view addapter for Firms
+ * @author Marcus
+ * @see Fragment
  */
-
-
 public class ViewFirmFragment extends Fragment {
 
     private long firmId;
@@ -36,13 +35,20 @@ public class ViewFirmFragment extends Fragment {
     private String password;
 
     private ViewGroup container;
-
+    /**
+     * Constructs a ViewFirmAFragment from enumerated information
+     * @param username The username of the current user
+     * @param password The password of the current user
+     * @param firmId The ID of the current firm being used
+     */
     public ViewFirmFragment(long firmId, String username, String password) {
         this.firmId = firmId;
         this.username = username;
         this.password = password;
     }
-
+    /**
+     * Default Constructor
+     */
     public ViewFirmFragment() {
         this.username = null;
         this.password = null;
@@ -51,7 +57,13 @@ public class ViewFirmFragment extends Fragment {
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
+    /**
+     * Creates the view
+     * @param inflater
+     * @param container
+     * @param saveInstanceState
+     * @return The view that is created
+     */
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         View view = inflater.inflate(R.layout.fragment_browse_categories, container, false);
         this.container = container;
@@ -62,7 +74,9 @@ public class ViewFirmFragment extends Fragment {
         refresh();
         return view;
     }
-
+    /**
+     * Refreshes the page
+     */
     public void refresh() {
         Map<String, String> map = new HashMap<>();
         JSONObject obj = new JSONObject(map);
@@ -70,7 +84,9 @@ public class ViewFirmFragment extends Fragment {
         } catch (JSONException e) {e.printStackTrace();}
         Call.post("general-get-categories", obj, this::listCategories, null);
     }
-
+    /**
+     * goes through listCategories
+     */
     public void listCategories(JSONArray arr) {
         ArrayList<Category> categories = new ArrayList<>();
         for (int i = 0; i < arr.length(); i++) {
