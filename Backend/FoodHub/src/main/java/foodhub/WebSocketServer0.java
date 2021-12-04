@@ -28,7 +28,7 @@ public class WebSocketServer0 {
   private static Map < Session, String > sessionUsernameMap = new Hashtable < > ();
   private static Map < String, Session > usernameSessionMap = new Hashtable < > ();
 
-  private final Logger logger = LoggerFactory.getLogger(WebSocketServer0.class);
+  private final Logger logger = LoggerFactory.getLogger(WebSocketServer.class);
 
   @OnOpen
   public void onOpen(Session session, @PathParam("user") String username)
