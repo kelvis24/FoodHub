@@ -1,4 +1,4 @@
-package foodhub;
+package websocket.foodhub;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
