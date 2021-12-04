@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodhub.Common.Firm;
 import com.example.foodhub.Common.ItemReference;
+import com.example.foodhub.Common.Order;
 import com.example.foodhub.R;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
     private String username;
     private String password;
     private ManageCustomerOrdersFragment fragment;
-    private ArrayList<Firm> firms;
+    private ArrayList<Order> orders;
 
 
     /**
@@ -31,14 +32,13 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
      * @param username The username of the current user
      * @param password The password of the current user
      * @param fragment The specific fragment within which the recycler lies
-     * @param firms The list of firms retrieved form the backend
      */
     public BrowseMyFirmsAdapter(String username, String password,
-                                ManageCustomerOrdersFragment fragment, ArrayList<Firm> firms) {
+                                ManageCustomerOrdersFragment fragment,  ArrayList<Order> orders) {
         this.username = username;
         this.password = password;
         this.fragment = fragment;
-        this.firms = firms;
+        this.orders = orders;
     }
 
     /**
@@ -60,14 +60,21 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
      */
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         FirmHolder firmHolder = (FirmHolder) holder;
+
         firmHolder.firmImage.setImageResource(Firm.randomFirmImage());
-        firmHolder.firmNameText.setText(firms.get(index).getName());
-        firmHolder.firmPriceText.setText(firms.get(index).getLocation());
-        firmHolder.firmItemText.setText(firms.get(index).getCuisine());
-        GoToManageCustomerOrders goToManageCustomerOrders = new GoToManageCustomerOrders(firms.get(index).getName(), fragment);
-        firmHolder.firmNameText.setOnClickListener(goToManageCustomerOrders);
-        GoToOrderChat goToOrderChat = new GoToOrderChat(firms.get(index).getName(), fragment);
-        firmHolder.goToChatButton.setOnClickListener(goToOrderChat);
+        firmHolder.firmNameText.setText(orders.get(index).getFirm());
+        firmHolder.firmPriceText.setText(Double.toString(orders.get(index).getTotal()));
+
+        //    firmHolder.firmPriceText.setText((int)orders.get(index).getTotal());
+//        firmHolder.firmItemText.setText(orders.get(index).getList().size());
+        firmHolder.firmItemText.setText(Integer.toString(orders.get(index).getList().size()));
+
+//
+//
+//        GoToManageCustomerOrders goToManageCustomerOrders = new GoToManageCustomerOrders(orders.get(index).getFirm(), fragment);
+//        firmHolder.firmNameText.setOnClickListener(goToManageCustomerOrders);
+//        GoToOrderChat goToOrderChat = new GoToOrderChat(orders.get(index).getFirm(), fragment);
+//        firmHolder.goToChatButton.setOnClickListener(goToOrderChat);
     }
 
     /**
@@ -76,7 +83,7 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
      * @return The type of firm in the arraylist, which should always be 0
      */
     @Override public int getItemViewType(int index) {
-        return firms.get(index) == null ? -1 : 0;
+        return orders.get(index) == null ? -1 : 0;
     }
 
     /**
@@ -84,7 +91,7 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
      * @return The number of views that will be in the recycler
      */
     @Override public int getItemCount() {
-        return firms.size();
+        return orders.size();
     }
 
     private class FirmHolder extends RecyclerView.ViewHolder {
@@ -103,38 +110,32 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
-    private class GoToManageCustomerOrders implements View.OnClickListener {
-        private String firmName;
-        private ManageCustomerOrdersFragment fragment;
-        public GoToManageCustomerOrders(String firmName, ManageCustomerOrdersFragment fragment) {
-            this.firmName = firmName;
-            this.fragment = fragment;
-        }
-        public void onClick(View v) {
-            ArrayList<ItemReference> order = new ArrayList<>();
-            final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
-            ft.replace(R.id.customer_fragment_main, new BrowseSpecificFirmOrders(firmName, username, password));
-            ft.commit();
-        }
-    }
-
-    private class GoToOrderChat implements View.OnClickListener {
-        private String firmName;
-        private ManageCustomerOrdersFragment fragment;
-        public GoToOrderChat(String firmName, ManageCustomerOrdersFragment fragment) {
-            this.firmName = firmName;
-            this.fragment = fragment;
-        }
-        public void onClick(View v) {
-
-//            Intent intent = new Intent(this.getClass(), ChatActivity.class);
-//            intent.putExtra("name", username);
-//            startActivity(intent);
-
-
-            final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
-            ft.replace(R.id.customer_fragment_main, new OrderChatFragment(firmName, username, password));
-            ft.commit();
-        }
-    }
+//    private class GoToManageCustomerOrders implements View.OnClickListener {
+//        private String firmName;
+//        private ManageCustomerOrdersFragment fragment;
+//        public GoToManageCustomerOrders(String firmName, ManageCustomerOrdersFragment fragment) {
+//            this.firmName = firmName;
+//            this.fragment = fragment;
+//        }
+//        public void onClick(View v) {
+//            ArrayList<ItemReference> order = new ArrayList<>();
+//            final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
+//            ft.replace(R.id.customer_fragment_main, new BrowseSpecificFirmOrders(firmName, username, password));
+//            ft.commit();
+//        }
+//    }
+//
+//    private class GoToOrderChat implements View.OnClickListener {
+//        private String firmName;
+//        private ManageCustomerOrdersFragment fragment;
+//        public GoToOrderChat(String firmName, ManageCustomerOrdersFragment fragment) {
+//            this.firmName = firmName;
+//            this.fragment = fragment;
+//        }
+//        public void onClick(View v) {
+//            final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
+//            ft.replace(R.id.customer_fragment_main, new OrderChatFragment(firmName, username, password));
+//            ft.commit();
+//        }
+//    }
 }

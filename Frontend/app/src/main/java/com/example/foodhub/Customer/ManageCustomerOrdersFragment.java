@@ -39,7 +39,6 @@ public class ManageCustomerOrdersFragment extends Fragment {
     private String password;
     private ViewGroup container;
     ArrayList<Firm> Firms;
-    ArrayList<Firm> myFirms;
     ArrayList<Order> Orders;
 
     /**
@@ -56,16 +55,6 @@ public class ManageCustomerOrdersFragment extends Fragment {
         if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED)
             ActivityCompat.requestPermissions(this.getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 10);
-
-//        findViewById(R.id.button)
-//                .setOnClickListener(v -> {
-//
-//                    Intent intent = new Intent(this, ChatActivity.class);
-//                    intent.putExtra("name", username);
-//                    startActivity(intent);
-//
-//                });
-
 
     }
 
@@ -103,16 +92,6 @@ public class ManageCustomerOrdersFragment extends Fragment {
      * Lists order information upon a successful call to refresh the page
      * @param arr The response from the server as a JSONArray
      */
-    public void listOrders(JSONArray arr) {
-        Orders = new ArrayList<>();
-        for (int i = 0; i < arr.length(); i++) {
-            try{Orders.add(new Order(arr.getJSONObject(i)));
-            } catch (JSONException e) {e.printStackTrace();}
-        }
-        RecyclerView recyclerView = container.findViewById(R.id.manage_customer_orders_recycler);
-        recyclerView.setAdapter(new BrowseMyFirmsAdapter(username, password, this, Firm.getListOfFirmsWithMyOrders(Firms, Orders)));
-        recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
-    }
 
     public void listFirms(JSONArray arr) {
         Firms = new ArrayList<>();
@@ -125,5 +104,17 @@ public class ManageCustomerOrdersFragment extends Fragment {
         map.put("password", password);
         JSONObject obj = new JSONObject(map);
         Call.post("customers-get-orders", obj, this::listOrders, null);
+    }
+
+    public void listOrders(JSONArray arr) {
+        Orders = new ArrayList<>();
+        for (int i = 0; i < arr.length(); i++) {
+            try{Orders.add(new Order(arr.getJSONObject(i)));
+            } catch (JSONException e) {e.printStackTrace();}
+        }
+        RecyclerView recyclerView = container.findViewById(R.id.manage_customer_orders_recycler);
+       // recyclerView.setAdapter(new BrowseMyFirmsAdapter(username, password, this, Firm.getListOfFirmsWithMyOrders(Firms, Orders)));
+        recyclerView.setAdapter(new BrowseMyFirmsAdapter(username, password, this, Orders));
+        recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
     }
 }

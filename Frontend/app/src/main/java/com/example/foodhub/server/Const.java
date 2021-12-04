@@ -16,6 +16,6 @@ public class Const {
      */
     public static final String URL = "http://coms-309-002.cs.iastate.edu:3000/";
 
-    public static final String CHAT_SERVER_PATH = "ws://192.168.0.136:3001";
+    public static final String CHAT_SERVER_PATH = "ws://192.168.0.136:3000";
 
 }
