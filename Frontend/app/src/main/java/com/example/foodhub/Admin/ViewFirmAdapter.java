@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,9 +16,10 @@ import com.example.foodhub.R;
 
 import java.util.ArrayList;
 
-/*
-
-    @author Marcus
+/**
+ * Sets up the view adapter for Firms
+ * @author Marcus
+ * @see Fragment
  */
 
 public class ViewFirmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -30,6 +32,12 @@ public class ViewFirmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private ArrayList<Category> categories;
 
+    /**
+     * Constructs a ViewFirmAdapter from enumerated information
+     * @param username The username of the current user
+     * @param password The password of the current user
+     * @param firmId The ID of the current firm being used
+     */
     public ViewFirmAdapter(long firmId, String username, String password,
                            ViewFirmFragment fragment) {
         this.firmId = firmId;
@@ -37,12 +45,22 @@ public class ViewFirmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.password = password;
         this.fragment = fragment;
     }
-
+    /**
+     * Creates the view
+     * @param parent A Viewgroup
+     * @param viewType An int designating the view type
+     * @return The view that is created
+     */
     @NonNull @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_browse_category, parent, false);
         return new CategoryHolder(view);
     }
-
+    /**
+     * Repeats the view currently selected
+     * @param holder A Viewgroup
+     * @param index An int designating the view type
+     * @return The view that is created
+     */
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         CategoryHolder categoryHolder = (CategoryHolder) holder;
         categoryHolder.usernameText.setText(categories.get(index).getTitle());
@@ -65,7 +83,9 @@ public class ViewFirmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             usernameText = view.findViewById(R.id.browse_category_textview);
         }
     }
-    //Set up brows firsms and sets
+    /**
+     * Sets up the firm and sets for the onclick listener
+     */
     class GoToBrowseFirms implements View.OnClickListener {
         private long firmId;
         private ViewFirmFragment fragment;
