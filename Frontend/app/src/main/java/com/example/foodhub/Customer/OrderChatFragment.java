@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.foodhub.Chat.MessageAdapter;
 import com.example.foodhub.R;
+import com.example.foodhub.server.Const;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -75,9 +76,7 @@ public class OrderChatFragment extends Fragment implements TextWatcher {
     private View view;
     private String name;
     private WebSocket webSocket;
-    public static final String OTHER_URL = "http://10.0.2.2:3000/";
-    // private String SERVER_PATH = "ws://SERVER-IP-HERE:PORT-NUMBER-HERE"; 192.168.0.136
-    private String SERVER_PATH = "ws://192.168.0.136:3000";
+    // private String CHAT_SERVER_PATH = "ws://SERVER-IP-HERE:PORT-NUMBER-HERE"; 192.168.0.136
     private EditText messageEdit;
     private View sendBtn, pickImgBtn;
     private RecyclerView recyclerView;
@@ -116,7 +115,7 @@ public class OrderChatFragment extends Fragment implements TextWatcher {
     private void initiateSocketConnection() {
 
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(SERVER_PATH).build();
+        Request request = new Request.Builder().url(Const.CHAT_SERVER_PATH).build();
         webSocket = client.newWebSocket(request, new OrderChatFragment.SocketListener());
 
     }

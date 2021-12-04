@@ -15,4 +15,7 @@ public class Const {
      * A URL for a remote backend for deployment; swap names for a quick switch.
      */
     public static final String URL = "http://coms-309-002.cs.iastate.edu:3000/";
+
+    public static final String CHAT_SERVER_PATH = "ws://192.168.0.136:3001";
+
 }
