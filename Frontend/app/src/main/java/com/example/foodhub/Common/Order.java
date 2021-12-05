@@ -1,4 +1,5 @@
 package com.example.foodhub.Common;
+import com.example.foodhub.*;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,10 +34,15 @@ public class Order {
         this.total = obj.getDouble("total");
         JSONArray arr = obj.getJSONArray("orderList");
         list = new ArrayList<ItemReference>();
-        for (int i = 0; i < arr.length(); i++) {
-            list.add(new ItemReference(arr.getJSONObject(i)));
+        if (arr != null) {
+            for (int i = 0; i < arr.length(); i++) {
+                list.add(new ItemReference(arr.getJSONObject(i)));
+            }
         }
     }
+
+
+
 
     /**
      * A getter method for the id field
