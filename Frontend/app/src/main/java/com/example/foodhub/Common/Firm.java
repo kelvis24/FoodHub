@@ -38,6 +38,20 @@ public class Firm {
         this.employee_count = obj.getInt("employee_count");
     }
 
+    public Firm(Firm firm)  {
+        this.id = firm.id;
+        this.username = firm.username;
+        this.name = firm.name;
+        this.location = firm.location;
+        this.cuisine = firm.cuisine;
+        this.open_time = firm.open_time;
+        this.close_time = firm.close_time;
+        this.employee_count = firm.employee_count;
+    }
+    public Firm()  {
+
+    }
+
     /**
      * Constructs a Firm given enumerated information
      * @param id The id of the firm

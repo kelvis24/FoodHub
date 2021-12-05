@@ -21,6 +21,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.SplittableRandom;
 
 /**
  * A controller for the R.layout.fragment_browse_firms view
@@ -51,6 +52,18 @@ public class BrowseFirmsFragment extends Fragment {
         this.password = null;
     }
 
+    public String returnUsername() {
+        return username;
+    }
+
+
+    public String returnPassword() {
+        return password;
+    }
+
+    public ViewGroup returnViewGroup() {
+        return container;
+    }
     /**
      * Gets information from the passed in bundle when applicable
      * @param savedInstanceState A bundle passed in
