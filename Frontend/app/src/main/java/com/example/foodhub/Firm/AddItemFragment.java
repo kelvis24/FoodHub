@@ -11,6 +11,7 @@ import android.widget.EditText;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.foodhub.Common.Item;
 import com.example.foodhub.R;
 import com.example.foodhub.server.Call;
 
@@ -31,8 +32,25 @@ public class AddItemFragment extends Fragment {
     private final long categoryId;
     private final String username;
     private final String password;
+    private final Item item;
 
     View page;
+
+    /**
+     * Constructs a new AddItemFragment given enumerated information
+     * @param firmId The id of the firm to which the item belongs
+     * @param categoryId The id of the category to which the item belongs
+     * @param username The username of the current user
+     * @param password The password of the current user
+     */
+    public AddItemFragment(long firmId, long categoryId, String username, String password, Item item) {
+        super();
+        this.firmId = firmId;
+        this.categoryId = categoryId;
+        this.username = username;
+        this.password = password;
+        this.item = item;
+    }
 
     /**
      * Constructs a new AddItemFragment given enumerated information
@@ -47,6 +65,7 @@ public class AddItemFragment extends Fragment {
         this.categoryId = categoryId;
         this.username = username;
         this.password = password;
+        this.item = null;
     }
 
     /**
@@ -57,6 +76,7 @@ public class AddItemFragment extends Fragment {
         this.categoryId = -1;
         this.username = null;
         this.password = null;
+        this.item = null;
     }
 
     /**
@@ -78,14 +98,22 @@ public class AddItemFragment extends Fragment {
         page = inflater.inflate(R.layout.fragment_add_item, container, false);
         Button btn = page.findViewById(R.id.add_item_button2);
         btn.setOnClickListener(this::addItemRequest);
+        if (item != null) {
+            String str;
+            btn.setText(R.string.Edit);
+            ((EditText)page.findViewById(R.id.add_item_title)).setText(item.getTitle());
+            ((EditText)page.findViewById(R.id.add_item_description)).setText(item.getDescription());
+            str = "" + item.getPrice();
+            ((EditText)page.findViewById(R.id.add_item_price)).setText(str);
+        }
         return page;
     }
 
     /**
      * Sends a request to add an item upon clicking the "add item" button
-     * @param v the "add item" button
+     * @param view the "add item" button
      */
-    public void addItemRequest(View v) {
+    public void addItemRequest(View view) {
         String d_title = ((EditText)page.findViewById(R.id.add_item_title)).getText().toString();
         String d_description = ((EditText)page.findViewById(R.id.add_item_description)).getText().toString();
         double d_price = Double.parseDouble(((EditText)page.findViewById(R.id.add_item_price)).getText().toString());
@@ -98,10 +126,16 @@ public class AddItemFragment extends Fragment {
         map.put("password", password);
         JSONObject obj = new JSONObject(map);
         try{dataObj.put("price", d_price);
-            obj.put("categoryId", categoryId);
+            if (item == null)
+                obj.put("categoryId", categoryId);
+            else
+                obj.put("itemId", item.getId());
             obj.put("data", dataObj);
         } catch (JSONException e) {e.printStackTrace();}
-        Call.post("firms-create-item", obj, this::addItemResponse, null);
+        if (item == null)
+            Call.post("firms-create-item", obj, this::addItemResponse, null);
+        else
+            Call.post("firms-edit-item", obj, this::addItemResponse, null);
     }
 
     /**
