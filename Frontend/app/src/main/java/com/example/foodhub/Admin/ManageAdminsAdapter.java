@@ -71,7 +71,7 @@ public class ManageAdminsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         AdminHolder adminHolder = (AdminHolder) holder;
         adminHolder.usernameText.setText(admins.get(index).getUsername());
-        EditAdmin editResponse = new EditAdmin(admins.get(index).getId());
+        EditAdmin editResponse = new EditAdmin(admins.get(index));
         adminHolder.editButton.setOnClickListener(editResponse);
         DeleteAdmin deleteResponse = new DeleteAdmin(admins.get(index).getId());
         adminHolder.deleteButton.setOnClickListener(deleteResponse);
@@ -106,13 +106,13 @@ public class ManageAdminsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
     private class EditAdmin implements View.OnClickListener {
-        private long id;
-        public EditAdmin(long id) {
-            this.id = id;
+        private Admin admin;
+        public EditAdmin(Admin admin) {
+            this.admin = admin;
         }
         public void onClick(View v) {
             final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
-            ft.replace(R.id.owner_fragment_main, new AddAdminFragment(username, password, "edit", id));
+            ft.replace(R.id.owner_fragment_main, new AddAdminFragment(username, password, "edit", admin));
             ft.commit();
         }
     }

@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.foodhub.Common.Admin;
 import com.example.foodhub.R;
 import com.example.foodhub.server.Call;
 
@@ -30,7 +32,7 @@ public class AddAdminFragment extends Fragment {
     private final String username;
     private final String password;
     private final String function;
-    private final long adminId;
+    private final Admin admin;
 
     private View page;
 
@@ -39,14 +41,14 @@ public class AddAdminFragment extends Fragment {
      * @param username The username of the current user
      * @param password The password of the current user
      * @param function The function of the page: to add or edit
-     * @param adminId The id of the admin that is to be edited; not used for adding.
+     * @param admin The id of the admin that is to be edited; not used for adding.
      */
-    public AddAdminFragment(String username, String password, String function, long adminId) {
+    public AddAdminFragment(String username, String password, String function, Admin admin) {
         super();
         this.username = username;
         this.password = password;
         this.function = function;
-        this.adminId = adminId;
+        this.admin = admin;
     }
 
     /**
@@ -56,7 +58,7 @@ public class AddAdminFragment extends Fragment {
         this.username = null;
         this.password = null;
         this.function = null;
-        this.adminId = 0;
+        this.admin = null;
     }
 
     /**
@@ -80,8 +82,11 @@ public class AddAdminFragment extends Fragment {
         btn.setOnClickListener(this::adminRequest);
         if (function.equals("add"))
             btn.setText(R.string.Add_Admin);
-        else
+        else {
             btn.setText(R.string.Edit_Admin);
+            ((TextView)page.findViewById(R.id.add_admin_username)).setText(admin.getUsername());
+            ((TextView)page.findViewById(R.id.add_admin_name)).setText(admin.getName());
+        }
         return page;
     }
 
@@ -104,7 +109,7 @@ public class AddAdminFragment extends Fragment {
         JSONObject obj = new JSONObject(map);
         try{obj.put("data", dataObj);
             if (function.equals("edit"))
-                obj.put("adminId", adminId);
+                obj.put("adminId", admin.getId());
         } catch (JSONException e) {e.printStackTrace();}
         if (function.equals("add"))
             Call.post("admins-create-admin", obj, this::addAdminResponse, null);
