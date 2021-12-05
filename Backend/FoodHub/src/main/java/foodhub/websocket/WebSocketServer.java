@@ -1,4 +1,4 @@
-package foodhub;
+package websocket.foodhub;
 
 import java.io.IOException;
 import java.util.Hashtable;
