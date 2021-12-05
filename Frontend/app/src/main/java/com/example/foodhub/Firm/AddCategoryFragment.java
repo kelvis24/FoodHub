@@ -11,6 +11,7 @@ import android.widget.EditText;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.foodhub.Common.Category;
 import com.example.foodhub.R;
 import com.example.foodhub.server.Call;
 
@@ -30,9 +31,23 @@ public class AddCategoryFragment extends Fragment {
     private final long firmId;
     private final String username;
     private final String password;
+    private final Category category;
 
-    private ViewGroup container;
-    View view;
+    View page;
+
+    /**
+     * Constructs a new AddCategoryFragment given enumerated information
+     * @param firmId The id of the current user
+     * @param username The username of the current user
+     * @param password The password of the current user
+     */
+    public AddCategoryFragment(long firmId, String username, String password, Category category) {
+        super();
+        this.firmId = firmId;
+        this.username = username;
+        this.password = password;
+        this.category = category;
+    }
 
     /**
      * Constructs a new AddCategoryFragment given enumerated information
@@ -45,6 +60,7 @@ public class AddCategoryFragment extends Fragment {
         this.firmId = firmId;
         this.username = username;
         this.password = password;
+        this.category = null;
     }
 
     /**
@@ -54,6 +70,7 @@ public class AddCategoryFragment extends Fragment {
         this.firmId = -1;
         this.username = null;
         this.password = null;
+        this.category = null;
     }
 
     /**
@@ -72,11 +89,15 @@ public class AddCategoryFragment extends Fragment {
      * @return The view that is created
      */
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_add_category, container, false);
-        this.container = container;
-        Button btn = view.findViewById(R.id.add_category_button2);
+        page = inflater.inflate(R.layout.fragment_add_category, container, false);
+        Button btn = page.findViewById(R.id.add_category_button2);
         btn.setOnClickListener(this::addCategoryRequest);
-        return view;
+        if (category != null) {
+            btn.setText(R.string.Edit);
+            ((EditText)page.findViewById(R.id.add_category_title)).setText(category.getTitle());
+            ((EditText)page.findViewById(R.id.add_category_description)).setText(category.getDescription());
+        }
+        return page;
     }
 
     /**
@@ -84,8 +105,8 @@ public class AddCategoryFragment extends Fragment {
      * @param v the "add category" button
      */
     public void addCategoryRequest(View v) {
-        String d_title = ((EditText)view.findViewById(R.id.add_category_title)).getText().toString();
-        String d_description = ((EditText)view.findViewById(R.id.add_category_description)).getText().toString();
+        String d_title = ((EditText)page.findViewById(R.id.add_category_title)).getText().toString();
+        String d_description = ((EditText)page.findViewById(R.id.add_category_description)).getText().toString();
         Map<String, String> dataMap = new HashMap<>();
         dataMap.put("title", d_title);
         dataMap.put("description", d_description);
@@ -95,15 +116,19 @@ public class AddCategoryFragment extends Fragment {
         map.put("password", password);
         JSONObject obj = new JSONObject(map);
         try{obj.put("data", dataObj);
+            if (category != null) obj.put("categoryId", category.getId());
         } catch (JSONException e) {e.printStackTrace();}
-        Call.post("firms-create-category", obj, this::addCategoryResponse, null);
+        if (category == null)
+            Call.post("firms-create-category", obj, this::categoryResponse, null);
+        else
+            Call.post("firms-edit-category", obj, this::categoryResponse, null);
     }
 
     /**
      * Goes back to the R.layout.fragment_manage_categories view upon successfully adding an category
      * @param response The response from the server as a JSONObject
      */
-    public void addCategoryResponse(JSONObject response) {
+    public void categoryResponse(JSONObject response) {
         try{if (response.get("message").equals("success")) {
             final FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.replace(R.id.firm_fragment_main, new ManageCategoriesFragment(firmId, username, password));

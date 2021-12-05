@@ -74,9 +74,11 @@ public class ManageCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         CategoryHolder categoryHolder = (CategoryHolder) holder;
         categoryHolder.usernameText.setText(categories.get(index).getTitle());
-        GoToManageItems goToManageItems = new GoToManageItems(categories.get(index).getId(), fragment);
+        GoToManageItems goToManageItems = new GoToManageItems(categories.get(index).getId());
         categoryHolder.usernameText.setOnClickListener(goToManageItems);
-        DeleteCategory deleteCategory = new DeleteCategory(categories.get(index).getId(), fragment);
+        EditCategory editCategory = new EditCategory(categories.get(index));
+        categoryHolder.editButton.setOnClickListener(editCategory);
+        DeleteCategory deleteCategory = new DeleteCategory(categories.get(index).getId());
         categoryHolder.deleteButton.setOnClickListener(deleteCategory);
     }
 
@@ -99,23 +101,33 @@ public class ManageCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private class CategoryHolder extends RecyclerView.ViewHolder {
         TextView usernameText;
+        Button editButton;
         Button deleteButton;
         public CategoryHolder(@NonNull View view) {
             super(view);
             usernameText = view.findViewById(R.id.edit_category_textview);
-            deleteButton = view.findViewById(R.id.edit_category_button);
+            editButton = view.findViewById(R.id.edit_category_edit_button);
+            deleteButton = view.findViewById(R.id.edit_category_delete_button);
+        }
+    }
+
+    private class EditCategory implements View.OnClickListener {
+        private Category category;
+        public EditCategory(Category category) {
+            this.category = category;
+        }
+        public void onClick(View v) {
+            final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
+            ft.replace(R.id.firm_fragment_main, new AddCategoryFragment(firmId, username, password, category));
+            ft.commit();
         }
     }
 
     private class DeleteCategory implements View.OnClickListener, ObjectResponse {
         private long categoryId;
-        private ManageCategoriesFragment fragment;
-
-        public DeleteCategory(long categoryId, ManageCategoriesFragment fragment) {
+        public DeleteCategory(long categoryId) {
             this.categoryId = categoryId;
-            this.fragment = fragment;
         }
-
         public void onClick(View v) {
             Map<String, String> map = new HashMap<>();
             map.put("username", username);
@@ -125,7 +137,6 @@ public class ManageCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.V
             } catch (JSONException e) {e.printStackTrace();}
             Call.post("firms-remove-category", obj, this, null);
         }
-
         public void respond(JSONObject response) {
             try{if (response.get("message").equals("success")) {
                 fragment.refresh();
@@ -133,15 +144,11 @@ public class ManageCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
     }
 
-    class GoToManageItems implements View.OnClickListener {
+    private class GoToManageItems implements View.OnClickListener {
         private long categoryId;
-        private ManageCategoriesFragment fragment;
-
-        public GoToManageItems(long categoryId, ManageCategoriesFragment fragment) {
+        public GoToManageItems(long categoryId) {
             this.categoryId = categoryId;
-            this.fragment = fragment;
         }
-
         public void onClick(View v) {
             final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
             ft.replace(R.id.firm_fragment_main, new ManageItemsFragment(firmId, categoryId, username, password));

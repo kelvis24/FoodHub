@@ -32,12 +32,11 @@ public class AddItemFragment extends Fragment {
     private final String username;
     private final String password;
 
-    private ViewGroup container;
-    View view;
+    View page;
 
     /**
      * Constructs a new AddItemFragment given enumerated information
-     * @param firmid The id of the firm to which the item belongs
+     * @param firmId The id of the firm to which the item belongs
      * @param categoryId The id of the category to which the item belongs
      * @param username The username of the current user
      * @param password The password of the current user
@@ -76,11 +75,10 @@ public class AddItemFragment extends Fragment {
      * @return The view that is created
      */
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_add_item, container, false);
-        this.container = container;
-        Button btn = view.findViewById(R.id.add_item_button2);
+        page = inflater.inflate(R.layout.fragment_add_item, container, false);
+        Button btn = page.findViewById(R.id.add_item_button2);
         btn.setOnClickListener(this::addItemRequest);
-        return view;
+        return page;
     }
 
     /**
@@ -88,9 +86,9 @@ public class AddItemFragment extends Fragment {
      * @param v the "add item" button
      */
     public void addItemRequest(View v) {
-        String d_title = ((EditText)view.findViewById(R.id.add_item_title)).getText().toString();
-        String d_description = ((EditText)view.findViewById(R.id.add_item_description)).getText().toString();
-        double d_price = Double.parseDouble(((EditText)view.findViewById(R.id.add_item_price)).getText().toString());
+        String d_title = ((EditText)page.findViewById(R.id.add_item_title)).getText().toString();
+        String d_description = ((EditText)page.findViewById(R.id.add_item_description)).getText().toString();
+        double d_price = Double.parseDouble(((EditText)page.findViewById(R.id.add_item_price)).getText().toString());
         Map<String, String> dataMap = new HashMap<>();
         dataMap.put("title", d_title);
         dataMap.put("description", d_description);
