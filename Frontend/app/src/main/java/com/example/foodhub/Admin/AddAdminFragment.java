@@ -31,7 +31,6 @@ public class AddAdminFragment extends Fragment {
 
     private final String username;
     private final String password;
-    private final String function;
     private final Admin admin;
 
     private View page;
@@ -40,15 +39,25 @@ public class AddAdminFragment extends Fragment {
      * Constructs a new AddAdminFragment given enumerated information
      * @param username The username of the current user
      * @param password The password of the current user
-     * @param function The function of the page: to add or edit
      * @param admin The id of the admin that is to be edited; not used for adding.
      */
-    public AddAdminFragment(String username, String password, String function, Admin admin) {
+    public AddAdminFragment(String username, String password, Admin admin) {
         super();
         this.username = username;
         this.password = password;
-        this.function = function;
         this.admin = admin;
+    }
+
+    /**
+     * Constructs a new AddAdminFragment given enumerated information
+     * @param username The username of the current user
+     * @param password The password of the current user
+     */
+    public AddAdminFragment(String username, String password) {
+        super();
+        this.username = username;
+        this.password = password;
+        this.admin = null;
     }
 
     /**
@@ -57,7 +66,6 @@ public class AddAdminFragment extends Fragment {
     public AddAdminFragment() {
         this.username = null;
         this.password = null;
-        this.function = null;
         this.admin = null;
     }
 
@@ -80,9 +88,7 @@ public class AddAdminFragment extends Fragment {
         page = inflater.inflate(R.layout.fragment_add_admin, container, false);
         Button btn = page.findViewById(R.id.add_admin_button2);
         btn.setOnClickListener(this::adminRequest);
-        if (function.equals("add"))
-            btn.setText(R.string.Add_Admin);
-        else {
+        if (admin != null) {
             btn.setText(R.string.Edit_Admin);
             ((TextView)page.findViewById(R.id.add_admin_username)).setText(admin.getUsername());
             ((TextView)page.findViewById(R.id.add_admin_name)).setText(admin.getName());
@@ -91,8 +97,8 @@ public class AddAdminFragment extends Fragment {
     }
 
     /**
-     * Sends a request to add an admin upon clicking the "add admin" button
-     * @param view the "add admin" button
+     * Sends a request to add an admin upon clicking the "add admin" or "edit admin" button
+     * @param view the "add admin" or "edit admin" button
      */
     public void adminRequest(View view) {
         String d_name = ((EditText)page.findViewById(R.id.add_admin_name)).getText().toString();
@@ -108,10 +114,9 @@ public class AddAdminFragment extends Fragment {
         map.put("password", password);
         JSONObject obj = new JSONObject(map);
         try{obj.put("data", dataObj);
-            if (function.equals("edit"))
-                obj.put("adminId", admin.getId());
+            if (admin != null) obj.put("adminId", admin.getId());
         } catch (JSONException e) {e.printStackTrace();}
-        if (function.equals("add"))
+        if (admin == null)
             Call.post("admins-create-admin", obj, this::addAdminResponse, null);
         else
             Call.post("admins-edit-admin", obj, this::addAdminResponse, null);

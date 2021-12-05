@@ -112,7 +112,7 @@ public class ManageAdminsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
         public void onClick(View v) {
             final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
-            ft.replace(R.id.owner_fragment_main, new AddAdminFragment(username, password, "edit", admin));
+            ft.replace(R.id.owner_fragment_main, new AddAdminFragment(username, password, admin));
             ft.commit();
         }
     }

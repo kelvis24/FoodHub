@@ -116,7 +116,7 @@ public class ManageAdminsFragment extends Fragment {
      */
     public void goToCreateAdmin(View view) {
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.owner_fragment_main, new AddAdminFragment(username, password, "add", null));
+        ft.replace(R.id.owner_fragment_main, new AddAdminFragment(username, password));
         ft.commit();
     }
 

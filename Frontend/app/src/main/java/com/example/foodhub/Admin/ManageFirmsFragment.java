@@ -103,7 +103,7 @@ public class ManageFirmsFragment extends Fragment {
             } catch (JSONException e) {e.printStackTrace();}
         }
         RecyclerView recyclerView = container.findViewById(R.id.manage_firms_recycler);
-        recyclerView.setAdapter(new ManageFirmsAdapter(username, password, this, firms));
+        recyclerView.setAdapter(new ManageFirmsAdapter(username, password, type, this, firms));
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
     }
 

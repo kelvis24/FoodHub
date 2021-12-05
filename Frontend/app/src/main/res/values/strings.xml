@@ -25,6 +25,9 @@
     <string name="Add_Category">Add Category</string>
     <string name="Add_Item">Add Item</string>
     <string name="Edit_Admin">Edit Admin</string>
+    <string name="Edit_Firm">Edit Firm</string>
+    <string name="Edit_Category">Edit Category</string>
+    <string name="Edit_Item">Edit Item</string>
     <string name="Firm">Firm</string>
     <string name="Id">Id</string>
     <string name="Total">Total</string>
