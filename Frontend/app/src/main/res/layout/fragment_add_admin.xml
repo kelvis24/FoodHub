@@ -109,7 +109,6 @@
         android:layout_width="199dp"
         android:layout_height="65dp"
         android:layout_marginTop="64dp"
-        android:text="@string/Add_Admin"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.476"

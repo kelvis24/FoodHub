@@ -24,6 +24,7 @@
     <string name="Add_Firm">Add Firm</string>
     <string name="Add_Category">Add Category</string>
     <string name="Add_Item">Add Item</string>
+    <string name="Edit_Admin">Edit Admin</string>
     <string name="Firm">Firm</string>
     <string name="Id">Id</string>
     <string name="Total">Total</string>
@@ -40,6 +41,7 @@
     <string name="Description">Description</string>
     <string name="Price">Price</string>
     <string name="Quantity">Quantity</string>
+    <string name="Edit">Edit</string>
     <string name="Delete">Delete</string>
     <string name="Add">Add</string>
     <string name="Submit">Submit</string>
