@@ -125,13 +125,13 @@ public class AdminController {
     		return new Message("failure","wrong credentials");
     	if (body.getData() == null)
     		return new Message("failure","no data");
-    	AdminInfo d = body.getData();
-    	Admin sameUsername = adminRepository.findByUsername(d.getUsername());
-    	if (sameUsername != null)
-    		return new Message("failure","username taken");
     	Admin old = adminRepository.findById(body.getAdminId());
     	if (old == null)
     		return new Message("failure","no such user");
+    	AdminInfo d = body.getData();
+    	Admin sameUsername = adminRepository.findByUsername(d.getUsername());
+    	if (sameUsername != null && !sameUsername.getUsername().equals(old.getUsername()))
+    		return new Message("failure","username taken");
     	adminRepository.setById(old.getId(),d.getUsername(),d.getPassword(),d.getName(),old.getType());
     	return new Message("success");
     }
@@ -209,13 +209,13 @@ public class AdminController {
     		return new Message("failure","wrong password");
     	if (body.getData() == null)
     		return new Message("failure","no data");
-    	FirmInfo d = body.getData();
-    	Firm sameUsername = firmRepository.findByUsername(d.getUsername());
-    	if (sameUsername != null)
-    		return new Message("failure","username taken");
     	Firm old = firmRepository.findById(body.getFirmId());
     	if (old == null)
     		return new Message("failure","no such user");
+    	FirmInfo d = body.getData();
+    	Firm sameUsername = firmRepository.findByUsername(d.getUsername());
+    	if (sameUsername != null && !sameUsername.getUsername().equals(old.getUsername()))
+    		return new Message("failure","username taken");
     	firmRepository.setById(old.getId(), d.getUsername(), d.getPassword(), d.getName(), d.getLocation(),
     			d.getCuisine(), d.getOpen_time(), d.getClose_time(), d.getEmployee_count());
     	return new Message("success");

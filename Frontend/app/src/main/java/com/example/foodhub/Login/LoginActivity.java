@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         JSONObject obj = new JSONObject(map);
 
 
-        Authenticate(false, obj);
+        Authenticate(true, obj);
     }
 
     /**
