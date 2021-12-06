@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodhub.Common.Firm;
@@ -31,6 +32,7 @@ public class ManageFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private String username;
     private String password;
+    private String type;
 
     private ManageFirmsFragment fragment;
 
@@ -43,9 +45,11 @@ public class ManageFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
      * @param fragment The fragment that contains the recycler
      * @param firms The list information about firms, which will be listed in the recycler
      */
-    public ManageFirmsAdapter(String username, String password, ManageFirmsFragment fragment, ArrayList<Firm> firms) {
+    public ManageFirmsAdapter(String username, String password, String type,
+            ManageFirmsFragment fragment, ArrayList<Firm> firms) {
         this.username = username;
         this.password = password;
+        this.type = type;
         this.fragment = fragment;
         this.firms = firms;
     }
@@ -69,8 +73,10 @@ public class ManageFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         FirmHolder firmHolder = (FirmHolder) holder;
         firmHolder.usernameText.setText(firms.get(index).getUsername());
-        DeleteFirm response = new DeleteFirm(firms.get(index).getId(), fragment);
-        firmHolder.deleteButton.setOnClickListener(response);
+        EditFirm editResponse = new EditFirm(firms.get(index));
+        firmHolder.editButton.setOnClickListener(editResponse);
+        DeleteFirm deleteResponse = new DeleteFirm(firms.get(index).getId());
+        firmHolder.deleteButton.setOnClickListener(deleteResponse);
     }
 
     /**
@@ -92,11 +98,28 @@ public class ManageFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private class FirmHolder extends RecyclerView.ViewHolder {
         TextView usernameText;
+        Button editButton;
         Button deleteButton;
         public FirmHolder(@NonNull View view) {
             super(view);
             usernameText = view.findViewById(R.id.edit_firm_textview);
-            deleteButton = view.findViewById(R.id.edit_firm_button);
+            editButton = view.findViewById(R.id.edit_firm_edit_button);
+            deleteButton = view.findViewById(R.id.edit_firm_delete_button);
+        }
+    }
+
+    private class EditFirm implements View.OnClickListener {
+        private Firm firm;
+        public EditFirm(Firm firm) {
+            this.firm = firm;
+        }
+        public void onClick(View v) {
+            final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
+            if (type.equals("owner"))
+                ft.replace(R.id.owner_fragment_main, new AddFirmFragment(username, password, type, firm));
+            else
+                ft.replace(R.id.admin_fragment_main, new AddFirmFragment(username, password, type, firm));
+            ft.commit();
         }
     }
 	

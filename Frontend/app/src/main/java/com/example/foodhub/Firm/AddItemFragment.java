@@ -1,5 +1,7 @@
 package com.example.foodhub.Firm;
 
+import static com.example.foodhub.Common.FoodhubUtils.AreInvalidFields;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,16 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.foodhub.Common.Item;
 import com.example.foodhub.R;
 import com.example.foodhub.server.Call;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,13 +36,29 @@ public class AddItemFragment extends Fragment {
     private final long categoryId;
     private final String username;
     private final String password;
+    private final Item item;
 
-    private ViewGroup container;
-    View view;
+    View page;
 
     /**
      * Constructs a new AddItemFragment given enumerated information
-     * @param firmid The id of the firm to which the item belongs
+     * @param firmId The id of the firm to which the item belongs
+     * @param categoryId The id of the category to which the item belongs
+     * @param username The username of the current user
+     * @param password The password of the current user
+     */
+    public AddItemFragment(long firmId, long categoryId, String username, String password, Item item) {
+        super();
+        this.firmId = firmId;
+        this.categoryId = categoryId;
+        this.username = username;
+        this.password = password;
+        this.item = item;
+    }
+
+    /**
+     * Constructs a new AddItemFragment given enumerated information
+     * @param firmId The id of the firm to which the item belongs
      * @param categoryId The id of the category to which the item belongs
      * @param username The username of the current user
      * @param password The password of the current user
@@ -48,6 +69,7 @@ public class AddItemFragment extends Fragment {
         this.categoryId = categoryId;
         this.username = username;
         this.password = password;
+        this.item = null;
     }
 
     /**
@@ -58,6 +80,7 @@ public class AddItemFragment extends Fragment {
         this.categoryId = -1;
         this.username = null;
         this.password = null;
+        this.item = null;
     }
 
     /**
@@ -76,21 +99,34 @@ public class AddItemFragment extends Fragment {
      * @return The view that is created
      */
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_add_item, container, false);
-        this.container = container;
-        Button btn = view.findViewById(R.id.add_item_button2);
+        page = inflater.inflate(R.layout.fragment_add_item, container, false);
+        Button btn = page.findViewById(R.id.add_item_button2);
         btn.setOnClickListener(this::addItemRequest);
-        return view;
+        if (item != null) {
+            String str;
+            btn.setText(R.string.Edit);
+            ((EditText)page.findViewById(R.id.add_item_title)).setText(item.getTitle());
+            ((EditText)page.findViewById(R.id.add_item_description)).setText(item.getDescription());
+            str = "" + item.getPrice();
+            ((EditText)page.findViewById(R.id.add_item_price)).setText(str);
+        }
+        return page;
     }
 
     /**
      * Sends a request to add an item upon clicking the "add item" button
-     * @param v the "add item" button
+     * @param view the "add item" button
      */
-    public void addItemRequest(View v) {
-        String d_title = ((EditText)view.findViewById(R.id.add_item_title)).getText().toString();
-        String d_description = ((EditText)view.findViewById(R.id.add_item_description)).getText().toString();
-        double d_price = Double.parseDouble(((EditText)view.findViewById(R.id.add_item_price)).getText().toString());
+    public void addItemRequest(View view) {
+        String d_title = ((EditText)page.findViewById(R.id.add_item_title)).getText().toString();
+        String d_description = ((EditText)page.findViewById(R.id.add_item_description)).getText().toString();
+        String s_price = ((EditText)page.findViewById(R.id.add_item_price)).getText().toString();
+        ArrayList<String> list = new ArrayList<>();
+        list.add(d_title);
+        list.add(d_description);
+        list.add(s_price);
+        if (AreInvalidFields(getActivity(), list)) return;
+        double d_price = Double.parseDouble(s_price);
         Map<String, String> dataMap = new HashMap<>();
         dataMap.put("title", d_title);
         dataMap.put("description", d_description);
@@ -100,10 +136,16 @@ public class AddItemFragment extends Fragment {
         map.put("password", password);
         JSONObject obj = new JSONObject(map);
         try{dataObj.put("price", d_price);
-            obj.put("categoryId", categoryId);
+            if (item == null)
+                obj.put("categoryId", categoryId);
+            else
+                obj.put("itemId", item.getId());
             obj.put("data", dataObj);
         } catch (JSONException e) {e.printStackTrace();}
-        Call.post("firms-create-item", obj, this::addItemResponse, null);
+        if (item == null)
+            Call.post("firms-create-item", obj, this::addItemResponse, null);
+        else
+            Call.post("firms-edit-item", obj, this::addItemResponse, null);
     }
 
     /**
@@ -115,6 +157,9 @@ public class AddItemFragment extends Fragment {
             final FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.replace(R.id.firm_fragment_main, new ManageItemsFragment(firmId, categoryId, username, password));
             ft.commit();
+        } else {
+            Toast.makeText(getActivity().getApplicationContext(),
+                    (String)response.get("error"),Toast.LENGTH_SHORT).show();
         }} catch (Exception e) {Log.d("response", e.toString());}
     }
 

@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodhub.Common.Item;
@@ -29,9 +30,10 @@ import java.util.Map;
  */
 public class ManageItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private long categoryId;
-    private String username;
-    private String password;
+    private final long firmId;
+    private final long categoryId;
+    private final String username;
+    private final String password;
 
     private ManageItemsFragment fragment;
 
@@ -45,8 +47,9 @@ public class ManageItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
      * @param fragment The fragment that contains the recycler
      * @param items The list information about items, which will be listed in the recycler
      */
-    public ManageItemsAdapter(long categoryId, String username, String password,
+    public ManageItemsAdapter(long firmId, long categoryId, String username, String password,
             ManageItemsFragment fragment, ArrayList<Item> items) {
+        this.firmId = firmId;
         this.categoryId = categoryId;
         this.username = username;
         this.password = password;
@@ -73,7 +76,9 @@ public class ManageItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         ItemHolder itemHolder = (ItemHolder) holder;
         itemHolder.usernameText.setText(items.get(index).getTitle());
-        DeleteItem deleteItem = new DeleteItem(items.get(index).getId(), fragment);
+        EditItem editItem = new EditItem(items.get(index));
+        itemHolder.editButton.setOnClickListener(editItem);
+        DeleteItem deleteItem = new DeleteItem(items.get(index).getId());
         itemHolder.deleteButton.setOnClickListener(deleteItem);
     }
 
@@ -96,20 +101,32 @@ public class ManageItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private class ItemHolder extends RecyclerView.ViewHolder {
         TextView usernameText;
+        Button editButton;
         Button deleteButton;
         public ItemHolder(@NonNull View view) {
             super(view);
             usernameText = view.findViewById(R.id.edit_item_textview);
-            deleteButton = view.findViewById(R.id.edit_item_button);
+            editButton = view.findViewById(R.id.edit_item_edit_button);
+            deleteButton = view.findViewById(R.id.edit_item_delete_button);
+        }
+    }
+    private class EditItem implements View.OnClickListener {
+        private Item item;
+        public EditItem(Item item) {
+            this.item = item;
+        }
+        public void onClick(View v) {
+            final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
+            ft.replace(R.id.firm_fragment_main, new AddItemFragment(firmId, categoryId, username, password, item));
+            ft.commit();
         }
     }
 
+
     private class DeleteItem implements View.OnClickListener, ObjectResponse {
         private long itemId;
-        private ManageItemsFragment fragment;
-        public DeleteItem(long itemId, ManageItemsFragment fragment) {
+        public DeleteItem(long itemId) {
             this.itemId = itemId;
-            this.fragment = fragment;
         }
         public void onClick(View v) {
             Map<String, String> map = new HashMap<>();
@@ -121,8 +138,7 @@ public class ManageItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             Call.post("firms-remove-item", obj, this, null);
         }
         public void respond(JSONObject response) {
-            try{System.out.println(response.toString());
-                if (response.get("message").equals("success")) {
+            try{if (response.get("message").equals("success")) {
                     fragment.refresh();
             }} catch (Exception e) {Log.d("response", e.toString());}
         }
