@@ -72,7 +72,7 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
 //
 
         GoToManageCustomerOrders goToManageCustomerOrders = new GoToManageCustomerOrders(orders.get(index).getId(), orders.get(index).getFirm(), fragment);
-        firmHolder.firmNameText.setOnClickListener(goToManageCustomerOrders);
+        firmHolder.firmImage.setOnClickListener(goToManageCustomerOrders);
         GoToOrderChat goToOrderChat = new GoToOrderChat(orders.get(index).getFirm(), fragment);
         firmHolder.goToChatButton.setOnClickListener(goToOrderChat);
     }
