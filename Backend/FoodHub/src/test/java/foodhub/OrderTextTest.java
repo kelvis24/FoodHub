@@ -51,6 +51,8 @@ public class OrderTextTest {
 	@Mock Session customerSession;
 
 	@Mock Session firmSession;
+	
+	private Order fakeOrder = new Order();
 
 	private List<Customer> cl;
 	private List<Firm> fl;
@@ -58,8 +60,7 @@ public class OrderTextTest {
 	
 	private List<String> backlog;
 	
-	@BeforeEach
-	public void init() {
+	@BeforeEach	public void init() {
 		cl = new ArrayList<Customer>();
 		when(customerRepository.findAll()).thenReturn(cl);
 		when(customerRepository.findByUsername((String)any(String.class)))
@@ -119,29 +120,60 @@ public class OrderTextTest {
 			return null;
 		});
 		backlog = new ArrayList<String>();
-		when(orderRepository.findById(2)).thenReturn(true);
+		when(orderRepository.findById(2)).thenReturn(fakeOrder);
 		when(customerSession.getBasicRemote()).thenReturn(new FakeRemote());
 		when(firmSession.getBasicRemote()).thenReturn(new FakeRemote());
 		customerRepository.save(new Customer("arvidg","arvid","Arvid","Freddy"));
 		firmRepository.save(new Firm("tacoh","tacos","Taco House","Taco Town","Tacos",1,2,3));
 	}
 	
-	@Test
-	public void OrderTextTest0() {
+	@Test public void OrderTextTest0() {
 		try {
 			otc.onOpen(customerSession, "2");
 			otc.onMessage(customerSession,  "M1");
-			// otf.onOpen(firmSession, "2");
-			// otc.onMessage(customerSession,  "M2");
-			// otf.onMessage(firmSession,  "M3");
-			// otc.onClose(customerSession);
-			// otf.onClose(firmSession);
+			otf.onOpen(firmSession, "2");
+			otc.onMessage(customerSession,  "M2");
+			otf.onMessage(firmSession,  "M3");
+			otc.onClose(customerSession);
+			otf.onClose(firmSession);
 		} catch(Exception e) {
 			e.printStackTrace();
 			assert false;
 		}
 		List<OTMessageOutput> customerMessages = cc.getOTMessages(new AuthenticationAndId("arvidg","arvid",2));
 		List<OTMessageOutput> firmMessages = fc.getOTMessages(new AuthenticationAndId("tacoh","tacos",2));
+		assertEquals(2, backlog.size());
+		assertEquals("M2", backlog.get(0));
+		assertEquals("M3", backlog.get(1));
+		assertEquals(3, customerMessages.size());
+		assertEquals("M1", customerMessages.get(0).getMessage());
+		assertEquals("M2", customerMessages.get(1).getMessage());
+		assertEquals("M3", customerMessages.get(2).getMessage());
+		assertEquals(1, customerMessages.get(0).getSequence());
+		assertEquals(2, customerMessages.get(1).getSequence());
+		assertEquals(3, customerMessages.get(2).getSequence());
+		assertEquals(1, customerMessages.get(0).getWho());
+		assertEquals(1, customerMessages.get(1).getWho());
+		assertEquals(0, customerMessages.get(2).getWho());
+		assertEquals(3, firmMessages.size());
+		assertEquals("M1", firmMessages.get(0).getMessage());
+		assertEquals("M2", firmMessages.get(1).getMessage());
+		assertEquals("M3", firmMessages.get(2).getMessage());
+		assertEquals(1, firmMessages.get(0).getSequence());
+		assertEquals(2, firmMessages.get(1).getSequence());
+		assertEquals(3, firmMessages.get(2).getSequence());
+		assertEquals(1, firmMessages.get(0).getWho());
+		assertEquals(1, firmMessages.get(1).getWho());
+		assertEquals(0, firmMessages.get(2).getWho());
+		verify(customerRepository, times(1)).save((Customer)any(Customer.class));
+		verify(customerRepository, times(1)).findByUsername((String)any(String.class));
+		verify(firmRepository, times(1)).save((Firm)any(Firm.class));
+		verify(firmRepository, times(1)).findByUsername((String)any(String.class));
+		verify(orderRepository, times(3)).findById(2);
+		verify(otmRepository, times(3)).save((OTMessage)any(OTMessage.class));
+		verify(otmRepository, times(3)).findByOrderId((Long)any(Long.class));
+		verify(customerSession, times(1)).getBasicRemote();
+		verify(firmSession, times(1)).getBasicRemote();
 	}
 	
 	private class FakeRemote implements RemoteEndpoint.Basic {
