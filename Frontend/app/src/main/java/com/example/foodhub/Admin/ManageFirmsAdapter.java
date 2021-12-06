@@ -73,6 +73,8 @@ public class ManageFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         FirmHolder firmHolder = (FirmHolder) holder;
         firmHolder.usernameText.setText(firms.get(index).getUsername());
+		GoToViewFirm goToViewFirm = new GoToViewFirm(firms.get(index).getId());
+		firmHolder.usernameText.setOnClickListener(goToViewFirm);
         EditFirm editResponse = new EditFirm(firms.get(index));
         firmHolder.editButton.setOnClickListener(editResponse);
         DeleteFirm deleteResponse = new DeleteFirm(firms.get(index).getId());
@@ -107,6 +109,21 @@ public class ManageFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             deleteButton = view.findViewById(R.id.edit_firm_delete_button);
         }
     }
+	
+	private class GoToViewFirm implements View.OnClickListener {
+		private long firmId;
+		public GoToViewFirm(long firmId) {
+			this.firmId = firmId;
+		}
+		public void onClick(View v) {
+            final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
+            if (type.equals("owner"))
+                ft.replace(R.id.owner_fragment_main, new ViewFirmFragment(firmId, username, password));
+            else
+                ft.replace(R.id.admin_fragment_main, new ViewFirmFragment(firmId, username, password));
+            ft.commit();
+		}
+	}
 
     private class EditFirm implements View.OnClickListener {
         private Firm firm;
@@ -122,15 +139,6 @@ public class ManageFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             ft.commit();
         }
     }
-	
-	private class GoToViewFirm implements View.OnClickListener {
-		private long firmId;
-		public GoToViewFirm(long firmId) {
-			this.firmId = firmId;
-		}
-		public void onClick(View v) {
-		}
-	}
 
     private class DeleteFirm implements View.OnClickListener, ObjectResponse {
         private long id;
