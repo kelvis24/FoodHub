@@ -87,7 +87,7 @@ public class GeneralController {
     		return new Message("failure","no data");
     	Customer sameEmail = customerRepository.findByUsername(customer.getUsername());
     	if (sameEmail != null)
-    		return new Message("failure","username taken");
+    		return new Message("failure","Username Taken");
     	customerRepository.save(new Customer(customer));
     	return new Message("success");
     }

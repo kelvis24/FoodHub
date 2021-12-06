@@ -45,9 +45,9 @@ public class CustomerController {
 	public Message authenticateCustomer(@RequestBody Authentication body) {
     	Customer user = customerRepository.findByUsername(body.getUsername());
     	if (user == null)
-    		return new Message("failure","wrong username");
+    		return new Message("failure","Wrong Username");
     	if (!user.getPassword().equals(body.getPassword()))
-    		return new Message("failure","wrong password");
+    		return new Message("failure","Wrong Password");
     	return new Message("success");
 	}
 	
@@ -74,15 +74,15 @@ public class CustomerController {
     public Message createCustomer(@RequestBody EditCustomerInput body) {
     	Customer user = customerRepository.findByUsername(body.getUsername());
     	if (user == null)
-    		return new Message("failure","wrong username");
+    		return new Message("failure","Wrong Username");
     	if (!user.getPassword().equals(body.getPassword()))
-    		return new Message("failure","wrong password");
+    		return new Message("failure","Wrong Password");
     	if (body.getData() == null)
-    		return new Message("failure","no data");
+    		return new Message("failure","No Data");
     	CustomerInfo d = body.getData();
     	Customer sameUsername = customerRepository.findByUsername(d.getUsername());
     	if (sameUsername != null && !sameUsername.getUsername().equals(user.getUsername()))
-    		return new Message("failure","username taken");
+    		return new Message("failure","Username Taken");
     	customerRepository.setById(user.getId(),d.getUsername(),d.getPassword(),d.getName(),user.getLocation());
     	return new Message("success");
     }
@@ -99,9 +99,9 @@ public class CustomerController {
     public Message removeCustomer(@RequestBody Authentication body) {
     	Customer user = customerRepository.findByUsername(body.getUsername());
     	if (user == null)
-    		return new Message("failure","wrong username");
+    		return new Message("failure","Wrong Username");
     	if (!user.getPassword().equals(body.getPassword()))
-    		return new Message("failure","wrong password");
+    		return new Message("failure","Wrong Password");
     	List<Order> orders = orderRepository.findByCustomerId(user.getId());
     	for (Order o : orders) deleteOrder(o.getId());
     	customerRepository.deleteById(user.getId());
@@ -155,15 +155,15 @@ public class CustomerController {
     public Message customerOrders(@RequestBody AddOrderInput body) {
     	Customer customer = customerRepository.findByUsername(body.getUsername());
     	if (customer == null)
-    		return new Message("failure","wrong username");
+    		return new Message("failure","Wrong Username");
     	if (!customer.getPassword().equals(body.getPassword()))
-    		return new Message("failure","wrong password");
+    		return new Message("failure","Wrong Password");
     	if (body.getData() == null)
-    		return new Message("failure","no data");
+    		return new Message("failure","No Data");
     	OrderInfo data = body.getData();
     	Firm firm = firmRepository.findById(data.getFirmId());
     	if (firm == null)
-    		return new Message("failure","no such firm");
+    		return new Message("failure","No Such Firm");
     	Order order = new Order(firm.getId(), customer.getId(), 0);
     	orderRepository.save(order);
     	List<OrderItemInfo> list = data.getOrderList();
@@ -171,7 +171,7 @@ public class CustomerController {
     		Item item = itemRepository.findById(o.getItemId());
         	if (item == null) {
         		deleteOrder(order.getId());
-        		return new Message("failure","no such item");
+        		return new Message("failure","No Such Item");
         	}
         	OrderItem orderItem = new OrderItem(order.getId(), item.getId(), o.getQuantity(), o.getNotes());
         	orderItemRepository.save(orderItem);
@@ -191,12 +191,12 @@ public class CustomerController {
     public Message removeOrder(@RequestBody RemoveEntity body) {
     	Customer customer = customerRepository.findByUsername(body.getUsername());
     	if (customer == null)
-    		return new Message("failure","wrong username");
+    		return new Message("failure","Wrong Username");
     	if (!customer.getPassword().equals(body.getPassword()))
-    		return new Message("failure","wrong password");
+    		return new Message("failure","Wrong Password");
     	Order order = orderRepository.findById(body.getId());
     	if (order.getStatus() == 0)
-    		return new Message("failure","not permitted");
+    		return new Message("failure","Not Permitted");
     	deleteOrder(order.getId());
     	return new Message("success");
     }

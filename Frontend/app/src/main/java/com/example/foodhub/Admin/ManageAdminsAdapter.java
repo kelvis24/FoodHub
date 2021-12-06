@@ -8,8 +8,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -73,8 +71,10 @@ public class ManageAdminsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         AdminHolder adminHolder = (AdminHolder) holder;
         adminHolder.usernameText.setText(admins.get(index).getUsername());
-        DeleteAdmin response = new DeleteAdmin(admins.get(index).getId(), fragment);
-        adminHolder.deleteButton.setOnClickListener(response);
+        EditAdmin editResponse = new EditAdmin(admins.get(index));
+        adminHolder.editButton.setOnClickListener(editResponse);
+        DeleteAdmin deleteResponse = new DeleteAdmin(admins.get(index).getId());
+        adminHolder.deleteButton.setOnClickListener(deleteResponse);
     }
 
     /**
@@ -96,20 +96,32 @@ public class ManageAdminsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private class AdminHolder extends RecyclerView.ViewHolder {
         TextView usernameText;
+        Button editButton;
         Button deleteButton;
         public AdminHolder(@NonNull View view) {
             super(view);
             usernameText = view.findViewById(R.id.edit_admin_textview);
-            deleteButton = view.findViewById(R.id.edit_admin_button);
+            editButton = view.findViewById(R.id.edit_admin_edit_button);
+            deleteButton = view.findViewById(R.id.edit_admin_delete_button);
+        }
+    }
+    private class EditAdmin implements View.OnClickListener {
+        private Admin admin;
+        public EditAdmin(Admin admin) {
+            this.admin = admin;
+        }
+        public void onClick(View v) {
+            final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
+            ft.replace(R.id.owner_fragment_main, new AddAdminFragment(username, password, admin));
+            ft.commit();
         }
     }
 
+
     private class DeleteAdmin implements View.OnClickListener, ObjectResponse {
         private long id;
-        private ManageAdminsFragment fragment;
-        public DeleteAdmin(long id, ManageAdminsFragment fragment) {
+        public DeleteAdmin(long id) {
             this.id = id;
-            this.fragment = fragment;
         }
         public void onClick(View v) {
             Map<String, String> map = new HashMap<>();

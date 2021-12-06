@@ -39,7 +39,7 @@ public class ManageCategoriesFragment extends Fragment {
 
     /**
      * Constructs a ManageCategoriesFragment from enumerated information
-     * @param firmid The id of the firm of the categories herein
+     * @param firmId The id of the firm of the categories herein
      * @param username The username of the current user
      * @param password The password of the current user
      */
@@ -77,7 +77,7 @@ public class ManageCategoriesFragment extends Fragment {
      * @param savedInstanceState a bundle passed in
      * @return The created view
      */
-    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
+    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_manage_categories, container, false);
         this.container = container;
         Button btn = view.findViewById(R.id.add_category_button1);
