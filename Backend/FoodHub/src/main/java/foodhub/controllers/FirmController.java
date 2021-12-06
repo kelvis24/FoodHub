@@ -51,9 +51,9 @@ public class FirmController {
 	public MessageAndId authenticateFirm(@RequestBody Authentication body) {
     	Firm user = firmRepository.findByUsername(body.getUsername());
     	if (user == null)
-    		return new MessageAndId("failure","wrong username");
+    		return new MessageAndId("failure","Wrong Username");
     	if (!user.getPassword().equals(body.getPassword()))
-    		return new MessageAndId("failure","wrong password");
+    		return new MessageAndId("failure","Wrong Password");
     	return new MessageAndId("success", user.getId());
 	}
 
@@ -70,11 +70,11 @@ public class FirmController {
     public Message createCategory(@RequestBody AddCategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null)
-    		return new Message("failure","wrong username");
+    		return new Message("failure","Wrong Username");
     	if (!firm.getPassword().equals(body.getPassword()))
-        	return new Message("failure","wrong password");
+        	return new Message("failure","Wrong Password");
     	if (body.getData() == null)
-    		return new Message("failure","no data");
+    		return new Message("failure","No Data");
     	Category category = new Category(firm.getId(), body.getData());
     	categoryRepository.save(category);
     	return new Message("success");
@@ -94,15 +94,15 @@ public class FirmController {
     public Message editCategory(@RequestBody EditCategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null)
-    		return new Message("failure","wrong username");
+    		return new Message("failure","Wrong Username");
     	if (!firm.getPassword().equals(body.getPassword()))
-        	return new Message("failure","wrong password");
+        	return new Message("failure","Wrong Password");
     	if (body.getData() == null)
-    		return new Message("failure","no data");
+    		return new Message("failure","No Data");
     	Category d = new Category(firm.getId(), body.getData());
     	Category old = categoryRepository.findById(body.getCategoryId());
     	if (old == null)
-    		return new Message("failure","no such category");
+    		return new Message("failure","No Such Category");
     	categoryRepository.setById(old.getId(),d.getTitle(),d.getDescription());
     	return new Message("success");
     }
@@ -120,12 +120,12 @@ public class FirmController {
     public Message removeCateogry(@RequestBody RemoveEntity body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null)
-    		return new Message("failure","wrong username");
+    		return new Message("failure","Wrong Username");
     	if (!firm.getPassword().equals(body.getPassword()))
-        	return new Message("failure","wrong password");
+        	return new Message("failure","Wrong Password");
     	Category category = categoryRepository.findById(body.getId());
     	if (category == null)
-    		return new Message("failure","no such category");
+    		return new Message("failure","No Such Category");
     	categoryRepository.deleteById(category.getId());
     	List<Item> items = itemRepository.findByCategoryId(category.getId());
     	for (Item i : items) {
@@ -155,14 +155,14 @@ public class FirmController {
     public Message createItem(@RequestBody AddItemInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null)
-    		return new Message("failure","wrong username");
+    		return new Message("failure","Wrong Username");
     	if (!firm.getPassword().equals(body.getPassword()))
-        	return new Message("failure","wrong password");
+        	return new Message("failure","Wrong Password");
     	if (body.getData() == null)
-    		return new Message("failure","no data");
+    		return new Message("failure","No Data");
     	Category category = categoryRepository.findById(body.getCategoryId());
     	if (category == null)
-    		return new Message("failure","no such category");
+    		return new Message("failure","No Such Category");
     	Item item = new Item(firm.getId(), category.getId(), body.getData());
     	itemRepository.save(item);
     	return new Message("success");
@@ -182,15 +182,15 @@ public class FirmController {
     public Message editItem(@RequestBody EditItemInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null)
-    		return new Message("failure","wrong username");
+    		return new Message("failure","Wrong Username");
     	if (!firm.getPassword().equals(body.getPassword()))
-        	return new Message("failure","wrong password");
+        	return new Message("failure","Wrong Password");
     	if (body.getData() == null)
-    		return new Message("failure","no data");
+    		return new Message("failure","No Data");
     	ItemInfo d = body.getData();
     	Item item = itemRepository.findById(body.getItemId());
     	if (item == null)
-    		return new Message("failure","no such item");
+    		return new Message("failure","No Such Item");
     	itemRepository.setById(body.getItemId(), d.getTitle(), d.getDescription(), d.getPrice());
 		List<OrderItem> orderItems = orderItemRepository.findByOrderId(body.getItemId());
 		for (OrderItem oi : orderItems) {
@@ -214,12 +214,12 @@ public class FirmController {
     public Message removeItem(@RequestBody RemoveEntity body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null)
-    		return new Message("failure","wrong username");
+    		return new Message("failure","Wrong Username");
     	if (!firm.getPassword().equals(body.getPassword()))
-        	return new Message("failure","wrong password");
+        	return new Message("failure","Wrong Password");
     	Item item = itemRepository.findById(body.getId());
     	if (item == null)
-    		return new Message("failure","no such item");
+    		return new Message("failure","No Such Item");
     	itemRepository.deleteById(item.getId());
 		List<OrderItem> orderItems = orderItemRepository.findByItemId(item.getId());
 		for (OrderItem oi : orderItems) {
@@ -270,14 +270,14 @@ public class FirmController {
     public Message completeOrder(@RequestBody CompleteOrderInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null)
-			return new Message("failure","wrong username");
+			return new Message("failure","Wrong Username");
 		if (!firm.getPassword().equals(body.getPassword()))
-	    	return new Message("failure","wrong password");
+	    	return new Message("failure","Wrong Password");
     	Order order = orderRepository.findById(body.getOrderId());
     	if (order.getFirmId() != firm.getId())
-    		return new Message("failure","erroneous behaviour");
+    		return new Message("failure","Erroneous Behaviour");
     	if (order.getStatus() != 0)
-    		return new Message("failure","invalid operation");
+    		return new Message("failure","Invalid Operation");
     	orderRepository.setById(order.getId(), 1);
 		return new Message("success");
     }

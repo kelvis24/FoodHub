@@ -1,5 +1,7 @@
 package com.example.foodhub.Login;
 
+import static com.example.foodhub.Common.FoodhubUtils.AreInvalidFields;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,6 +18,7 @@ import com.example.foodhub.server.Call;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,31 +54,16 @@ public class SignUpActivity extends AppCompatActivity {
         String location = ((EditText)findViewById(R.id.sign_up_location_field)).getText().toString();
         String password = ((EditText)findViewById(R.id.sign_up_password_field)).getText().toString();
         String cPassword = ((EditText)findViewById(R.id.sign_up_confirm_password_field)).getText().toString();
+        ArrayList<String> list = new ArrayList<>();
+        list.add(name);
+        list.add(email);
+        list.add(location);
+        list.add(password);
+        list.add(cPassword);
+        if (AreInvalidFields(this, list, password, cPassword)) return;
         I.putExtra("Name", name);
         I.putExtra("Email", email);
         I.putExtra("Location", location);
-        if (name.length() == 0 || email.length() == 0 || location.length() == 0) {
-            Toast.makeText(getApplicationContext(),"Please Enter Something In All Fields.",Toast.LENGTH_SHORT).show();
-            return;
-        } if (notHasBetween(password, 'a', 'z')) {
-            Toast.makeText(getApplicationContext(),"Password Must Have A Lower Case Letter.",Toast.LENGTH_SHORT).show();
-            return;
-        } if (notHasBetween(password, 'A', 'Z')) {
-            Toast.makeText(getApplicationContext(),"Password Must Have A Upper Case Letter.",Toast.LENGTH_SHORT).show();
-            return;
-        } if (notHasBetween(password, '0', '9')) {
-            Toast.makeText(getApplicationContext(),"Password Must Have A Number.",Toast.LENGTH_SHORT).show();
-            return;
-        } if (!hasSymbol(password)) {
-            Toast.makeText(getApplicationContext(),"Password Must Have A Symbol.",Toast.LENGTH_SHORT).show();
-            return;
-        } if (password.length() < 12) {
-            Toast.makeText(getApplicationContext(),"Password must have at least 12 characters.",Toast.LENGTH_SHORT).show();
-            return;
-        } if (!password.equals(cPassword)) {
-            Toast.makeText(getApplicationContext(),"Passwords Do Not Match",Toast.LENGTH_SHORT).show();
-            return;
-        }
         I.putExtra("username", email);
         I.putExtra("password", password);
         Map<String,String> map = new HashMap<>();
@@ -92,42 +80,9 @@ public class SignUpActivity extends AppCompatActivity {
      * @param response The response from the server as a JSONObject
      */
     public void signup(JSONObject response) {
-        try{if (response.get("message").equals("success"))
-            startActivity(I);
+        try{if (response.get("message").equals("success")) startActivity(I);
+            else Toast.makeText(getApplicationContext(),(String)response.get("error"),Toast.LENGTH_SHORT).show();
         } catch (Exception e) {Log.d("response", e.toString());}
-    }
-
-    /**
-     * Returns true if the string does not have a character within the bounds
-     *      between the specified start and end values.
-     * @param str The string to be tested
-     * @param start The starting character of the bounds
-     * @param end The ending character of the bounds
-     * @return If the string does not have a character within the specified bounds
-     */
-    public boolean notHasBetween(String str, char start, char end) {
-        int i;
-        for (i = 0; i < str.length(); i++) {
-            if (start <= str.charAt(i) && str.charAt(i) <= end)
-                return false;
-        }
-        return true;
-    }
-
-    /**
-     * Returns true if the string has a symbol
-     * @param str The string to be tested
-     * @return If the string has a symbol
-     */
-    public boolean hasSymbol(String str) {
-        int i;
-        for (i = 0; i < str.length(); i++) {
-            if (!('a' <= str.charAt(i) && str.charAt(i) <= 'z') &&
-                !('A' <= str.charAt(i) && str.charAt(i) <= 'Z') &&
-                !('0' <= str.charAt(i) && str.charAt(i) <= '9'))
-                return true;
-        }
-        return false;
     }
 
 }

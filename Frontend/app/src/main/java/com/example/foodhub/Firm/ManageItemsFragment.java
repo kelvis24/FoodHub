@@ -43,7 +43,6 @@ public class ManageItemsFragment extends Fragment {
      * @param categoryId The id of the category of the items here
      * @param username The username of the current user
      * @param password The password of the current user
-     * @param type The type of the current user: admin or owner
      */
     public ManageItemsFragment(long firmId, long categoryId, String username, String password) {
         this.firmId = firmId;
@@ -108,7 +107,7 @@ public class ManageItemsFragment extends Fragment {
             } catch (JSONException e) {e.printStackTrace();}
         }
         RecyclerView recyclerView = container.findViewById(R.id.manage_items_recycler);
-        recyclerView.setAdapter(new ManageItemsAdapter(categoryId, username, password, this, items));
+        recyclerView.setAdapter(new ManageItemsAdapter(firmId, categoryId, username, password, this, items));
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
     }
 
