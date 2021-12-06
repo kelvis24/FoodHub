@@ -109,4 +109,14 @@ public class Order {
         }
         return newOrders;
     }
+
+    public static ArrayList<Order> returnSpecificOrderbyId(long id, ArrayList<Order> orders) {
+        ArrayList<Order> newOrders = new ArrayList<>();
+        for (Order order: orders) {
+            if(order.getId()== id) {
+                newOrders.add(order);
+            }
+        }
+        return newOrders;
+    }
 }

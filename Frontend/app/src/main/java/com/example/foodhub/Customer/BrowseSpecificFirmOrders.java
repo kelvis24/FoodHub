@@ -25,13 +25,15 @@ import java.util.Map;
 
 public class BrowseSpecificFirmOrders extends Fragment {
 
+    private long id;
     private String username;
     private String password;
     private String firmName;
     private ViewGroup container;
     ArrayList<Order> orders;
 
-    public BrowseSpecificFirmOrders(String firmName, String username, String password) {
+    public BrowseSpecificFirmOrders(long id, String firmName, String username, String password) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.firmName = firmName;
@@ -71,7 +73,7 @@ public class BrowseSpecificFirmOrders extends Fragment {
             } catch (JSONException e) {e.printStackTrace();}
         }
         RecyclerView recyclerView = container.findViewById(R.id.see_specific_orders_to_firm);
-        recyclerView.setAdapter(new ManageCustomerOrdersAdapter(username, password, this, Order.returnOrdersSpecificToAFirm(firmName, orders)));
+        recyclerView.setAdapter(new ManageCustomerOrdersAdapter(username, password, this, Order.returnSpecificOrderbyId(id, orders)));
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
     }
 }

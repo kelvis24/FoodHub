@@ -70,6 +70,8 @@ public class ManageCustomerOrdersFragment extends Fragment {
         this.container = container;
         refresh();
 
+        // view.findViewById(R.id.button).setOnClickListener(this::clid);
+
         return view;
     }
 
