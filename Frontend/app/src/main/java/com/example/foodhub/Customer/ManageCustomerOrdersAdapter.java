@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -72,6 +73,9 @@ public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerVi
      * @param index The index of the information of ViewHolder in the orders array
      */
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
+
+
+
         OrderHolder orderHolder = (OrderHolder) holder;
         orderHolder.firm.setText(orders.get(index).getFirm());
         orderHolder.id.setText(String.format(Locale.ENGLISH, "%d", (int)orders.get(index).getId()));
@@ -151,9 +155,15 @@ public class ManageCustomerOrdersAdapter extends RecyclerView.Adapter<RecyclerVi
         public void respond(JSONObject response) {
             try{if (response.get("message").equals("success")) {
                 fragment.refresh();
+                if (orders.size() ==0) {
+                    final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
+                    ft.replace(R.id.customer_fragment_main, new ManageCustomerOrdersFragment());
+                    ft.commit();
+                }
             }} catch (Exception e) {
                 Log.d("response", e.toString());}
         }
+
     }
 
 }

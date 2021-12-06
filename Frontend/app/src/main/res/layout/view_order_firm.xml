@@ -37,13 +37,13 @@
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="211dp"
+            android:layout_width="255dp"
             android:layout_height="46dp"
             android:background="#99141414"
-            android:textColor="@color/white"
-            android:textStyle="bold"
             android:text="Name"
+            android:textColor="@color/white"
             android:textSize="30dp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.027"

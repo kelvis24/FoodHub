@@ -8,11 +8,15 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodhub.Common.ItemReferenceAdapter;
 import com.example.foodhub.Common.Order;
+import com.example.foodhub.Customer.BrowseMyFirmsAdapter;
+import com.example.foodhub.Customer.ManageCustomerOrdersFragment;
+import com.example.foodhub.Customer.OrderChatFragment;
 import com.example.foodhub.R;
 import com.example.foodhub.server.Call;
 import com.example.foodhub.server.ObjectResponse;
@@ -80,6 +84,10 @@ public class ManageFirmOrdersAdapter extends RecyclerView.Adapter<RecyclerView.V
         orderHolder.recycler.setLayoutManager(new LinearLayoutManager(fragment.getContext()));
         CompleteOrder completeOrder = new CompleteOrder(orders.get(index).getId());
         orderHolder.completeButton.setOnClickListener(completeOrder);
+        GoToOrderChat goToOrderChat = new GoToOrderChat(orders.get(index).getCustomer(), this.fragment);
+        orderHolder.customer.setOnClickListener(goToOrderChat);
+
+
     }
 
     /**
@@ -135,6 +143,20 @@ public class ManageFirmOrdersAdapter extends RecyclerView.Adapter<RecyclerView.V
             try{if (response.get("message").equals("success")) {
                 fragment.refresh();
             }} catch (Exception e) {Log.d("response", e.toString());}
+        }
+    }
+
+    private class GoToOrderChat implements View.OnClickListener {
+        private String customerName;
+        private ManageFirmOrdersFragment fragment;
+        public GoToOrderChat(String customerName, ManageFirmOrdersFragment fragment) {
+            this.customerName = customerName;
+            this.fragment = fragment;
+        }
+        public void onClick(View v) {
+            final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
+            ft.replace(R.id.firm_fragment_main, new OrderChatFragment(customerName, username, password));
+            ft.commit();
         }
     }
 

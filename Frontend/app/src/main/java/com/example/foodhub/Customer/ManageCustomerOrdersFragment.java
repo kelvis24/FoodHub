@@ -70,7 +70,8 @@ public class ManageCustomerOrdersFragment extends Fragment {
         this.container = container;
         refresh();
 
-        view.findViewById(R.id.button).setOnClickListener(this::clid);
+        // view.findViewById(R.id.button).setOnClickListener(this::clid);
+
         return view;
     }
 
@@ -113,7 +114,6 @@ public class ManageCustomerOrdersFragment extends Fragment {
             } catch (JSONException e) {e.printStackTrace();}
         }
         RecyclerView recyclerView = container.findViewById(R.id.manage_customer_orders_recycler);
-       // recyclerView.setAdapter(new BrowseMyFirmsAdapter(username, password, this, Firm.getListOfFirmsWithMyOrders(Firms, Orders)));
         recyclerView.setAdapter(new BrowseMyFirmsAdapter(username, password, this, Orders));
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
     }

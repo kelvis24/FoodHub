@@ -49,20 +49,6 @@ public class FirmTest {
     @Mock
     FirmTester AnotherFakeFirm;
 
-//    @Test
-//    public void TestFirmGetId() throws JSONException {
-//        // Given a mocked Context injected into the object under test...
-//        when(FakeFirm.getString(0))
-//                .thenReturn("213232");
-//        Firm ActualFirm = new Firm(213232, "Chipole", "CHIPOLE", "Ames", "USA", 8, 12, 34);
-//
-//        // ...when the string is returned from the object under test...
-//        long result =  ActualFirm.getId();
-//
-//        // ...then the result should be the expected one.
-//        assertThat(result, is(FakeFirm.getString(0)));
-//    }
-
     @Test
     public void TestFirmGetName() throws JSONException {
         // Given a mocked Context injected into the object under test...
@@ -74,7 +60,7 @@ public class FirmTest {
         String result = ActualFirm.getName();
 
         // ...then the result should be the expected one.
-        assertThat(result, is(FakeFirm.getString(0)));
+        assertThat(result, is(FakeFirm.getString(0) ));
     }
 
     @Test
@@ -104,48 +90,7 @@ public class FirmTest {
         // ...then the result should be the expected one.
         assertThat(result, is(FakeFirm.getString(0)));
     }
-//
-//    @Test
-//    public void TestFirmGetOpentime() throws JSONException {
-//        // Given a mocked Context injected into the object under test...
-//        when(FakeFirm.getString(0))
-//                .thenReturn(FAKE_USERNAME);
-//        Firm ActualFirm = new Firm(213232, "Chipole", "CHIPOLE", "Ames", "USA", 8, 12, 34);
-//
-//        // ...when the string is returned from the object under test...
-//        int result = ActualFirm.getOpen_time();
-//
-//        // ...then the result should be the expected one.
-//        assertThat(result, is(FakeFirm.getString(0)));
-//    }
-//
-//    @Test
-//    public void TestFirmGetClosetime() throws JSONException {
-//        // Given a mocked Context injected into the object under test...
-//        when(FakeFirm.getString(0))
-//                .thenReturn(FAKE_USERNAME);
-//        Firm ActualFirm = new Firm(213232, "Chipole", "CHIPOLE", "Ames", "USA", 8, 12, 34);
-//
-//        // ...when the string is returned from the object under test...
-//        int result = ActualFirm.getClose_time();
-//
-//        // ...then the result should be the expected one.
-//        assertThat(result, is(FakeFirm.getString(0)));
-//    }
 
-//    @Test
-//    public void TestFirmGetEmployeeCount() throws JSONException {
-//        // Given a mocked Context injected into the object under test...
-//        when(FakeFirm.getString(0))
-//                .thenReturn("34");
-//        Firm ActualFirm = new Firm(213232, "Chipole", "CHIPOLE", "Ames", "USA", 8, 12, 34);
-//
-//        // ...when the string is returned from the object under test...
-//        int result = ActualFirm.getEmployee_count();
-//
-//        // ...then the result should be the expected one.
-//        assertThat(result, is(FakeFirm.getString(0)));
-//    }
 
     @Test
     public void TestFirmGetUserName() throws JSONException {
