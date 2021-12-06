@@ -99,13 +99,20 @@ public class ManageFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             deleteButton = view.findViewById(R.id.edit_firm_button);
         }
     }
+	
+	private class GoToViewFirm implements View.OnClickListener {
+		private long firmId;
+		public GoToViewFirm(long firmId) {
+			this.firmId = firmId;
+		}
+		public void onClick(View v) {
+		}
+	}
 
     private class DeleteFirm implements View.OnClickListener, ObjectResponse {
         private long id;
-        private ManageFirmsFragment fragment;
-        public DeleteFirm(long id, ManageFirmsFragment fragment) {
+        public DeleteFirm(long id) {
             this.id = id;
-            this.fragment = fragment;
         }
         public void onClick(View v) {
             Map<String, String> map = new HashMap<>();

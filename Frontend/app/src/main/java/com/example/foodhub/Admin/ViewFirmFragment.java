@@ -30,9 +30,9 @@ import java.util.Map;
  */
 public class ViewFirmFragment extends Fragment {
 
-    private long firmId;
-    private String username;
-    private String password;
+    private final long firmId;
+    private final String username;
+    private final String password;
 
     private ViewGroup container;
     /**
@@ -46,10 +46,12 @@ public class ViewFirmFragment extends Fragment {
         this.username = username;
         this.password = password;
     }
+
     /**
      * Default Constructor
      */
     public ViewFirmFragment() {
+		this.firmId = 0;
         this.username = null;
         this.password = null;
     }
@@ -57,6 +59,7 @@ public class ViewFirmFragment extends Fragment {
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
     /**
      * Creates the view
      * @param inflater
@@ -74,6 +77,7 @@ public class ViewFirmFragment extends Fragment {
         refresh();
         return view;
     }
+
     /**
      * Refreshes the page
      */
@@ -84,6 +88,7 @@ public class ViewFirmFragment extends Fragment {
         } catch (JSONException e) {e.printStackTrace();}
         Call.post("general-get-categories", obj, this::listCategories, null);
     }
+
     /**
      * goes through listCategories
      */
