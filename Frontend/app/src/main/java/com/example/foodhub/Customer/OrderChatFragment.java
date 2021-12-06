@@ -113,11 +113,9 @@ public class OrderChatFragment extends Fragment implements TextWatcher {
     }
 
     private void initiateSocketConnection() {
-
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(Const.CHAT_SERVER_PATH).build();
-        webSocket = client.newWebSocket(request, new OrderChatFragment.SocketListener());
-
+        Request request = new Request.Builder().url(   Const.CHAT_SERVER_PATH    ).build();
+        webSocket = client.newWebSocket(request, new SocketListener());
     }
 
     @Override
