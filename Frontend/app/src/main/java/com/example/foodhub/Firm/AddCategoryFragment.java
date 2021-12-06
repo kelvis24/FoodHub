@@ -1,5 +1,7 @@
 package com.example.foodhub.Firm;
 
+import static com.example.foodhub.Common.FoodhubUtils.AreInvalidFields;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -18,6 +21,7 @@ import com.example.foodhub.server.Call;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -107,6 +111,10 @@ public class AddCategoryFragment extends Fragment {
     public void addCategoryRequest(View v) {
         String d_title = ((EditText)page.findViewById(R.id.add_category_title)).getText().toString();
         String d_description = ((EditText)page.findViewById(R.id.add_category_description)).getText().toString();
+        ArrayList<String> list = new ArrayList<>();
+        list.add(d_title);
+        list.add(d_description);
+        if (AreInvalidFields(getActivity(), list)) return;
         Map<String, String> dataMap = new HashMap<>();
         dataMap.put("title", d_title);
         dataMap.put("description", d_description);
@@ -133,6 +141,9 @@ public class AddCategoryFragment extends Fragment {
             final FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.replace(R.id.firm_fragment_main, new ManageCategoriesFragment(firmId, username, password));
             ft.commit();
+        } else {
+            Toast.makeText(getActivity().getApplicationContext(),
+                    (String)response.get("error"),Toast.LENGTH_SHORT).show();
         }} catch (Exception e) {Log.d("response", e.toString());}
     }
 

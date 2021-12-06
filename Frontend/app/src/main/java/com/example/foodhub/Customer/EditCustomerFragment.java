@@ -1,5 +1,7 @@
 package com.example.foodhub.Customer;
 
+import static com.example.foodhub.Common.FoodhubUtils.AreInvalidFields;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.foodhub.Admin.AdminMainActivity;
 import com.example.foodhub.Admin.OwnerMainActivity;
@@ -110,33 +113,36 @@ public class EditCustomerFragment extends Fragment {
      * @param v, takes in the view to control the button
      */
     public void SaveCustomerAccountEdit(View v) {
-        String username = ((EditText)view.findViewById(R.id.sign_up_name_field)).getText().toString();
-        String email = ((EditText)view.findViewById(R.id.sign_up_email_field)).getText().toString();
-        String location = ((EditText)view.findViewById(R.id.sign_up_location_field)).getText().toString();
-        String password = ((EditText)view.findViewById(R.id.sign_up_password_field)).getText().toString();
-
+        String username = ((EditText)view.findViewById(R.id.edit_customer_name)).getText().toString();
+        String email = ((EditText)view.findViewById(R.id.edit_customer_email)).getText().toString();
+        String location = ((EditText)view.findViewById(R.id.edit_customer_location)).getText().toString();
+        String password = ((EditText)view.findViewById(R.id.edit_customer_password)).getText().toString();
+        String cPassword = ((EditText)view.findViewById(R.id.edit_customer_cpassword)).getText().toString();
+        ArrayList<String> list = new ArrayList<>();
+        list.add(username);
+        list.add(email);
+        list.add(location);
+        list.add(password);
+        list.add(cPassword);
+        if (AreInvalidFields(getActivity(), list, password, cPassword)) return;
         this.username = username;
         this.name = email;
         this.location = location;
         this.password = password;
-
         Map<String, String> OldDetails = new HashMap<>();
         OldDetails.put("username", oldusername);
         OldDetails.put("password", oldpassword);
-
         Map<String, String> NewDetails = new HashMap<>();
         NewDetails.put("username", username);
         NewDetails.put("name", email);
         NewDetails.put("location", location);
         NewDetails.put("password", password);
-
         try {
         JSONObject objOldDetails = new JSONObject(OldDetails);
         JSONObject objNewDetails = new JSONObject(NewDetails);
         objOldDetails.put("data", objNewDetails);
         Call.post("customers-edit-customer", objOldDetails, this::ReturnToAccountPage, null);
-        } catch (JSONException jsonException) {
-        }
+        } catch (JSONException jsonException) {}
     }
 
     /**
@@ -147,7 +153,8 @@ public class EditCustomerFragment extends Fragment {
         String str;
         try{str = (String)response.get("message");
             if (str.equals("failure")) {
-                Log.d("debug", response.toString());
+                Toast.makeText(getActivity().getApplicationContext(),
+                        (String)response.get("error"),Toast.LENGTH_SHORT).show();
                 return;
             }
             //here
@@ -162,15 +169,15 @@ public class EditCustomerFragment extends Fragment {
      * Sets the TextView to have information pulled in from the backend
      */
     public void setTextViewDetails() {
-        EditText usernameTextView = view.findViewById(R.id.sign_up_name_field);
+        EditText usernameTextView = view.findViewById(R.id.edit_customer_name);
         usernameTextView.setText(username, TextView.BufferType.EDITABLE);
-        EditText passwordTextView = view.findViewById(R.id.sign_up_password_field);
+        EditText passwordTextView = view.findViewById(R.id.edit_customer_password);
         passwordTextView.setText(password, TextView.BufferType.EDITABLE);
-        EditText emailTextView = view.findViewById(R.id.sign_up_email_field);
+        EditText emailTextView = view.findViewById(R.id.edit_customer_email);
         emailTextView.setText(name, TextView.BufferType.EDITABLE);
-        EditText locationTextView = view.findViewById(R.id.sign_up_location_field);
+        EditText locationTextView = view.findViewById(R.id.edit_customer_location);
         locationTextView.setText(location, TextView.BufferType.EDITABLE);
-        EditText confirmPassordTextView = view.findViewById(R.id.sign_up_confirm_password_field);
+        EditText confirmPassordTextView = view.findViewById(R.id.edit_customer_cpassword);
         confirmPassordTextView.setText(password, TextView.BufferType.EDITABLE);
     }
 }

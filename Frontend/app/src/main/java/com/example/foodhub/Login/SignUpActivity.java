@@ -49,22 +49,21 @@ public class SignUpActivity extends AppCompatActivity {
      */
     public void signUp(View v) {
         I = new Intent(this, CustomerMainActivity.class);
-        ArrayList<String> list = new ArrayList<>();
-        boolean success;
         String name = ((EditText)findViewById(R.id.sign_up_name_field)).getText().toString();
         String email = ((EditText)findViewById(R.id.sign_up_email_field)).getText().toString();
         String location = ((EditText)findViewById(R.id.sign_up_location_field)).getText().toString();
         String password = ((EditText)findViewById(R.id.sign_up_password_field)).getText().toString();
         String cPassword = ((EditText)findViewById(R.id.sign_up_confirm_password_field)).getText().toString();
-        I.putExtra("Name", name);
-        I.putExtra("Email", email);
-        I.putExtra("Location", location);
+        ArrayList<String> list = new ArrayList<>();
         list.add(name);
         list.add(email);
         list.add(location);
         list.add(password);
         list.add(cPassword);
         if (AreInvalidFields(this, list, password, cPassword)) return;
+        I.putExtra("Name", name);
+        I.putExtra("Email", email);
+        I.putExtra("Location", location);
         I.putExtra("username", email);
         I.putExtra("password", password);
         Map<String,String> map = new HashMap<>();

@@ -1,5 +1,7 @@
 package com.example.foodhub.Admin;
 
+import static com.example.foodhub.Common.FoodhubUtils.AreInvalidFields;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -19,6 +22,7 @@ import com.example.foodhub.server.Call;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -119,11 +123,26 @@ public class AddFirmFragment extends Fragment {
         String d_name = ((EditText)page.findViewById(R.id.add_firm_name)).getText().toString();
         String d_username = ((EditText)page.findViewById(R.id.add_firm_username)).getText().toString();
         String d_password = ((EditText)page.findViewById(R.id.add_firm_password)).getText().toString();
+        String d_cPassword = ((EditText)page.findViewById(R.id.add_firm_cpassword)).getText().toString();
         String d_location = ((EditText)page.findViewById(R.id.add_firm_location)).getText().toString();
         String d_cuisine = ((EditText)page.findViewById(R.id.add_firm_cuisine)).getText().toString();
-        int d_open_time = Integer.parseInt(((EditText)page.findViewById(R.id.add_firm_open_time)).getText().toString());
-        int d_close_time = Integer.parseInt(((EditText)page.findViewById(R.id.add_firm_close_time)).getText().toString());
-        int d_employee_count= Integer.parseInt(((EditText)page.findViewById(R.id.add_firm_employee_count)).getText().toString());
+        String s_open_time = ((EditText)page.findViewById(R.id.add_firm_open_time)).getText().toString();
+        String s_close_time = ((EditText)page.findViewById(R.id.add_firm_close_time)).getText().toString();
+        String s_employee_count = ((EditText)page.findViewById(R.id.add_firm_employee_count)).getText().toString();
+        ArrayList<String> list = new ArrayList<>();
+        list.add(d_name);
+        list.add(d_username);
+        list.add(d_password);
+        list.add(d_cPassword);
+        list.add(d_location);
+        list.add(d_cuisine);
+        list.add(s_open_time);
+        list.add(s_close_time);
+        list.add(s_employee_count);
+        if (AreInvalidFields(getActivity(), list, d_password, d_cPassword)) return;
+        int d_open_time = Integer.parseInt(s_open_time);
+        int d_close_time = Integer.parseInt(s_close_time);
+        int d_employee_count= Integer.parseInt(s_employee_count);
         Map<String, String> dataMap = new HashMap<>();
         dataMap.put("name", d_name);
         dataMap.put("username", d_username);
@@ -159,6 +178,9 @@ public class AddFirmFragment extends Fragment {
             else
                 ft.replace(R.id.admin_fragment_main, new ManageFirmsFragment(username, password, type));
             ft.commit();
+        } else {
+            Toast.makeText(getActivity().getApplicationContext(),
+                    (String)response.get("error"),Toast.LENGTH_SHORT).show();
         }} catch (Exception e) {Log.d("response", e.toString());}
     }
 

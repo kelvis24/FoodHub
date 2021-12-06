@@ -1,5 +1,7 @@
 package com.example.foodhub.Login;
 
+import static com.example.foodhub.Common.FoodhubUtils.AreInvalidFields;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.foodhub.Admin.AdminMainActivity;
 import com.example.foodhub.Admin.OwnerMainActivity;
@@ -18,6 +21,7 @@ import com.example.foodhub.server.Call;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,12 +57,14 @@ public class LoginActivity extends AppCompatActivity {
     public void loginButton(View v) {
         email = ((EditText)findViewById(R.id.login_email_address)).getText().toString();
         password = ((EditText)findViewById(R.id.login_password)).getText().toString();
+        ArrayList<String> list = new ArrayList<>();
+        list.add(email);
+        list.add(password);
+        if (AreInvalidFields(this, list)) return;
         Map<String, String> map = new HashMap<>();
         map.put("username", email);
         map.put("password", password);
         JSONObject obj = new JSONObject(map);
-
-
         Authenticate(true, obj);
     }
 
@@ -103,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
         String str;
         try{str = (String)response.get("message");
             if (str.equals("failure")) {
-                Log.d("debug", response.toString());
+                Toast.makeText(getApplicationContext(),(String)response.get("error"),Toast.LENGTH_SHORT).show();
                 return;
             }
             Intent I = new Intent();

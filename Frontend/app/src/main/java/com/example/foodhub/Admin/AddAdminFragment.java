@@ -1,5 +1,7 @@
 package com.example.foodhub.Admin;
 
+import static com.example.foodhub.Common.FoodhubUtils.AreInvalidFields;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -19,6 +22,7 @@ import com.example.foodhub.server.Call;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -104,6 +108,13 @@ public class AddAdminFragment extends Fragment {
         String d_name = ((EditText)page.findViewById(R.id.add_admin_name)).getText().toString();
         String d_username = ((EditText)page.findViewById(R.id.add_admin_username)).getText().toString();
         String d_password = ((EditText)page.findViewById(R.id.add_admin_password)).getText().toString();
+        String d_cPassword = ((EditText)page.findViewById(R.id.add_admin_cpassword)).getText().toString();
+        ArrayList<String> list = new ArrayList<>();
+        list.add(d_name);
+        list.add(d_username);
+        list.add(d_password);
+        list.add(d_cPassword);
+        if (AreInvalidFields(getActivity(), list, d_password, d_cPassword)) return;
         Map<String, String> dataMap = new HashMap<>();
         dataMap.put("name", d_name);
         dataMap.put("username", d_username);
@@ -131,6 +142,9 @@ public class AddAdminFragment extends Fragment {
             final FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.replace(R.id.owner_fragment_main, new ManageAdminsFragment(username, password));
             ft.commit();
+        } else {
+            Toast.makeText(getActivity().getApplicationContext(),
+                    (String)response.get("error"),Toast.LENGTH_SHORT).show();
         }} catch (Exception e) {Log.d("response", e.toString());}
     }
 
