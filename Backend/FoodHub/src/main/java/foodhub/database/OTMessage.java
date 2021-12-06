@@ -39,6 +39,7 @@ public class OTMessage {
 	public long getOrderId() {
 		return orderId;
 	}
+	
 	public int getSequence() {
 		return sequence;
 	}
