@@ -9,7 +9,6 @@ public class FoodhubUtils {
 
     public static boolean AreInvalidFields(Activity a, ArrayList<String> list, String pass, String conf) {
         if (AreInvalidFields(a, list)) {
-            Toast.makeText(a.getApplicationContext(),"Please Enter Something In All Fields.",Toast.LENGTH_SHORT).show();
             return true;
         }
         if (notHasBetween(pass, 'a', 'z')) {
@@ -37,6 +36,7 @@ public class FoodhubUtils {
     public static boolean AreInvalidFields(Activity a, ArrayList<String> list) {
         for (String str : list) {
             if (str == null || str.length() == 0) {
+                Toast.makeText(a.getApplicationContext(),"Please Enter Something In All Fields.",Toast.LENGTH_SHORT).show();
                 return true;
             }
         }
