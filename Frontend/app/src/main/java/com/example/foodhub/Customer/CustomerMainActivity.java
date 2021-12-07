@@ -11,6 +11,11 @@ import android.view.View;
 
 import com.example.foodhub.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.os.Bundle;
+import android.view.MenuItem;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * The controller for the R.layout.activity_customer_main view
@@ -42,6 +47,13 @@ public class CustomerMainActivity extends AppCompatActivity {
         View customerAccount = findViewById(R.id.customer_account_option);
         customerAccount.setOnClickListener(this::customerAccount);
         browseFirms(browseFirms);
+
+
+        // calling the action bar
+        ActionBar actionBar = getSupportActionBar();
+
+        // showing the back button in action bar
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     /**
@@ -80,5 +92,17 @@ public class CustomerMainActivity extends AppCompatActivity {
         newBundle.putString("password", password);
         this.bundle = newBundle;
     }
+
+    // function to the button on press
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 }

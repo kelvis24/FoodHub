@@ -76,11 +76,11 @@ public class ManageCustomerOrdersFragment extends Fragment {
     }
 
 
-    public void clid(View v) {
-        final FragmentTransaction ft = this.getFragmentManager().beginTransaction();
-        ft.replace(R.id.customer_fragment_main, new OrderChatFragment("Taco House", username, password));
-        ft.commit();
-    }
+//    public void clid(View v) {
+//        final FragmentTransaction ft = this.getFragmentManager().beginTransaction();
+//        ft.replace(R.id.customer_fragment_main, new OrderChatFragment("Taco House", username, password));
+//        ft.commit();
+//    }
 
     /**
      * Makes a call to refresh the page

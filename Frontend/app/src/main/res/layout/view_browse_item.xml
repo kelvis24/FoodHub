@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="57dp"
     android:layout_margin="0dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/entire_menu_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="370dp"
@@ -40,12 +41,29 @@
         <Button
             android:id="@+id/browse_item_button"
             android:layout_width="96dp"
-            android:layout_height="59dp"
+            android:layout_height="55dp"
+            android:visibility="invisible"
             android:text="@string/Add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/browse_item_price"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView_menuFoodPicture"
+            android:layout_width="96dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:visibility="visible"
+            android:contentDescription="This is a picture of a menu item"
+            android:onClick="clickToSeeThatMenu"
+            android:scaleType="centerCrop"
+            android:src="@drawable/litramen"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.976"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

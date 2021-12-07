@@ -114,30 +114,21 @@ public class MessageAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view;
-
         switch (viewType) {
             case TYPE_MESSAGE_SENT:
                 view = inflater.inflate(R.layout.item_sent_message, parent, false);
                 return new SentMessageHolder(view);
             case TYPE_MESSAGE_RECEIVED:
-
                 view = inflater.inflate(R.layout.item_received_message, parent, false);
                 return new ReceivedMessageHolder(view);
-
             case TYPE_IMAGE_SENT:
-
                 view = inflater.inflate(R.layout.item_sent_image, parent, false);
                 return new SentImageHolder(view);
-
             case TYPE_IMAGE_RECEIVED:
-
                 view = inflater.inflate(R.layout.item_received_photo, parent, false);
                 return new ReceivedImageHolder(view);
-
         }
-
         return null;
     }
 

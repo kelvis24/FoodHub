@@ -2,10 +2,12 @@ package com.example.foodhub.Customer;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,6 +19,8 @@ import com.example.foodhub.Firm.AddCategoryFragment;
 import com.example.foodhub.Firm.ManageCategoriesAdapter;
 import com.example.foodhub.R;
 import com.example.foodhub.server.Call;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,7 +29,17 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import android.os.Bundle;
+import android.view.MenuItem;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 /**
  * A controller for the R.layout.fragment_browse_categories view
  * @author Arvid Gustafson
@@ -61,6 +75,7 @@ public class BrowseCategoriesFragment extends Fragment {
         this.password = null;
     }
 
+
     /**
      * Does bookkeeping related to the onCreate method
      * @param savedInstanceState A bundle passed in
@@ -84,8 +99,13 @@ public class BrowseCategoriesFragment extends Fragment {
         btn = view.findViewById(R.id.browse_categories_back_button);
         btn.setOnClickListener(this::goToBrowseFirms);
         refresh();
+        //Toast.makeText(getContext(),"Use the floating button to see orders", Toast.LENGTH_SHORT).show();
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(this::goToViewOrder);
+        fab.setRippleColor(324334);
         return view;
     }
+
 
     /**
      * Makes a call to the server to get categories, and refresh the page
