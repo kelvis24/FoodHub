@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import foodhub.database.*;
 import foodhub.ioObjects.*;
 
+// comment
+
 @RestController
 public class LazyImagesController {
 	
