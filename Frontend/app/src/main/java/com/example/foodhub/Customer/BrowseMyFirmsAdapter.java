@@ -1,6 +1,5 @@
 package com.example.foodhub.Customer;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +48,7 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
      */
     @NonNull
     @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_order_firm, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_customer_order_title, parent, false);
         return new FirmHolder(view);
     }
 
@@ -140,7 +139,7 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         public void onClick(View v) {
             final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
-            ft.replace(R.id.customer_fragment_main, new OrderChatFragment(id, firmName, username, password, true));
+            ft.replace(R.id.customer_fragment_main, new OrderChatFragment(id, username, password, "customer", firmName));
             ft.commit();
         }
     }
