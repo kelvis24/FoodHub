@@ -13,6 +13,8 @@ maven-build:
         - cd Backend/FoodHub
         - mvn package -B
     only:
+        refs:
+            - main
         changes:
             - Backend/**/*
 
@@ -27,6 +29,8 @@ maven-test:
         paths:
             - Backend/FoodHub/target/*.jar
     only:
+        refs:
+            - main
         changes:
             - Backend/**/*
 
@@ -41,6 +45,8 @@ auto-deploy:
         - sudo systemctl stop systemd-web-demo
         - sudo systemctl start systemd-web-demo
     only:
+        refs:
+            - main
         changes:
             - Backend/**/*
 
