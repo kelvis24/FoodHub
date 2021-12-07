@@ -1,5 +1,6 @@
 package foodhub.database;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,8 @@ public class ItemImage {
 	
 	private String imageName;
 	private String imageType;
+
+	@Column(nullable = false, unique = true)
 	private long itemId; //the ID of the firm that uploaded this image
 	
 	@Lob

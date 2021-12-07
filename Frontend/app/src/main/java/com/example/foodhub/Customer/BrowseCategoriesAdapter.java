@@ -1,5 +1,9 @@
 package com.example.foodhub.Customer;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodhub.Common.Category;
 import com.example.foodhub.Common.Firm;
 import com.example.foodhub.Common.ItemReference;
+import com.example.foodhub.Firm.ManageCategoriesAdapter;
 import com.example.foodhub.R;
+import com.example.foodhub.server.Call;
+import com.example.foodhub.server.ObjectResponse;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -65,10 +76,14 @@ public class BrowseCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.V
      */
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         CategoryHolder categoryHolder = (CategoryHolder) holder;
-        categoryHolder.categoryImg.setImageResource(Firm.randomCategoryImage());
         categoryHolder.usernameText.setText(categories.get(index).getTitle());
         GoToBrowseItems goToBrowseItems = new GoToBrowseItems(categories.get(index).getId(), fragment);
         categoryHolder.categoryImg.setOnClickListener(goToBrowseItems);
+        SetImage setImage = new SetImage(categoryHolder.categoryImg);
+        JSONObject obj = new JSONObject();
+        try{obj.put("id",categories.get(index).getId());
+            Call.post("download-category-image", obj, setImage, null);
+        } catch (JSONException e) {e.printStackTrace();}
     }
 
     /**
@@ -86,6 +101,21 @@ public class BrowseCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.V
      */
     @Override public int getItemCount() {
         return categories.size();
+    }
+
+    private class SetImage implements ObjectResponse {
+        private ImageView imageView;
+        public SetImage(ImageView imageView) {
+            this.imageView = imageView;
+        }
+        @Override public void respond(JSONObject response) {
+            try{if (response.get("message").equals("success")) {
+                String data = (String)response.get("data");
+                byte[] bytes = Base64.decode(data, Base64.DEFAULT);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                imageView.setImageBitmap(bitmap);
+            }} catch (Exception e) {Log.d("response", e.toString());}
+        }
     }
 
     private class CategoryHolder extends RecyclerView.ViewHolder {
