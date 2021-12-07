@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodhub.Common.Firm;
 import com.example.foodhub.Common.Item;
 import com.example.foodhub.Common.ItemReference;
 import com.example.foodhub.R;
@@ -77,6 +78,7 @@ public class BrowseItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         itemHolder.usernameText.setOnClickListener(seeButton);
         itemHolder.price.setOnClickListener(seeButton);
         itemHolder.menupic.setOnClickListener(seeButton);
+        itemHolder.menupic.setImageResource(Firm.randomMenuImage());
     }
 
     /**

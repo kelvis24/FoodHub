@@ -178,6 +178,21 @@ public class Firm {
         return  returnId;
     }
 
+    public static int randomMenuImage() {
+        int returnId = 0;
+        Random ran = new Random(System.currentTimeMillis());
+        int radomInt = ran.nextInt(3);
+
+        if (radomInt == 0) {
+            returnId = R.drawable.pasta;
+        } else if (radomInt == 1) {
+            returnId = R.drawable.sushi;
+        } else if (radomInt == 2) {
+            returnId = R.drawable.steak;
+        }
+        return  returnId;
+    }
+
     public static int randomFirmImage() {
         int returnId = 0;
         Random ran = new Random(System.currentTimeMillis());
