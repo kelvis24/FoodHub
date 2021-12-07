@@ -84,7 +84,7 @@ public class ManageFirmOrdersAdapter extends RecyclerView.Adapter<RecyclerView.V
         orderHolder.recycler.setLayoutManager(new LinearLayoutManager(fragment.getContext()));
         CompleteOrder completeOrder = new CompleteOrder(orders.get(index).getId());
         orderHolder.completeButton.setOnClickListener(completeOrder);
-        GoToOrderChat goToOrderChat = new GoToOrderChat(orders.get(index).getCustomer(), this.fragment);
+        GoToOrderChat goToOrderChat = new GoToOrderChat(orders.get(index).getId(), orders.get(index).getCustomer(), this.fragment);
         orderHolder.customer.setOnClickListener(goToOrderChat);
 
 
@@ -148,14 +148,16 @@ public class ManageFirmOrdersAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private class GoToOrderChat implements View.OnClickListener {
         private String customerName;
+        private long id;
         private ManageFirmOrdersFragment fragment;
-        public GoToOrderChat(String customerName, ManageFirmOrdersFragment fragment) {
+        public GoToOrderChat(long id, String customerName, ManageFirmOrdersFragment fragment) {
+            this.id = id;
             this.customerName = customerName;
             this.fragment = fragment;
         }
         public void onClick(View v) {
             final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
-            ft.replace(R.id.firm_fragment_main, new OrderChatFragment(customerName, username, password));
+            ft.replace(R.id.firm_fragment_main, new OrderChatFragment(id, customerName, username, password, false));
             ft.commit();
         }
     }

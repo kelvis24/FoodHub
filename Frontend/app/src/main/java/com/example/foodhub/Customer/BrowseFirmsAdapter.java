@@ -68,6 +68,10 @@ public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         FirmHolder firmHolder = (FirmHolder) holder;
         firmHolder.usernameText.setText(firms.get(index).getName());
+        firmHolder.openTime.setText("Opens: " +Integer.toString(firms.get(index).getOpen_time()));
+        firmHolder.closeTime.setText("Closes: "+Integer.toString(firms.get(index).getClose_time()));
+        firmHolder.location.setText("Location: "+firms.get(index).getLocation());
+        firmHolder.cusine.setText("Cuisine: "+firms.get(index).getCuisine());
         firmHolder.firmPicture.setImageResource(Firm.randomFirmImage());
         GoToBrowseCategories goToBrowseCategories = new GoToBrowseCategories(firms.get(index).getId(), fragment);
         firmHolder.firmPicture.setOnClickListener(goToBrowseCategories);
@@ -92,10 +96,18 @@ public class BrowseFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private class FirmHolder extends RecyclerView.ViewHolder {
         ImageView firmPicture;
         TextView usernameText;
+        TextView openTime;
+        TextView closeTime;
+        TextView cusine;
+        TextView location;
         public FirmHolder(@NonNull View view) {
             super(view);
             firmPicture= view.findViewById(R.id.ivPost);
             usernameText = view.findViewById(R.id.browse_firm_textview);
+            openTime = view.findViewById(R.id.firm_open_time);
+            closeTime = view.findViewById(R.id.firm_close_time);
+            location = view.findViewById(R.id.firm_location);
+            cusine = view.findViewById(R.id.firm_cuisine);
         }
     }
 

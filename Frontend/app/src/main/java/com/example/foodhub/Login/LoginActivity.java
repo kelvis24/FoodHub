@@ -62,10 +62,12 @@ public class LoginActivity extends AppCompatActivity {
         list.add(password);
         if (AreInvalidFields(this, list)) return;
         Map<String, String> map = new HashMap<>();
-        map.put("username", email);
         map.put("password", password);
+        map.put("username", email);
         JSONObject obj = new JSONObject(map);
-        Authenticate(true, obj);
+        Call.post(type+"s-authenticate", obj, this::login, null);
+
+     //   Authenticate(true, obj);
     }
 
     /**
