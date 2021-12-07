@@ -122,6 +122,42 @@ public class OrderChatFragment extends Fragment implements TextWatcher {
     }
 
     public void initiateSocketConnection(JSONArray arr) {
+        initializeView();
+        Message[] messages = new Message[arr.length()];
+        for (int i = 0; i < arr.length(); i++) {
+            try{Message message = new Message(arr.getJSONObject(i));
+                messages[message.getSequence()-1] = message;
+            } catch (JSONException e) {e.printStackTrace();}
+        }
+        int match = user.equals("customer") ? 1 : 0;
+        for (Message message : messages) {
+            if (message.getWho() == match) {
+                JSONObject jsonObject = new JSONObject();
+                try{JSONObject m = new JSONObject(message.getMessage());
+                    jsonObject.put("name", (String)m.get("name"));
+                    jsonObject.put("message", (String)m.get("message"));
+                    jsonObject.put("isSent", true);
+                    messageAdapter.addItem(jsonObject);
+                    recyclerView.smoothScrollToPosition(messageAdapter.getItemCount() - 1);
+                    resetMessageEdit();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                getActivity().runOnUiThread(() -> {
+                    JSONObject jsonObject = new JSONObject();
+                    try{JSONObject m = new JSONObject(message.getMessage());
+                        jsonObject.put("name", (String)m.get("name"));
+                        jsonObject.put("message", (String)m.get("message"));
+                        jsonObject.put("isSent", false);
+                        messageAdapter.addItem(jsonObject);
+                        recyclerView.smoothScrollToPosition(messageAdapter.getItemCount());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+        }
         OkHttpClient client = new OkHttpClient();
         String link;
         if (user.equals("customer")) {
@@ -134,39 +170,6 @@ public class OrderChatFragment extends Fragment implements TextWatcher {
         }
         Request request = new Request.Builder().url(link).build();
         webSocket = client.newWebSocket(request, new SocketListener());
-        Message[] messages = new Message[arr.length()];
-        for (int i = 0; i < arr.length(); i++) {
-            try{Message message = new Message(arr.getJSONObject(i));
-                messages[message.getSequence()-1] = message;
-            } catch (JSONException e) {e.printStackTrace();}
-        }
-        int match = user.equals("customer") ? 1 : 0;
-        for (Message message : messages) {
-            if (message.getWho() == match) {
-                JSONObject jsonObject = new JSONObject();
-                try{jsonObject.put("name", username);
-                    jsonObject.put("message", message.getMessage());
-                    jsonObject.put("isSent", true);
-                    messageAdapter.addItem(jsonObject);
-                    recyclerView.smoothScrollToPosition(messageAdapter.getItemCount() - 1);
-                    resetMessageEdit();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                getActivity().runOnUiThread(() -> {
-                    JSONObject jsonObject = new JSONObject();
-                    try{jsonObject.put("name", username);
-                        jsonObject.put("message", message.getMessage());
-                        jsonObject.put("isSent", false);
-                        messageAdapter.addItem(jsonObject);
-                        recyclerView.smoothScrollToPosition(messageAdapter.getItemCount());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                });
-            }
-        }
     }
 
     @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -191,7 +194,7 @@ public class OrderChatFragment extends Fragment implements TextWatcher {
         messageEdit.removeTextChangedListener(this);
         messageEdit.setText("");
         sendBtn.setVisibility(View.INVISIBLE);
-        pickImgBtn.setVisibility(View.VISIBLE);
+        // pickImgBtn.setVisibility(View.VISIBLE);
         messageEdit.addTextChangedListener(this);
     }
 
@@ -202,7 +205,6 @@ public class OrderChatFragment extends Fragment implements TextWatcher {
 //                Toast.makeText(OrderChatFragment.class,
 //                        "Socket Connection Successful!",
 //                        Toast.LENGTH_SHORT).show();
-                initializeView();
             });
         }
         @Override public void onMessage(WebSocket webSocket, String text) {
@@ -223,6 +225,7 @@ public class OrderChatFragment extends Fragment implements TextWatcher {
         messageEdit = page.findViewById(R.id.messageEdit);
         sendBtn = page.findViewById(R.id.sendBtn);
         pickImgBtn = page.findViewById(R.id.pickImgBtn);
+        pickImgBtn.setVisibility(View.INVISIBLE);
         recyclerView = page.findViewById(R.id.recyclerView);
         // sendBtn.setVisibility(View.VISIBLE);
         messageAdapter = new MessageAdapter(getLayoutInflater());
