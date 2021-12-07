@@ -70,17 +70,17 @@ public class FirmController {
 	 * @see AddCategoryInput
 	 */
     @PostMapping("/firms-create-category")
-    public Message createCategory(@RequestBody AddCategoryInput body) {
+    public MessageAndId createCategory(@RequestBody AddCategoryInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null)
-    		return new Message("failure","Wrong Username");
+    		return new MessageAndId("failure","Wrong Username");
     	if (!firm.getPassword().equals(body.getPassword()))
-        	return new Message("failure","Wrong Password");
+        	return new MessageAndId("failure","Wrong Password");
     	if (body.getData() == null)
-    		return new Message("failure","No Data");
+    		return new MessageAndId("failure","No Data");
     	Category category = new Category(firm.getId(), body.getData());
     	categoryRepository.save(category);
-    	return new Message("success");
+    	return new MessageAndId("success", category.getId());
     }
     
     /**
