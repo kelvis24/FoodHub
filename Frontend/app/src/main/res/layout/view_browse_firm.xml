@@ -35,10 +35,71 @@
         app:layout_constraintTop_toTopOf="@+id/ivPost"
         app:layout_constraintVertical_bias="0.428">
 
+
+        <TextView
+            android:id="@+id/firm_location"
+            android:layout_width="151dp"
+            android:layout_height="25dp"
+            android:background="#99141414"
+            android:text="Location:"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.933"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.28" />
+
+        <TextView
+            android:id="@+id/firm_cuisine"
+            android:layout_width="151dp"
+            android:layout_height="25dp"
+            android:background="#99141414"
+            android:text="Cusinie:"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.933"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.091" />
+
+        <TextView
+            android:id="@+id/firm_close_time"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:background="#99141414"
+            android:text="closes:"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.948"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.908" />
+
+        <TextView
+            android:id="@+id/firm_open_time"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:background="#99141414"
+            android:text="opens:"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.945"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.725" />
+
         <TextView
             android:id="@+id/browse_firm_textview"
-            android:layout_width="255dp"
-            android:layout_height="46dp"
+            android:layout_width="224dp"
+            android:layout_height="40dp"
             android:background="#99141414"
             android:text="Name"
             android:textColor="@color/white"
