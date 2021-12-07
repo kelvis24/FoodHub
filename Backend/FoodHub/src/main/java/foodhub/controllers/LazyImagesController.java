@@ -48,7 +48,7 @@ public class LazyImagesController {
 	
 	@PostMapping("/download-category-image")
 	public MessageAndString uploadCategoryImage(@RequestBody Id body) {
-		CategoryImage image = categoryImageRepository.findById(body.getId());
+		CategoryImage image = categoryImageRepository.findByCategoryId(body.getId());
 		if (image == null)
 			return new MessageAndString("failure","No Such Data","");
 		return new MessageAndString("success","",new String(image.getData()));
