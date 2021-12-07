@@ -74,7 +74,7 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         GoToManageCustomerOrders goToManageCustomerOrders = new GoToManageCustomerOrders(orders.get(index).getId(), orders.get(index).getFirm(), fragment);
         firmHolder.firmImage.setOnClickListener(goToManageCustomerOrders);
-        GoToOrderChat goToOrderChat = new GoToOrderChat(orders.get(index).getFirm(), fragment);
+        GoToOrderChat goToOrderChat = new GoToOrderChat(orders.get(index).getId(), orders.get(index).getFirm(), fragment);
         firmHolder.goToChatButton.setOnClickListener(goToOrderChat);
     }
 
@@ -130,14 +130,17 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private class GoToOrderChat implements View.OnClickListener {
         private String firmName;
+        private long id;
         private ManageCustomerOrdersFragment fragment;
-        public GoToOrderChat(String firmName, ManageCustomerOrdersFragment fragment) {
+        public GoToOrderChat(long id, String firmName, ManageCustomerOrdersFragment fragment) {
+            this.id = id;
             this.firmName = firmName;
             this.fragment = fragment;
         }
+
         public void onClick(View v) {
             final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
-            ft.replace(R.id.customer_fragment_main, new OrderChatFragment(firmName, username, password));
+            ft.replace(R.id.customer_fragment_main, new OrderChatFragment(id, firmName, username, password, true));
             ft.commit();
         }
     }

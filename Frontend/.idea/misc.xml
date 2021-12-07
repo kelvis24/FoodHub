@@ -106,6 +106,7 @@
         <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_browse_categories.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_browse_firms.xml" value="0.20652173913043478" />
+        <entry key="app/src/main/res/layout/fragment_browse_items.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_browse_specific_firm_orders.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_company_pages.xml" value="0.1515625" />
         <entry key="app/src/main/res/layout/fragment_customer_account.xml" value="0.1" />

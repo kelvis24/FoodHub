@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,8 @@ public class BrowseItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private ArrayList<ItemReference> order;
     private BrowseItemsFragment fragment;
     private ArrayList<Item> items;
+    private View view;
+    private boolean btnVisibilty;
 
     /**
      * Constructs a BrowseItemsAdapter given enumerated information
@@ -45,6 +48,7 @@ public class BrowseItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.order = order;
         this.fragment = fragment;
         this.items = items;
+        btnVisibilty = false;
     }
 
     /**
@@ -54,7 +58,7 @@ public class BrowseItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
      * @return The tailored ViewHolder for the corresponding view
      */
     @NonNull @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_browse_item, parent, false);
+         view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_browse_item, parent, false);
         return new ItemHolder(view);
     }
 
@@ -69,6 +73,10 @@ public class BrowseItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         itemHolder.price.setText(String.format(Locale.ENGLISH, "$%.2f", items.get(index).getPrice()));
         AddItem addItem = new AddItem(items.get(index), fragment);
         itemHolder.addButton.setOnClickListener(addItem);
+        SeeButton seeButton = new SeeButton();
+        itemHolder.usernameText.setOnClickListener(seeButton);
+        itemHolder.price.setOnClickListener(seeButton);
+        itemHolder.menupic.setOnClickListener(seeButton);
     }
 
     /**
@@ -90,10 +98,12 @@ public class BrowseItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private class ItemHolder extends RecyclerView.ViewHolder {
         TextView usernameText;
+        ImageView menupic;
         TextView price;
         Button addButton;
         public ItemHolder(@NonNull View view) {
             super(view);
+            menupic =  view.findViewById(R.id.imageView_menuFoodPicture);
             usernameText = view.findViewById(R.id.browse_item_textview);
             price = view.findViewById(R.id.browse_item_price);
             addButton = view.findViewById(R.id.browse_item_button);
@@ -109,6 +119,27 @@ public class BrowseItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
         public void onClick(View v) {
             order.add(new ItemReference(item, 1, ""));
+        }
+    }
+
+    private class SeeButton implements View.OnClickListener {
+        ImageView menupic;
+        Button addButton;
+        public SeeButton() {
+            menupic =  view.findViewById(R.id.imageView_menuFoodPicture);
+            addButton =  view.findViewById(R.id.browse_item_button);
+        }
+        public void onClick(View v) {
+            if (btnVisibilty) {
+                btnVisibilty =false;
+                menupic.setVisibility(View.VISIBLE);
+                addButton.setVisibility(View.INVISIBLE);
+            }else {
+                btnVisibilty =true;
+                menupic.setVisibility(View.INVISIBLE);
+                addButton.setVisibility(View.VISIBLE);
+            }
+
         }
     }
 

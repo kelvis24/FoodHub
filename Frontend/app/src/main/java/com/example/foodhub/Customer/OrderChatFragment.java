@@ -74,6 +74,7 @@ public class OrderChatFragment extends Fragment implements TextWatcher {
     private String firmName;
     private String password;
     private View view;
+    private long orderId;
     private String name;
     private WebSocket webSocket;
     // private String CHAT_SERVER_PATH = "ws://SERVER-IP-HERE:PORT-NUMBER-HERE"; 192.168.0.136
@@ -82,16 +83,19 @@ public class OrderChatFragment extends Fragment implements TextWatcher {
     private RecyclerView recyclerView;
     private int IMAGE_REQUEST_ID = 1;
     private MessageAdapter messageAdapter;
+    private boolean user;
 
 
     public OrderChatFragment() {
         // Required empty public constructor
     }
 
-    public OrderChatFragment(String firmName, String username, String password) {
+    public OrderChatFragment(long id, String firmName, String username, String password, boolean user) {
+        this.orderId =id;
         this.username = username;
         this.firmName = firmName;
         this.password = password;
+        this.user = user;
     }
 
 
@@ -114,7 +118,14 @@ public class OrderChatFragment extends Fragment implements TextWatcher {
 
     private void initiateSocketConnection() {
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(   Const.CHAT_SERVER_PATH    ).build();
+        String link = "";
+        if (user) {
+            link =  Const.CHAT_SERVER_PATH + "OTC/"+String.valueOf(orderId);
+        }
+        else {
+            link =  Const.CHAT_SERVER_PATH + "OTF/"+String.valueOf(orderId);
+        }
+        Request request = new Request.Builder().url(link).build();
         webSocket = client.newWebSocket(request, new SocketListener());
     }
 
