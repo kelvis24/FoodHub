@@ -25,9 +25,17 @@ import foodhub.database.*;
 @Component
 public class OTCController {
 	
-	@Autowired private OrderRepository orderRepository;
+    private static OrderRepository orderRepository;
 	
-	@Autowired private OTMessageRepository otmRepository;
+    private static OTMessageRepository otmRepository;
+
+    @Autowired public void setOrderRepository(OrderRepository orderRepository){
+		this.orderRepository = orderRepository;
+	}
+  
+   @Autowired public void setOTMessageRepository(OTMessageRepository otmRepository){
+		this.otmRepository = otmRepository;
+	}
 
 	private static Map<Session,Long> SIM = new Hashtable<>();
 	private static Map<Long,Session> ISM = new Hashtable<>();
