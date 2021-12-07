@@ -19,6 +19,8 @@ import com.example.foodhub.Firm.AddCategoryFragment;
 import com.example.foodhub.Firm.ManageCategoriesAdapter;
 import com.example.foodhub.R;
 import com.example.foodhub.server.Call;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,6 +35,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -95,8 +99,13 @@ public class BrowseCategoriesFragment extends Fragment {
         btn = view.findViewById(R.id.browse_categories_back_button);
         btn.setOnClickListener(this::goToBrowseFirms);
         refresh();
+        //Toast.makeText(getContext(),"Use the floating button to see orders", Toast.LENGTH_SHORT).show();
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(this::goToViewOrder);
+        fab.setRippleColor(324334);
         return view;
     }
+
 
     /**
      * Makes a call to the server to get categories, and refresh the page
