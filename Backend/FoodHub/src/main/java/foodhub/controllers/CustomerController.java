@@ -231,7 +231,5 @@ public class CustomerController {
     	for (OTMessage m : otlist) otmRepository.deleteById(m.getId());
 
     }
-    
-    //comment
 
 }
