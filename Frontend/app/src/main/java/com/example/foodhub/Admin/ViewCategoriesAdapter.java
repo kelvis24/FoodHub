@@ -11,24 +11,23 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodhub.Common.Category;
-import com.example.foodhub.Common.ItemReference;
 import com.example.foodhub.R;
 
 import java.util.ArrayList;
 
 /**
  * Sets up the view adapter for Firms
- * @author Marcus
+ * @author Marcus Reecy, Arvid Gustafson
  * @see Fragment
  */
+public class ViewCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-public class ViewFirmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private final long firmId;
+    private final String username;
+    private final String password;
+    private final String type;
 
-    private long firmId;
-    private String username;
-    private String password;
-
-    private ViewFirmFragment fragment;
+    private ViewCategoriesFragment fragment;
 
     private ArrayList<Category> categories;
 
@@ -38,13 +37,24 @@ public class ViewFirmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      * @param password The password of the current user
      * @param firmId The ID of the current firm being used
      */
-    public ViewFirmAdapter(long firmId, String username, String password,
-                           ViewFirmFragment fragment) {
+    public ViewCategoriesAdapter(long firmId, String username, String password, String type,
+                                 ViewCategoriesFragment fragment, ArrayList<Category> categories) {
         this.firmId = firmId;
         this.username = username;
         this.password = password;
+        this.type = type;
         this.fragment = fragment;
+        this.categories = categories;
     }
+
+    public ViewCategoriesAdapter() {
+        this.firmId = 0;
+        this.username = null;
+        this.password = null;
+        this.type = null;
+        this.fragment = null;
+    }
+
     /**
      * Creates the view
      * @param parent A Viewgroup
@@ -52,9 +62,10 @@ public class ViewFirmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      * @return The view that is created
      */
     @NonNull @Override public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_browse_category, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_view_category, parent, false);
         return new CategoryHolder(view);
     }
+
     /**
      * Repeats the view currently selected
      * @param holder A Viewgroup
@@ -63,9 +74,9 @@ public class ViewFirmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      */
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         CategoryHolder categoryHolder = (CategoryHolder) holder;
-        categoryHolder.usernameText.setText(categories.get(index).getTitle());
-        GoToBrowseFirms goToBrowseFirms = new GoToBrowseFirms(categories.get(index).getId(), fragment);
-        categoryHolder.usernameText.setOnClickListener(goToBrowseFirms);
+        categoryHolder.titleText.setText(categories.get(index).getTitle());
+        GoToViewItems goToViewItems = new GoToViewItems(categories.get(index).getId());
+        categoryHolder.titleText.setOnClickListener(goToViewItems);
     }
 
     @Override public int getItemViewType(int index) {
@@ -76,28 +87,28 @@ public class ViewFirmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return categories.size();
     }
 
-    class CategoryHolder extends RecyclerView.ViewHolder {
-        TextView usernameText;
+    private class CategoryHolder extends RecyclerView.ViewHolder {
+        TextView titleText;
         public CategoryHolder(@NonNull View view) {
             super(view);
-            usernameText = view.findViewById(R.id.browse_category_textview);
+            titleText = view.findViewById(R.id.view_category_textview);
         }
     }
+
     /**
      * Sets up the firm and sets for the onclick listener
      */
-    class GoToBrowseFirms implements View.OnClickListener {
-        private long firmId;
-        private ViewFirmFragment fragment;
-
-        public GoToBrowseFirms(long firmId, ViewFirmFragment fragment) {
-            this.firmId = firmId;
-            this.fragment = fragment;
+    class GoToViewItems implements View.OnClickListener {
+        private long categoryId;
+        public GoToViewItems(long firmId) {
+            this.categoryId = firmId;
         }
-
         public void onClick(View v) {
             final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
-            ft.replace(R.id.customer_fragment_main, new ViewFirmFragment(firmId, username, password));
+            if (type.equals("owner"))
+                ft.replace(R.id.owner_fragment_main, new ViewItemsFragment(firmId, categoryId, username, password, type));
+            else
+                ft.replace(R.id.admin_fragment_main, new ViewItemsFragment(firmId, categoryId, username, password, type));
             ft.commit();
         }
     }

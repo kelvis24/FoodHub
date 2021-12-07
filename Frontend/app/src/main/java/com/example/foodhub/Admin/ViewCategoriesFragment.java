@@ -24,39 +24,46 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Sets up the view addapter for Firms
- * @author Marcus
+ * Sets up the view adapter for Firms
+ * @author Marcus Reecy, Arvid Gustafson
  * @see Fragment
  */
-public class ViewFirmFragment extends Fragment {
+public class ViewCategoriesFragment extends Fragment {
 
-    private long firmId;
-    private String username;
-    private String password;
+    private final long firmId;
+    private final String username;
+    private final String password;
+    private final String type;
 
     private ViewGroup container;
+
     /**
      * Constructs a ViewFirmAFragment from enumerated information
      * @param username The username of the current user
      * @param password The password of the current user
      * @param firmId The ID of the current firm being used
      */
-    public ViewFirmFragment(long firmId, String username, String password) {
+    public ViewCategoriesFragment(long firmId, String username, String password, String type) {
         this.firmId = firmId;
         this.username = username;
         this.password = password;
+        this.type = type;
     }
+
     /**
      * Default Constructor
      */
-    public ViewFirmFragment() {
+    public ViewCategoriesFragment() {
+		this.firmId = 0;
         this.username = null;
         this.password = null;
+        this.type = null;
     }
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
     /**
      * Creates the view
      * @param inflater
@@ -65,15 +72,14 @@ public class ViewFirmFragment extends Fragment {
      * @return The view that is created
      */
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_browse_categories, container, false);
+        View view = inflater.inflate(R.layout.fragment_view_categories, container, false);
         this.container = container;
-        Button btn = view.findViewById(R.id.browse_categories_view_order_button);
-        btn.setOnClickListener(this::goToViewOrder);
-        btn = view.findViewById(R.id.browse_categories_back_button);
-        btn.setOnClickListener(this::goToBrowseFirms);
+        Button btn = view.findViewById(R.id.view_categories_back_button);
+        btn.setOnClickListener(this::goToManageFirms);
         refresh();
         return view;
     }
+
     /**
      * Refreshes the page
      */
@@ -84,8 +90,9 @@ public class ViewFirmFragment extends Fragment {
         } catch (JSONException e) {e.printStackTrace();}
         Call.post("general-get-categories", obj, this::listCategories, null);
     }
+
     /**
-     * goes through listCategories
+     * Goes through listCategories
      */
     public void listCategories(JSONArray arr) {
         ArrayList<Category> categories = new ArrayList<>();
@@ -93,20 +100,17 @@ public class ViewFirmFragment extends Fragment {
             try{categories.add(new Category(arr.getJSONObject(i)));
             } catch (JSONException e) {e.printStackTrace();}
         }
-        RecyclerView recyclerView = container.findViewById(R.id.browse_categories_recycler);
-        recyclerView.setAdapter(new ViewFirmAdapter(firmId, username, password, this));
+        RecyclerView recyclerView = container.findViewById(R.id.view_categories_recycler);
+        recyclerView.setAdapter(new ViewCategoriesAdapter(firmId, username, password, type, this, categories));
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
     }
 
-    public void goToViewOrder(View view) {
+    public void goToManageFirms(View view) {
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.customer_fragment_main, new ViewFirmFragment(firmId, username, password));
-        ft.commit();
-    }
-
-    public void goToBrowseFirms(View view) {
-        final FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.customer_fragment_main, new ViewFirmFragment(firmId, username, password));
+        if (type.equals("owner"))
+            ft.replace(R.id.owner_fragment_main, new ManageFirmsFragment(username, password, type));
+        else
+            ft.replace(R.id.admin_fragment_main, new ManageFirmsFragment(username, password, type));
         ft.commit();
     }
 
