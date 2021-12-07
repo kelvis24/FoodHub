@@ -3,11 +3,13 @@ package com.example.foodhub.Customer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodhub.Common.Category;
+import com.example.foodhub.Common.Firm;
 import com.example.foodhub.Common.ItemReference;
 import com.example.foodhub.R;
 import java.util.ArrayList;
@@ -63,6 +65,7 @@ public class BrowseCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.V
      */
     @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int index) {
         CategoryHolder categoryHolder = (CategoryHolder) holder;
+        categoryHolder.categoryImg.setImageResource(Firm.randomCategoryImage());
         categoryHolder.usernameText.setText(categories.get(index).getTitle());
         GoToBrowseItems goToBrowseItems = new GoToBrowseItems(categories.get(index).getId(), fragment);
         categoryHolder.usernameText.setOnClickListener(goToBrowseItems);
@@ -87,8 +90,10 @@ public class BrowseCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private class CategoryHolder extends RecyclerView.ViewHolder {
         TextView usernameText;
+        ImageView categoryImg;
         public CategoryHolder(@NonNull View view) {
             super(view);
+            categoryImg  = view.findViewById(R.id.browse_category_imageview);
             usernameText = view.findViewById(R.id.browse_category_textview);
         }
     }

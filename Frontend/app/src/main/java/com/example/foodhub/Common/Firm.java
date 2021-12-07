@@ -163,6 +163,21 @@ public class Firm {
         return myFirms;
     }
 
+    public static int randomCategoryImage() {
+        int returnId = 0;
+        Random ran = new Random(System.currentTimeMillis());
+        int radomInt = ran.nextInt(3);
+
+        if (radomInt == 0) {
+            returnId = R.drawable.burritos;
+        } else if (radomInt == 1) {
+            returnId = R.drawable.breakfast;
+        } else if (radomInt == 2) {
+            returnId = R.drawable.tacos;
+        }
+        return  returnId;
+    }
+
     public static int randomFirmImage() {
         int returnId = 0;
         Random ran = new Random(System.currentTimeMillis());
