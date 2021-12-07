@@ -45,8 +45,6 @@ auto-deploy:
         - sudo systemctl stop systemd-web-demo
         - sudo systemctl start systemd-web-demo
     only:
-        refs:
-            - main
         changes:
             - Backend/**/*
 
