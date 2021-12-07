@@ -68,7 +68,7 @@ public class BrowseCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.V
         categoryHolder.categoryImg.setImageResource(Firm.randomCategoryImage());
         categoryHolder.usernameText.setText(categories.get(index).getTitle());
         GoToBrowseItems goToBrowseItems = new GoToBrowseItems(categories.get(index).getId(), fragment);
-        categoryHolder.usernameText.setOnClickListener(goToBrowseItems);
+        categoryHolder.categoryImg.setOnClickListener(goToBrowseItems);
     }
 
     /**
