@@ -118,9 +118,9 @@ public class ManageFirmsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 		public void onClick(View v) {
             final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
             if (type.equals("owner"))
-                ft.replace(R.id.owner_fragment_main, new ViewFirmFragment(firmId, username, password));
+                ft.replace(R.id.owner_fragment_main, new ViewCategoriesFragment(firmId, username, password, type));
             else
-                ft.replace(R.id.admin_fragment_main, new ViewFirmFragment(firmId, username, password));
+                ft.replace(R.id.admin_fragment_main, new ViewCategoriesFragment(firmId, username, password, type));
             ft.commit();
 		}
 	}
