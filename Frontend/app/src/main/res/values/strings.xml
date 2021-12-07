@@ -52,6 +52,7 @@
     <string name="View_Order">View Order</string>
     <string name="In_Progress">In Progress</string>
     <string name="Complete">Complete</string>
+    <string name="Chat">Chat</string>
     <string name="Obsolete">Obsolete</string>
     <string name="Jeopardized">Jeopardized</string>
     <string name="textview">TextView</string>

@@ -204,7 +204,7 @@ public class CustomerController {
     	return new Message("success");
     }
     
-    @PostMapping("cusotmers-get-otmessages")
+    @PostMapping("customers-get-otmessages")
     public List<OTMessageOutput> getOTMessages(@RequestBody AuthenticationAndId body) {
     	List<OTMessageOutput> output = new ArrayList<>();
     	Customer customer = customerRepository.findByUsername(body.getUsername());

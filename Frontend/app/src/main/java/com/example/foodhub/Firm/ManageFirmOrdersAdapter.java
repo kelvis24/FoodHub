@@ -85,7 +85,7 @@ public class ManageFirmOrdersAdapter extends RecyclerView.Adapter<RecyclerView.V
         CompleteOrder completeOrder = new CompleteOrder(orders.get(index).getId());
         orderHolder.completeButton.setOnClickListener(completeOrder);
         GoToOrderChat goToOrderChat = new GoToOrderChat(orders.get(index).getId(), orders.get(index).getCustomer(), this.fragment);
-        orderHolder.customer.setOnClickListener(goToOrderChat);
+        orderHolder.chatButton.setOnClickListener(goToOrderChat);
 
 
     }
@@ -113,6 +113,7 @@ public class ManageFirmOrdersAdapter extends RecyclerView.Adapter<RecyclerView.V
         TextView location;
         TextView total;
         Button completeButton;
+        Button chatButton;
         RecyclerView recycler;
         public OrderHolder(@NonNull View view) {
             super(view);
@@ -121,6 +122,7 @@ public class ManageFirmOrdersAdapter extends RecyclerView.Adapter<RecyclerView.V
             location = view.findViewById(R.id.firm_order_location_text);
             total = view.findViewById(R.id.firm_order_total_text);
             completeButton = view.findViewById(R.id.firm_order_complete_button);
+            chatButton = view.findViewById(R.id.firm_order_chat_button);
             recycler = view.findViewById(R.id.firm_order_recycler);
         }
     }
@@ -157,7 +159,7 @@ public class ManageFirmOrdersAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
         public void onClick(View v) {
             final FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
-            ft.replace(R.id.firm_fragment_main, new OrderChatFragment(id, customerName, username, password, false));
+            ft.replace(R.id.firm_fragment_main, new OrderChatFragment(id, username, password, "firm", customerName));
             ft.commit();
         }
     }
