@@ -1,5 +1,9 @@
 package com.example.foodhub.Customer;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +19,11 @@ import com.example.foodhub.Common.Firm;
 import com.example.foodhub.Common.ItemReference;
 import com.example.foodhub.Common.Order;
 import com.example.foodhub.R;
+import com.example.foodhub.server.Call;
+import com.example.foodhub.server.ObjectResponse;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -61,7 +70,6 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
         FirmHolder firmHolder = (FirmHolder) holder;
 
         String total = "";
-        firmHolder.firmImage.setImageResource(Firm.randomFirmImage());
         firmHolder.firmNameText.setText(orders.get(index).getFirm());
         firmHolder.firmPriceText.setText("Total Price: $"+Double.toString(orders.get(index).getTotal()));
 
@@ -75,6 +83,11 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
         firmHolder.firmImage.setOnClickListener(goToManageCustomerOrders);
         GoToOrderChat goToOrderChat = new GoToOrderChat(orders.get(index).getId(), orders.get(index).getFirm(), fragment);
         firmHolder.goToChatButton.setOnClickListener(goToOrderChat);
+        SetImage setImage = new SetImage(firmHolder.firmImage);
+        JSONObject obj = new JSONObject();
+        try{obj.put("id",orders.get(index).getId());
+            Call.post("download-firm-image", obj, setImage, null);
+        } catch (JSONException e) {e.printStackTrace();}
     }
 
     /**
@@ -93,6 +106,23 @@ public class BrowseMyFirmsAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override public int getItemCount() {
         return orders.size();
     }
+
+    private class SetImage implements ObjectResponse {
+        private ImageView imageView;
+        public SetImage(ImageView imageView) {
+            this.imageView = imageView;
+        }
+        @Override public void respond(JSONObject response) {
+            try{if (response.get("message").equals("success")) {
+                String data = (String)response.get("data");
+                byte[] bytes = Base64.decode(data, Base64.DEFAULT);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                imageView.setImageBitmap(bitmap);
+            }} catch (Exception e) {
+                Log.d("response", e.toString());}
+        }
+    }
+
 
     private class FirmHolder extends RecyclerView.ViewHolder {
         ImageView firmImage;

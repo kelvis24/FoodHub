@@ -8,11 +8,6 @@
     android:orientation="vertical"
     android:layout_marginBottom="20dp">
 
-
-
-
-
-
     <ImageView
         android:id="@+id/browse_category_imageview"
         android:layout_width="match_parent"
@@ -37,7 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ivPost"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.428">
 
         <TextView
@@ -45,7 +40,7 @@
             android:layout_width="255dp"
             android:layout_height="46dp"
             android:background="#99141414"
-            android:text="Title"
+            android:text="@string/Title"
             android:textColor="@color/white"
             android:textSize="30dp"
             android:textStyle="bold"

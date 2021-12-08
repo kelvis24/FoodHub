@@ -9,7 +9,7 @@
         android:id="@+id/textView34"
         android:layout_width="62dp"
         android:layout_height="17dp"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="44dp"
         android:text="@string/Title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.289"
@@ -75,10 +75,23 @@
         android:id="@+id/add_item_button2"
         android:layout_width="215dp"
         android:layout_height="74dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="76dp"
         android:text="@string/Add_Item"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_item_price" />
+        app:layout_constraintTop_toBottomOf="@+id/add_item_imageview" />
+
+    <ImageView
+        android:id="@+id/add_item_imageview"
+        android:layout_width="96dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="160dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_item_description"
+        app:srcCompat="@drawable/ic_image_black_24dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

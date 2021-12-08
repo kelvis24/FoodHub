@@ -1,10 +1,14 @@
 package com.example.foodhub.Firm;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -75,11 +79,16 @@ public class ManageCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.V
         CategoryHolder categoryHolder = (CategoryHolder) holder;
         categoryHolder.usernameText.setText(categories.get(index).getTitle());
         GoToManageItems goToManageItems = new GoToManageItems(categories.get(index).getId());
-        categoryHolder.usernameText.setOnClickListener(goToManageItems);
+        categoryHolder.imageView.setOnClickListener(goToManageItems);
         EditCategory editCategory = new EditCategory(categories.get(index));
         categoryHolder.editButton.setOnClickListener(editCategory);
         DeleteCategory deleteCategory = new DeleteCategory(categories.get(index).getId());
         categoryHolder.deleteButton.setOnClickListener(deleteCategory);
+        SetImage setImage = new SetImage(categoryHolder.imageView);
+        JSONObject obj = new JSONObject();
+        try{obj.put("id",categories.get(index).getId());
+            Call.post("download-category-image", obj, setImage, null);
+        } catch (JSONException e) {e.printStackTrace();}
     }
 
     /**
@@ -99,12 +108,29 @@ public class ManageCategoriesAdapter extends RecyclerView.Adapter<RecyclerView.V
         return categories.size();
     }
 
+    private class SetImage implements ObjectResponse {
+        private ImageView imageView;
+        public SetImage(ImageView imageView) {
+            this.imageView = imageView;
+        }
+        @Override public void respond(JSONObject response) {
+            try{if (response.get("message").equals("success")) {
+                String data = (String)response.get("data");
+                byte[] bytes = Base64.decode(data, Base64.DEFAULT);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                imageView.setImageBitmap(bitmap);
+            }} catch (Exception e) {Log.d("response", e.toString());}
+        }
+    }
+
     private class CategoryHolder extends RecyclerView.ViewHolder {
+        ImageView imageView;
         TextView usernameText;
         Button editButton;
         Button deleteButton;
         public CategoryHolder(@NonNull View view) {
             super(view);
+            imageView = view.findViewById(R.id.edit_category_imageview);
             usernameText = view.findViewById(R.id.edit_category_textview);
             editButton = view.findViewById(R.id.edit_category_edit_button);
             deleteButton = view.findViewById(R.id.edit_category_delete_button);
