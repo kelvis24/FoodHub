@@ -35,7 +35,10 @@ public class LazyImagesController {
     	String data = body.getData();
     	if (data == null)
     		return new Message("failure","No Data");
-    	FirmImage image = new FirmImage("name", "string", data.getBytes(), body.getId());
+    	FirmImage image = new FirmImage("name", "string", data.getBytes(), firm.getId());
+    	FirmImage existing = firmImageRepository.findByFirmId(firm.getId());
+    	if (existing != null)
+    		firmImageRepository.deleteById(existing.getId());
     	firmImageRepository.save(image);
 		return new Message("success");
 	}
@@ -62,6 +65,9 @@ public class LazyImagesController {
     	if (category == null)
     		return new Message("failure","No Such Category");
     	CategoryImage image = new CategoryImage("name", "string", body.getId(), data.getBytes());
+    	CategoryImage existing = categoryImageRepository.findByCategoryId(category.getId());
+    	if (existing != null)
+    		categoryImageRepository.deleteById(existing.getId());
     	categoryImageRepository.save(image);
 		return new Message("success");
 	}
@@ -88,6 +94,9 @@ public class LazyImagesController {
     	if (item == null)
     		return new Message("failure","No Such Item");
     	ItemImage image = new ItemImage("name", "string", body.getId(), data.getBytes());
+    	ItemImage existing = itemImageRepository.findByItemId(item.getId());
+    	if (existing != null)
+    		itemImageRepository.deleteById(existing.getId());
     	itemImageRepository.save(image);
 		return new Message("success");
 	}

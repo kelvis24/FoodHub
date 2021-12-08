@@ -112,7 +112,7 @@ public class AddCategoryFragment extends Fragment {
         page = inflater.inflate(R.layout.fragment_add_category, container, false);
         Button btn = page.findViewById(R.id.add_category_button2);
         btn.setOnClickListener(this::addCategoryRequest);
-        ImageView image = page.findViewById(R.id.add_category_imageview);
+        ImageView image = page.findViewById(R.id.firm_upload_category_imageview);
         image.setOnClickListener(this::selectImage);
         if (category != null) {
             btn.setText(R.string.Edit);
@@ -205,7 +205,7 @@ public class AddCategoryFragment extends Fragment {
                 imageString = Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
                 byte[] bytes = Base64.decode(imageString, Base64.DEFAULT);
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                ImageView imageView = page.findViewById(R.id.add_category_imageview);
+                ImageView imageView = page.findViewById(R.id.firm_upload_category_imageview);
                 imageView.setImageBitmap(bitmap);
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             } catch (FileNotFoundException e) {e.printStackTrace();}
