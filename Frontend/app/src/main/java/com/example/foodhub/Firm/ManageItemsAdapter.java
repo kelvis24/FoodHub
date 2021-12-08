@@ -1,10 +1,14 @@
 package com.example.foodhub.Firm;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -80,6 +84,11 @@ public class ManageItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         itemHolder.editButton.setOnClickListener(editItem);
         DeleteItem deleteItem = new DeleteItem(items.get(index).getId());
         itemHolder.deleteButton.setOnClickListener(deleteItem);
+        SetImage setImage = new SetImage(itemHolder.imageView);
+        JSONObject obj = new JSONObject();
+        try{obj.put("id",items.get(index).getId());
+            Call.post("download-item-image", obj, setImage, null);
+        } catch (JSONException e) {e.printStackTrace();}
     }
 
     /**
@@ -99,17 +108,35 @@ public class ManageItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return items.size();
     }
 
+    private class SetImage implements ObjectResponse {
+        private ImageView imageView;
+        public SetImage(ImageView imageView) {
+            this.imageView = imageView;
+        }
+        @Override public void respond(JSONObject response) {
+            try{if (response.get("message").equals("success")) {
+                String data = (String)response.get("data");
+                byte[] bytes = Base64.decode(data, Base64.DEFAULT);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                imageView.setImageBitmap(bitmap);
+            }} catch (Exception e) {Log.d("response", e.toString());}
+        }
+    }
+
     private class ItemHolder extends RecyclerView.ViewHolder {
+        ImageView imageView;
         TextView usernameText;
         Button editButton;
         Button deleteButton;
         public ItemHolder(@NonNull View view) {
             super(view);
+            imageView = view.findViewById(R.id.edit_item_imageview);
             usernameText = view.findViewById(R.id.edit_item_textview);
             editButton = view.findViewById(R.id.edit_item_edit_button);
             deleteButton = view.findViewById(R.id.edit_item_delete_button);
         }
     }
+
     private class EditItem implements View.OnClickListener {
         private Item item;
         public EditItem(Item item) {
@@ -121,7 +148,6 @@ public class ManageItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             ft.commit();
         }
     }
-
 
     private class DeleteItem implements View.OnClickListener, ObjectResponse {
         private long itemId;

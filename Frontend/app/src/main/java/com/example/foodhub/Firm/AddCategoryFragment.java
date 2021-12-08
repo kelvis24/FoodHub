@@ -200,12 +200,10 @@ public class AddCategoryFragment extends Fragment {
         if (requestCode == IMAGE_REQUEST_ID && resultCode == -1) {
             try{InputStream is = getActivity().getContentResolver().openInputStream(data.getData());
                 Bitmap image = BitmapFactory.decodeStream(is);
-                // BEGIN TRANSFORM TO AND FROM STRING
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                 image.compress(Bitmap.CompressFormat.JPEG, 50, outputStream);
                 imageString = Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
                 byte[] bytes = Base64.decode(imageString, Base64.DEFAULT);
-                // END TRANSFORM TO AND FROM STRING
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 ImageView imageView = page.findViewById(R.id.add_category_imageview);
                 imageView.setImageBitmap(bitmap);

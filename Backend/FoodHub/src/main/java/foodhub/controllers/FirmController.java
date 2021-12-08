@@ -155,20 +155,20 @@ public class FirmController {
 	 * @see AddItemInput
 	 */
     @PostMapping("/firms-create-item")
-    public Message createItem(@RequestBody AddItemInput body) {
+    public MessageAndId createItem(@RequestBody AddItemInput body) {
     	Firm firm = firmRepository.findByUsername(body.getUsername());
     	if (firm == null)
-    		return new Message("failure","Wrong Username");
+    		return new MessageAndId("failure","Wrong Username");
     	if (!firm.getPassword().equals(body.getPassword()))
-        	return new Message("failure","Wrong Password");
+        	return new MessageAndId("failure","Wrong Password");
     	if (body.getData() == null)
-    		return new Message("failure","No Data");
+    		return new MessageAndId("failure","No Data");
     	Category category = categoryRepository.findById(body.getCategoryId());
     	if (category == null)
-    		return new Message("failure","No Such Category");
+    		return new MessageAndId("failure","No Such Category");
     	Item item = new Item(firm.getId(), category.getId(), body.getData());
     	itemRepository.save(item);
-    	return new Message("success");
+    	return new MessageAndId("success",item.getId());
     }
     
     /**
