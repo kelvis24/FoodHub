@@ -1,5 +1,9 @@
 package com.example.foodhub.Customer;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodhub.Common.Firm;
 import com.example.foodhub.Common.Item;
 import com.example.foodhub.Common.ItemReference;
+import com.example.foodhub.Firm.ManageItemsAdapter;
 import com.example.foodhub.R;
+import com.example.foodhub.server.Call;
+import com.example.foodhub.server.ObjectResponse;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -78,7 +88,11 @@ public class BrowseItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         itemHolder.usernameText.setOnClickListener(seeButton);
         itemHolder.price.setOnClickListener(seeButton);
         itemHolder.menupic.setOnClickListener(seeButton);
-        itemHolder.menupic.setImageResource(Firm.randomMenuImage());
+        SetImage setImage = new SetImage(itemHolder.menupic);
+        JSONObject obj = new JSONObject();
+        try{obj.put("id",items.get(index).getId());
+            Call.post("download-item-image", obj, setImage, null);
+        } catch (JSONException e) {e.printStackTrace();}
     }
 
     /**
@@ -96,6 +110,22 @@ public class BrowseItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
      */
     @Override public int getItemCount() {
         return items.size();
+    }
+
+    private class SetImage implements ObjectResponse {
+        private ImageView imageView;
+        public SetImage(ImageView imageView) {
+            this.imageView = imageView;
+        }
+        @Override public void respond(JSONObject response) {
+            try{if (response.get("message").equals("success")) {
+                String data = (String)response.get("data");
+                byte[] bytes = Base64.decode(data, Base64.DEFAULT);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                imageView.setImageBitmap(bitmap);
+            }} catch (Exception e) {
+                Log.d("response", e.toString());}
+        }
     }
 
     private class ItemHolder extends RecyclerView.ViewHolder {

@@ -48,6 +48,7 @@
     <string name="Delete">Delete</string>
     <string name="Add">Add</string>
     <string name="Submit">Submit</string>
+    <string name="Upload_Image">Upload Image</string>
     <string name="Cancel_Order">Cancel Order</string>
     <string name="View_Order">View Order</string>
     <string name="In_Progress">In Progress</string>

@@ -14,17 +14,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import foodhub.ImageStorageService;
-import foodhub.database.CategoryImage;
-import foodhub.database.Firm;
-import foodhub.database.FirmImage;
-import foodhub.database.Item;
-import foodhub.database.ItemImage;
-import foodhub.ioObjects.Authentication;
-import foodhub.ioObjects.Message;
+import foodhub.database.*;
+import foodhub.ioObjects.*;
 
 import foodhub.database.FirmRepository;
 
@@ -32,11 +28,13 @@ import foodhub.database.FirmRepository;
 @Controller
 public class ImagesController {
 
-	@Autowired 
-	private ImageStorageService imageStorageService;
+	@Autowired private ImageStorageService imageStorageService;
 	
-	@Autowired
-	private FirmRepository firmRepository;
+	@Autowired private FirmRepository firmRepository;
+	
+	@Autowired private CategoryRepository categoryRepository;
+	
+	@Autowired private CategoryImageRepository categoryImageRepository;
 	
 	@PostMapping("/uploadFirmFiles")
 	public Message uploadMultipleFilesFirm(@RequestParam("files") MultipartFile[] files, Authentication login) {
@@ -106,4 +104,5 @@ public class ImagesController {
 				.header(HttpHeaders.CONTENT_DISPOSITION,"attachment:filename=\""+image.getImageName()+"\"")
 				.body(new ByteArrayResource(image.getData()));
 	}
+	
 }
