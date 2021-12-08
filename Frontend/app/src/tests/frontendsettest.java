@@ -55,7 +55,7 @@ public class AdminControllerTests {
 	@Mock
 	FirmRepository firmRepository;
 
-	Costomer owner = new Costomer("test@gmail.com","test123","Test",1);
+	Costomer owner = new Costomer("test@gmail.com","Test123/aaaa","Test",1);
 
 	private List<Admin> al;
     private List<Costomer> cl;
