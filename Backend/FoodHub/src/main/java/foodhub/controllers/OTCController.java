@@ -44,9 +44,9 @@ public class OTCController {
 	private final Logger logger = LoggerFactory.getLogger(OTCController.class);
 
 	@OnOpen	public void onOpen(Session session, @PathParam("orderId") String orderId) throws IOException {
-		System.out.println("Opened");
 		long id = Long.parseLong(orderId);
-		if (ISM.get(id) != null) return;
+		if (ISM.get(id) != null) onClose(ISM.get(id));
+		System.out.println("OTC Opened");
 		int sequence;
 		if (OTFController.hasId(id)) {
 			sequence = OTFController.getSequence(id);
@@ -60,6 +60,7 @@ public class OTCController {
 	}
 
 	@OnMessage public void onMessage(Session session, String message) throws IOException {
+		System.out.println("OTC Messaged");
 		long id = SIM.get(session);
 		if (orderRepository.findById(id) != null) {
 			int sequence = SQM.get(id);
@@ -72,6 +73,7 @@ public class OTCController {
 	}
 
 	@OnClose public void onClose(Session session) throws IOException {
+		System.out.println("OTC Closed");
 		long id = SIM.get(session);
 		SIM.remove(session);
 		ISM.remove(id);

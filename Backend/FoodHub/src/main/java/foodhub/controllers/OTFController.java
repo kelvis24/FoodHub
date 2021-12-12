@@ -45,7 +45,8 @@ public class OTFController {
 
 	@OnOpen	public void onOpen(Session session, @PathParam("orderId") String orderId) throws IOException {
 		long id = Long.parseLong(orderId);
-		if (ISM.get(id) != null) return;
+		if (ISM.get(id) != null) onClose(ISM.get(id));
+		System.out.println("OTF Opened");
 		int sequence;
 		if (OTCController.hasId(id)) {
 			sequence = OTCController.getSequence(id);
@@ -59,6 +60,7 @@ public class OTFController {
 	}
 
 	@OnMessage public void onMessage(Session session, String message) throws IOException {
+		System.out.println("OTF Messaged");
 		long id = SIM.get(session);
 		if (orderRepository.findById(id) != null) {
 			int sequence = SQM.get(id);
@@ -71,6 +73,7 @@ public class OTFController {
 	}
 
 	@OnClose public void onClose(Session session) throws IOException {
+		System.out.println("OTF Closed");
 		long id = SIM.get(session);
 		SIM.remove(session);
 		ISM.remove(id);
