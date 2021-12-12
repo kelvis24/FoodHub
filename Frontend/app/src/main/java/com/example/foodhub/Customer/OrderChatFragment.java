@@ -158,6 +158,7 @@ public class OrderChatFragment extends Fragment implements TextWatcher {
                 });
             }
         }
+        System.out.println("order: " + orderId);
         OkHttpClient client = new OkHttpClient();
         String link;
         if (user.equals("customer")) {
@@ -201,6 +202,7 @@ public class OrderChatFragment extends Fragment implements TextWatcher {
     private class SocketListener extends WebSocketListener {
         @Override public void onOpen(WebSocket webSocket, Response response) {
             super.onOpen(webSocket, response);
+            System.out.println("Opened");
             getActivity().runOnUiThread(() -> {
 //                Toast.makeText(OrderChatFragment.class,
 //                        "Socket Connection Successful!",
@@ -209,6 +211,7 @@ public class OrderChatFragment extends Fragment implements TextWatcher {
         }
         @Override public void onMessage(WebSocket webSocket, String text) {
             super.onMessage(webSocket, text);
+            System.out.println("Messaged");
             getActivity().runOnUiThread(() -> {
                 try{JSONObject jsonObject = new JSONObject(text);
                     jsonObject.put("isSent", false);

@@ -44,6 +44,7 @@ public class OTCController {
 	private final Logger logger = LoggerFactory.getLogger(OTCController.class);
 
 	@OnOpen	public void onOpen(Session session, @PathParam("orderId") String orderId) throws IOException {
+		System.out.println("Opened");
 		long id = Long.parseLong(orderId);
 		if (ISM.get(id) != null) return;
 		int sequence;
